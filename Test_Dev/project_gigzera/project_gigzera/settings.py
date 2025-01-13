@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Django apps
     'non_register',
+    'freelancer',
+    # 'recruiter',
 ]
 
 MIDDLEWARE = [
