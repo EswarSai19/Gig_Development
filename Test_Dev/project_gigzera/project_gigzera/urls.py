@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('non_register.urls')),
+    # path('', include('freelancer.urls')),
 ]
