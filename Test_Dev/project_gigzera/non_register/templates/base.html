@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--title  -->
+    <link rel="stylesheet" href="../../static/css/output.css" />
+    <link rel="stylesheet" href="../static/css/navbar.css" />
+    <link rel="stylesheet" href="../static/css/footer.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    {% block css %}{% endblock %}
+  </head>
+  <body>
+    <!-- Navbar content -->
+    {% include 'navbar.html' %}
+    <!-- Popup Overlay -->
+    <div id="popupOverlay"></div>
+
+    <!-- Popup Container (Sidebar) -->
+    <div id="popupPanel" class="popup-container">
+      <div class="popup-header">
+        <h2>Contact Us</h2>
+        <button class="close-button" id="closeBtn">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="help-form">
+        <div>
+          <label>Name <span class="text-red-500">*</span></label>
+          <input type="text" class="form-input" placeholder="Enter your name" />
+        </div>
+        <div>
+          <label>Phone Number <span class="text-red-500">*</span></label>
+          <input
+            type="number"
+            class="form-input"
+            placeholder="Enter your phone number"
+          />
+        </div>
+        <div>
+          <label>Reason <span class="text-red-500">*</span></label>
+          <select class="form-input">
+            <option value="">Select a reason</option>
+            <option value="technical">Technical Support</option>
+            <option value="billing">Billing Issue</option>
+            <option value="account">Account Management</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label>Description <span class="text-red-500">*</span></label>
+          <textarea
+            rows="4"
+            class="form-input"
+            placeholder="Describe your concern in detail"
+          ></textarea>
+        </div>
+        <button type="submit" class="send-button">Send Message</button>
+      </form>
+
+      <img
+        class="popup-image"
+        src="https://storage.googleapis.com/uxpilot-auth.appspot.com/e3121a901b-e0d56f6afdbd31c149c1.png"
+        alt="Contact Us Image"
+        width="75%"
+      />
+      <div class="address">
+        <p>
+          006,Sprinkles, RGA Tech Park, Carmelaram, Kodathi, Sarjapur Rd,
+          Bengaluru Karnataka 560035
+        </p>
+      </div>
+    </div>
+
+    <!-- main content -->
+    {% block content %}{% endblock %}
+
+    <!-- Footer content -->
+    {% include 'footer.html' %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const contactBtn = document.getElementById("contactBtn");
+        // const contactBtn2 = document.getElementById("contactBtn2");
+        const popupPanel = document.getElementById("popupPanel");
+        const popupOverlay = document.getElementById("popupOverlay");
+        const closeBtn = document.getElementById("closeBtn");
+
+        // Function to open sidebar
+        contactBtn.onclick = function () {
+          popupOverlay.style.display = "block"; // Show overlay
+          popupPanel.style.right = "0"; // Slide in sidebar
+        };
+        // contactBtn2.onclick = function () {
+        //   popupOverlay.style.display = "block"; // Show overlay
+        //   popupPanel.style.right = "0"; // Slide in sidebar
+        // };
+        // Function to close sidebar
+        function closeSidebar() {
+          popupOverlay.style.display = "none"; // Hide overlay
+          popupPanel.style.right = "-400px"; // Slide out sidebar
+        }
+
+        closeBtn.onclick = closeSidebar;
+
+        // Close sidebar when clicking outside
+        popupOverlay.onclick = function (e) {
+          if (e.target === popupOverlay) {
+            closeSidebar();
+          }
+        };
+      });
+    </script>
+    <!-- JS -->
+    {% block js %}{% endblock %}
+  </body>
+</html>

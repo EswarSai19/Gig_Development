@@ -1,0 +1,72 @@
+<!-- {% load static %} -->
+<header
+  id="header"
+  class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50"
+>
+  <div class="container mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-12">
+        <!-- <span class="text-2xl font-bold text-blue-600 cursor-pointer"
+              >Gigzera</span
+            > -->
+        <a href="{% url 'index' %}">
+          <img
+            class="w-[130px] h-[50px] cursor-pointer"
+            src="https://cdn.yellowmessenger.com/XzSBlvSXqsrB1735194961367.png"
+            alt="Gigzera Logo"
+          />
+        </a>
+        <div class="hidden lg:flex relative w-96">
+          <input
+            type="text"
+            placeholder="Search jobs by skills or category..."
+            class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+          />
+          <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
+        </div>
+      </div>
+      <nav class="hidden lg:flex items-center gap-8">
+        <a
+          href="{% url 'index' %}"
+          class="text-gray-600 hover:text-blue-600 cursor-pointer"
+          >Home</a
+        >
+        <a
+          href="{% url 'jobs' %}"
+          class="text-gray-600 hover:text-blue-600 cursor-pointer"
+          >Jobs</a
+        >
+        <a
+          href="{% url 'aboutus' %}"
+          class="text-gray-600 hover:text-blue-600 cursor-pointer"
+          >About Us</a
+        >
+        <a
+          id="contactBtn"
+          class="text-gray-600 hover:text-blue-600 cursor-pointer"
+          >Contact Us</a
+        >
+        <a
+          href="{% url 'industries' %}"
+          class="text-gray-600 hover:text-blue-600 cursor-pointer"
+          >Industries</a
+        >
+        <div class="flex gap-4">
+          <a
+            href="{% url 'login' %}"
+            class="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:text-white hover:bg-blue-600 cursor-pointer"
+            >Login</a
+          >
+          <a
+            href="{% url 'signup' %}"
+            class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 cursor-pointer"
+            >Sign Up</a
+          >
+        </div>
+      </nav>
+      <button class="lg:hidden text-gray-600">
+        <i class="fa-solid fa-bars text-2xl"></i>
+      </button>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,118 @@
+{% extends 'base.html' %} {% load static %}
+<!--  -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/findajob.css' %}" />
+{% endblock %}
+<!--  -->
+{% block content %}
+<main class="main-content">
+  <!-- Image Section -->
+  <div class="signup-image">
+    <img
+      src="https://github.com/user-attachments/assets/7a50bf92-49c5-46ba-b6b5-4c46189476e0"
+      alt="Signup Illustration"
+    />
+  </div>
+
+  <!-- Signup Form Section -->
+  <div class="signup-container">
+    <h1>Create Your Gigzera Account</h1>
+    <form>
+      <label for="fullName" class="required-label">Full Name</label>
+      <input type="text" id="fullName" placeholder="John Doe" required />
+
+      <label for="phone" class="required-label">Phone Number</label>
+      <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required />
+
+      <label for="email" class="required-label">Email ID</label>
+      <input type="email" id="email" placeholder="john@example.com" required />
+
+      <label for="education" class="required-label"
+        >Educational Background</label
+      >
+      <select id="education" required>
+        <option value="bachelor">Bachelor's Degree</option>
+        <option value="master">Master's Degree</option>
+        <option value="phd">PhD</option>
+      </select>
+
+      <label for="certifications" class="required-label">Certifications</label>
+      <input
+        type="text"
+        id="certifications"
+        placeholder="AWS Certified, PMP, etc."
+        required
+      />
+
+      <label for="experience" class="required-label"
+        >Total Work Experience</label
+      >
+      <input type="number" id="experience" placeholder="5 years" required />
+
+      <div class="skill-experience-container">
+        <div class="input-box">
+          <label for="skill" class="required-label">Skill Set</label>
+          <input type="text" id="skill" placeholder="Skill 1" required />
+          <input type="text" id="skill" placeholder="Skill 2" required />
+          <input type="text" id="skill" placeholder="Skill 3" required />
+        </div>
+        <div class="input-box">
+          <label for="experience" class="required-label">Experience</label>
+          <input
+            type="text"
+            id="experience"
+            placeholder="Experience (e.g., 3 years)"
+            required
+          />
+          <input
+            type="text"
+            id="experience"
+            placeholder="Experience (e.g., 3 years)"
+            required
+          />
+          <input
+            type="text"
+            id="experience"
+            placeholder="Experience (e.g., 3 years)"
+            required
+          />
+        </div>
+      </div>
+
+      <label for="linkedin" class="required-label">LinkedIn Profile</label>
+      <input
+        type="url"
+        id="linkedin"
+        placeholder="https://linkedin.com/in/username"
+        required
+      />
+
+      <label for="Password" class="required-label">Password</label>
+      <input
+        type="password"
+        id="Password"
+        placeholder="Please enter the password"
+        required
+      />
+
+      <div class="checkbox-container">
+        <div class="checkbox-item">
+          <input type="checkbox" id="terms" required />
+          <label for="terms">
+            I agree to the <a href="#">Terms & Agreements</a>
+          </label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="privacy" required />
+          <label for="privacy">
+            I agree to the <a href="#">Privacy Policy</a>
+          </label>
+        </div>
+        <button class="action-button" type="submit">
+          Start Searching Jobs
+        </button>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock %}

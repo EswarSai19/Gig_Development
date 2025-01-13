@@ -1,0 +1,419 @@
+/* Adding space between the Sign Up sections */
+.signup-section {
+    display: flex;
+    justify-content: space-between;
+    /* Align sections side by side */
+    gap: 40px;
+    /* Increase the gap between the sections */
+    margin: 40px 0;
+    /* Adjusting the margin to create space above and below */
+}
+
+/* Increase size for the recruiter icon */
+#role-client .fa-building {
+    font-size: 6rem;
+    /* Increase the size as desired */
+}
+
+/* Increase size for the gigz icon */
+#role-gigz .fa-user-tie {
+    font-size: 6rem;
+    /* Increase the size as desired */
+}
+
+/* Optionally increase font size for section headers */
+#role-client h2,
+#role-gigz h2 {
+    font-size: 2.5rem;
+    /* Adjust size for better visibility */
+}
+
+/* Adjusting the sizes of the boxes */
+.signup-box {
+    flex: 1;
+    /* Allow the box to grow */
+    max-width: 450px;
+    /* Set a maximum width to control the size */
+    padding: 20px;
+    /* Add padding inside the boxes */
+    border-radius: 10px;
+    /* Smooth corners */
+}
+
+/* Increase font size in the buttons and header */
+.signup-btn {
+    padding: 12px 20px;
+    /* Increase padding for larger button */
+    font-size: 16px;
+    /* Adjust button font size */
+}
+
+.signup-header {
+    font-size: 1.8rem;
+    /* Increase header font size */
+    margin-bottom: 15px;
+    /* Space below the header */
+}
+
+/* Adjust logo styles if needed */
+.logo {
+    font-size: 28px;
+    /* Increase logo font size */
+    margin-bottom: 20px;
+    /* Space below the logo */
+}
+
+/* Example structure */
+
+h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    /* Space between search bar and navigation links */
+}
+
+.search-input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    width: 250px;
+    font-size: 14px;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+    /* Set the border color to blue on focus */
+    outline: none;
+    /* Remove the default outline (optional, for a cleaner look) */
+}
+
+.search-button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-size: 14px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Add margin to the paragraphs and lists inside the boxes */
+#role-client p,
+#role-client ul,
+#role-gigz p,
+#role-gigz ul {
+    margin-bottom: 20px;
+    /* Adjust this value to your liking */
+}
+
+/* Reset Default Margin and Padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* General spacing for paragraphs */
+p {
+    margin-bottom: 20px;
+    /* Space below paragraphs */
+}
+
+/* Heading spacing */
+h2,
+h3,
+h4 {
+    margin-top: 30px;
+    /* Space above headings */
+    margin-bottom: 10px;
+    /* Space below headings */
+}
+
+/* Specific section title spacing */
+.section-title {
+    margin-top: 40px;
+    /* Space above section titles */
+    margin-bottom: 20px;
+    /* Space below section titles */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-bar input {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-links a,
+    .login-btn,
+    .signup-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+header {
+    text-align: center;
+    margin: 20px 0;
+}
+
+h1 {
+    color: #007bff;
+    /* Change to your desired header color */
+}
+
+.min-h-screen {
+    min-height: 100vh;
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.bg-gray-800 {
+    background-color: #4b5563;
+}
+
+.py-4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.container {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.text-white {
+    color: #ffffff;
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+}
+
+.text-3xl {
+    font-size: 1.875rem;
+}
+
+.text-4xl {
+    font-size: 2.25rem;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.hidden {
+    display: none;
+}
+
+.md\:flex {
+    display: flex;
+}
+
+.space-x-8> :not(:last-child) {
+    margin-right: 2rem;
+}
+
+.mb-12 {
+    margin-bottom: 3rem;
+}
+
+.max-w-3xl {
+    max-width: 48rem;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+}
+
+.bg-green-100 {
+    background-color: #d1fae5;
+}
+
+.p-8 {
+    padding: 2rem;
+}
+
+.rounded-2xl {
+    border-radius: 1rem;
+}
+
+.shadow-xl {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.transform {
+    transform: translateZ(0);
+}
+
+.hover\:scale-105:hover {
+    transform: scale(1.05);
+}
+
+.transition {
+    transition-property: transform;
+}
+
+.duration-300 {
+    transition-duration: 300ms;
+}
+
+.text-gray-800 {
+    color: #1f2937;
+}
+
+.text-gray-700 {
+    color: #374151;
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}
+
+.space-y-2> :not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+
+.mr-2 {
+    margin-right: 0.5rem;
+}
+
+.text-green-600 {
+    color: #16a34a;
+}
+
+.bg-green-600 {
+    background-color: #16a34a;
+}
+
+.hover\:bg-green-700:hover {
+    background-color: #15803d;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.bg-blue-100 {
+    background-color: #ebf8ff;
+}
+
+.bg-blue-600 {
+    background-color: #2563eb;
+}
+
+.hover\:bg-blue-700:hover {
+    background-color: #1d4ed8;
+}
+
+.text-blue-600 {
+    color: #2563eb;
+}
+
+.text-gray-400 {
+    color: #cbd5e1;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+/* Add this CSS rule to your existing styles.css file */
+
+* Increase the size of the icons */ #role-client .fa-building,
+#role-gigz .fa-user-tie {
+    font-size: 8rem;
+    /* Change this size as needed */
+}
+
+/* Or if you want to use a percentage of the original size */
+#role-client .fa-building,
+#role-gigz .fa-user-tie {
+    font-size: 150%;
+    /* Increase the icon's size by making it 150% of its original size */
+}
+
+#role-client .signup-btn,
+#role-gigz .signup-btn {
+    margin-top: 20px;
+    /* Add desired space above the buttons */
+}
+
+/* Increase the width of the boxes */
+#role-client,
+#role-gigz {
+    width: 500px;
+    /* Adjust this value as necessary to increase box width */
+}
+
+/* New Styles for Side by Side Layout */
+.grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        /* Stack on smaller screens */
+    }
+}
