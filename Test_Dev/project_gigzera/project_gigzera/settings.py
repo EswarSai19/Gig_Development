@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     # Django apps
     'non_register',
     'freelancer',
-    # 'recruiter',
+    'recruiter',
 ]
 
 MIDDLEWARE = [
