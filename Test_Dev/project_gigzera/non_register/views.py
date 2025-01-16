@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.hashers import make_password
+# from django.contrib.auth.hashers import make_password
 # from .models import Freelancer, Skill
 
 # Create your views here.
-def index(request):
-    return render(request, 'index.html')
+def home(request):
+    return render(request, 'home.html')
 
 def test(request):
     return render(request, 'test.html')
