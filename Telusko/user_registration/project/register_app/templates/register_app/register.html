@@ -4,8 +4,58 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
+    <link rel="stylesheet" href="../../../static/css/output.css" />
   </head>
-  <body>
+  <body class="p-4 m-4">
     <h1>Here is the reigster form</h1>
+    <form action="register" method="post">
+      {% csrf_token %}
+      <label for="first_name">First Name: </label>
+      <input
+        class="w-60px h-30px mb-2 ml-2"
+        type="text"
+        name="first_name"
+        placeholder="First Name"
+      /><br />
+      <label for="last_name">Last Name: </label>
+      <input
+        class="w-60px h-30px mb-2 ml-2"
+        type="text"
+        name="last_name"
+        placeholder="Last Name"
+      /><br />
+      <label for="user_name">User Name: </label>
+      <input
+        class="w-60px h-30px mb-2 ml-2"
+        type="text"
+        name="user_name"
+        placeholder="User Name"
+      /><br />
+      <label for="email">Email: </label>
+      <input
+        class="w-60px h-30px mb-2 ml-2"
+        type="email"
+        name="email"
+        placeholder="Email"
+      /><br />
+      <label for="password">Password: </label>
+      <input
+        class="w-60px h-30px mb-2 ml-2"
+        type="password"
+        name="password"
+        placeholder="Password"
+      /><br />
+      <input
+        class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
+        type="submit"
+        value="Submit"
+      />
+    </form>
+    <br />
+    {% for message in messages %}
+    <div>
+      <h1>{{message}}</h1>
+    </div>
+    {% endfor %}
   </body>
 </html>
