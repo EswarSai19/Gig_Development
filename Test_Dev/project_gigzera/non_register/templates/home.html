@@ -3,12 +3,15 @@
 {% block title %}{% endblock %}
 <!-- CSS -->
 {% block css %}
+<link rel="stylesheet" href="../../static/css/output.css" />
 <link rel="stylesheet" href="../static/css/index.css" />
-{% endblock %}
+{%endblock %}
 <!-- Main block -->
 
 {% block content %}
-<section class="hero">
+<section
+  class="hero w-full h-[90vh] flex items-center justify-center bg-[#2a93d5]"
+>
   <div class="hero-ctnr hero-content">
     <!-- Text Content -->
     <div class="hero-text">
@@ -143,24 +146,40 @@
   </div>
 </section>
 
-<div class="slideshow-container">
+<div class="slideshow-container relative max-w-full mx-auto overflow-hidden">
   <!-- Slide 1 -->
-  <div class="slide">
+  <div class="slide hidden relative">
     <img
-      src="https://cdn.yellowmessenger.com/NQxqVr5txP5d1734334254484.jpg"
+      class="w-full h-[100vh] object-fill object-center"
+      src="https://cdn.yellowmessenger.com/N66cSlCfuoPK1737118600882.jpg"
       alt="Slide 1"
     />
-    <div class="text-overlay">
-      <h1 class="heading">Work Remotely</h1>
-      <p class="paragraph">Enjoy the freedom to work from anywhere.</p>
-      <button class="learn-more">Learn More</button>
+    <div
+      class="text-overlay absolute top-full left-5 transform -translate-y-1/2 text-left z-10 max-w-3xl text-white"
+    >
+      <h1
+        class="heading text-4xl font-bold font-montserrat mb-6 opacity-0 animate-fade-in-slide-up delay-300"
+      >
+        Work Remotely
+      </h1>
+      <p
+        class="paragraph text-2xl font-roboto text-white/80 mb-10 opacity-0 animate-fade-in-slide-up delay-500"
+      >
+        Enjoy the freedom to work from anywhere.
+      </p>
+      <button
+        onclick="window.location.href='./Html/signup.html'"
+        class="learn-more px-8 py-3 bg-blue-500 text-white rounded-lg text-lg uppercase tracking-wide transition duration-300 hover:bg-blue-700 hover:-translate-y-1 active:bg-blue-900 active:translate-y-0"
+      >
+        Learn More
+      </button>
     </div>
   </div>
 
   <!-- Slide 2 -->
   <div class="slide">
     <img
-      src="https://cdn.yellowmessenger.com/tD8AX5pzkt7y1734334760361.jpg"
+      src="https://cdn.yellowmessenger.com/eTpHvzq8n87v1737118701962.jpg"
       alt="Slide 2"
     />
     <div class="text-overlay">
@@ -169,29 +188,40 @@
         Take control of your schedule and choose projects that fit your
         lifestyle.
       </p>
-      <button class="learn-more">Learn More</button>
+      <button
+        onclick="window.location.href='./Html/signup.html'"
+        class="learn-more"
+      >
+        Learn More
+      </button>
     </div>
   </div>
 
   <!-- Slide 3 -->
   <div class="slide">
     <img
-      src="https://cdn.yellowmessenger.com/WPA6DbqSFhKb1734334336312.jpg"
+      src="https://cdn.yellowmessenger.com/wF1touM34sZZ1737118773611.jpg"
       alt="Slide 3"
     />
     <div class="text-overlay" style="color: black">
       <!-- Inline style to apply black text -->
-      <h1 class="heading" style="color: black">Maximize Your Earnings</h1>
-      <p class="paragraph" style="color: black">
+      <h1 class="heading" style="color: white">Maximize Your Earnings</h1>
+      <p class="paragraph" style="color: rgb(255, 255, 255)">
         Set your own value and grow your income.
       </p>
-      <button class="learn-more">Learn More</button>
+      <button
+        onclick="window.location.href='./Html/signup.html'"
+        class="learn-more"
+      >
+        Learn More
+      </button>
     </div>
   </div>
   <!-- Slide 4 -->
+
   <div class="slide">
     <img
-      src="https://cdn.yellowmessenger.com/TALrJCKdsOhj1734334413681.jpg"
+      src="https://cdn.yellowmessenger.com/0PpB06rEanwK1737118804919.jpg"
       alt="Slide 4"
     />
     <div class="text-overlay">
@@ -200,29 +230,39 @@
         From app development to cybersecurity, and everything in between. Get
         involved in cutting-edge technology and expand your skillset.
       </p>
-      <button class="learn-more">Learn More</button>
+      <button
+        onclick="window.location.href='./Html/signup.html'"
+        class="learn-more"
+      >
+        Learn More
+      </button>
     </div>
   </div>
   <!-- Slide 5 -->
   <div class="slide">
     <img
-      src="https://cdn.yellowmessenger.com/1hsUyjN5IXOE1734334446031.jpg"
+      src="https://cdn.yellowmessenger.com/sFfAS64JLP5K1737118835204.jpg"
       alt="Slide 5"
     />
     <div class="text-overlay" style="color: black">
       <!-- Inline style to apply black text -->
-      <h1 class="heading" style="color: black">Set Your Own Schedule</h1>
-      <p class="paragraph" style="color: black">
+      <h1 class="heading" style="color: white">Set Your Own Schedule</h1>
+      <p class="paragraph" style="color: white">
         Be your own boss! Work when it fits into your life and choose projects
         that match your interests.
       </p>
-      <button class="learn-more">Learn More</button>
+      <button
+        onclick="window.location.href='./Html/signup.html'"
+        class="learn-more"
+      >
+        Learn More
+      </button>
     </div>
   </div>
   <!-- Slide 6 -->
   <div class="slide">
     <img
-      src="https://cdn.yellowmessenger.com/wyb6VIVo9KsF1734334477905.jpg"
+      src="https://cdn.yellowmessenger.com/7BhWIuk8fTl81737118868254.jpg"
       alt="Slide 6"
     />
     <div class="text-overlay">
@@ -231,13 +271,18 @@
         Set your own rates, choose your clients, and earn more by working on the
         projects you love.
       </p>
-      <button class="learn-more">Learn More</button>
+      <button
+        onclick="window.location.href='./Html/signup.html'"
+        class="learn-more"
+      >
+        Learn More
+      </button>
     </div>
   </div>
   <!-- Slide 7 -->
   <div class="slide">
     <img
-      src="https://cdn.yellowmessenger.com/QRkmop3B0taY1734334306920.jpg"
+      src="https://cdn.yellowmessenger.com/rCBIMsVBcJrR1737119083870.jpg"
       alt="Slide 7"
     />
     <div class="text-overlay">
@@ -246,27 +291,45 @@
         Say goodbye to the office grind. Work remotely from the comfort of your
         home or while traveling.
       </p>
-      <button class="learn-more">Learn More</button>
+      <button
+        onclick="window.location.href='./Html/signup.html'"
+        class="learn-more"
+      >
+        Learn More
+      </button>
     </div>
   </div>
   <!-- Slide 8 -->
   <div class="slide">
     <img
-      src="https://cdn.yellowmessenger.com/bTRknDNl072T1734334631389.jpg"
+      src="https://cdn.yellowmessenger.com/PcnFac57Q2Mr1737119124241.jpg"
       alt="Slide 8"
     />
     <div class="text-overlay">
       <h1 class="heading">Focusing on the Future</h1>
       <p class="paragraph">Shape the future of work, one project at a time.</p>
-      <button class="learn-more">Learn More</button>
+      <button
+        onclick="window.location.href='./Html/signup.html'"
+        class="learn-more"
+      >
+        Learn More
+      </button>
     </div>
   </div>
 
   <!-- Navigation Arrows -->
-  <div class="navigation">
-    <span class="arrow">&#x276E;</span>
-    <span class="counter">01/03</span>
-    <span class="arrow">&#x276F;</span>
+  <div class="navigation absolute bottom-10 w-full text-center z-20">
+    <span
+      class="arrow prev cursor-pointer text-2xl mx-4 text-white transition hover:text-blue-500 active:text-white active:bg-blue-700 rounded-full"
+      onclick="changeSlide(-1)"
+      >&#x276E;</span
+    >
+    <span class="counter text-lg font-bold text-white/90 mx-4">01/03</span>
+    <span
+      class="arrow next cursor-pointer text-2xl mx-4 text-white transition hover:text-blue-500 active:text-white active:bg-blue-700 rounded-full"
+      onclick="changeSlide(1)"
+      >&#x276F;</span
+    >
   </div>
 </div>
 

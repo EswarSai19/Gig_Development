@@ -59,7 +59,6 @@ def forget(request):
     return render(request, 'forget.html')
 
 def postajob(request):
-    
     return render(request, 'postajob.html')
 
 # def findajob(request):

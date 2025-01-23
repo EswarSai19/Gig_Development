@@ -17,13 +17,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 0;
+    /* padding: 40px 0; */
     background-color: #2a93d5;
 }
 
 .hero-ctnr {
     max-width: 1200px;
-    margin: 80px auto;
+    /* margin: 40px auto; */
     padding: 20 15px;
     display: flex;
     justify-content: space-between;
@@ -274,13 +274,12 @@ body {
 /* Image Scaling */
 .slide img {
     width: 100%;
-    /* Image spans 100% of the container horizontally */
-    height: auto;
-    /* Maintain aspect ratio */
-    object-fit: unset;
-    /* Ensure the image is not cropped */
+    /* Image spans the full width of the window */
+    height: 100vh;
+    /* Image height takes 80% of the viewport height */
+    object-fit: fill;
+    /* Ensures the image covers the container while maintaining the 16:9 aspect ratio */
     object-position: center;
-    /* Center the image horizontally and vertically */
 }
 
 /* Slide In Animation */
@@ -306,19 +305,19 @@ body {
     color: #fff;
     text-align: left;
     z-index: 2;
-    max-width: 50%;
+    max-width: 60%;
     opacity: 1;
     /* No need for 0, it's not animated initially */
 }
 
 /* Heading */
 .text-overlay .heading {
-    font-size: 6rem;
+    font-size: 4rem;
     /* Increase heading size */
     font-weight: bold;
     font-family: "Montserrat", sans-serif;
     color: #ffffff;
-    margin: 0 0 30px 0;
+    margin: 0 0 25px 0;
     /* Increased margin-bottom for more space between heading and paragraph */
     opacity: 0;
     animation: fadeInSlideUp 1s forwards;
@@ -327,11 +326,11 @@ body {
 
 /* Paragraph */
 .text-overlay .paragraph {
-    font-size: 2.5rem;
+    font-size: 2rem;
     /* Increase paragraph size */
     font-family: "Roboto", sans-serif;
     color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     /* Increased margin-bottom for more space between paragraph and button */
     opacity: 0;
     animation: fadeInSlideUp 1s forwards;
@@ -518,6 +517,7 @@ body {
     font-weight: bold;
     text-decoration: none;
     border-radius: 8px;
+    margin-top: 20px;
     /* Rounded corners */
     transition: background-color 0.3s ease, transform 0.3s ease;
 }

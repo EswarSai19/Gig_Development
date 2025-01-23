@@ -1,0 +1,21 @@
+<nav class="bg-white shadow">
+  <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+    <a href="{% url 'index' %}" class="text-xl font-bold">Gigzera</a>
+    <ul class="flex space-x-4">
+      <li><a href="{% url 'jobs' %}" class="hover:text-blue-500">Jobs</a></li>
+      <li>
+        <a href="{% url 'aboutus' %}" class="hover:text-blue-500">About Us</a>
+      </li>
+      <li>
+        <a href="{% url 'industries' %}" class="hover:text-blue-500"
+          >Industries</a
+        >
+      </li>
+      <li>
+        <a href="{% url 'findajob' %}" class="hover:text-blue-500"
+          >Find a Job</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -17,15 +17,17 @@ function showSlides() {
   slides[slideIndex - 1].style.display = "block";
 
   // Update the counter
-  counter.textContent = `${slideIndex
-    .toString()
-    .padStart(2, "0")}/${slides.length.toString().padStart(2, "0")}`;
+  if (counter) {
+    counter.textContent = `${slideIndex
+      .toString()
+      .padStart(2, "0")}/${slides.length.toString().padStart(2, "0")}`;
+  }
 
-  // Automatically switch to the next slide after 10 seconds
+  // Automatically switch to the next slide after 4 seconds
   slideTimer = setTimeout(() => {
     slideIndex++;
     showSlides();
-  }, 4000); // 10-second interval
+  }, 4000); // 4-second interval
 }
 
 function changeSlide(direction) {
@@ -37,22 +39,27 @@ function changeSlide(direction) {
   slideIndex += direction; // Adjust the slide index based on direction
   showSlides(); // Show the new slide immediately
 
-  // Allow new navigation after a short delay (to prevent rapid clicking)
+  // Allow new navigation after a short delay
   setTimeout(() => {
     isNavigating = false; // Release the navigation lock
   }, 300); // 300ms lock duration
 }
+
+// Initialize the slideshow on page load
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize the slideshow on page load
   showSlides();
 
-  // Add event listeners for navigation arrows
-  const arrows = document.querySelectorAll(".navigation .arrow");
-  arrows.forEach((arrow, index) => {
-    arrow.addEventListener("click", () => {
-      changeSlide(index === 0 ? -1 : 1);
-    });
-  });
+  // Attach event listeners to navigation buttons (if they exist)
+  const prevButton = document.querySelector(".prev");
+  const nextButton = document.querySelector(".next");
+
+  if (prevButton) {
+    prevButton.addEventListener("click", () => changeSlide(-1));
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener("click", () => changeSlide(1));
+  }
 });
 
 // Initialize the slideshow on page load
