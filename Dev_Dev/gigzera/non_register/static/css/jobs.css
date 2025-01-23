@@ -15,7 +15,7 @@ body {
 main {
     display: flex;
     padding: 20px;
-    /* margin-top: 60px; */
+    margin: 0 auto;
 }
 
 /* Left Section */

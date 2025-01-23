@@ -18,8 +18,8 @@
         and exciting projects.
       </p>
       <div class="hero-actions">
-        <button class="btn-primary">Find a Job</button>
-        <button class="btn-primary">Post a Job</button>
+        <button class="findajob-btn btn-primary">Find a Job</button>
+        <button class="postajob-btn btn-primary">Post a Job</button>
       </div>
     </div>
 
@@ -153,12 +153,7 @@
     <div class="text-overlay">
       <h1 class="heading">Work Remotely</h1>
       <p class="paragraph">Enjoy the freedom to work from anywhere.</p>
-      <button
-        onclick="window.location.href='./Html/signup.html'"
-        class="learn-more"
-      >
-        Learn More
-      </button>
+      <button class="learn_more_btn learn-more">Learn More</button>
     </div>
   </div>
 
@@ -174,12 +169,7 @@
         Take control of your schedule and choose projects that fit your
         lifestyle.
       </p>
-      <button
-        onclick="window.location.href='./Html/signup.html'"
-        class="learn-more"
-      >
-        Learn More
-      </button>
+      <button class="learn_more_btn learn-more">Learn More</button>
     </div>
   </div>
 
@@ -195,12 +185,7 @@
       <p class="paragraph" style="color: rgb(255, 255, 255)">
         Set your own value and grow your income.
       </p>
-      <button
-        onclick="window.location.href='./Html/signup.html'"
-        class="learn-more"
-      >
-        Learn More
-      </button>
+      <button class="learn_more_btn learn-more">Learn More</button>
     </div>
   </div>
   <!-- Slide 4 -->
@@ -215,12 +200,7 @@
         From app development to cybersecurity, and everything in between. Get
         involved in cutting-edge technology and expand your skillset.
       </p>
-      <button
-        onclick="window.location.href='./Html/signup.html'"
-        class="learn-more"
-      >
-        Learn More
-      </button>
+      <button class="learn_more_btn learn-more">Learn More</button>
     </div>
   </div>
   <!-- Slide 5 -->
@@ -236,12 +216,7 @@
         Be your own boss! Work when it fits into your life and choose projects
         that match your interests.
       </p>
-      <button
-        onclick="window.location.href='./Html/signup.html'"
-        class="learn-more"
-      >
-        Learn More
-      </button>
+      <button class="learn_more_btn learn-more">Learn More</button>
     </div>
   </div>
   <!-- Slide 6 -->
@@ -256,12 +231,7 @@
         Set your own rates, choose your clients, and earn more by working on the
         projects you love.
       </p>
-      <button
-        onclick="window.location.href='./Html/signup.html'"
-        class="learn-more"
-      >
-        Learn More
-      </button>
+      <button class="learn_more_btn learn-more">Learn More</button>
     </div>
   </div>
   <!-- Slide 7 -->
@@ -276,12 +246,7 @@
         Say goodbye to the office grind. Work remotely from the comfort of your
         home or while traveling.
       </p>
-      <button
-        onclick="window.location.href='./Html/signup.html'"
-        class="learn-more"
-      >
-        Learn More
-      </button>
+      <button class="learn_more_btn learn-more">Learn More</button>
     </div>
   </div>
   <!-- Slide 8 -->
@@ -293,12 +258,7 @@
     <div class="text-overlay">
       <h1 class="heading">Focusing on the Future</h1>
       <p class="paragraph">Shape the future of work, one project at a time.</p>
-      <button
-        onclick="window.location.href='./Html/signup.html'"
-        class="learn-more"
-      >
-        Learn More
-      </button>
+      <button class="learn_more_btn learn-more">Learn More</button>
     </div>
   </div>
 
@@ -473,6 +433,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     const postJobBtns = document.getElementsByClassName("postajob-btn");
     const findJobBtns = document.getElementsByClassName("findajob-btn");
+    const learnMoreBtn = document.getElementsByClassName("learn_more_btn");
 
     // Add click event to all buttons with the class "postajob-btn"
     Array.from(postJobBtns).forEach((btn) => {
@@ -485,6 +446,12 @@
     Array.from(findJobBtns).forEach((btn) => {
       btn.addEventListener("click", () => {
         window.location.href = "{% url 'findajob' %}";
+      });
+    });
+
+    Array.from(learnMoreBtn).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        window.location.href = "{% url 'signup' %}";
       });
     });
   });

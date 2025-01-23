@@ -1,7 +1,26 @@
-{% extends 'base.html' %}
-<!--  -->
-{% block title %}About Us{% endblock %}
+{% extends 'base.html' %} {% load static %}
+<!-- Title -->
+{% block title %}Log In{% endblock %}
+<!-- CSS -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %}
 <!--  -->
 {% block content %}
-<h1>This is login page</h1>
+<main class="login-container">
+  <div class="login-box">
+    <h1>Welcome Back</h1>
+    <p>Sign in to your account</p>
+    <form>
+      <input type="email" placeholder="Enter your email" required />
+      <input type="password" placeholder="Enter your password" required />
+      <button type="submit">Sign In</button>
+    </form>
+    <div class="links">
+      <a href="{% url 'forgot' %}">Forgot Password?</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    </div>
+  </div>
+</main>
 {% endblock %}
