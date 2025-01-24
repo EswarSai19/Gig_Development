@@ -167,7 +167,7 @@ def findajob(request):
 #     return render(request, 'findajob.html')
 
 
-# def findajob(request):
+def findajob(request):
     if request.method == 'POST':
         full_name = request.POST['fullName']
         phone = request.POST['phone']
