@@ -12,4 +12,5 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('forgot/', views.forgot, name='forgot'),
     path('submit_contact/', views.submit_contact, name='submit_contact'),
+    path('submit_freelancer/', views.submit_freelancer, name='submit_freelancer'),
 ]
