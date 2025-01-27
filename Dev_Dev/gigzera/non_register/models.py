@@ -52,24 +52,18 @@ class Freelancer(models.Model):
     )
     name = models.CharField(max_length=255)
     profilePic = models.ImageField(upload_to="freelancer/profile_pics/", blank=True, null=True)
-    phone = models.BigIntegerField()
+    phone = models.CharField(max_length=15)
     email = models.EmailField(unique=True)
-    user_role = models.CharField(max_length=50)
-    country = models.CharField(max_length=100)
+    user_role = models.CharField(max_length=50, default='freelancer')
+    country = models.CharField(max_length=50)
     social_media = models.URLField(blank=True, null=True)
     education = models.CharField(max_length=255)
-    certifications = ArrayField(models.CharField(max_length=255), blank=True, default=list)
+    certifications = models.CharField(max_length=255, blank=True, null=True)
     experience = models.FloatField()
     skills = models.JSONField(default=dict)  # Example: {"Python": 3.5, "Django": 2.0}
     password = models.CharField(max_length=128)
-    projects_assigned = ArrayField(models.CharField(max_length=255), blank=True, default=list)
-    project_status = ArrayField(
-        models.CharField(max_length=50, choices=[
-            ('inprogress', 'In Progress'),
-            ('completed', 'Completed'),
-            ('not_started', 'Not Started'),
-        ]), blank=True, default=list
-    )
+    projects_assigned = models.CharField(max_length=255, blank=True)
+    project_status = models.CharField(max_length=50, blank=True)
     created_at = models.DateTimeField(default=now)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -84,7 +78,7 @@ class Skill(models.Model):
         related_name='skill_set'  # Changed related_name to avoid conflict
     )
     skill_name = models.CharField(max_length=100)
-    experience_years = models.PositiveIntegerField()
+    experience_years = models.FloatField()
 
     def __str__(self):
         return f"{self.skill_name} ({self.experience_years} years)"

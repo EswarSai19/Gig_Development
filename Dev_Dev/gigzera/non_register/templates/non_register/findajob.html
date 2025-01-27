@@ -33,6 +33,7 @@
           type="text"
           class="pl-15 pr-4 py-2 border rounded"
           id="fullName"
+          name="name"
           placeholder="John Doe"
           required
         />
@@ -232,6 +233,7 @@
             <input
               type="tel"
               id="phone-number"
+              name="phone"
               placeholder="Phone Number"
               class="p-2 border border-gray-300 rounded-r-md focus:ring-2 focus:ring-blue-500 w-full"
               required
@@ -260,7 +262,6 @@
           id="otp-input"
           placeholder="Enter OTP"
           class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 w-full"
-          required
         />
         <span id="otp-error" class="text-red-500 text-sm hidden"
           >Invalid OTP. Please try again.</span
@@ -272,6 +273,7 @@
           Validate OTP
         </button>
       </div>
+      <!-- Later uncomment the above one -->
       <!-- <label for="phone" class="required-label">Phone Number</label>
           <input
             type="tel"
@@ -285,14 +287,20 @@
         <i
           class="fa-solid fa-envelope absolute left-3 top-3.5 text-gray-500"
         ></i>
-        <input type="email" id="email" placeholder="Email ID" required />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email ID"
+          required
+        />
       </div>
 
       <label for="education" class="required-label"
         >Educational Background</label
       >
       <div class="relative">
-        <select id="education" required>
+        <select id="education" name="education" required>
           <option value="bachelor">Bachelor's Degree</option>
           <option value="master">Master's Degree</option>
           <option value="phd">PhD</option>
@@ -308,6 +316,7 @@
         <input
           type="text"
           id="certifications"
+          name="certifications"
           placeholder="AWS Certified, PMP, etc."
           required
         />
@@ -320,7 +329,13 @@
         <i
           class="fa-solid fa-briefcase absolute left-3 top-3.5 text-gray-500"
         ></i>
-        <input type="text" id="experience" placeholder="5 years" required />
+        <input
+          type="text"
+          name="experience"
+          id="experience"
+          placeholder="5 years"
+          required
+        />
       </div>
       <div class="skill-experience-container">
         <div class="input-box">
@@ -329,6 +344,7 @@
             class="input"
             type="text"
             id="skill1"
+            name="skill1"
             placeholder="Skill 1"
             required
           />
@@ -336,6 +352,7 @@
             class="input"
             type="text"
             id="skill2"
+            name="skill2"
             placeholder="Skill 2"
             required
           />
@@ -343,6 +360,7 @@
             class="input"
             type="text"
             id="skill3"
+            name="skill3"
             placeholder="Skill 3"
             required
           />
@@ -353,6 +371,7 @@
             type="text"
             class="input"
             id="experience1"
+            name="experience1"
             placeholder="Experience (e.g., 3 years)"
             required
           />
@@ -360,6 +379,7 @@
             type="text"
             class="input"
             id="experience2"
+            name="experience2"
             placeholder="Experience (e.g., 3 years)"
             required
           />
@@ -367,6 +387,7 @@
             type="text"
             class="input"
             id="experience3"
+            name="experience3"
             placeholder="Experience (e.g., 3 years)"
             required
           />
@@ -381,6 +402,7 @@
         <input
           type="url"
           id="linkedin"
+          name="social_media"
           placeholder="Indeed Profile/ LinkedIn Profile"
           required
         />
@@ -394,6 +416,7 @@
           <input
             type="password"
             id="Password"
+            name="password"
             placeholder="Password"
             required
             class="w-full p-2 rounded border border-gray-300 pl-10"
@@ -425,13 +448,13 @@
 
       <div class="checkbox-container">
         <div class="checkbox-item">
-          <input type="checkbox" id="terms" required />
+          <input type="checkbox" name="terms" id="terms" required />
           <label for="terms">
             I agree to the <a href="#">Terms & Agreements</a>
           </label>
         </div>
         <div class="checkbox-item">
-          <input type="checkbox" id="privacy" required />
+          <input type="checkbox" name="'privacy" id="privacy" required />
           <label for="privacy">
             I agree to the <a href="#">Privacy Policy</a>
           </label>

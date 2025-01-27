@@ -24,54 +24,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const selectedSkills = new Set(); // Track selected skills globally
 
-  function createAutocomplete(inputElement, suggestionsContainer) {
-    inputElement.addEventListener("focus", () => {
-      suggestionsContainer.innerHTML = ""; // Clear previous suggestions on focus
-    });
+  // function createAutocomplete(inputElement, suggestionsContainer) {
+  //   inputElement.addEventListener("focus", () => {
+  //     suggestionsContainer.innerHTML = ""; // Clear previous suggestions on focus
+  //   });
 
-    inputElement.addEventListener("input", () => {
-      const query = inputElement.value.trim().toLowerCase();
-      if (query) {
-        suggestionsContainer.style.display = "block"; // Show suggestions when typing
+  //   inputElement.addEventListener("input", () => {
+  //     const query = inputElement.value.trim().toLowerCase();
+  //     if (query) {
+  //       suggestionsContainer.style.display = "block"; // Show suggestions when typing
 
-        // Filter suggestions based on input query and already selected skills
-        const filteredSuggestions = skillSuggestions.filter(
-          (skill) =>
-            skill.toLowerCase().includes(query) && !selectedSkills.has(skill)
-        );
+  //       // Filter suggestions based on input query and already selected skills
+  //       const filteredSuggestions = skillSuggestions.filter(
+  //         (skill) =>
+  //           skill.toLowerCase().includes(query) && !selectedSkills.has(skill)
+  //       );
 
-        suggestionsContainer.innerHTML = ""; // Clear existing suggestions
-        filteredSuggestions.forEach((suggestion) => {
-          const suggestionElement = document.createElement("div");
-          suggestionElement.classList.add(
-            "p-2",
-            "cursor-pointer",
-            "text-sm",
-            "text-left"
-          );
-          suggestionElement.textContent = suggestion;
+  //       suggestionsContainer.innerHTML = ""; // Clear existing suggestions
+  //       filteredSuggestions.forEach((suggestion) => {
+  //         const suggestionElement = document.createElement("div");
+  //         suggestionElement.classList.add(
+  //           "p-2",
+  //           "cursor-pointer",
+  //           "text-sm",
+  //           "text-left"
+  //         );
+  //         suggestionElement.textContent = suggestion;
 
-          suggestionElement.addEventListener("click", () => {
-            inputElement.value = suggestion; // Set the selected suggestion as input value
-            selectedSkills.add(suggestion); // Mark the skill as selected
-            suggestionsContainer.style.display = "none"; // Hide suggestions after selection
+  //         suggestionElement.addEventListener("click", () => {
+  //           inputElement.value = suggestion; // Set the selected suggestion as input value
+  //           selectedSkills.add(suggestion); // Mark the skill as selected
+  //           suggestionsContainer.style.display = "none"; // Hide suggestions after selection
 
-            // Re-enable suggestions for all other fields
-            updateAllInputs();
-          });
+  //           // Re-enable suggestions for all other fields
+  //           updateAllInputs();
+  //         });
 
-          suggestionsContainer.appendChild(suggestionElement);
-        });
-      } else {
-        suggestionsContainer.style.display = "none"; // Hide if input is empty
-      }
-    });
+  //         suggestionsContainer.appendChild(suggestionElement);
+  //       });
+  //     } else {
+  //       suggestionsContainer.style.display = "none"; // Hide if input is empty
+  //     }
+  //   });
 
-    inputElement.addEventListener("blur", () => {
-      // Hide suggestions when input loses focus
-      setTimeout(() => (suggestionsContainer.style.display = "none"), 200);
-    });
-  }
+  //   inputElement.addEventListener("blur", () => {
+  //     // Hide suggestions when input loses focus
+  //     setTimeout(() => (suggestionsContainer.style.display = "none"), 200);
+  //   });
+  // }
 
   function updateAllInputs() {
     // Update all inputs by filtering out selected skills from their suggestions
@@ -88,18 +88,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Attach autocomplete to each skill input field
-  createAutocomplete(
-    document.querySelector("#skill1"),
-    document.querySelector("#suggestions-container1")
-  );
-  createAutocomplete(
-    document.querySelector("#skill2"),
-    document.querySelector("#suggestions-container2")
-  );
-  createAutocomplete(
-    document.querySelector("#skill3"),
-    document.querySelector("#suggestions-container3")
-  );
+  // createAutocomplete(
+  //   document.querySelector("#skill1"),
+  //   document.querySelector("#suggestions-container1")
+  // );
+  // createAutocomplete(
+  //   document.querySelector("#skill2"),
+  //   document.querySelector("#suggestions-container2")
+  // );
+  // createAutocomplete(
+  //   document.querySelector("#skill3"),
+  //   document.querySelector("#suggestions-container3")
+  // );
 });
 //password validation
 const togglePassword = document.querySelector("#togglePassword");

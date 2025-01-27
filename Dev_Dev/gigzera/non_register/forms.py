@@ -14,20 +14,23 @@ class FreelancerForm(forms.ModelForm):
         model = Freelancer
         fields = [
             'name',
-            'profilePic',
             'phone',
             'email',
-            'user_role',
-            'country',
             'social_media',
             'education',
             'certifications',
             'experience',
             'skills',  # JSONField for skills input
             'password',
-            'projects_assigned',
-            'project_status',
         ]
+    profilePic = forms.ImageField(required=False)
+    # social_media = forms.JSONField(required=False)
+    # education = forms.CharField(required=False)
+    # certifications = forms.CharField(required=False)
+    # experience = forms.IntegerField(required=False)
+    # skills = forms.JSONField(required=False)
+    projects_assigned = forms.CharField(required=False)
+    project_status = forms.CharField(required=False)
 
 # Inline formsets for related models
 SkillFormSet = inlineformset_factory(

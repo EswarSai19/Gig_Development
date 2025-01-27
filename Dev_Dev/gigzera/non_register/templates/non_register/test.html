@@ -1,0 +1,92 @@
+{% extends 'base.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %} {% block content %}
+
+<div class="input-box">
+  <label class="block font-bold text-black mb-2">
+    Phone Number <span class="text-red-500">*</span>
+  </label>
+
+  <div class="flex items-center">
+    <!-- Country Code Dropdown with Search -->
+    <div class="relative" style="margin-right: 0.5rem; width: 150px">
+      <!-- Hidden Search Input -->
+      <input
+        type="text"
+        id="search-country-code"
+        class="p-2 border border-gray-300 rounded-t-md w-full focus:ring-2 focus:ring-blue-500 hidden"
+        placeholder="Search country code..."
+      />
+      <select
+        id="country-code"
+        required
+        class="select p-2 border border-gray-300 rounded-md w-full focus:ring-2 focus:ring-blue-500"
+      >
+        <option value="+93">+93 (AF)</option>
+        <option value="+355">+355 (AL)</option>
+        <option value="+213">+213 (DZ)</option>
+        <option value="+1">+1 (US)</option>
+        <option value="+376">+376 (AD)</option>
+        <option value="+244">+244 (AO)</option>
+        <option value="+91">+91 (IN)</option>
+        <option value="+61">+61 (AU)</option>
+        <option value="+44">+44 (GB)</option>
+        <option value="+86">+86 (CN)</option>
+        <!-- Add more options as needed -->
+      </select>
+    </div>
+
+    <!-- Phone Number Input -->
+    <div class="relative">
+      <i class="fa-solid fa-phone absolute left-3 top-3.5 text-gray-500"></i>
+      <input
+        type="tel"
+        id="phone-number"
+        name="phone"
+        placeholder="Phone Number"
+        class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 w-full"
+        required
+      />
+    </div>
+  </div>
+
+  <!-- Error message -->
+  <span id="error-message" class="text-red-500 text-sm hidden">
+    Please enter a valid phone number for the selected country.
+  </span>
+</div>
+
+<script>
+  const searchInput = document.getElementById("search-country-code");
+  const countryCodeSelect = document.getElementById("country-code");
+
+  // Show search box on user input or dropdown click
+  countryCodeSelect.addEventListener("focus", () => {
+    searchInput.classList.remove("hidden");
+    searchInput.focus();
+  });
+
+  searchInput.addEventListener("input", () => {
+    const filter = searchInput.value.toLowerCase();
+    const options = countryCodeSelect.options;
+
+    for (let i = 0; i < options.length; i++) {
+      const optionText = options[i].text.toLowerCase();
+      const isVisible = optionText.includes(filter);
+      options[i].style.display = isVisible ? "block" : "none";
+    }
+  });
+
+  // Hide the search box when it loses focus and reset options
+  searchInput.addEventListener("blur", () => {
+    setTimeout(() => {
+      searchInput.classList.add("hidden");
+      searchInput.value = ""; // Clear the search field
+      Array.from(countryCodeSelect.options).forEach((option) => {
+        option.style.display = "block"; // Reset all options
+      });
+    }, 200);
+  });
+</script>
+
+{% endblock %}
