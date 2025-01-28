@@ -1,92 +1,537 @@
-{% extends 'base.html' %} {% load static %} {% block css %}
+{% extends 'base.html' %} {% load static %}
+<!-- Title -->
+{% block title %}Test Jobs{% endblock %}
+<!-- CSS -->
+{% block css %}
 <link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
-{% endblock %} {% block content %}
-
-<div class="input-box">
-  <label class="block font-bold text-black mb-2">
-    Phone Number <span class="text-red-500">*</span>
-  </label>
-
-  <div class="flex items-center">
-    <!-- Country Code Dropdown with Search -->
-    <div class="relative" style="margin-right: 0.5rem; width: 150px">
-      <!-- Hidden Search Input -->
-      <input
-        type="text"
-        id="search-country-code"
-        class="p-2 border border-gray-300 rounded-t-md w-full focus:ring-2 focus:ring-blue-500 hidden"
-        placeholder="Search country code..."
-      />
-      <select
-        id="country-code"
-        required
-        class="select p-2 border border-gray-300 rounded-md w-full focus:ring-2 focus:ring-blue-500"
-      >
-        <option value="+93">+93 (AF)</option>
-        <option value="+355">+355 (AL)</option>
-        <option value="+213">+213 (DZ)</option>
-        <option value="+1">+1 (US)</option>
-        <option value="+376">+376 (AD)</option>
-        <option value="+244">+244 (AO)</option>
-        <option value="+91">+91 (IN)</option>
-        <option value="+61">+61 (AU)</option>
-        <option value="+44">+44 (GB)</option>
-        <option value="+86">+86 (CN)</option>
-        <!-- Add more options as needed -->
-      </select>
+<link rel="stylesheet" href="{% static 'css/jobs.css' %}" />
+{% endblock %}
+<!-- Main -->
+{% block content %}
+<main>
+  <!-- Left section -->
+  <aside class="left-section">
+    <!-- Filter Jobs Section -->
+    <div class="filter-box">
+      <i class="fa-solid fa-filter filter-icon"></i>
+      <input type="text" placeholder="Filter jobs..." class="filter-input" />
     </div>
 
-    <!-- Phone Number Input -->
-    <div class="relative">
-      <i class="fa-solid fa-phone absolute left-3 top-3.5 text-gray-500"></i>
-      <input
-        type="tel"
-        id="phone-number"
-        name="phone"
-        placeholder="Phone Number"
-        class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 w-full"
-        required
-      />
+    <!-- Social Media Updates Section -->
+    <div class="social-media-box">
+      <h3>Social Media Updates</h3>
+      <div class="social-update">
+        <i class="fa-brands fa-twitter icon"></i>
+        <p>Latest job opportunities in #WebDevelopment...</p>
+      </div>
+      <div class="social-update">
+        <i class="fa-brands fa-linkedin icon"></i>
+        <p>Join our tech community on LinkedIn...</p>
+      </div>
+      <div class="social-update">
+        <i class="fa-brands fa-facebook icon"></i>
+        <p>Join our tech community on Facebook...</p>
+      </div>
+      <div class="social-update">
+        <i class="fa-brands fa-instagram icon"></i>
+        <p>Join our tech community on Instagram...</p>
+      </div>
+    </div>
+    <div class="announcement-box">
+      <h1>Announcement</h1>
+      <div class="ad-box lf-annc-box">
+        <!-- Video 1 -->
+        <div class="ad-video-container active">
+          <video id="video1" autoplay muted>
+            <source
+              src="https://cdn.yellowmessenger.com/QnhdnAlDdVA01734691830688.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="ad-video-container">
+          <video id="video2" muted>
+            <source
+              src="https://cdn.yellowmessenger.com/QnhdnAlDdVA01734691830688.mp4"
+              type="video/mp4"
+            />
+            <!-- Ensure the video URL is correct -->
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+      <p>This is a sample test for announcement</p>
+      <br />
+    </div>
+    <section class="text-section-left">
+      <!-- <h1
+            style="
+              font-weight: bold;
+              color: black;
+              margin-bottom: 10px;
+              margin-top: -5px;
+            "
+          >
+            This is the sample text replication
+          </h1> -->
+      <!-- First Slide -->
+      <div class="slide-left">
+        <img
+          src="https://cdn.yellowmessenger.com/PSpMKlSDepdi1735210401540.png"
+          alt="City View"
+          class="city-image-left"
+        />
+      </div>
+
+      <!-- Second Slide -->
+      <div class="slide-left">
+        <img
+          src="https://cdn.yellowmessenger.com/awWcKeyMtYYX1735210522831.png"
+          alt="Boost Your Team"
+          class="city-image-left"
+        />
+      </div>
+
+      <!-- Third Slide -->
+      <div class="slide-left">
+        <img
+          src="https://cdn.yellowmessenger.com/WNC3rncek4B61735210555680.png"
+          alt="Post Your Jobs"
+          class="city-image-left"
+        />
+      </div>
+
+      <!-- Fourth Slide -->
+      <div class="slide-left">
+        <img
+          src="https://cdn.yellowmessenger.com/ePnzGFUzrasA1735210652173.png"
+          alt="Post Your Jobs"
+          class="city-image-left"
+        />
+      </div>
+
+      <!-- Fifth Slide -->
+      <div class="slide-left">
+        <img
+          src="https://cdn.yellowmessenger.com/tVydGqHwo3Le1735210676452.png"
+          alt="Post Your Jobs"
+          class="city-image-left"
+        />
+      </div>
+
+      <!-- Sixth Slide -->
+      <div class="slide-left">
+        <img
+          src="https://cdn.yellowmessenger.com/r6jrnKSConXC1735210701475.png"
+          alt="Post Your Jobs"
+          class="city-image-left"
+        />
+      </div>
+    </section>
+  </aside>
+
+  <!-- Toggle right offcanvas of view more button  -->
+  <div
+    id="tailwind-overlay"
+    id="sidebar-{{ job.id }}"
+    class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden"
+  >
+    <div
+      id="tailwind-popup"
+      class="fixed right-0 top-0 h-full w-[600px] bg-white shadow-2xl overflow-hidden z-50 hidden"
+    >
+      <div
+        id="tailwind-popup-header"
+        class="flex justify-between items-center p-6 border-b"
+      >
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-bolt text-blue-600 text-2xl"></i>
+          <span class="text-xl font-bold text-blue-600">Gigzera</span>
+        </div>
+        <button
+          id="tailwind-close-drawer"
+          class="text-gray-500 hover:text-gray-700"
+        >
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+      <div
+        id="tailwind-popup-content"
+        class="p-6 h-[calc(100vh-180px)] overflow-y-auto"
+      >
+        <div class="space-y-6">
+          <div class="flex items-start justify-between">
+            <div>
+              <h1 class="text-xl font-bold text-gray-900">
+                Senior UX Designer (Opp Id: 123456)
+              </h1>
+              <div class="flex items-center mt-2 space-x-4">
+                <span class="flex items-center text-blue-600">
+                  <i class="fa-regular fa-clock mr-2"></i>
+                  2 to 3 Months
+                </span>
+                <span class="flex items-center text-gray-600">
+                  <i class="fa-solid fa-clock mr-2"></i>
+                  EST (9AM - 5PM)
+                </span>
+              </div>
+            </div>
+            <div
+              class="bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-medium"
+            >
+              $80-100k/year
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-center space-x-4 text-gray-600">
+              <div class="flex items-center">
+                <i class="fa-solid fa-calendar mr-2"></i>
+                <span>Start Date: Jan 15, 2025</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fa-solid fa-briefcase mr-2"></i>
+                <span>Project Type: Gig</span>
+              </div>
+            </div>
+            <div class="space-y-6">
+              <div>
+                <h2 class="text-lg font-semibold text-gray-900">
+                  Project Description
+                </h2>
+                <p class="text-gray-600 leading-relaxed mt-2">
+                  We are seeking a Senior UX Designer to lead the redesign of
+                  our enterprise dashboard platform. This project focuses on
+                  improving user experience, increasing efficiency, and
+                  implementing modern design patterns while maintaining system
+                  functionality.
+                </p>
+              </div>
+              <div>
+                <h2 class="text-lg font-semibold text-gray-900">
+                  Project Deliverables
+                </h2>
+                <ul class="mt-2 space-y-2 text-gray-600">
+                  <li class="flex items-start">
+                    <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                    <span>User research and analysis documentation</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                    <span>High-fidelity wireframes and prototypes</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                    <span>Design system documentation</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fa-solid fa-check text-green-500 mt-1 mr-2"></i>
+                    <span>Interactive prototypes for user testing</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h2 class="text-lg font-semibold text-gray-900">
+                  Requirements
+                </h2>
+                <ul class="mt-2 list-disc list-inside text-gray-600 space-y-2">
+                  <li>5+ years of experience in UX Design</li>
+                  <li>Proficiency in design tools (Figma, Sketch)</li>
+                  <li>
+                    Strong portfolio demonstrating end-to-end design process
+                  </li>
+                  <li>Experience with user research and usability testing</li>
+                </ul>
+              </div>
+              <div>
+                <h2 class="text-lg font-semibold text-gray-900">
+                  Possible Challenges
+                </h2>
+                <ul class="mt-2 space-y-2 text-gray-600">
+                  <li class="flex items-start">
+                    <i
+                      class="fa-solid fa-triangle-exclamation text-yellow-500 mt-1 mr-2"
+                    ></i>
+                    <span>Complex system integration requirements</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i
+                      class="fa-solid fa-triangle-exclamation text-yellow-500 mt-1 mr-2"
+                    ></i>
+                    <span>Tight deadline with multiple stakeholders</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i
+                      class="fa-solid fa-triangle-exclamation text-yellow-500 mt-1 mr-2"
+                    ></i>
+                    <span>Legacy system compatibility</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h2 class="text-lg font-semibold text-gray-900">
+                  Skills Required
+                </h2>
+                <div class="mt-2 flex flex-wrap gap-2">
+                  <span
+                    class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+                    >UI/UX Design</span
+                  >
+                  <span
+                    class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+                    >Figma</span
+                  >
+                  <span
+                    class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+                    >User Research</span
+                  >
+                  <span
+                    class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+                    >Prototyping</span
+                  >
+                  <span
+                    class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+                    >Design Systems</span
+                  >
+                  <span
+                    class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+                    >Agile/Scrum</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          id="tailwind-popup-footer"
+          class="absolute bottom-0 left-0 right-0 p-6 bg-white border-t"
+        >
+          <button
+            class="w-full py-3 px-6 bg-gradient-to-r from-blue-600 to-white-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-blue-700 transition-all"
+            onclick="openModal()"
+          >
+            Apply Now
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Error message -->
-  <span id="error-message" class="text-red-500 text-sm hidden">
-    Please enter a valid phone number for the selected country.
-  </span>
-</div>
+  <!-- Modal pop up for provide quote -->
+  <div
+    id="quoteModal"
+    class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+  >
+    <div
+      class="bg-white rounded-lg shadow-lg w-full max-w-2xl mx-auto p-10 relative"
+    >
+      <!-- Close Button -->
+      <button
+        onclick="closeModal()"
+        class="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+      >
+        <i class="fa-solid fa-xmark text-2xl"></i>
+      </button>
 
-<script>
-  const searchInput = document.getElementById("search-country-code");
-  const countryCodeSelect = document.getElementById("country-code");
+      <!-- Modal Header -->
+      <div class="text-center mb-6">
+        <div class="flex justify-center items-center mb-2">
+          <i class="fa-solid fa-paper-plane text-blue-500 text-3xl mr-2"></i>
+          <h1 class="text-2xl font-bold text-blue-500">Apply</h1>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-800">Apply for Project</h3>
+        <p class="text-sm text-gray-600">
+          Provide the required information to apply for this project.
+        </p>
+      </div>
 
-  // Show search box on user input or dropdown click
-  countryCodeSelect.addEventListener("focus", () => {
-    searchInput.classList.remove("hidden");
-    searchInput.focus();
-  });
+      <!-- Form -->
+      <form id="quoteForm" onsubmit="submitForm(event)">
+        <!-- Budget Field -->
+        <div class="mb-4">
+          <label for="budget" class="block text-sm font-semibold text-gray-700">
+            Budget <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            id="budget"
+            name="budget"
+            placeholder="Budget: Estimation to complete the project"
+            required
+            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-  searchInput.addEventListener("input", () => {
-    const filter = searchInput.value.toLowerCase();
-    const options = countryCodeSelect.options;
+        <!-- Timeline Field -->
+        <div class="mb-4">
+          <label
+            for="timeline"
+            class="block text-sm font-semibold text-gray-700"
+          >
+            Estimated Time to Complete the Project
+            <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            id="timeline"
+            name="timeline"
+            placeholder="E.g., 3 Months"
+            required
+            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-    for (let i = 0; i < options.length; i++) {
-      const optionText = options[i].text.toLowerCase();
-      const isVisible = optionText.includes(filter);
-      options[i].style.display = isVisible ? "block" : "none";
-    }
-  });
+        <!-- Comments Field -->
+        <div class="mb-6">
+          <label
+            for="comments"
+            class="block text-sm font-semibold text-gray-700"
+          >
+            Comments
+          </label>
+          <textarea
+            id="comments"
+            name="comments"
+            placeholder="Queries related to scope of the project or tools & licenses"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+        </div>
 
-  // Hide the search box when it loses focus and reset options
-  searchInput.addEventListener("blur", () => {
-    setTimeout(() => {
-      searchInput.classList.add("hidden");
-      searchInput.value = ""; // Clear the search field
-      Array.from(countryCodeSelect.options).forEach((option) => {
-        option.style.display = "block"; // Reset all options
-      });
-    }, 200);
-  });
-</script>
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="w-full bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold py-2 px-4 rounded-md cursor-pointer"
+        >
+          Submit Quotation
+        </button>
+      </form>
+    </div>
+  </div>
 
+  <!-- Featured Jobs -->
+  <section class="featured-jobs">
+    <div class="ctnr">
+      <div class="job-cards">
+        {% for job in jobs %}
+
+        <!-- Job Card 1 -->
+        <div class="job-card">
+          <div class="job-title">
+            {{job.title}}
+            <span class="job-id">(Opp ID: {{job.opportunityId}})</span>
+          </div>
+          <div class="job-duration-salary">
+            <span class="duration">⏳ {{job.duration}}</span>
+            <span class="salary">💳 {{job.budget}}</span>
+          </div>
+          <p class="job-description">{{job.description}}</p>
+          <div class="job-tags">
+            {% for tag in job.skills_list %}
+            <span class="tag">{{tag}}</span>
+            {% endfor %}
+          </div>
+          <div class="job-actions">
+            <button
+              class="view-more"
+              onclick="tailwindOpenModal(`sidebar-{{ job.id }}`)"
+            >
+              View More
+            </button>
+            <button
+              class="btn btn-primary provide-quote"
+              onclick="openModal()"
+              ;
+            >
+              Provide Quote
+            </button>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Right Section -->
+  <aside class="right-section">
+    <!-- First Ad Box: Two Videos -->
+    <div class="ad-box">
+      <div class="ad-slideshow">
+        <!-- Video 1 -->
+        <div class="ad-video-container active">
+          <video id="video1" autoplay muted>
+            <source
+              src="https://cdn.yellowmessenger.com/QnhdnAlDdVA01734691830688.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+        <div class="ad-video-container">
+          <video id="video2" autoplay muted>
+            <source
+              src="https://cdn.yellowmessenger.com/mV64DYgpzy811734694758683.mp4"
+              type="video/mp4"
+            />
+            <!-- Ensure the video URL is correct -->
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second Ad Box with Image Slideshow -->
+    <a href="https://www.intellectdivi.com/" target="_blank">
+      <div class="ad-box">
+        <div class="ad-slideshow">
+          <div class="ad-image-container">
+            <img
+              src="https://cdn.yellowmessenger.com/OGJDayjMR4n81734681557269.jpeg"
+              alt="Recruitment Advertisement"
+            />
+          </div>
+          <div class="ad-image-container">
+            <img
+              src="https://cdn.yellowmessenger.com/eRzOfCc5uSsT1734681543395.jpg"
+              alt="Recruitment Advertisement"
+            />
+          </div>
+          <div class="ad-image-container">
+            <img
+              src="https://cdn.yellowmessenger.com/kfrb0QFTEeqN1734681632235.png"
+              alt="Recruitment Advertisement"
+            />
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Third Ad Box with Image Slideshow -->
+    <div class="ad-box">
+      <div class="ad-slideshow">
+        <div class="ad-image-container active">
+          <img
+            src="https://cdn.yellowmessenger.com/ocAAFbuz3O7V1734681661220.jpeg"
+            alt="Job Training Advertisement"
+          />
+        </div>
+        <div class="ad-image-container">
+          <img
+            src="https://cdn.yellowmessenger.com/92ZENQocsyCi1734681673376.jpg"
+            alt="Job Training Advertisement"
+          />
+        </div>
+        <div class="ad-image-container">
+          <img
+            src="https://cdn.yellowmessenger.com/wtJ0zcKfJzFW1734681690293.jpeg"
+            alt="Job Training Advertisement"
+          />
+        </div>
+      </div>
+    </div>
+  </aside>
+</main>
+{% endblock %}
+
+<!-- JS -->
+{% block js %}
+<script src="{% static 'js/jobs.js' %}"></script>
 {% endblock %}

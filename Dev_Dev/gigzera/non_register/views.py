@@ -4,14 +4,18 @@ from django.contrib.auth.models import User, auth
 from django.http import HttpResponse
 from django.contrib import messages
 import json
-from .models import Contact, Freelancer, Skill, Certificate
+from .models import Contact, Freelancer, Skill, Certificate, ProjectsDisplay
 from .forms import ContactForm, FreelancerForm, SkillFormSet, CertificateFormSet
 
 def index(request):
     return render(request, 'non_register/index.html')
 
 def jobs(request):
-    return render(request, 'non_register/jobs.html')
+    jobs = ProjectsDisplay.objects.all()
+    for job in jobs:
+        job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
+    context = {'jobs': jobs}
+    return render(request, 'non_register/jobs.html', context)
 
 def aboutus(request):
     return render(request, 'non_register/aboutus.html')
@@ -35,7 +39,11 @@ def forgot(request):
     return render(request, 'non_register/forgot.html')
 
 def test(request):
-    return render(request, 'non_register/test.html')
+    jobs = ProjectsDisplay.objects.all()
+    for job in jobs:
+        job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
+    context = {'jobs': jobs}
+    return render(request, 'non_register/test.html', context)
 
 # Contact form 
 def submit_contact(request):
