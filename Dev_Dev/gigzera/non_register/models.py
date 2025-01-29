@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 from django.contrib.postgres.fields import ArrayField, JSONField
+from django.contrib.auth.hashers import make_password, check_password
 from django.utils.timezone import now
 from django.db.models import JSONField
 import json
@@ -67,6 +68,16 @@ class Freelancer(models.Model):
     created_at = models.DateTimeField(default=now)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def save(self, *args, **kwargs):
+        """Hash the password before saving the freelancer."""
+        if not self.password.startswith("pbkdf2_sha256$"):  # Avoid re-hashing
+            self.password = make_password(self.password)
+        super().save(*args, **kwargs)
+
+    def check_password(self, raw_password):
+        """Verify the password."""
+        return check_password(raw_password, self.password)
+
     def __str__(self):
         return self.name
 
@@ -114,12 +125,11 @@ class EmploymentHistory(models.Model):
     def __str__(self):
         return f"{self.company} - {self.job_title}"
 
-
-
 def generate_opportunity_id():
     return f"OP{str(uuid.uuid4().int)[:6]}"
 
 class ProjectsDisplay(models.Model):
+
     opportunityId = models.CharField(
         primary_key=True, max_length=12, default=generate_opportunity_id, editable=False
     )
@@ -138,3 +148,4 @@ class ProjectsDisplay(models.Model):
 
     def __str__(self):
         return f"Title: {self.title} with ID {self.opportunityId}"
+

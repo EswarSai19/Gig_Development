@@ -8,13 +8,40 @@
 {% endblock %}
 <!--  -->
 {% block content %}
+
+<!-- Error Messages -->
+{% if messages %} {% for message in messages %}
+<div
+  id="alert-banner"
+  class="alert-banner bg-red-600 text-white text-center p-4 rounded-lg shadow-lg flex justify-between items-center"
+>
+  <h1 class="alert-message text-xl font-medium">{{message}}</h1>
+  <button
+    class="close-btn text-white text-2xl font-medium focus:outline-none"
+    onclick="document.getElementById('alert-banner').style.display='none'"
+  >
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+{% endfor %} {% endif %}
 <main class="login-container">
   <div class="login-box">
     <h1>Welcome Back</h1>
     <p>Sign in to your account</p>
-    <form>
-      <input type="email" placeholder="Enter your email" required />
-      <input type="password" placeholder="Enter your password" required />
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter your email"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Enter your password"
+        required
+      />
       <button type="submit">Sign In</button>
     </form>
     <div class="links">

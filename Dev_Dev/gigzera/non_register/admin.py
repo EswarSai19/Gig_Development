@@ -30,3 +30,8 @@ class CertificateAdmin(admin.ModelAdmin):
 class EmploymentHistoryAdmin(admin.ModelAdmin):
     list_display = ('freelancer', 'company', 'job_title', 'start_date', 'end_date')
     search_fields = ('company', 'job_title')
+
+# @admin.register(CustomUser)
+# class CustomUserAdmin(admin.ModelAdmin):
+#     # list_display = ('email', 'user_role', 'country')
+#     search_fields = ('email', 'fullname')

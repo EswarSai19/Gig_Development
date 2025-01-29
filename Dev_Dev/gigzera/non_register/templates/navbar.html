@@ -146,20 +146,19 @@
     </p>
   </div>
 </div>
-{% if messages %}
+<!-- {% if messages %}
 <ul class="messages">
   {% for message in messages %}
   <li class="alert alert-{{ message.tags }}">{{ message }}</li>
   {% endfor %}
 </ul>
 <script>
-  // Automatically show an alert for the first message
   const messages = document.querySelectorAll(".messages li");
   if (messages.length) {
     alert(messages[0].textContent.trim());
   }
 </script>
-{% endif %}
+{% endif %} -->
 
 <!-- JS -->
 {% load static %} {% block js %}

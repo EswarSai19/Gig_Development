@@ -8,6 +8,21 @@
 {% endblock %}
 <!--  -->
 {% block content %}
+<!-- Error Messages -->
+{% if messages %} {% for message in messages %}
+<div
+  id="alert-banner"
+  class="alert-banner bg-red-600 text-white text-center p-4 rounded-lg shadow-lg flex justify-between items-center"
+>
+  <h1 class="alert-message text-xl font-medium text-center">{{message}}</h1>
+  <button
+    class="close-btn text-white text-2xl font-medium focus:outline-none"
+    onclick="document.getElementById('alert-banner').style.display='none'"
+  >
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+{% endfor %} {% endif %}
 <main class="main-content">
   <!-- Image Section -->
   <div class="signup-image">
@@ -423,8 +438,8 @@
         <div class="relative mt-2">
           <input
             type="password"
-            id="Password"
-            name="password"
+            id="Password1"
+            name="password1"
             placeholder="Password"
             required
             class="w-full p-2 rounded border border-gray-300 pl-10"
@@ -432,12 +447,19 @@
             title="Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character."
           />
           <i class="fa-solid fa-lock absolute left-3 top-3.5 text-grey-500"></i>
-
-          <!-- Eye Icon to Toggle Password Visibility -->
-          <!-- <i
-                class="fa-solid fa-eye absolute right-3 top-3.5 text-grey-500 cursor-pointer"
-                id="togglePassword"
-              ></i> -->
+        </div>
+        <div class="relative mt-2">
+          <input
+            type="password"
+            id="Password2"
+            name="password2"
+            placeholder="Confirm Password"
+            required
+            class="w-full p-2 rounded border border-gray-300 pl-10"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$"
+            title="Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character."
+          />
+          <i class="fa-solid fa-lock absolute left-3 top-3.5 text-grey-500"></i>
         </div>
       </div>
 
@@ -473,6 +495,15 @@
       </div>
     </form>
   </div>
+
+  <!-- <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const messages = document.querySelectorAll(".messages li");
+      if (messages.length > 0) {
+        alert(messages[0].textContent.trim()); // Show only the first message
+      }
+    });
+  </script> -->
 </main>
 {% endblock %}
 <!-- js -->

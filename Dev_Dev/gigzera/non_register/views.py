@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
-# from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password, make_password
 from django.http import HttpResponse
 from django.contrib import messages
 import json
@@ -33,6 +33,21 @@ def signup(request):
     return render(request, 'non_register/signup.html')
 
 def login(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = Freelancer.objects.get(email=email)  # Get user by email
+            if check_password(password, user.password):  # Check encrypted password
+                return render(request, 'non_register/index.html')
+            else:
+                messages.error(request, 'Invalid credentials')
+                return redirect('login')  # Use redirect instead of render for better UX
+        except Freelancer.DoesNotExist:
+            messages.error(request, 'Invalid credentials')
+            return redirect('login')
+
     return render(request, 'non_register/login.html')
 
 def forgot(request):
@@ -66,7 +81,8 @@ def submit_freelancer(request):
         education = request.POST.get("education")
         certifications = request.POST.get("certifications")
         experience = request.POST.get("experience")
-        password = request.POST.get("password")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
         social_media = request.POST.get("social_media")
         
         # Collect skills and experiences
@@ -79,26 +95,34 @@ def submit_freelancer(request):
                 
             
         # Save Freelancer object
-        freelancer = Freelancer(
-            name=name,
-            phone=phone,
-            email=email,
-            education=education,
-            certifications=certifications,
-            experience=experience,
-            skills=skills,
-            social_media=social_media,
-            password=password,
-        )
-        freelancer.save()
+        if password1 == password2:
+            if Freelancer.objects.filter(email=email).exists():
+                messages.info(request, "Email already exists")
+                return render(request, "non_register/findajob.html")
+            else:
+                freelancer = Freelancer(
+                    name=name,
+                    phone=phone,
+                    email=email,
+                    education=education,
+                    certifications=certifications,
+                    experience=experience,
+                    skills=skills,
+                    social_media=social_media,
+                    password=password1,
+                )
+                freelancer.save()
+                for i in range(1,4):
+                    skill = request.POST.get(f"skill{i}")
+                    exp = request.POST.get(f"experience{i}")
+                    if skill and exp:
+                        Skill.objects.create(freelancer=freelancer, skill_name=skill, experience_years=exp)
+                return render(request, "non_register/login.html")  # Redirect to success page
+        else:
+            messages.info(request, "Password does not match")
+            return render(request, "non_register/findajob.html")
 
-        for i in range(1,4):
-            skill = request.POST.get(f"skill{i}")
-            exp = request.POST.get(f"experience{i}")
-            if skill and exp:
-                Skill.objects.create(freelancer=freelancer, skill_name=skill, experience_years=exp)
-     
-        return render(request, "non_register/login.html")  # Redirect to success page
+        
     return render(request, "non_register/findajob.html")
 
 

@@ -430,23 +430,36 @@
             {% endfor %}
           </div>
           <div class="job-actions">
-            <button class="view-more" onclick="tailwindOpenModal()">
-              View More
-            </button>
-            <button
-              class="btn btn-primary provide-quote"
-              onclick="openModal()"
-              ;
-            >
-              Provide Quote
-            </button>
+            <button class="view-more">View More</button>
+            <button class="btn btn-primary provide-quote">Provide Quote</button>
           </div>
         </div>
         {% endfor %}
       </div>
     </div>
   </section>
+  <!-- View more: onclick="tailwindOpenModal()                     Provide quote: onclick="openModal()" -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const viewMoreBtn = document.getElementsByClassName("view-more");
+      const quoteBtn = document.getElementsByClassName("provide-quote");
+      // const learnMoreBtn = document.getElementsByClassName("learn_more_btn");
 
+      // Add click event to all buttons with the class "postajob-btn"
+      Array.from(viewMoreBtn).forEach((btn) => {
+        btn.addEventListener("click", () => {
+          window.location.href = "{% url 'signup' %}";
+        });
+      });
+
+      // Add click event to all buttons with the class "findajob-btn"
+      Array.from(quoteBtn).forEach((btn) => {
+        btn.addEventListener("click", () => {
+          window.location.href = "{% url 'signup' %}";
+        });
+      });
+    });
+  </script>
   <!-- Right Section -->
   <aside class="right-section">
     <!-- First Ad Box: Two Videos -->
