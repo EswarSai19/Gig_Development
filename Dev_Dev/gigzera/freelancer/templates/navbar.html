@@ -1,5 +1,5 @@
 {% load static %}
-<div class="w-full bg-white/95 backdrop-blur-sm shadow-sm z-[-1] !top-0">
+<!-- <div class="w-full bg-white/95 backdrop-blur-sm shadow-sm z-[-1] !top-0">
   <div class="container mx-auto px-4 py-4">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-12">
@@ -63,8 +63,54 @@
       </button>
     </div>
   </div>
-</div>
+</div> -->
+{% block css %}
+<!-- <link rel="stylesheet" href="{% static 'css/navbar.css' %}" /> -->
+<!-- <link rel="stylesheet" href="{% static 'css/tailwind.css' %}" /> -->
+{% endblock %}
 
+<header class="header">
+  <div class="logo">
+    <a href="{% url 'freelancer_index' %}">
+      <img
+        class="w-[130px] h-[50px] cursor-pointer"
+        src="https://cdn.yellowmessenger.com/XzSBlvSXqsrB1735194961367.png"
+        alt="Gigzera Logo"
+      />
+    </a>
+  </div>
+  <div class="hidden lg:flex relative w-96">
+    <input
+      type="text"
+      placeholder="Search jobs by skills or category..."
+      class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+    />
+    <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
+  </div>
+  <nav class="nav">
+    <a href="{% url 'freelancer_index' %}">Home</a>
+    <a href="{% url 'freelancer_jobs' %}">Jobs</a>
+    <a href="{% url 'freelancer_aboutus' %}">About Us</a>
+    <a href="javascript:void(0);" id="contactBtn">Contact Us</a>
+    <a href="{% url 'freelancer_industries' %}">Industries</a>
+    <div class="profile-dropdown">
+      <div class="profile-trigger" id="profile-trigger">
+        <div class="profile-avatar">
+          <span id="profile-initials">Guest</span>
+        </div>
+        <i class="fa fa-caret-down"></i>
+      </div>
+      <div class="profile-menu" id="profile-menu">
+        <p id="profile-name-dropdown">Guest</p>
+        <p id="profile-email-dropdown">guest@example.com</p>
+        <hr />
+        <a href="{% url 'freelancer_profile' %}"> Profile</a>
+        <hr />
+        <a href="#" class="logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+</header>
 <!-- Popup Overlay -->
 <div id="popupOverlay"></div>
 

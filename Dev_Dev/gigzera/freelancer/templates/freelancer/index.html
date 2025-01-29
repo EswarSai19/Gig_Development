@@ -1,0 +1,452 @@
+{% extends 'base.html' %} {% load static %}
+<!-- title -->
+{% block title %}Home - Gigzera{% endblock %}
+<!-- Css -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %}
+<!-- body -->
+{% block content %}
+<section class="hero">
+  <div class="hero-ctnr hero-content">
+    <!-- Text Content -->
+    <div class="hero-text">
+      <h1>Gigzera is your go-to marketplace for tech talent</h1>
+      <p>
+        Tech it to the next level with our global network of skilled freelancers
+        and exciting projects.
+      </p>
+      <div class="hero-actions">
+        <button
+          class="btn-primary"
+          onclick="window.location.href='./html/jobspage.html'"
+        >
+          Jobs
+        </button>
+      </div>
+    </div>
+
+    <!-- Image -->
+    <div class="hero-image">
+      <img
+        src="https://cdn.yellowmessenger.com/fTJ81ssCMgQU1735134556963.jpg"
+        alt="Tech Team Image"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- Featured Jobs Section -->
+<section class="featured-jobs">
+  <div class="ctnr">
+    <h1 class="featured-jobs-heading">Featured Jobs</h1>
+    <div class="job-cards">
+      <!-- Job Card 1 -->
+      <div class="job-card">
+        <div class="job-header">
+          <div class="job-title">
+            Senior Frontend Developer
+            <span class="job-id" style="color: #1f2937; font-weight: bold"
+              >(Opp ID: 123456)</span
+            >
+          </div>
+          <img
+            src="https://cdn.yellowmessenger.com/Os9DYASAkN781734434975187.png"
+            class="job-icon"
+            alt="Job Icon"
+          />
+        </div>
+        <div class="job-duration-salary">
+          <span class="duration">⏳ 2 to 3 Months</span>
+          <span class="salary">💳 $80k - $120k</span>
+        </div>
+        <p class="job-description">
+          We're looking for an experienced Frontend Developer to join our
+          team...
+        </p>
+        <div class="job-tags">
+          <span class="tag">React</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Next.js</span>
+        </div>
+        <div class="job-actions">
+          <a href="./Html/jobspage.html" class="view-more">View More</a>
+          <a href="./Html/jobspage.html" class="provide-quote">Provide Quote</a>
+        </div>
+      </div>
+
+      <!-- Job Card 2 -->
+      <div class="job-card">
+        <div class="job-header">
+          <div class="job-title">
+            UX/UI Designer
+            <span class="job-id" style="color: #1f2937; font-weight: bold"
+              >(Opp ID: 256742)</span
+            >
+          </div>
+          <img
+            src="https://cdn.yellowmessenger.com/TrW6hswOkfhE1734434639099.png"
+            class="job-icon"
+            alt="Job Icon"
+          />
+        </div>
+        <div class="job-duration-salary">
+          <span class="duration">⏳ 1 to 2 Months</span>
+          <span class="salary">💳 $70k - $90k</span>
+        </div>
+        <p class="job-description">
+          Seeking a creative UX/UI Designer to craft exceptional user
+          experiences...
+        </p>
+        <div class="job-tags">
+          <span class="tag">Figma</span>
+          <span class="tag">Adobe XD</span>
+          <span class="tag">Prototyping</span>
+        </div>
+        <div class="job-actions">
+          <a href="./Html/jobspage.html" class="view-more">View More</a>
+          <a href="./Html/jobspage.html" class="provide-quote">Provide Quote</a>
+        </div>
+      </div>
+
+      <!-- Job Card 3 -->
+      <div class="job-card">
+        <div class="job-header">
+          <div class="job-title">
+            Backend Developer
+            <span class="job-id" style="color: #1f2937; font-weight: bold"
+              >(Opp ID: 546897)</span
+            >
+          </div>
+          <img
+            src="https://cdn.yellowmessenger.com/yTJ2NoyJUIOK1734434997701.jpg"
+            class="job-icon"
+            alt="Job Icon"
+          />
+        </div>
+        <div class="job-duration-salary">
+          <span class="duration">⏳ 2 to 3 Months</span>
+          <span class="salary">💳 $90k - $130k</span>
+        </div>
+        <p class="job-description">
+          Looking for a skilled Backend Developer with strong system design
+          experience...
+        </p>
+        <div class="job-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Python</span>
+          <span class="tag">AWS</span>
+        </div>
+        <div class="job-actions">
+          <a href="./Html/jobspage.html" class="view-more">View More</a>
+          <a href="./Html/jobspage.html" class="provide-quote">Provide Quote</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="slideshow-container">
+  <!-- Slide 1 -->
+  <div class="slide">
+    <img
+      src="https://cdn.yellowmessenger.com/N66cSlCfuoPK1737118600882.jpg"
+      alt="Slide 1"
+    />
+    <div class="text-overlay">
+      <h1 class="heading">Work Remotely</h1>
+      <p class="paragraph">Enjoy the freedom to work from anywhere.</p>
+      <!-- <button class="learn-more">Learn More</button> -->
+    </div>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="slide">
+    <img
+      src="https://cdn.yellowmessenger.com/eTpHvzq8n87v1737118701962.jpg"
+      alt="Slide 2"
+    />
+    <div class="text-overlay">
+      <h1 class="heading">Set Your Own Hours</h1>
+      <p class="paragraph">
+        Take control of your schedule and choose projects that fit your
+        lifestyle.
+      </p>
+      <!-- <button class="learn-more">Learn More</button> -->
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="slide">
+    <img
+      src="https://cdn.yellowmessenger.com/wF1touM34sZZ1737118773611.jpg"
+      alt="Slide 3"
+    />
+    <div class="text-overlay" style="color: black">
+      <!-- Inline style to apply black text -->
+      <h1 class="heading" style="color: white">Maximize Your Earnings</h1>
+      <p class="paragraph" style="color: rgb(255, 255, 255)">
+        Set your own value and grow your income.
+      </p>
+      <!-- <button class="learn-more">Learn More</button> -->
+    </div>
+  </div>
+  <!-- Slide 4 -->
+  <div class="slide">
+    <img
+      src="https://cdn.yellowmessenger.com/0PpB06rEanwK1737118804919.jpg"
+      alt="Slide 4"
+    />
+    <div class="text-overlay">
+      <h1 class="heading">Diverse Projects</h1>
+      <p class="paragraph">
+        From app development to cybersecurity, and everything in between. Get
+        involved in cutting-edge technology and expand your skillset.
+      </p>
+      <!-- <button class="learn-more">Learn More</button> -->
+    </div>
+  </div>
+  <!-- Slide 5 -->
+  <div class="slide">
+    <img
+      src="https://cdn.yellowmessenger.com/sFfAS64JLP5K1737118835204.jpg"
+      alt="Slide 5"
+    />
+    <div class="text-overlay" style="color: black">
+      <!-- Inline style to apply black text -->
+      <h1 class="heading" style="color: white">Set Your Own Schedule</h1>
+      <p class="paragraph" style="color: white">
+        Be your own boss! Work when it fits into your life and choose projects
+        that match your interests.
+      </p>
+      <!-- <button class="learn-more">Learn More</button> -->
+    </div>
+  </div>
+  <!-- Slide 6 -->
+  <div class="slide">
+    <img
+      src="https://cdn.yellowmessenger.com/7BhWIuk8fTl81737118868254.jpg"
+      alt="Slide 6"
+    />
+    <div class="text-overlay">
+      <h1 class="heading">Unlimited Earning Potential</h1>
+      <p class="paragraph">
+        Set your own rates, choose your clients, and earn more by working on the
+        projects you love.
+      </p>
+      <!-- <button class="learn-more">Learn More</button> -->
+    </div>
+  </div>
+  <!-- Slide 7 -->
+  <div class="slide">
+    <img
+      src="https://cdn.yellowmessenger.com/rCBIMsVBcJrR1737119083870.jpg"
+      alt="Slide 7"
+    />
+    <div class="text-overlay">
+      <h1 class="heading">Work From Anywhere</h1>
+      <p class="paragraph">
+        Say goodbye to the office grind. Work remotely from the comfort of your
+        home or while traveling.
+      </p>
+      <!-- <button class="learn-more">Learn More</button> -->
+    </div>
+  </div>
+  <!-- Slide 8 -->
+  <div class="slide">
+    <img
+      src="https://cdn.yellowmessenger.com/PcnFac57Q2Mr1737119124241.jpg"
+      alt="Slide 8"
+    />
+    <div class="text-overlay">
+      <h1 class="heading">Focusing on the Future</h1>
+      <p class="paragraph">Shape the future of work, one project at a time.</p>
+      <!-- <button class="learn-more">Learn More</button> -->
+    </div>
+  </div>
+
+  <!-- Navigation Arrows -->
+  <div class="navigation">
+    <span class="arrow prev" onclick="changeSlide(-1)">&#x276E;</span>
+    <span class="counter">01/03</span>
+    <span class="arrow next" onclick="changeSlide(1)">&#x276F;</span>
+  </div>
+</div>
+
+<!-- Stats Section -->
+<section class="stats">
+  <div class="ctnr">
+    <div class="stat">
+      <i class="fas fa-building"></i>
+      <h3>10,000+</h3>
+      <p>Companies Registered</p>
+    </div>
+    <div class="stat">
+      <i class="fas fa-briefcase"></i>
+      <h3>50,000+</h3>
+      <p>Active Jobs</p>
+    </div>
+    <div class="stat">
+      <i class="fas fa-users"></i>
+      <h3>100,000+</h3>
+      <p>Freelancers</p>
+    </div>
+    <div class="stat">
+      <i class="fas fa-globe"></i>
+      <h3>150+</h3>
+      <p>Countries</p>
+    </div>
+  </div>
+
+  <!-- Image Section -->
+  <section class="city-view">
+    <div class="city-view-ctnr">
+      <!-- Contact Us Button -->
+      <a href="#contact" class="contact-us-btn" id="contactBtn2">Contact Us</a>
+
+      <!-- Image -->
+      <img
+        src="https://cdn.yellowmessenger.com/DRYZnbb2bjaA1734073469293.png"
+        alt="City View"
+        class="city-image"
+      />
+
+      <!-- Text Overlay -->
+      <div class="text-overlay">
+        <p class="get-started-heading">Get Started Today</p>
+        <!-- This is the first text in paragraph -->
+        <h1 class="get-started-description">
+          Sign up now and connect with top clients for rewarding tech projects!
+        </h1>
+        <!-- This is the second text in heading -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Technology Section -->
+  <section class="technology">
+    <div class="ctnr">
+      <div class="custom-heading">
+        Technological Solutions <br />
+        at GIGZERA
+      </div>
+      <div class="scroll-container">
+        <div class="box analytics">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Analytics</span>
+        </div>
+        <div class="box applications">
+          <i class="fa-solid fa-rocket"></i>
+          <span>Applications</span>
+        </div>
+        <div class="box ai">
+          <i class="fa-solid fa-brain"></i>
+          <span>Artificial Intelligence</span>
+        </div>
+        <div class="box business-process">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Business Process</span>
+        </div>
+        <div class="box blockchain">
+          <i class="fa-solid fa-link"></i>
+          <span>Blockchain</span>
+        </div>
+        <div class="box cloud">
+          <i class="fa-solid fa-cloud"></i>
+          <span>Cloud</span>
+        </div>
+        <div class="box consulting">
+          <i class="fa-solid fa-user-tie"></i>
+          <span>Consulting</span>
+        </div>
+        <div class="box cybersecurity">
+          <i class="fa-solid fa-shield-virus"></i>
+          <span>Cybersecurity</span>
+        </div>
+        <div class="box data-science">
+          <i class="fa-solid fa-tachograph-digital"></i>
+          <span>Data Science</span>
+        </div>
+        <div class="box database-management">
+          <i class="fa-solid fa-database"></i>
+          <span>Database Management</span>
+        </div>
+        <div class="box digital-experience">
+          <i class="fa-solid fa-vr-cardboard"></i>
+          <span>Digital Experience</span>
+        </div>
+        <div class="box engineering">
+          <i class="fa-solid fa-gears"></i>
+          <span>Engineering</span>
+        </div>
+        <div class="box iot">
+          <i class="fa-solid fa-diagram-project"></i>
+          <span>Internet of Things (IoT)</span>
+        </div>
+        <div class="box machine-learning">
+          <i class="fa-solid fa-robot"></i>
+          <span>Machine Learning</span>
+        </div>
+        <div class="box networks">
+          <i class="fa-solid fa-wifi"></i>
+          <span>Networks</span>
+        </div>
+        <div class="box new-it">
+          <i class="fa-solid fa-laptop"></i>
+          <span>New IT</span>
+        </div>
+        <div class="box sustainability">
+          <i class="fa-brands fa-envira"></i>
+          <span>Sustainability</span>
+        </div>
+        <div class="box system-maintenance">
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+          <span>System Maintenance</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Trusted by Leading Companies Section -->
+  <section class="trusted-companies">
+    <div class="ctnr">
+      <h2>Trusted by Leading Companies</h2>
+      <br />
+      <div class="company-logos">
+        <img
+          src="https://cdn.yellowmessenger.com/YFmJllL3KQUw1734508230376.png"
+          alt="Company 1 Logo"
+        />
+        <img
+          src="https://cdn.yellowmessenger.com/0ZQiMPmwmDMk1734508199342.jpg"
+          alt="Company 2 Logo"
+        />
+        <img
+          src="https://cdn.yellowmessenger.com/kUkyNR7s50n51734508252859.png"
+          alt="Company 3 Logo"
+        />
+        <img
+          src="https://cdn.yellowmessenger.com/tizQzciFLosG1734508268818.jpeg"
+          alt="Company 4 Logo"
+        />
+      </div>
+    </div>
+  </section>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const findJobBtns = document.getElementsByClassName("findajob-btn");
+
+    // Add click event to all buttons with the class "findajob-btn"
+    Array.from(findJobBtns).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        window.location.href = "{% url 'findajob' %}";
+      });
+    });
+  });
+</script>
+{% endblock %}
+<!-- js -->
+{% block js %}
+<script src="{% static 'js/index.js' %}"></script>
+{% endblock %}
