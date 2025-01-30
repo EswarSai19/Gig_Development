@@ -62,6 +62,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// profile section starts
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("profile-trigger")
+    .addEventListener("click", toggleProfileMenu);
+
+  function toggleProfileMenu() {
+    console.log("I am inside the profile menu function");
+    const menu = document.getElementById("profile-menu");
+    menu.classList.toggle("hidden");
+  }
+});
+
 // start
 // pop up js code for contact us
 document.addEventListener("DOMContentLoaded", function () {

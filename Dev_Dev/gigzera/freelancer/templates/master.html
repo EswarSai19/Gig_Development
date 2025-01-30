@@ -20,15 +20,29 @@
   </head>
   <body class="bg-gray-50">
     <!-- Include Navbar -->
-    {% include 'navbar.html' %}
+    {% include 'fl_navbar.html' %}
 
     <!-- Page Content -->
     <main class="min-h-screen">{% block content %}{% endblock %}</main>
 
     <!-- Include Footer -->
-    {% include 'footer.html' %}
+    {% include 'fl_footer.html' %}
     <!-- JS -->
     <script>
+      // Profile toggle function
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("profile-trigger")
+          .addEventListener("click", toggleProfileMenu);
+
+        function toggleProfileMenu() {
+          console.log("I am inside the profile menu function");
+          const menu = document.getElementById("profile-menu");
+          menu.classList.toggle("hidden");
+        }
+      });
+
+      // contact Sidebar toggle function
       document.addEventListener("DOMContentLoaded", function () {
         const contactBtn = document.getElementById("contactBtn");
         const contactBtn3 = document.getElementById("contactBtn3");

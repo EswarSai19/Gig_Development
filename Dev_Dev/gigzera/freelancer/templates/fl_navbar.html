@@ -69,9 +69,9 @@
 <!-- <link rel="stylesheet" href="{% static 'css/tailwind.css' %}" /> -->
 {% endblock %}
 
-<header class="header">
+<!-- <header class="header">
   <div class="logo">
-    <a href="{% url 'freelancer_index' %}">
+    <a href="{% url 'fl_index' %}">
       <img
         class="w-[130px] h-[50px] cursor-pointer"
         src="https://cdn.yellowmessenger.com/XzSBlvSXqsrB1735194961367.png"
@@ -88,11 +88,11 @@
     <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
   </div>
   <nav class="nav">
-    <a href="{% url 'freelancer_index' %}">Home</a>
-    <a href="{% url 'freelancer_jobs' %}">Jobs</a>
-    <a href="{% url 'freelancer_aboutus' %}">About Us</a>
+    <a href="{% url 'fl_index' %}">Home</a>
+    <a href="{% url 'fl_jobs' %}">Jobs</a>
+    <a href="{% url 'fl_aboutus' %}">About Us</a>
     <a href="javascript:void(0);" id="contactBtn">Contact Us</a>
-    <a href="{% url 'freelancer_industries' %}">Industries</a>
+    <a href="{% url 'fl_industries' %}">Industries</a>
     <div class="profile-dropdown">
       <div class="profile-trigger" id="profile-trigger">
         <div class="profile-avatar">
@@ -104,13 +104,99 @@
         <p id="profile-name-dropdown">Guest</p>
         <p id="profile-email-dropdown">guest@example.com</p>
         <hr />
-        <a href="{% url 'freelancer_profile' %}"> Profile</a>
+        <a href="{% url 'fl_profile' %}"> Profile</a>
         <hr />
         <a href="#" class="logout">Logout</a>
       </div>
     </div>
   </nav>
-</header>
+</header> -->
+
+<div class="w-full bg-white/95 backdrop-blur-sm shadow-sm z-[-1] !top-0">
+  <div class="container mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-12">
+        <a href="{% url 'fl_index' %}">
+          <img
+            class="w-[130px] h-[50px] cursor-pointer"
+            src="https://cdn.yellowmessenger.com/XzSBlvSXqsrB1735194961367.png"
+            alt="Gigzera Logo"
+          />
+        </a>
+        <div class="hidden lg:flex relative w-96">
+          <input
+            type="text"
+            placeholder="Search jobs by skills or category..."
+            class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+          />
+          <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
+        </div>
+      </div>
+      <nav class="hidden lg:flex items-center gap-8">
+        <a
+          href="{% url 'fl_index' %}"
+          class="text-gray-600 hover:text-blue-600 cursor-pointer"
+          >Home</a
+        >
+        <a
+          href="{% url 'fl_jobs' %}"
+          class="text-gray-600 hover:text-blue-600 cursor-pointer"
+          >Jobs</a
+        >
+        <a
+          href="{% url 'fl_aboutus' %}"
+          class="text-gray-600 hover:text-blue-600 cursor-pointer"
+          >About Us</a
+        >
+        <a
+          id="contactBtn"
+          class="text-gray-600 hover:text-blue-600 cursor-pointer"
+          >Contact Us</a
+        >
+        <a
+          href="{% url 'fl_industries' %}"
+          class="text-gray-600 hover:text-blue-600 cursor-pointer"
+          >Industries</a
+        >
+        <div class="flex gap-4">
+          <div class="relative cursor-pointer">
+            <div class="flex items-center gap-2" id="profile-trigger">
+              <div
+                class="w-9 h-9 rounded-full bg-blue-500 text-white flex justify-center items-center text-lg font-bold"
+              >
+                <span id="profile-initials">Guest</span>
+              </div>
+              <i class="fa fa-caret-down"></i>
+            </div>
+            <div
+              class="hidden absolute top-12 right-0 w-48 bg-white shadow-lg rounded-lg py-2 z-50"
+              id="profile-menu"
+            >
+              <p class="mx-5 text-gray-700" id="profile-name-dropdown">Guest</p>
+              <p class="mx-5 text-gray-700" id="profile-email-dropdown">
+                guest@example.com
+              </p>
+              <hr class="my-2 border-t border-gray-200" />
+              <a
+                href="{% url 'fl_profile' %}"
+                class="block px-5 py-2 text-gray-800 hover:bg-gray-100"
+                >Profile</a
+              >
+              <hr class="my-2 border-t border-gray-200" />
+              <a href="#" class="block px-5 py-2 text-red-500 hover:bg-gray-100"
+                >Logout</a
+              >
+            </div>
+          </div>
+        </div>
+      </nav>
+      <button class="lg:hidden text-gray-600">
+        <i class="fa-solid fa-bars text-2xl"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- Popup Overlay -->
 <div id="popupOverlay"></div>
 
