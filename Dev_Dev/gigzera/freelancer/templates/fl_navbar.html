@@ -158,37 +158,41 @@
           class="text-gray-600 hover:text-blue-600 cursor-pointer"
           >Industries</a
         >
-        <div class="flex gap-4">
-          <div class="relative cursor-pointer">
-            <div class="flex items-center gap-2" id="profile-trigger">
-              <div
-                class="w-9 h-9 rounded-full bg-blue-500 text-white flex justify-center items-center text-lg font-bold"
-              >
-                <span id="profile-initials">Guest</span>
-              </div>
-              <i class="fa fa-caret-down"></i>
-            </div>
+        <!-- <div class="flex gap-4"> -->
+        <div
+          class="flex gap-4 relative cursor-pointer z-50"
+          style="z-index: 50"
+        >
+          <div class="flex items-center gap-2" id="profile-trigger">
             <div
-              class="hidden absolute top-12 right-0 w-48 bg-white shadow-lg rounded-lg py-2 z-50"
-              id="profile-menu"
+              class="w-9 h-9 rounded-full bg-blue-500 text-white flex justify-center items-center text-lg font-bold"
             >
-              <p class="mx-5 text-gray-700" id="profile-name-dropdown">Guest</p>
-              <p class="mx-5 text-gray-700" id="profile-email-dropdown">
-                guest@example.com
-              </p>
-              <hr class="my-2 border-t border-gray-200" />
-              <a
-                href="{% url 'fl_profile' %}"
-                class="block px-5 py-2 text-gray-800 hover:bg-gray-100"
-                >Profile</a
-              >
-              <hr class="my-2 border-t border-gray-200" />
-              <a href="#" class="block px-5 py-2 text-red-500 hover:bg-gray-100"
-                >Logout</a
-              >
+              <span id="profile-initials">Guest</span>
             </div>
+            <i class="fa fa-caret-down"></i>
+          </div>
+          <div
+            class="hidden absolute top-12 right-0 w-48 bg-white shadow-lg rounded-lg py-2"
+            style="z-index: 1000"
+            id="profile-menu"
+          >
+            <p class="mx-5 text-gray-700" id="profile-name-dropdown">Guest</p>
+            <p class="mx-5 text-gray-700" id="profile-email-dropdown">
+              guest@example.com
+            </p>
+            <hr class="my-2 border-t border-gray-200" />
+            <a
+              href="{% url 'fl_profile' %}"
+              class="block px-5 py-2 text-gray-800 hover:bg-gray-100"
+              >Profile</a
+            >
+            <hr class="my-2 border-t border-gray-200" />
+            <a href="#" class="block px-5 py-2 text-red-500 hover:bg-gray-100"
+              >Logout</a
+            >
           </div>
         </div>
+        <!-- </div> -->
       </nav>
       <button class="lg:hidden text-gray-600">
         <i class="fa-solid fa-bars text-2xl"></i>

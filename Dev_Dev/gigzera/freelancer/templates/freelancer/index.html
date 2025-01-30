@@ -18,12 +18,7 @@
         and exciting projects.
       </p>
       <div class="hero-actions">
-        <button
-          class="btn-primary"
-          onclick="window.location.href='./html/jobspage.html'"
-        >
-          Jobs
-        </button>
+        <button class="btn-primary jobs-btn">Jobs</button>
       </div>
     </div>
 
@@ -435,12 +430,12 @@
 </section>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const findJobBtns = document.getElementsByClassName("findajob-btn");
+    const findJobBtns = document.getElementsByClassName("jobs-btn");
 
     // Add click event to all buttons with the class "findajob-btn"
     Array.from(findJobBtns).forEach((btn) => {
       btn.addEventListener("click", () => {
-        window.location.href = "{% url 'findajob' %}";
+        window.location.href = "{% url 'fl_jobs' %}";
       });
     });
   });

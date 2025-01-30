@@ -1,0 +1,513 @@
+{% extends 'master.html' %} {% load static %}
+<!-- Title -->
+{% block title %}Profile{% endblock %}
+<!-- CSS -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %}
+<!-- Main -->
+{% block content %}
+<div class="main-container">
+  <!-- Left Container -->
+  <div class="left-container">
+    <div class="title_heading">
+      <h1>Business Analyst</h1>
+      <button
+        class="project-tracking-btn"
+        onclick="location.href='../html/GigzeraProjectTrackingGigzDashboard.html'"
+      >
+        <i class="fa-solid fa-chart-line mr-2"></i> Project Tracking
+      </button>
+    </div>
+    <!-- Professional Summary -->
+    <div class="section">
+      <div class="section-header">
+        <h2>Professional Summary</h2>
+        <button
+          class="small-btn-summary"
+          onclick="editSection('professional-summary')"
+        >
+          <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+      </div>
+      <div class="editable-box-summary" id="professional-summary">
+        <div class="edit-btn-container-summary">
+          <!-- <button class="small-btn edit-btn" onclick="editSection('professional-summary')"> <i class="fa-solid fa-pen-to-square"></i></button> -->
+        </div>
+        <p id="summary-text">
+          Results-oriented Business Analyst with 5+ years of experience in
+          [industry]. Skilled in process improvement, data analysis, and
+          requirements gathering. Proven ability to bridge the gap between
+          business and IT.
+        </p>
+        <textarea
+          id="summary-input"
+          style="display: none"
+          rows="4"
+          cols="50"
+          placeholder="Edit your professional summary here..."
+        ></textarea>
+        <button id="save-summary" style="display: none" onclick="saveSummary()">
+          Save
+        </button>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="section">
+      <div class="skills-header">
+        <h2>Skills</h2>
+        <i
+          class="fa-solid fa-pen-to-square edit-icon"
+          onclick="toggleEditMode()"
+        ></i>
+        <button
+          class="save-button-skills"
+          onclick="saveSkills()"
+          style="display: none"
+        >
+          Save
+        </button>
+      </div>
+      <div class="editable-box" id="skills">
+        <div class="skills-search">
+          <input
+            type="text"
+            id="new-skill"
+            placeholder="Add a skill..."
+            oninput="filterSkills(event)"
+            disabled
+          />
+        </div>
+        <div id="suggestions" class="suggestions-box"></div>
+      </div>
+      <div class="skills-list" id="skills-list">
+        <!-- Skill-experience pairs will be added here -->
+      </div>
+    </div>
+
+    <!-- Modal for add certificate-->
+    <!-- Certification Modal using Tailwind CSS -->
+    <div
+      id="addCertificateModal"
+      class="fixed inset-0 z-50 hidden overflow-y-auto bg-gray-900 bg-opacity-50"
+    >
+      <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-lg">
+          <div class="p-4 bg-gray-100 text-center">
+            <h5 class="text-xl font-bold text-blue-600">Add Certification</h5>
+          </div>
+          <div class="p-6">
+            <!-- File Upload Section -->
+            <div
+              class="file-upload-cert text-center border-2 border-dashed border-gray-300 p-4 rounded-lg"
+            >
+              <div
+                class="upload-area-cert cursor-pointer"
+                onclick="document.getElementById('file-input-cert').click()"
+              >
+                <span class="text-2xl">&#8682;</span>
+                <p class="mt-2">Drag and drop your certificate here</p>
+                <p class="text-gray-500 text-sm">
+                  Supported formats: PDF, PNG, JPG
+                </p>
+                <button
+                  class="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+                  type="button"
+                >
+                  Browse Files
+                </button>
+                <input
+                  type="file"
+                  id="file-input-cert"
+                  accept=".pdf, .png, .jpg"
+                  hidden
+                />
+              </div>
+              <!-- Display Uploaded File -->
+              <div
+                id="uploaded-file-cert"
+                class="hidden mt-4 bg-gray-100 p-3 rounded flex items-center justify-between"
+              >
+                <p class="flex items-center">
+                  <span class="mr-2">&#128462;</span
+                  ><span id="file-name-cert">File Name</span>
+                </p>
+                <span id="file-size-cert" class="text-sm text-gray-600"
+                  >File Size</span
+                >
+                <span class="text-red-500 cursor-pointer" onclick="removeFile()"
+                  >&times;</span
+                >
+              </div>
+            </div>
+
+            <!-- Form Section -->
+            <form class="certification-form mt-4 space-y-3">
+              <label class="block" for="certification-name"
+                >Certification Name<span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="certification-name"
+                class="w-full border p-2 rounded"
+                placeholder="Enter Certification Name"
+                required
+              />
+
+              <label class="block" for="issue-date"
+                >Issue Date<span class="text-red-500">*</span></label
+              >
+              <input
+                type="date"
+                id="issue-date"
+                class="w-full border p-2 rounded"
+                required
+              />
+
+              <label class="block" for="expiry-date">Expiry Date</label>
+              <input
+                type="date"
+                id="expiry-date"
+                class="w-full border p-2 rounded"
+              />
+
+              <label class="block" for="certification-id"
+                >Certification ID</label
+              >
+              <input
+                type="text"
+                id="certification-id"
+                class="w-full border p-2 rounded"
+                placeholder="Enter Certification ID (if applicable)"
+              />
+
+              <label class="block" for="certification-url"
+                >Certification URL</label
+              >
+              <input
+                type="text"
+                id="certification-url"
+                class="w-full border p-2 rounded"
+                placeholder="Enter Certification URL (if applicable)"
+              />
+            </form>
+          </div>
+          <div class="flex justify-end p-4 border-t">
+            <button
+              type="button"
+              class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+              onclick="closeModal()"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              id="save-button"
+              class="px-4 py-2 bg-blue-500 text-white rounded"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="section-cert-emp">
+      <h2>Certifications</h2>
+      <button
+        class="add-btn"
+        data-bs-toggle="modal"
+        data-bs-target="#addCertificateModal"
+      >
+        <i class="fa-solid fa-plus mr-2"></i> Add Certification
+      </button>
+    </div>
+    <div class="box-container" id="certifications">
+      <div class="box">
+        <div class="content">
+          <h3>PMP Certification</h3>
+          <p>Project Management Institute | 2025</p>
+        </div>
+        <div class="actions">
+          <button class="edit-btn" onclick="editItem(this)">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button class="delete-btn" onclick="deleteItem(this)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Employment History -->
+    <div class="section-cert-emp">
+      <h2>Employment History</h2>
+      <button
+        class="add-btn"
+        data-bs-toggle="modal"
+        data-bs-target="#workHistoryModal"
+      >
+        <i class="fa-solid fa-plus mr-2"></i> Add Experience
+      </button>
+    </div>
+    <div class="box-container" id="employment">
+      <div class="box">
+        <div class="content">
+          <h3>Senior Business Analyst</h3>
+          <p><strong>Tech Solutions Inc.</strong> | 2023 - Present</p>
+          <p>
+            Led cross-functional teams in implementing business solutions and
+            improving operational efficiency.
+          </p>
+        </div>
+        <div class="actions">
+          <button class="edit-btn" onclick="editItem(this)">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button class="delete-btn" onclick="deleteItem(this)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <!-- Work History Modal using Tailwind CSS -->
+  <div
+    id="workHistoryModal"
+    class="fixed inset-0 z-50 hidden overflow-y-auto bg-gray-900 bg-opacity-50"
+  >
+    <div class="flex items-center justify-center min-h-screen">
+      <div class="bg-white rounded-lg shadow-lg w-full max-w-lg">
+        <div class="p-4 bg-gray-100 text-center">
+          <h2 class="text-xl font-bold text-blue-600">Add Work History</h2>
+        </div>
+        <div class="p-6">
+          <form id="workHistoryForm" class="space-y-4">
+            <!-- Company and Title -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block"
+                  >Company <span class="text-red-500">*</span></label
+                >
+                <input
+                  type="text"
+                  id="company"
+                  class="w-full border p-2 rounded"
+                  placeholder="Enter company name..."
+                  required
+                />
+              </div>
+              <div>
+                <label class="block"
+                  >Title <span class="text-red-500">*</span></label
+                >
+                <input
+                  type="text"
+                  id="title"
+                  class="w-full border p-2 rounded"
+                  placeholder="Enter your job title..."
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- City and Country -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block"
+                  >City <span class="text-red-500">*</span></label
+                >
+                <input
+                  type="text"
+                  id="city"
+                  class="w-full border p-2 rounded"
+                  placeholder="Enter city name..."
+                  required
+                />
+              </div>
+              <div>
+                <label class="block"
+                  >Country <span class="text-red-500">*</span></label
+                >
+                <input
+                  type="text"
+                  id="country"
+                  class="w-full border p-2 rounded"
+                  placeholder="Enter country name..."
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Worked From and Worked Till -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block"
+                  >Worked From <span class="text-red-500">*</span></label
+                >
+                <input
+                  type="date"
+                  id="workedFrom"
+                  class="w-full border p-2 rounded"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block"
+                  >Worked Till <span class="text-red-500">*</span></label
+                >
+                <input
+                  type="date"
+                  id="workedTill"
+                  class="w-full border p-2 rounded"
+                />
+              </div>
+            </div>
+
+            <!-- Checkbox -->
+            <div class="flex items-center space-x-2">
+              <input type="checkbox" id="currentlyWorking" class="w-4 h-4" />
+              <label for="currentlyWorking">I currently work here</label>
+            </div>
+
+            <!-- Description -->
+            <div>
+              <label class="block">Description</label>
+              <textarea
+                id="description"
+                class="w-full border p-2 rounded"
+                placeholder="Describe your role and key accomplishments..."
+              ></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="flex justify-end p-4 border-t">
+          <button
+            type="button"
+            class="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+            onclick="closeWorkHistoryModal()"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            id="saveBtn"
+            class="px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Container -->
+  <div class="right-container">
+    <div class="profile-card">
+      <!-- Profile Details Section -->
+      <div class="profile-header">
+        <div class="profile-img-container">
+          <img
+            id="profile-img"
+            src="https://via.placeholder.com/100"
+            alt="Profile Picture"
+            class="profile-img"
+            onclick="editImage()"
+          />
+          <input
+            type="file"
+            id="file-input"
+            class="profile-img-input"
+            accept="image/*"
+            onchange="uploadImage()"
+            style="display: none"
+          />
+        </div>
+        <div class="profile-details">
+          <h3 id="profile-name">John Doe</h3>
+          <p id="profile-job">Senior Business Analyst</p>
+        </div>
+      </div>
+      <div class="profile-contact">
+        <p id="profile-email">
+          <a href="mailto:john.doe@example.com"
+            ><i class="fa-solid fa-envelope"></i> john.doe@example.com</a
+          >
+        </p>
+        <p id="profile-phone">
+          <i class="fa-solid fa-phone"></i> +1 (555) 123-4567
+        </p>
+        <p id="profile-linkedin">
+          <i class="fa-solid fa-share-from-square"></i>
+          www.linkedin.com/in/username
+        </p>
+      </div>
+      <!-- <div class="rating" id="rating-container">
+            <label><b>Rating: </b></label>
+            <div class="stars">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-regular fa-star"></i>
+              <div class="rating-text">(4.0 points)</div>
+            </div>
+          </div> -->
+      <div class="edit-btn-container">
+        <button class="small-btn-edit" onclick="enableEditing()">
+          <span><i class="fa-solid fa-pen-to-square"></i></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Edit Profile Form (Placed Below the Profile Card) -->
+    <div id="edit-profile-form" style="display: none">
+      <div class="edit-section">
+        <label>Edit Name:</label>
+        <input type="text" id="edit-name" value="John Doe" />
+
+        <label>Edit Job Title:</label>
+        <input type="text" id="edit-job" value="Senior Business Analyst" />
+
+        <label>Edit Email:</label>
+        <input type="email" id="edit-email" value="john.doe@example.com" />
+
+        <label>Edit Phone:</label>
+        <input type="text" id="edit-phone" value="+1 (555) 123-4567" />
+
+        <label>Edit Professional Profile:</label>
+        <input
+          type="text"
+          id="edit-profile-link"
+          value="www.linkedin.com/in/username"
+        />
+
+        <label>Upload New Image:</label>
+        <input
+          type="file"
+          id="file-input-edit"
+          class="profile-img-input"
+          accept="image/*"
+          onchange="uploadImageEdit()"
+        />
+
+        <!-- Delete Photo Button -->
+        <button class="small-btn delete-photo-btn" onclick="deletePhoto()">
+          Delete Photo
+        </button>
+
+        <button class="save-btn" onclick="saveEdit()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+<!-- JavaScript -->
+{% block js %}
+<script src="{% static 'js/test_profile.js' %}"></script>
+{% endblock %}

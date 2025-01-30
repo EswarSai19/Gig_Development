@@ -1,0 +1,15 @@
+<div class="p-4">
+  <h2 class="text-lg font-bold">{{ job.title }}</h2>
+  <p class="text-gray-500 text-sm">Opportunity ID: {{ job.opportunityId }}</p>
+  <p><strong>Duration:</strong> {{ job.duration }}</p>
+  <p><strong>Budget:</strong> 💳 {{ job.budget }}</p>
+  <p class="mt-2"><strong>Description:</strong> {{ job.description }}</p>
+  <p class="mt-2"><strong>Required Skills:</strong></p>
+  <div class="job-tags mt-1">
+    {% for tag in job.skills_list %}
+    <span class="tag bg-blue-100 text-blue-700 px-2 py-1 rounded"
+      >{{ tag }}</span
+    >
+    {% endfor %}
+  </div>
+</div>
