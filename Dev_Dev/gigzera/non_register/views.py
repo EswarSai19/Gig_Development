@@ -4,17 +4,22 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.http import HttpResponse
 from django.contrib import messages
 import json
-from .models import Contact, Freelancer, Skill, Certificate, ProjectsDisplay
+from .models import Contact, Freelancer, Skill, Certificate
 from .forms import ContactForm, FreelancerForm, SkillFormSet, CertificateFormSet
-
+from freelancer.models import ProjectsDisplay
 def index(request):
-    return render(request, 'non_register/index.html')
-
-def jobs(request):
-    jobs = ProjectsDisplay.objects.all()
+    jobs = ProjectsDisplay.objects.all().order_by('-created_at')[0:3]
     for job in jobs:
         job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
     context = {'jobs': jobs}
+    return render(request, 'non_register/index.html', context)
+
+def jobs(request):
+    jobs = ProjectsDisplay.objects.all().order_by('-created_at')
+    for job in jobs:
+        job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
+    context = {'jobs': jobs}
+    print("Jobs: ", jobs)
     return render(request, 'non_register/jobs.html', context)
 
 def aboutus(request):

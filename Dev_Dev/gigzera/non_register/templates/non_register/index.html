@@ -39,106 +39,34 @@
     <h1 class="featured-jobs-heading">Featured Jobs</h1>
     <div class="job-cards">
       <!-- Job Card 1 -->
+      {% for job in jobs %}
       <div class="job-card">
         <div class="job-header">
           <div class="job-title">
-            Senior Frontend Developer
+            {{job.title}}
             <span class="job-id" style="color: #1f2937; font-weight: bold"
-              >(Opp ID: 123456)</span
+              >(Opp ID: {{job.opportunityId}})</span
             >
           </div>
-          <img
-            src="https://cdn.yellowmessenger.com/Os9DYASAkN781734434975187.png"
-            class="job-icon"
-            alt="Job Icon"
-          />
         </div>
         <div class="job-duration-salary">
-          <span class="duration">⏳ 2 to 3 Months</span>
-          <span class="salary">💳 $80k - $120k</span>
+          <span class="duration">⏳ {{job.duration}}</span>
+          <span class="salary">💳 {{job.budget}}</span>
         </div>
-        <p class="job-description">
-          We're looking for an experienced Frontend Developer to join our
-          team...
+        <p class="job-description mt-2">
+          {{job.description | truncatewords:20}}
         </p>
         <div class="job-tags">
-          <span class="tag">React</span>
-          <span class="tag">TypeScript</span>
-          <span class="tag">Next.js</span>
+          {% for tag in job.skills_list %}
+          <span class="tag">{{tag}}</span>
+          {% endfor %}
         </div>
-        <div class="job-actions">
-          <a href="./Html/jobspage.html" class="view-more">View More</a>
-          <a href="./Html/jobspage.html" class="provide-quote">Provide Quote</a>
-        </div>
-      </div>
-
-      <!-- Job Card 2 -->
-      <div class="job-card">
-        <div class="job-header">
-          <div class="job-title">
-            UX/UI Designer
-            <span class="job-id" style="color: #1f2937; font-weight: bold"
-              >(Opp ID: 256742)</span
-            >
-          </div>
-          <img
-            src="https://cdn.yellowmessenger.com/TrW6hswOkfhE1734434639099.png"
-            class="job-icon"
-            alt="Job Icon"
-          />
-        </div>
-        <div class="job-duration-salary">
-          <span class="duration">⏳ 1 to 2 Months</span>
-          <span class="salary">💳 $70k - $90k</span>
-        </div>
-        <p class="job-description">
-          Seeking a creative UX/UI Designer to craft exceptional user
-          experiences...
-        </p>
-        <div class="job-tags">
-          <span class="tag">Figma</span>
-          <span class="tag">Adobe XD</span>
-          <span class="tag">Prototyping</span>
-        </div>
-        <div class="job-actions">
-          <a href="./Html/jobspage.html" class="view-more">View More</a>
-          <a href="./Html/jobspage.html" class="provide-quote">Provide Quote</a>
+        <div class="job-actions mt-4">
+          <a href="{% url 'signup' %}" class="view-more">View More</a>
+          <a href="{% url 'signup' %}" class="provide-quote">Provide Quote</a>
         </div>
       </div>
-
-      <!-- Job Card 3 -->
-      <div class="job-card">
-        <div class="job-header">
-          <div class="job-title">
-            Backend Developer
-            <span class="job-id" style="color: #1f2937; font-weight: bold"
-              >(Opp ID: 546897)</span
-            >
-          </div>
-          <img
-            src="https://cdn.yellowmessenger.com/yTJ2NoyJUIOK1734434997701.jpg"
-            class="job-icon"
-            alt="Job Icon"
-          />
-        </div>
-        <div class="job-duration-salary">
-          <span class="duration">⏳ 2 to 3 Months</span>
-          <span class="salary">💳 $90k - $130k</span>
-        </div>
-        <p class="job-description">
-          Looking for a skilled Backend Developer with strong system design
-          experience...
-        </p>
-        <div class="job-tags">
-          <span class="tag">Node.js</span>
-          <span class="tag">Python</span>
-          <span class="tag">AWS</span>
-        </div>
-        <div class="job-actions">
-          <a href="./Html/jobspage.html" class="view-more">View More</a>
-          <a href="./Html/jobspage.html" class="provide-quote">Provide Quote</a>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>

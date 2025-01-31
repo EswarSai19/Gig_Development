@@ -124,86 +124,93 @@ body {
 .job-cards {
     display: flex;
     justify-content: center;
-    /* Centers the job cards horizontally */
     gap: 60px;
     flex-wrap: nowrap;
-    /* Prevents wrapping */
+    align-items: stretch;
+    /* Ensures all cards are of equal height */
 }
 
 .featured-jobs .job-card {
     background: #728c98;
-    /* Default background color */
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 25px;
-    /* Default padding */
     text-align: left;
     flex: 0 0 calc(33.33% - 20px);
-    /* Ensures equal width for all job cards */
     transition: background-color 0.3s ease, transform 0.2s ease;
-    /* Smooth transition */
     position: relative;
-    /* To position the icon */
+    display: flex;
+    flex-direction: column;
+    /* Ensures content stacks properly */
 }
 
 .featured-jobs .job-card:hover {
     background-color: #f9fafb;
-    /* Light green on hover */
     transform: translateY(-5px);
-    /* Lift the card slightly */
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-    /* Enhanced shadow effect on hover */
 }
 
+/* Ensuring all headers are aligned */
 .job-header {
     display: flex;
     justify-content: space-between;
-    /* Distribute space between title and icon */
     align-items: center;
     margin-bottom: 10px;
 }
 
+/* Title consistency */
 .job-title {
     font-size: 18px;
     font-weight: bold;
     color: #1f2937;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
+    /* Prevents title overflow */
 }
 
-.job-id {
-    font-weight: bold;
-    color: #1f2937;
+/* Ensuring uniform description height */
+.job-description {
+    flex-grow: 1;
+    /* Pushes elements below evenly */
+    font-size: 14px;
+    color: #374151;
+    max-height: 3.2em;
+    /* Ensures two-line consistency */
+    overflow: hidden;
+    display: -webkit-box;
+    /* -webkit-line-clamp: 2; */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
 }
 
+/* Icon handling */
 .job-icon {
     width: 20px;
-    /* Icon size */
     height: 20px;
-    /* Icon size */
     position: absolute;
-    /* Position the icon inside the job card */
     top: 10px;
     right: 10px;
     opacity: 0;
-    /* Initially hide the icon */
     visibility: hidden;
-    /* Initially hide the icon */
     transition: opacity 0.3s ease, visibility 0s 0.3s;
-    /* Smooth transition */
 }
 
 .featured-jobs .job-card:hover .job-icon {
     opacity: 1;
-    /* Make the icon visible on hover */
     visibility: visible;
-    /* Ensure the icon is visible */
     transition: opacity 0.3s ease, visibility 0s 0s;
-    /* Smooth transition */
 }
 
-.job-duration-salary {
-    font-size: 14px;
-    color: #374151;
-    margin-bottom: 15px;
+/* Ensuring equal tag height and wrapping */
+.job-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: auto;
+    /* Pushes to bottom */
 }
 
 .job-tags .tag {
@@ -213,17 +220,18 @@ body {
     color: #0369a1;
     padding: 5px 10px;
     border-radius: 50px;
-    margin-right: 5px;
-    margin-bottom: 10px;
 }
 
+/* Button section aligned at bottom */
 .job-actions {
     display: flex;
     gap: 10px;
     justify-content: flex-start;
-    margin-top: 10px;
+    margin-top: auto;
+    /* Ensures buttons stay at the bottom */
 }
 
+/* Button styles */
 .view-more,
 .provide-quote {
     display: inline-block;
@@ -244,7 +252,6 @@ body {
 .view-more:hover {
     background-color: #e5e7eb;
     transform: scale(1.05);
-    /* Slight scale effect on hover */
 }
 
 .provide-quote {
@@ -255,7 +262,6 @@ body {
 .provide-quote:hover {
     background-color: #1d4ed8;
     transform: scale(1.05);
-    /* Slight scale effect on hover */
 }
 
 /* Slideshow Container */

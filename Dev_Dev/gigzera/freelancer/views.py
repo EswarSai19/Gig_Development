@@ -9,10 +9,14 @@ from .forms import ContactForm
 
 
 def index(request):
-    return render(request, 'freelancer/index.html')
+    jobs = ProjectsDisplay.objects.all().order_by('-created_at')[0:3]
+    for job in jobs:
+        job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
+    context = {'jobs': jobs}
+    return render(request, 'freelancer/index.html', context)
 
 def jobs(request):
-    jobs = ProjectsDisplay.objects.all()
+    jobs = ProjectsDisplay.objects.all().order_by('-created_at')[0:3]
     for job in jobs:
         job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
     context = {'jobs': jobs}
@@ -31,7 +35,7 @@ def test(request):
     return render(request, 'freelancer/test.html')
 
 def jobs_test(request):
-    jobs = ProjectsDisplay.objects.all()
+    jobs = ProjectsDisplay.objects.all().order_by('-created_at')
     for job in jobs:
         job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
     context = {'jobs': jobs}
