@@ -40,7 +40,8 @@ def login(request):
         try:
             user = Freelancer.objects.get(email=email)  # Get user by email
             if check_password(password, user.password):  # Check encrypted password
-                return render(request, 'non_register/index.html')
+                # return render(request, 'non_register/index.html')
+                return redirect('fl_index')  # Redirect to 'index' page after login
             else:
                 messages.error(request, 'Invalid credentials')
                 return redirect('login')  # Use redirect instead of render for better UX
