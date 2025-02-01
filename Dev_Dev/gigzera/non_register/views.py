@@ -4,9 +4,9 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.http import HttpResponse
 from django.contrib import messages
 import json
-from .models import Contact, Freelancer, Skill, Certificate
-from .forms import ContactForm, FreelancerForm, SkillFormSet, CertificateFormSet
-from freelancer.models import ProjectsDisplay
+from .models import Contact
+from .forms import ContactForm
+from freelancer.models import ProjectsDisplay, Freelancer, Skill
 def index(request):
     jobs = ProjectsDisplay.objects.all().order_by('-created_at')[0:3]
     for job in jobs:
@@ -45,10 +45,14 @@ def login(request):
         try:
             user = Freelancer.objects.get(email=email)  # Get user by email
             if check_password(password, user.password):  # Check encrypted password
-                # return render(request, 'non_register/index.html')
+                context = {
+                    'user': user,
+                    'skills': Skill.objects.filter(freelancer=user),
+                }
+                print(user.name, user.email)
                 return redirect('fl_index')  # Redirect to 'index' page after login
             else:
-                messages.error(request, 'Invalid credentials')
+                messages.error(request, 'Invalid credentials', context)
                 return redirect('login')  # Use redirect instead of render for better UX
         except Freelancer.DoesNotExist:
             messages.error(request, 'Invalid credentials')
