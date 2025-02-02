@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # apps
     'non_register',
     'freelancer',
+    'client',
 ]
 
 MIDDLEWARE = [

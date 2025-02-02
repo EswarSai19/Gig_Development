@@ -844,13 +844,29 @@ validateOtpButton.addEventListener("click", function () {
 });
 
 // select the other company
+// function toggleCustomCompanyInput() {
+//   const selectElement = document.getElementById("company-select");
+//   const customInput = document.getElementById("custom-company-input");
+//   if (selectElement.value === "custom") {
+//     customInput.classList.remove("hidden");
+//   } else {
+//     customInput.classList.add("hidden");
+//     document.getElementById("custom-company").value = ""; // Clear input
+//   }
+// }
+
 function toggleCustomCompanyInput() {
-  const selectElement = document.getElementById("company-select");
-  const customInput = document.getElementById("custom-company-input");
-  if (selectElement.value === "custom") {
-    customInput.classList.remove("hidden");
+  let companySelect = document.getElementById("company-select");
+  let customCompanyInputDiv = document.getElementById("custom-company-input");
+  let customCompanyInput = document.getElementById("custom-company");
+
+  if (companySelect.value === "custom") {
+    // Show custom input and add required attribute
+    customCompanyInputDiv.classList.remove("hidden");
+    customCompanyInput.setAttribute("required", "true");
   } else {
-    customInput.classList.add("hidden");
-    document.getElementById("custom-company").value = ""; // Clear input
+    // Hide custom input and remove required attribute
+    customCompanyInputDiv.classList.add("hidden");
+    customCompanyInput.removeAttribute("required");
   }
 }

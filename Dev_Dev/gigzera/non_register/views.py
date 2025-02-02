@@ -7,6 +7,8 @@ import json
 from .models import Contact
 from .forms import ContactForm
 from freelancer.models import ProjectsDisplay, Freelancer, Skill
+from client.models import Client
+
 def index(request):
     jobs = ProjectsDisplay.objects.all().order_by('-created_at')[0:3]
     for job in jobs:
@@ -135,40 +137,39 @@ def submit_freelancer(request):
         
     return render(request, "non_register/findajob.html")
 
+def submit_client(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        phone = request.POST.get("phone")
+        email = request.POST.get("email")
+        selected_company = request.POST.get("selected_company")
+        other_company = request.POST.get("other_company")
+        designation = request.POST.get("designation")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
+        social_media = request.POST.get("social_media")
 
-# def submit_freelancer(request):
-#     if request.method == 'POST':
-#         freelancer_form = FreelancerForm(request.POST, request.FILES)
-        
-#         if freelancer_form.is_valid():
-#             freelancer = freelancer_form.save(commit=False)
-#             freelancer.user = request.user  # Associate with the logged-in user, if needed
-#             freelancer.save()
+        # Assign the non-empty value
+        company = other_company if other_company else selected_company
 
-#             skill_formset = SkillFormSet(request.POST, instance=freelancer)
-#             certificate_formset = CertificateFormSet(request.POST, instance=freelancer)
-
-#             if skill_formset.is_valid() and certificate_formset.is_valid():
-#                 skill_formset.save()
-#                 certificate_formset.save()
-
-#                 messages.success(request, "Freelancer details submitted successfully!")
-#                 return redirect('login')  # Redirect to 'login' page after success
-#             else:
-#                 messages.error(request, "Please correct the errors in the skill or certificate forms.")
-#         else:
-#             # Initialize formsets even when the main form is invalid
-#             skill_formset = SkillFormSet(request.POST)
-#             certificate_formset = CertificateFormSet(request.POST)
-#             messages.error(request, "Please correct the errors in the main Freelancer form.")
-#     else:
-#         freelancer_form = FreelancerForm()
-#         skill_formset = SkillFormSet()
-#         certificate_formset = CertificateFormSet()
-
-#     return render(request, 'non_register/login.html', {
-#         'freelancer_form': freelancer_form,
-#         'skill_formset': skill_formset,
-#         'certificate_formset': certificate_formset,
-#     })
-
+        # Save Freelancer object
+        if password1 == password2:
+            if Client.objects.filter(email=email).exists():
+                messages.info(request, "Email already exists")
+                return render(request, "non_register/postajob.html")
+            else:
+                client = Client(
+                    name=name,
+                    phone=phone,
+                    email=email,
+                    company=company,
+                    designation=designation,
+                    social_media=social_media,
+                    password=password1,
+                )
+                client.save()
+                return render(request, "non_register/login.html")
+        else:
+            messages.info(request, "Password does not match")
+            return render(request, "non_register/postajob.html")
+    return render(request, "non_register/postajob.html")

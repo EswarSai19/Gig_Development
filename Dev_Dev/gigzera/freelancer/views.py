@@ -70,55 +70,55 @@ def submit_contact(request):
     return messages.error(request, "Invalid request!")
 
 # Submit Form
-def submit_freelancer(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        phone = request.POST.get("phone")
-        email = request.POST.get("email")
-        education = request.POST.get("education")
-        certifications = request.POST.get("certifications")
-        experience = request.POST.get("experience")
-        password1 = request.POST.get("password1")
-        password2 = request.POST.get("password2")
-        social_media = request.POST.get("social_media")
+# def submit_freelancer(request):
+#     if request.method == "POST":
+#         name = request.POST.get("name")
+#         phone = request.POST.get("phone")
+#         email = request.POST.get("email")
+#         education = request.POST.get("education")
+#         certifications = request.POST.get("certifications")
+#         experience = request.POST.get("experience")
+#         password1 = request.POST.get("password1")
+#         password2 = request.POST.get("password2")
+#         social_media = request.POST.get("social_media")
         
-        # Collect skills and experiences
-        skills = {}
-        for i in range(1, 4):  # Adjust range if you have more skill fields
-            skill = request.POST.get(f"skill{i}")
-            exp = request.POST.get(f"experience{i}")
-            if skill and exp:
-                skills[skill] = float(exp)  # Convert experience to float
+#         # Collect skills and experiences
+#         skills = {}
+#         for i in range(1, 4):  # Adjust range if you have more skill fields
+#             skill = request.POST.get(f"skill{i}")
+#             exp = request.POST.get(f"experience{i}")
+#             if skill and exp:
+#                 skills[skill] = float(exp)  # Convert experience to float
                 
             
-        # Save Freelancer object
-        if password1 == password2:
-            if Freelancer.objects.filter(email=email).exists():
-                messages.info(request, "Email already exists")
-                return render(request, "non_register/findajob.html")
-            else:
-                freelancer = Freelancer(
-                    name=name,
-                    phone=phone,
-                    email=email,
-                    education=education,
-                    certifications=certifications,
-                    experience=experience,
-                    skills=skills,
-                    social_media=social_media,
-                    password=password1,
-                )
-                freelancer.save()
-                for i in range(1,4):
-                    skill = request.POST.get(f"skill{i}")
-                    exp = request.POST.get(f"experience{i}")
-                    if skill and exp:
-                        Skill.objects.create(freelancer=freelancer, skill_name=skill, experience_years=exp)
-                return render(request, "non_register/login.html")  # Redirect to success page
-        else:
-            messages.info(request, "Password does not match")
-            return render(request, "non_register/findajob.html")
+#         # Save Freelancer object
+#         if password1 == password2:
+#             if Freelancer.objects.filter(email=email).exists():
+#                 messages.info(request, "Email already exists")
+#                 return render(request, "non_register/findajob.html")
+#             else:
+#                 freelancer = Freelancer(
+#                     name=name,
+#                     phone=phone,
+#                     email=email,
+#                     education=education,
+#                     certifications=certifications,
+#                     experience=experience,
+#                     skills=skills,
+#                     social_media=social_media,
+#                     password=password1,
+#                 )
+#                 freelancer.save()
+#                 for i in range(1,4):
+#                     skill = request.POST.get(f"skill{i}")
+#                     exp = request.POST.get(f"experience{i}")
+#                     if skill and exp:
+#                         Skill.objects.create(freelancer=freelancer, skill_name=skill, experience_years=exp)
+#                 return render(request, "non_register/login.html")  # Redirect to success page
+#         else:
+#             messages.info(request, "Password does not match")
+#             return render(request, "non_register/findajob.html")
 
         
-    return render(request, "non_register/findajob.html")
+#     return render(request, "non_register/findajob.html")
 
