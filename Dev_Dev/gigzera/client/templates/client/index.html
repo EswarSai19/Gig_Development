@@ -3,7 +3,7 @@
 {% block title %}Home - Gigzera{% endblock %}
 <!-- Css -->
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+<link rel="stylesheet" href="{% static 'css/cl_index.css' %}" />
 <link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
 {% endblock %}
 <!-- body -->
@@ -18,54 +18,16 @@
         and exciting projects.
       </p>
       <div class="hero-actions">
-        <button class="btn-primary jobs-btn">Jobs</button>
+        <button class="btn-primary postajob-btn">Post a Job</button>
       </div>
     </div>
 
     <!-- Image -->
     <div class="hero-image">
       <img
-        src="https://cdn.yellowmessenger.com/fTJ81ssCMgQU1735134556963.jpg"
+        src="https://cdn.yellowmessenger.com/TZCiM1SU9oBj1735134611144.jpg"
         alt="Tech Team Image"
       />
-    </div>
-  </div>
-</section>
-
-<!-- Featured Jobs Section -->
-<section class="featured-jobs">
-  <div class="ctnr">
-    <h1 class="featured-jobs-heading">Featured Jobs</h1>
-    <div class="job-cards">
-      <!-- Job Card 1 -->
-      {% for job in jobs %}
-      <div class="job-card">
-        <div class="job-header">
-          <div class="job-title">
-            {{job.title}}
-            <span class="job-id" style="color: #1f2937; font-weight: bold"
-              >(Opp ID: {{job.opportunityId}})</span
-            >
-          </div>
-        </div>
-        <div class="job-duration-salary">
-          <span class="duration">⏳ {{job.duration}}</span>
-          <span class="salary">💳 {{job.budget}}</span>
-        </div>
-        <p class="job-description mt-2">
-          {{job.description | truncatewords:20}}
-        </p>
-        <div class="job-tags">
-          {% for tag in job.skills_list %}
-          <span class="tag">{{tag}}</span>
-          {% endfor %}
-        </div>
-        <div class="job-actions mt-4">
-          <a href="{% url 'signup' %}" class="view-more">View More</a>
-          <a href="{% url 'signup' %}" class="provide-quote">Provide Quote</a>
-        </div>
-      </div>
-      {% endfor %}
     </div>
   </div>
 </section>
@@ -358,12 +320,12 @@
 </section>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const findJobBtns = document.getElementsByClassName("jobs-btn");
+    const findJobBtns = document.getElementsByClassName("postajob-btn");
 
     // Add click event to all buttons with the class "findajob-btn"
     Array.from(findJobBtns).forEach((btn) => {
       btn.addEventListener("click", () => {
-        window.location.href = "{% url 'fl_jobs' %}";
+        window.location.href = "{% url 'cl_postajob' %}";
       });
     });
   });

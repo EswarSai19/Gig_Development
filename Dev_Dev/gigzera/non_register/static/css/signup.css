@@ -1,3 +1,12 @@
+/* Reset Default Margin and Padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
 /* Adding space between the Sign Up sections */
 .signup-section {
     width: 100%;
@@ -119,13 +128,7 @@ h3 {
     /* Adjust this value to your liking */
 }
 
-/* Reset Default Margin and Padding */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+
 
 /* General spacing for paragraphs */
 p {

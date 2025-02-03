@@ -3,13 +3,17 @@
 {% block title %}About Us{% endblock %}
 <!--  -->
 {% block css %}
+<link rel="stylesheet" href="{% static 'css/aboutus.css' %}" />
 <link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
 {% endblock %}
 <!--  -->
 {% block content %}
 <main>
-  <section id="hero" class="h-[800px] bg-gradient-to-br from-gray-500 to-white">
-    <div class="container mx-auto px-4 py-20">
+  <section
+    id="hero"
+    class="h-[800px] bg-gradient-to-br from-gray-500 to-white font-arial"
+  >
+    <div class="container mx-auto px-4 py-20 font-sans">
       <div class="flex flex-col items-center text-left">
         <h1 class="text-5xl font-bold mb-6">
           Gigzera: A Technology-Driven GigWorks Platform

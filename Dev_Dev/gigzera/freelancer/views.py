@@ -9,10 +9,14 @@ from .forms import ContactForm
 
 
 def index(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')  # Redirect to login if session is missing
+    user = Freelancer.objects.get(userId=user_id)
     jobs = ProjectsDisplay.objects.all().order_by('-created_at')[0:3]
     for job in jobs:
         job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
-    context = {'jobs': jobs}
+    context = {'jobs': jobs, 'user': user}    
     return render(request, 'freelancer/index.html', context)
 
 def jobs(request):
@@ -40,6 +44,11 @@ def jobs_test(request):
         job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
     context = {'jobs': jobs}
     return render(request, 'freelancer/jobs_test.html', context)
+
+def logout(request):
+    request.session.flush()  # ✅ Clears all session data (logs user out)
+    return redirect('login')
+
 
 def load_job_details(request):
     job_id = request.POST.get("job_id")  # Get job ID from HTMX request

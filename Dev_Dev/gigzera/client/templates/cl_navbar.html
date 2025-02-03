@@ -116,7 +116,7 @@
   <div class="container mx-auto px-4 py-4">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-12">
-        <a href="{% url 'fl_index' %}">
+        <a href="{% url 'cl_index' %}">
           <img
             class="w-[130px] h-[50px] cursor-pointer"
             src="https://cdn.yellowmessenger.com/XzSBlvSXqsrB1735194961367.png"
@@ -134,17 +134,17 @@
       </div>
       <nav class="hidden lg:flex items-center gap-8">
         <a
-          href="{% url 'fl_index' %}"
+          href="{% url 'cl_index' %}"
           class="text-gray-600 hover:text-blue-600 cursor-pointer"
           >Home</a
         >
         <a
-          href="{% url 'fl_jobs' %}"
+          href="{% url 'cl_postajob' %}"
           class="text-gray-600 hover:text-blue-600 cursor-pointer"
-          >Jobs</a
+          >Post a Job</a
         >
         <a
-          href="{% url 'fl_aboutus' %}"
+          href="{% url 'cl_aboutus' %}"
           class="text-gray-600 hover:text-blue-600 cursor-pointer"
           >About Us</a
         >
@@ -154,7 +154,7 @@
           >Contact Us</a
         >
         <a
-          href="{% url 'fl_industries' %}"
+          href="{% url 'cl_industries' %}"
           class="text-gray-600 hover:text-blue-600 cursor-pointer"
           >Industries</a
         >
@@ -176,18 +176,22 @@
             style="z-index: 1000"
             id="profile-menu"
           >
-            <p class="mx-5 text-gray-700" id="profile-name-dropdown">Guest</p>
+            <p class="mx-5 text-gray-700" id="profile-name-dropdown">
+              {{user.name}}
+            </p>
             <p class="mx-5 text-gray-700" id="profile-email-dropdown">
               {{user.email}}
             </p>
             <hr class="my-2 border-t border-gray-200" />
             <a
-              href="{% url 'fl_profile' %}"
+              href="{% url 'cl_profile' %}"
               class="block px-5 py-2 text-gray-800 hover:bg-gray-100"
               >Profile</a
             >
             <hr class="my-2 border-t border-gray-200" />
-            <a href="#" class="block px-5 py-2 text-red-500 hover:bg-gray-100"
+            <a
+              href="{% url 'logout' %}"
+              class="block px-5 py-2 text-red-500 hover:bg-gray-100"
               >Logout</a
             >
           </div>
@@ -212,7 +216,7 @@
       <i class="fas fa-times"></i>
     </button>
   </div>
-  <form id="help-form" method="post" action="{% url 'submit_contact' %}">
+  <form id="help-form" method="post" action="{% url 'cl_contact' %}">
     {% csrf_token %}
     <div>
       <label>Name <span class="text-red-500">*</span></label>

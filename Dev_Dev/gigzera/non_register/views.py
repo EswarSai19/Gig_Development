@@ -39,28 +39,31 @@ def postajob(request):
 def signup(request):
     return render(request, 'non_register/signup.html')
 
+
 def login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        try:
-            user = Freelancer.objects.get(email=email)  # Get user by email
-            if check_password(password, user.password):  # Check encrypted password
-                context = {
-                    'user': user,
-                    'skills': Skill.objects.filter(freelancer=user),
-                }
-                print(user.name, user.email)
-                return redirect('fl_index')  # Redirect to 'index' page after login
-            else:
-                messages.error(request, 'Invalid credentials', context)
-                return redirect('login')  # Use redirect instead of render for better UX
-        except Freelancer.DoesNotExist:
+        # Fetch user from both tables
+        freelancer = Freelancer.objects.filter(email=email).first()
+        client = Client.objects.filter(email=email).first()
+
+        if freelancer and check_password(password, freelancer.password):
+            request.session['user_id'] = freelancer.userId
+            request.session['user_role'] = 'freelancer'
+            return redirect('fl_index')  # Redirect to freelancer dashboard
+
+        elif client and check_password(password, client.password):
+            request.session['user_id'] = client.userId
+            request.session['user_role'] = 'client'
+            return redirect('cl_index')  # Redirect to client dashboard
+
+        else:
             messages.error(request, 'Invalid credentials')
-            return redirect('login')
 
     return render(request, 'non_register/login.html')
+
 
 def forgot(request):
     return render(request, 'non_register/forgot.html')

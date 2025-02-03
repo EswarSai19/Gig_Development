@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.http import HttpResponse
 from django.contrib import messages
 import json
-from .models import Contact
+from .models import Contact, Client
 from .forms import ContactForm
 
 # Create your views here.
@@ -24,18 +24,13 @@ def submit_contact(request):
 
 
 def index(request):
-    # jobs = ProjectsDisplay.objects.all().order_by('-created_at')[0:3]
-    # for job in jobs:
-    #     job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
-    # context = {'jobs': jobs}
-    return render(request, 'client/index.html')
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
 
-# def jobs(request):
-#     jobs = ProjectsDisplay.objects.all().order_by('-created_at')[0:3]
-#     for job in jobs:
-#         job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
-#     context = {'jobs': jobs}
-#     return render(request, 'client/jobs.html', context)
+    user = Client.objects.get(userId=user_id)
+    return render(request, 'client/index.html', {'user': user})
+
 
 def aboutus(request):
     return render(request, 'client/aboutus.html')
@@ -51,4 +46,8 @@ def test(request):
 
 def postajob(request):
     return render(request, 'client/postajob.html')
-
+    
+def logout(request):
+    request.session.flush()  # ✅ Clears all session data (logs user out)
+    return redirect('login')
+    

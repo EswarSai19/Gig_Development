@@ -18,7 +18,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 40px 0;
-    background-color: #37caec;
+    background-color: #3DD9D6;
 }
 
 .hero-ctnr {
@@ -331,7 +331,7 @@ body {
     /* Increase paragraph size */
     font-family: "Roboto", sans-serif;
     color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     /* Increased margin-bottom for more space between paragraph and button */
     opacity: 0;
     animation: fadeInSlideUp 1s forwards;
@@ -518,6 +518,7 @@ body {
     font-weight: bold;
     text-decoration: none;
     border-radius: 8px;
+    margin-top: 20px;
     /* Rounded corners */
     transition: background-color 0.3s ease, transform 0.3s ease;
 }

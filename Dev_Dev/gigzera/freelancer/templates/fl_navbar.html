@@ -167,7 +167,7 @@
             <div
               class="w-9 h-9 rounded-full bg-blue-500 text-white flex justify-center items-center text-lg font-bold"
             >
-              <span id="profile-initials">Guest</span>
+              <span id="profile-initials">{{user.name}}</span>
             </div>
             <i class="fa fa-caret-down"></i>
           </div>
@@ -176,7 +176,9 @@
             style="z-index: 1000"
             id="profile-menu"
           >
-            <p class="mx-5 text-gray-700" id="profile-name-dropdown">Guest</p>
+            <p class="mx-5 text-gray-700" id="profile-name-dropdown">
+              {{user.name}}
+            </p>
             <p class="mx-5 text-gray-700" id="profile-email-dropdown">
               {{user.email}}
             </p>
@@ -187,7 +189,9 @@
               >Profile</a
             >
             <hr class="my-2 border-t border-gray-200" />
-            <a href="#" class="block px-5 py-2 text-red-500 hover:bg-gray-100"
+            <a
+              href="{% url 'logout' %}"
+              class="block px-5 py-2 text-red-500 hover:bg-gray-100"
               >Logout</a
             >
           </div>
