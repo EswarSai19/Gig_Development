@@ -6,8 +6,14 @@ from django.utils.timezone import now
 from django.db.models import JSONField
 import json
 
+
+def generate_contact_id():
+    return "CN" + str(uuid.uuid4().hex[:4]).upper()
+
 # Create your models here.
 class Contact(models.Model):
+    contact_id = models.CharField(max_length=10, default=generate_contact_id, primary_key=True)
+    user_type = models.CharField(max_length=50, default="Non_register")
     name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=15)
     email = models.EmailField()
@@ -18,8 +24,4 @@ class Contact(models.Model):
     def __str__(self):
         return f"{self.name} ({self.reason})"
 
-def generate_freelancer_id():
-    return "FL" + str(uuid.uuid4().hex[:10]).upper()
-    
-def generate_opportunity_id():
-    return f"OP{str(uuid.uuid4().int)[:5]}"
+

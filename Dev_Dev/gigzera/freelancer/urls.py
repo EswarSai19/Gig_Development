@@ -15,6 +15,6 @@ urlpatterns = [
     path("load_job_details/", views.load_job_details, name="load_job_details"),
     path('projectTracking/', views.projectTracking, name='fl_projectTracking'),
     path('singleProjectTracking/', views.singleProjectTracking, name='fl_singleProjectTracking'),
-    path('submit_contact/', views.submit_contact, name='submit_contact'),
+    path('submit_contact/', views.fl_contact, name='fl_contact'),
   
 ]

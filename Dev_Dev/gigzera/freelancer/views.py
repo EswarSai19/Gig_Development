@@ -4,8 +4,8 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.http import HttpResponse
 from django.contrib import messages
 import json
-from .models import Contact, ProjectsDisplay, Freelancer, Skill
-from .forms import ContactForm
+from .models import ProjectsDisplay, Freelancer, Skill
+from non_register.models import Contact
 
 
 def index(request):
@@ -67,16 +67,34 @@ def singleProjectTracking(request):
     return render(request, 'freelancer/singleProjectTracking.html')
 
 # Contact form 
-def submit_contact(request):
+def fl_contact(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            form.save()
-            # messages.success(request, "Your form has been submitted successfully!")
-            return redirect('fl_index')
-        else:
-            return messages.error(request, "Please fill out all fields!")
-    return messages.error(request, "Invalid request!")
+        name = request.POST.get('name')
+        phone_number = request.POST.get('phone_number')
+        email = request.POST.get('email')
+        reason = request.POST.get('reason')
+        description = request.POST.get('description')
+
+        # Check if all fields are filled
+        if not all([name, phone_number, email, reason, description]):
+            messages.error(request, "Please fill out all fields!")
+            return redirect(request.META.get('HTTP_REFERER', 'contact'))  # Redirect to the same page
+
+        # Create and save the contact object
+        Contact.objects.create(
+            user_type='freelancer',
+            name=name,
+            phone_number=phone_number,
+            email=email,
+            reason=reason,
+            description=description
+        )
+
+        messages.success(request, "Your form has been submitted successfully!")
+        return redirect('fl_index')  # Redirect to home page
+
+    messages.error(request, "Invalid request!")
+    return redirect(request.META.get('HTTP_REFERER', 'contact'))
 
 # Submit Form
 # def submit_freelancer(request):
