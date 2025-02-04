@@ -6,7 +6,8 @@ from django.contrib import messages
 import json
 from .models import ProjectsDisplay, Freelancer, Skill
 from non_register.models import Contact
-
+from .models import ProjectQuote  # Create a model for storing quotes
+# from django.contrib.auth.decorators import login_required
 
 def index(request):
     user_id = request.session.get('user_id')
@@ -38,12 +39,66 @@ def profile(request):
 def test(request):
     return render(request, 'freelancer/test.html')
 
+
+# @login_required
+def submit_quote(request):
+    if request.method == "POST":
+        print(request.POST)
+        opportunityId = request.POST.get("opportunity_id")
+        budget = request.POST.get("budget")
+        comments = request.POST.get("comments")
+        time_estimation = request.POST.get("time_estimation")
+        freelancer_id = request.session.get('user_id')  # Ensure it's stored in session
+
+        if not freelancer_id:
+            messages.error(request, "Freelancer session expired. Please log in again.")
+            return redirect("login")
+        if not opportunityId:
+            messages.error(request, "opportunityId session expired.")
+            return redirect("fl_jobs_test")
+
+        # Validate Inputs
+        if not opportunityId or not budget or not time_estimation or not comments:
+            messages.error(request, "All fields are required.")
+            return redirect("fl_jobs_test")
+
+        # Fetch Freelancer Object
+        try:
+            freelancer = Freelancer.objects.get(userId=freelancer_id)
+        except Freelancer.DoesNotExist:
+            messages.error(request, "Freelancer not found.")
+            return redirect("fl_jobs_test")
+
+        # Debugging prints
+        print(f"User ID from session: {freelancer_id}")
+        print(f"Saving quote for {opportunityId} by {freelancer}")
+
+        # Store in DB
+        ProjectQuote.objects.create(
+            freelancer=freelancer,  # Use ForeignKey if applicable
+            opportunityId=opportunityId,
+            budget=budget,
+            time_estimation=time_estimation,
+            comments=comments
+        )
+
+        messages.success(request, "Quote submitted successfully!")
+        return redirect("fl_jobs_test")
+
+    return redirect("fl_jobs_test")
+
+
 def jobs_test(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')  # Redirect to login if session is missing
+    user = Freelancer.objects.get(userId=user_id)
     jobs = ProjectsDisplay.objects.all().order_by('-created_at')
     for job in jobs:
         job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
-    context = {'jobs': jobs}
+    context = {'jobs': jobs, 'user': user}    
     return render(request, 'freelancer/jobs_test.html', context)
+    
 
 def logout(request):
     request.session.flush()  # ✅ Clears all session data (logs user out)

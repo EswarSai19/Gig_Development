@@ -127,3 +127,20 @@ class EmploymentHistory(models.Model):
     def __str__(self):
         return f"{self.company} - {self.job_title}"
 
+def generate_projectquote_id():
+    return f"PQ{str(uuid.uuid4().int)[:5]}"
+
+class ProjectQuote(models.Model):
+    projectQuoteId = models.CharField(
+        primary_key=True, max_length=12, default=generate_projectquote_id, editable=False
+    )
+    freelancer = models.ForeignKey(Freelancer, on_delete=models.CASCADE)
+    opportunityId = models.CharField(max_length=20)
+    budget = models.CharField(max_length=20)
+    time_estimation = models.CharField(max_length=20)  # Days
+    comments = models.CharField(max_length=512)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Quote by {self.freelancer.username} for {self.opportunityId}"

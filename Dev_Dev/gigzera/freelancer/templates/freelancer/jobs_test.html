@@ -160,8 +160,10 @@
       </div>
 
       <!-- Form -->
-      <form id="quoteForm" onsubmit="submitForm(event)">
+      <form id="quoteForm" method="POST" action="{% url 'submit_quote' %}">
         <!-- Budget Field -->
+        {% csrf_token %}
+        <input type="hidden" id="quote_opportunityId" name="opportunity_id" />
         <div class="mb-4">
           <label for="budget" class="block text-sm font-semibold text-gray-700">
             Budget <span class="text-red-500">*</span>
@@ -224,7 +226,7 @@
 
   <!-- Not a fretured jobs -->
   <div class="flex">
-    <section class="featured-jobs w-2/3">
+    <section class="featured-jobs">
       <div class="ctnr">
         <div class="job-cards">
           {% for job in jobs %}
@@ -263,6 +265,7 @@
               </button>
               <button
                 class="btn btn-primary provide-quote bg-blue-500 text-white px-4 py-2 rounded ml-2"
+                onclick="openModal(`{{ job.opportunityId }}`)"
               >
                 Provide Quote
               </button>
@@ -273,7 +276,14 @@
       </div>
     </section>
   </div>
-
+  <script>
+    function openModal(opportunityId) {
+      console.log(opportunityId, "Opp ID");
+      document.getElementById("quote_opportunityId").value = opportunityId;
+      // Open the modal
+      document.getElementById("quoteModal").classList.remove("hidden");
+    }
+  </script>
   <!-- Toggle right offcanvas of view more button  -->
   <div
     id="tailwind-overlay"
