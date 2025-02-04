@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.hashers import check_password, make_password
 from django.http import HttpResponse
+from django.core.exceptions import ValidationError
 from django.contrib import messages
 import json
+import re
 from .models import Contact
 from .forms import ContactForm
 from freelancer.models import ProjectsDisplay, Freelancer, Skill
@@ -75,18 +77,6 @@ def test(request):
     context = {'jobs': jobs}
     return render(request, 'non_register/test.html', context)
 
-# # Contact form 
-# def submit_contact(request):
-#     if request.method == 'POST':
-#         form = ContactForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             # messages.success(request, "Your form has been submitted successfully!")
-#             return redirect('index')
-#         else:
-#             return messages.error(request, "Please fill out all fields!")
-#     return messages.error(request, "Invalid request!")
-
 
 def submit_contact(request):
     if request.method == 'POST':
@@ -117,11 +107,6 @@ def submit_contact(request):
     return redirect(request.META.get('HTTP_REFERER', 'contact'))
 
 
-
-
-
-
-
 # Freelancer form
 def submit_freelancer(request):
     if request.method == "POST":
@@ -148,6 +133,9 @@ def submit_freelancer(request):
         if password1 == password2:
             if Freelancer.objects.filter(email=email).exists():
                 messages.info(request, "Email already exists")
+                return render(request, "non_register/findajob.html")
+            elif Freelancer.objects.filter(phone=phone).exists():
+                messages.info(request, "Phone number already exists")
                 return render(request, "non_register/findajob.html")
             else:
                 freelancer = Freelancer(
@@ -195,6 +183,9 @@ def submit_client(request):
             if Client.objects.filter(email=email).exists():
                 messages.info(request, "Email already exists")
                 return render(request, "non_register/postajob.html")
+            elif Client.objects.filter(phone=phone).exists():
+                messages.info(request, "Phone number already exists")
+                return render(request, "non_register/postajob.html")
             else:
                 client = Client(
                     name=name,
@@ -211,3 +202,108 @@ def submit_client(request):
             messages.info(request, "Password does not match")
             return render(request, "non_register/postajob.html")
     return render(request, "non_register/postajob.html")
+
+
+
+def extract_digits(phone_number):
+    """Extracts only the numeric part of the phone number."""
+    return re.sub(r"\D", "", phone_number)  # Removes non-numeric characters
+
+def forgot(request):
+    if request.method == "POST":
+        input_phone = request.POST.get("phone", "").strip()  # Ensure input is valid
+        user_role = request.POST.get("user_role", "").strip().lower()  # Get user role
+        input_digits = extract_digits(input_phone)  # Remove non-numeric characters
+
+        if not input_digits:
+            messages.error(request, "Please enter a valid mobile number.")
+            print(messages.get_level(request))
+            return render(request, "non_register/forgot.html", {"show_otp_frame": False})
+
+        # Determine which model to search based on user role
+        if user_role == "freelancer":
+            users = Freelancer.objects.all()
+        elif user_role == "client":
+            users = Client.objects.all()
+        else:
+            messages.error(request, "Please select a valid role.")
+            return render(request, "non_register/forgot.html", {"show_otp_frame": False})
+
+        # Check if phone number exists in the selected model
+        for user in users:
+            db_phone_digits = extract_digits(user.phone)  # Extract numeric part of stored phone
+
+            if db_phone_digits.endswith(input_digits[-10:]):  # Compare last 10 digits
+                request.session['user_role'] = user_role
+                request.session['user_id'] = user.userId
+                print(f"My role is {user_role} and id is {user.userId}")
+                print(messages.get_level(request))
+                return render(request, "non_register/forgot.html", {"show_otp_frame": True})
+
+        messages.error(request, "The entered mobile number is not registered.")
+        print(messages.get_level(request))
+        return render(request, "non_register/forgot.html", {"show_otp_frame": False})
+
+    return render(request, "non_register/forgot.html", {"show_otp_frame": False})
+
+
+
+
+
+def validate_otp(otp):
+    """Ensure OTP is a 6-digit number."""
+    if not otp.isdigit() or len(otp) != 6:
+        raise ValidationError("Invalid OTP")
+
+def validate_password(password, confirm_password):
+    """Ensure passwords match."""
+    if password != confirm_password:
+        raise ValidationError("Passwords do not match.")
+
+def test_resetpass(request):
+    user_role = request.session.get('user_role')  # Get user role from session
+    user_id = request.session.get('user_id')  # Get user ID from session
+
+    if not user_role or not user_id:
+        messages.error(request, "No user information found.")
+        return redirect('forgot')  # Redirect to forgot password page if no user info in session
+
+    if request.method == "POST":
+        otp = request.POST.get("otp")
+        password = request.POST.get("password")
+        confirm_password = request.POST.get("confirm_password")
+
+        try:
+            validate_otp(otp)  # Validate OTP (6-digit number)
+            validate_password(password, confirm_password)  # Validate password match
+
+            # Fetch the user based on userId and userRole
+            if user_role == "freelancer":
+                user = Freelancer.objects.filter(userId=user_id).first()
+                if user:
+                    print(f"My role is {user_role} and id is {user.userId}")
+                    user.password = make_password(password)    # Update password
+                    user.save()
+                    messages.success(request, "Password reset successfully for Freelancer.")
+                else:
+                    messages.error(request, "Freelancer not found.")
+            elif user_role == "client":
+                user = Client.objects.filter(userId=user_id).first()
+                if user:
+                    print(f"My role is {user_role} and id is {user.userId}")
+                    user.password = make_password(password)    # Update password
+                    user.save()
+                    messages.success(request, "Password reset successfully for Client.")
+                else:
+                    messages.error(request, "Client not found.")
+            else:
+                messages.error(request, "Invalid user role.")
+
+        except ValidationError as e:
+            print(messages.get_level(request))
+            messages.error(request, e.message)
+
+        return render(request, "non_register/login.html", {"user_role": user_role})
+
+    return render(request, "non_register/login.html", {"user_role": user_role})
+

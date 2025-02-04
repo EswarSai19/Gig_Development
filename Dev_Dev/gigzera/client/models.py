@@ -29,7 +29,7 @@ class Client(models.Model):
     )
     name = models.CharField(max_length=255)
     profilePic = models.ImageField(upload_to="freelancer/profile_pics/", blank=True, null=True)
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=15, unique=True)
     email = models.EmailField(unique=True)
     user_role = models.CharField(max_length=50, default='client')
     country = models.CharField(max_length=50)

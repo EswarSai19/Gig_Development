@@ -88,3 +88,92 @@
 .forgot-password-box .links a:hover {
     text-decoration: underline;
 }
+
+
+/* New styles */
+.forgot-password-container {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
+.forgot-password-box {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.hidden {
+    display: none;
+}
+
+#back-btn {
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.header-back-btn {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.header-back-btn i {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 2.5rem;
+    color: #0056ff;
+    margin-top: 10px;
+}
+
+.header-back-btn h1 {
+    font-size: 1.8rem;
+    color: #0056ff;
+    margin: auto;
+    text-align: center;
+}
+
+/* radio role */
+.user-role {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-role div {
+    font-size: 1rem;
+    color: #666;
+    /* margin-right: 20px; */
+}
+
+.role-options {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 20px;
+}
+
+.role-options label {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.role-options input {
+    display: flex;
+    align-items: center;
+    margin: auto;
+}

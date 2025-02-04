@@ -12,9 +12,10 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('forgot/', views.forgot, name='forgot'),
     path('test/', views.test, name='test'),
+    # path('test_forgotpass/', views.test_forgotpass, name='test_forgotpass'),
+    path('resetpassword/', views.test_resetpass, name='test_resetpass'),
     path('submit_contact/', views.submit_contact, name='submit_contact'),
     path('submit_freelancer/', views.submit_freelancer, name='submit_freelancer'),
     path('submit_client/', views.submit_client, name='submit_client'),
-    # path("login/", views.login_view, name="login"),
     # path("logout/", views.logout_view, name="logout"),
 ]

@@ -12,18 +12,17 @@
 {% if messages %} {% for message in messages %}
 <div
   id="alert-banner"
-  class="alert-banner text-white text-center p-4 rounded-lg shadow-lg flex justify-between items-center {% if message.tags and 'success' in message.tags.split %} bg-green-600 {% elif 'error' in message.tags %} bg-red-600 {% elif 'warning' in message.tags %} bg-yellow-600 {% else %} bg-blue-600 {% endif %}"
+  class="alert-banner bg-red-600 text-white text-center p-4 rounded-lg shadow-lg flex justify-between items-center"
 >
-  <h1 class="alert-message text-xl font-medium text-center">{{ message }}</h1>
+  <h1 class="alert-message text-xl font-medium text-center">{{message}}</h1>
   <button
     class="close-btn text-white text-2xl font-medium focus:outline-none"
-    onclick="this.parentElement.style.display='none'"
+    onclick="document.getElementById('alert-banner').style.display='none'"
   >
     <i class="fas fa-times"></i>
   </button>
 </div>
 {% endfor %} {% endif %}
-
 <!-- Main container -->
 <main class="forgot-password-container">
   <!-- First Frame: Request OTP -->
@@ -36,7 +35,11 @@
       To reset your password, please enter your registered
       <strong>mobile number with country code</strong>.
     </p>
-    <form id="request-otp-form" action="{% url 'forgot' %}" method="POST">
+    <form
+      id="request-otp-form"
+      action="{% url 'test_forgotpass' %}"
+      method="POST"
+    >
       {% csrf_token %}
       <input
         type="tel"
