@@ -17,5 +17,6 @@ urlpatterns = [
     path('projectTracking/', views.projectTracking, name='fl_projectTracking'),
     path('singleProjectTracking/', views.singleProjectTracking, name='fl_singleProjectTracking'),
     path('submit_contact/', views.fl_contact, name='fl_contact'),
+    path('edit_freelancer/', views.edit_freelancer, name='edit_freelancer'),
   
 ]

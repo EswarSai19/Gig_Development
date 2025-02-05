@@ -58,6 +58,7 @@ class Freelancer(models.Model):
     phone = models.CharField(max_length=15, unique=True)
     email = models.EmailField(unique=True)
     user_role = models.CharField(max_length=50, default='freelancer')
+    designation = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
     social_media = models.URLField(blank=True, null=True)
     education = models.CharField(max_length=255)

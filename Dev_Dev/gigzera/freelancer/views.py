@@ -6,6 +6,7 @@ from django.contrib import messages
 import json
 from .models import ProjectsDisplay, Freelancer, Skill
 from non_register.models import Contact
+from django.core.files.storage import FileSystemStorage
 from .models import ProjectQuote  # Create a model for storing quotes
 # from django.contrib.auth.decorators import login_required
 
@@ -56,7 +57,57 @@ def profile(request):
     return render(request, 'freelancer/profile.html', context)
 
 def test(request):
-    return render(request, 'freelancer/test.html')
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')  # Redirect to login if session is missing
+    user = Freelancer.objects.get(userId=user_id)
+    context = {'user': user}
+    return render(request, 'freelancer/test.html', context)
+
+
+
+def edit_freelancer(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')  # Redirect to login if session is missing
+    user = Freelancer.objects.get(userId=user_id)
+    freelancer = get_object_or_404(Freelancer, userId=user_id)
+
+    # Check if the request method is POST
+    if request.method == 'POST':
+        # Retrieve the data from the request
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        designation = request.POST.get('designation')
+        social_media = request.POST.get('social_media')
+        # experience = request.POST.get('experience')
+
+        # Handle file upload for profilePic
+        profile_pic = request.FILES.get('profilePic')
+        if profile_pic:
+            fs = FileSystemStorage(location='media/freelancer/profile_pics/')
+            filename = fs.save(profile_pic.name, profile_pic)
+            profile_pic_url = fs.url(filename)  # URL of the uploaded file
+        else:
+            profile_pic_url = freelancer.profilePic  # Keep the existing picture if no new one is uploaded
+
+        # Update the freelancer instance
+        freelancer.name = name
+        freelancer.phone = phone
+        freelancer.email = email
+        freelancer.designation = designation
+        freelancer.social_media = social_media
+        freelancer.profilePic = profile_pic_url  # Update the profile picture URL
+
+        # Save the updated freelancer object
+        freelancer.save()
+
+        # Redirect to a new page or display a success message
+        return redirect('fl_test')
+
+    return render(request, 'freelancer/fl_test.html', {'user': freelancer})
+
 
 
 # @login_required
@@ -173,57 +224,4 @@ def fl_contact(request):
 
     messages.error(request, "Invalid request!")
     return redirect(request.META.get('HTTP_REFERER', 'contact'))
-
-# Submit Form
-# def submit_freelancer(request):
-#     if request.method == "POST":
-#         name = request.POST.get("name")
-#         phone = request.POST.get("phone")
-#         email = request.POST.get("email")
-#         education = request.POST.get("education")
-#         certifications = request.POST.get("certifications")
-#         experience = request.POST.get("experience")
-#         password1 = request.POST.get("password1")
-#         password2 = request.POST.get("password2")
-#         social_media = request.POST.get("social_media")
-        
-#         # Collect skills and experiences
-#         skills = {}
-#         for i in range(1, 4):  # Adjust range if you have more skill fields
-#             skill = request.POST.get(f"skill{i}")
-#             exp = request.POST.get(f"experience{i}")
-#             if skill and exp:
-#                 skills[skill] = float(exp)  # Convert experience to float
-                
-            
-#         # Save Freelancer object
-#         if password1 == password2:
-#             if Freelancer.objects.filter(email=email).exists():
-#                 messages.info(request, "Email already exists")
-#                 return render(request, "non_register/findajob.html")
-#             else:
-#                 freelancer = Freelancer(
-#                     name=name,
-#                     phone=phone,
-#                     email=email,
-#                     education=education,
-#                     certifications=certifications,
-#                     experience=experience,
-#                     skills=skills,
-#                     social_media=social_media,
-#                     password=password1,
-#                 )
-#                 freelancer.save()
-#                 for i in range(1,4):
-#                     skill = request.POST.get(f"skill{i}")
-#                     exp = request.POST.get(f"experience{i}")
-#                     if skill and exp:
-#                         Skill.objects.create(freelancer=freelancer, skill_name=skill, experience_years=exp)
-#                 return render(request, "non_register/login.html")  # Redirect to success page
-#         else:
-#             messages.info(request, "Password does not match")
-#             return render(request, "non_register/findajob.html")
-
-        
-#     return render(request, "non_register/findajob.html")
 
