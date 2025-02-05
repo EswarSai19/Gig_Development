@@ -14,6 +14,7 @@ def generate_contact_id():
 class Contact(models.Model):
     contact_id = models.CharField(max_length=10, default=generate_contact_id, primary_key=True)
     user_type = models.CharField(max_length=50, default="Non_register")
+    user_id = models.CharField(max_length=20, default="NR00001")
     name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=15)
     email = models.EmailField()

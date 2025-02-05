@@ -13,6 +13,9 @@ from non_register.models import Contact
 # Contact form 
 def cl_contact(request):
     if request.method == 'POST':
+        user_id = request.session.get('user_id')
+        if not user_id:
+            return redirect('login')  # Redirect to login if session is missing
         name = request.POST.get('name')
         phone_number = request.POST.get('phone_number')
         email = request.POST.get('email')
@@ -27,6 +30,7 @@ def cl_contact(request):
         # Create and save the contact object
         Contact.objects.create(
             user_type='client',
+            user_id=user_id,
             name=name,
             phone_number=phone_number,
             email=email,

@@ -21,20 +21,39 @@ def index(request):
     return render(request, 'freelancer/index.html', context)
 
 def jobs(request):
-    jobs = ProjectsDisplay.objects.all().order_by('-created_at')[0:3]
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')  # Redirect to login if session is missing
+    user = Freelancer.objects.get(userId=user_id)
+    jobs = ProjectsDisplay.objects.all().order_by('-created_at')
     for job in jobs:
         job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
-    context = {'jobs': jobs}
+    context = {'jobs': jobs, 'user': user}    
     return render(request, 'freelancer/jobs.html', context)
 
 def aboutus(request):
-    return render(request, 'freelancer/aboutus.html')
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')  # Redirect to login if session is missing
+    user = Freelancer.objects.get(userId=user_id)
+    context = {'user': user}
+    return render(request, 'freelancer/aboutus.html', context)
 
 def industries(request):
-    return render(request, 'freelancer/industries.html')
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')  # Redirect to login if session is missing
+    user = Freelancer.objects.get(userId=user_id)
+    context = {'user': user}
+    return render(request, 'freelancer/industries.html', context)
 
 def profile(request):
-    return render(request, 'freelancer/profile.html')
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')  # Redirect to login if session is missing
+    user = Freelancer.objects.get(userId=user_id)
+    context = {'user': user}
+    return render(request, 'freelancer/profile.html', context)
 
 def test(request):
     return render(request, 'freelancer/test.html')
@@ -55,19 +74,19 @@ def submit_quote(request):
             return redirect("login")
         if not opportunityId:
             messages.error(request, "opportunityId session expired.")
-            return redirect("fl_jobs_test")
+            return redirect("fl_jobs")
 
         # Validate Inputs
         if not opportunityId or not budget or not time_estimation or not comments:
             messages.error(request, "All fields are required.")
-            return redirect("fl_jobs_test")
+            return redirect("fl_jobs")
 
         # Fetch Freelancer Object
         try:
             freelancer = Freelancer.objects.get(userId=freelancer_id)
         except Freelancer.DoesNotExist:
             messages.error(request, "Freelancer not found.")
-            return redirect("fl_jobs_test")
+            return redirect("fl_jobs")
 
         # Debugging prints
         print(f"User ID from session: {freelancer_id}")
@@ -83,9 +102,9 @@ def submit_quote(request):
         )
 
         messages.success(request, "Quote submitted successfully!")
-        return redirect("fl_jobs_test")
+        return redirect("fl_jobs")
 
-    return redirect("fl_jobs_test")
+    return redirect("fl_jobs")
 
 
 def jobs_test(request):
@@ -124,6 +143,9 @@ def singleProjectTracking(request):
 # Contact form 
 def fl_contact(request):
     if request.method == 'POST':
+        user_id = request.session.get('user_id')
+        if not user_id:
+            return redirect('login')  # Redirect to login if session is missing
         name = request.POST.get('name')
         phone_number = request.POST.get('phone_number')
         email = request.POST.get('email')
@@ -138,6 +160,7 @@ def fl_contact(request):
         # Create and save the contact object
         Contact.objects.create(
             user_type='freelancer',
+            user_id=user_id,
             name=name,
             phone_number=phone_number,
             email=email,

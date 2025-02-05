@@ -139,7 +139,7 @@
           >Home</a
         >
         <a
-          href="{% url 'fl_jobs_test' %}"
+          href="{% url 'fl_jobs' %}"
           class="text-gray-600 hover:text-blue-600 cursor-pointer"
           >Jobs</a
         >
@@ -173,7 +173,7 @@
           </div>
           <div
             class="hidden absolute top-12 right-0 w-48 bg-white shadow-lg rounded-lg py-2 mt-2"
-            style="z-index: 1000"
+            style="z-index: 1002"
             id="profile-menu"
           >
             <p class="mx-5 text-gray-700" id="profile-name-dropdown">
@@ -284,19 +284,6 @@
     </p>
   </div>
 </div>
-<!-- {% if messages %}
-<ul class="messages">
-  {% for message in messages %}
-  <li class="alert alert-{{ message.tags }}">{{ message }}</li>
-  {% endfor %}
-</ul>
-<script>
-  const messages = document.querySelectorAll(".messages li");
-  if (messages.length) {
-    alert(messages[0].textContent.trim());
-  }
-</script>
-{% endif %} -->
 
 <!-- JS -->
 {% block js %}
