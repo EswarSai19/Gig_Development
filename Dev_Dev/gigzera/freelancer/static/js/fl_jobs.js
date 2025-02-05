@@ -70,6 +70,7 @@ function startImageSlideshow() {
 
 // Javascript for modal open for provide quote
 function openModal(opportunityId) {
+  console.log(opportunityId, "ID is coming");
   document.getElementById("quote_opportunityId").value = opportunityId;
   document.getElementById("quoteModal").classList.remove("hidden");
 }
