@@ -113,6 +113,7 @@ def submit_freelancer(request):
         name = request.POST.get("name")
         phone = request.POST.get("phone")
         email = request.POST.get("email")
+        designation = request.POST.get("designation")
         education = request.POST.get("education")
         certifications = request.POST.get("certifications")
         experience = request.POST.get("experience")
@@ -142,6 +143,7 @@ def submit_freelancer(request):
                     name=name,
                     phone=phone,
                     email=email,
+                    designation=designation,
                     education=education,
                     certifications=certifications,
                     experience=experience,
