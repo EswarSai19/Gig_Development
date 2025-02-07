@@ -612,9 +612,96 @@ function openModal() {
   modal.classList.remove("hidden");
 }
 
+function openModal2(
+  job_id,
+  company,
+  city,
+  country,
+  job_title,
+  description,
+  start_date,
+  end_date,
+  currently_working
+) {
+  console.log(
+    job_id,
+    company,
+    city,
+    country,
+    job_title,
+    description,
+    start_date,
+    end_date,
+    currently_working
+  );
+
+  // Pre-fill the form fields with the passed values
+  document.getElementById("job_id").value = job_id;
+  document.getElementById("company_").value = company;
+  document.getElementById("city_").value = city;
+  document.getElementById("country_").value = country;
+  document.getElementById("job_title_").value = job_title;
+  document.getElementById("description_").value = description;
+
+  // Helper function to format date to YYYY-MM-DD in local time
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  // Format and set the start and end date values in the form
+  document.getElementById("start_date_").value = formatDate(start_date);
+  document.getElementById("end_date_").value = end_date
+    ? formatDate(end_date)
+    : "";
+
+  // Ensure currently_working is a boolean before setting the checkbox
+  const isCurrentlyWorking =
+    currently_working === true ||
+    currently_working === "true" ||
+    currently_working === 1 ||
+    currently_working === "on"; // In case the backend sends "on"
+  const currentlyWorkingCheckbox =
+    document.getElementById("currently_working_");
+  currentlyWorkingCheckbox.checked = isCurrentlyWorking;
+
+  // Trigger the toggle function to disable 'Worked Till' field if needed
+  toggleWorkedTill2();
+
+  // Show the modal
+  const modal = document.getElementById("workHistoryModal2");
+  modal.classList.remove("hidden");
+}
+
+// Ensure toggle works when checkbox is manually clicked
+document
+  .getElementById("currently_working_")
+  .addEventListener("change", toggleWorkedTill2);
+
+// Function to toggle the 'Worked Till' field based on 'Currently Working' checkbox
+function toggleWorkedTill2() {
+  const workedTill = document.getElementById("end_date_");
+  const currentlyWorking = document.getElementById("currently_working_");
+
+  if (currentlyWorking.checked) {
+    workedTill.disabled = true;
+    workedTill.value = ""; // Clear the value if currently working
+  } else {
+    workedTill.disabled = false;
+  }
+}
+
 // Function to hide the modal
 function closeModal() {
   const modal = document.getElementById("workHistoryModal");
+  modal.classList.add("hidden");
+}
+
+function closeModal2() {
+  const modal = document.getElementById("workHistoryModal2");
   modal.classList.add("hidden");
 }
 

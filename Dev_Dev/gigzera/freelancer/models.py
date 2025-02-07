@@ -94,6 +94,8 @@ class Skill(models.Model):
     )
     skill_name = models.CharField(max_length=100)
     experience_years = models.FloatField()
+    created_at = models.DateTimeField(default=now)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.skill_name} ({self.experience_years} years)"
@@ -108,6 +110,8 @@ class Certificate(models.Model):
     expiry_date = models.DateField(blank=True, null=True)  # Expiry date (can be null)
     certification_id = models.CharField(max_length=100, unique=True)  # Unique cert ID
     certification_url = models.URLField(blank=True, null=True)  # URL to verify the cert
+    created_at = models.DateTimeField(default=now)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.certificate_name} (ID: {self.certification_id})"
@@ -125,6 +129,8 @@ class EmploymentHistory(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
     currently_working = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=now)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.company} - {self.job_title}"

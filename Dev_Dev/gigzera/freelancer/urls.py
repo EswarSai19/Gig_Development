@@ -18,5 +18,11 @@ urlpatterns = [
     path('singleProjectTracking/', views.singleProjectTracking, name='fl_singleProjectTracking'),
     path('submit_contact/', views.fl_contact, name='fl_contact'),
     path('edit_freelancer/', views.edit_freelancer, name='edit_freelancer'),
+    path('delete/', views.delete_profile_pic, name='delete_profile_pic'),
+    path('profile_summary/', views.edit_profile_summary, name='edit_profile_summary'),
+    path('add_work_history/', views.add_work_history, name='add_work_history'),
+    path('edit_job/', views.edit_job, name='edit_job'),
+    path('delete_job/<int:job_id>/', views.delete_job, name='delete_job'),
+
   
 ]

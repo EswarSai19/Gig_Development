@@ -13,10 +13,7 @@
   <div class="left-container">
     <div class="title_heading">
       <h1>{{user.designation}}</h1>
-      <button
-        class="project-tracking-btn"
-        onclick="location.href='../html/GigzeraProjectTrackingGigzDashboard.html'"
-      >
+      <button class="project-tracking-btn">
         <i class="fa-solid fa-chart-line mr-2"></i> Project Tracking
       </button>
     </div>
@@ -36,22 +33,37 @@
         <div class="edit-btn-container-summary">
           <!-- <button class="small-btn edit-btn" onclick="editSection('professional-summary')"> <i class="fa-solid fa-pen-to-square"></i></button> -->
         </div>
-        <p id="summary-text">
-          Results-oriented Business Analyst with 5+ years of experience in
-          [industry]. Skilled in process improvement, data analysis, and
-          requirements gathering. Proven ability to bridge the gap between
-          business and IT.
-        </p>
-        <textarea
-          id="summary-input"
-          style="display: none"
-          rows="6"
-          cols="60"
-          placeholder="Edit your professional summary here..."
-        ></textarea>
-        <button id="save-summary" style="display: none" onclick="saveSummary()">
-          Save
-        </button>
+
+        <!-- Form starts here -->
+        <form
+          id="profile-summary-form"
+          method="POST"
+          action="{% url 'edit_profile_summary' %}"
+        >
+          {% csrf_token %}
+          <!-- Make sure to include the CSRF token -->
+
+          <p id="summary-text">{{ user.profile_summary }}</p>
+
+          <textarea
+            id="summary-input"
+            style="display: none"
+            name="profile_summary"
+            rows="6"
+            cols="60"
+            placeholder="Edit your professional summary here..."
+          ></textarea>
+
+          <button
+            class="save_profile_summary"
+            id="save-summary"
+            style="display: none"
+            type="submit"
+          >
+            Save
+          </button>
+        </form>
+        <!-- Form ends here -->
       </div>
     </div>
 
@@ -144,23 +156,54 @@
       </button>
     </div>
     <div class="box-container" id="employment">
-      <div class="box">
-        <div class="content">
-          <h3>Senior Business Analyst</h3>
-          <p><strong>Tech Solutions Inc.</strong> | 2023 - Present</p>
-          <p>
-            Led cross-functional teams in implementing business solutions and
-            improving operational efficiency.
-          </p>
+      <div class="employment-history">
+        {% if employment_history %}
+        <!-- Loop through employment history records -->
+        {% for job in employment_history %}
+        <div class="box">
+          <div class="content">
+            <h3>{{ job.job_title }}</h3>
+            <p>
+              <strong>{{ job.company }}</strong> |
+              <!--  -->
+              {{ job.start_date|date:"F Y"}} -
+              <!--  -->
+              {% if job.currently_working %} Present {% else %}
+              {{job.end_date|date:"F Y" }} {% endif %}
+            </p>
+            <p>{{ job.description }}</p>
+            <!-- <p>{{job.id}}</p> -->
+          </div>
+          <div class="actions">
+            <button
+              type="submit"
+              class="edit-btn"
+              onclick="openModal2('{{job.id}}', '{{job.company}}', '{{job.city}}', '{{job.country}}', '{{job.job_title}}', '{{job.description}}', '{{job.start_date}}', '{{job.end_date}}', '{{job.currently_working}}')"
+            >
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+
+            <form
+              method="POST"
+              action="{% url 'delete_job' job.id %}"
+              style="display: inline"
+            >
+              {% csrf_token %}
+              <button type="submit" class="delete-btn">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </form>
+          </div>
         </div>
-        <div class="actions">
-          <button class="edit-btn" onclick="editItem(this)">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </button>
-          <button class="delete-btn" onclick="deleteItem(this)">
-            <i class="fa-solid fa-trash"></i>
-          </button>
+        {% endfor %} {% else %}
+        <!-- If no employment history found -->
+        <div class="box">
+          <div class="content">
+            <h3>No Employment History Found</h3>
+            <p>Add your previous work experiences to showcase your skills.</p>
+          </div>
         </div>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -307,7 +350,7 @@
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal for employement history -->
   <div
     class="fixed inset-0 flex items-center justify-center z-50 hidden"
     id="workHistoryModal"
@@ -331,7 +374,12 @@
 
       <!-- Modal Body -->
       <div>
-        <form id="workHistoryForm">
+        <form
+          id="workHistoryForm"
+          method="POST"
+          action="{% url 'add_work_history' %}"
+        >
+          {% csrf_token %}
           <!-- Company and Title -->
           <div class="grid grid-cols-2 gap-4 mb-4">
             <div class="flex flex-col">
@@ -341,6 +389,7 @@
               <input
                 type="text"
                 id="company"
+                name="company"
                 placeholder="Enter company name..."
                 class="px-4 py-2 border border-gray-300 rounded-md required"
                 required
@@ -356,6 +405,7 @@
               <input
                 type="text"
                 id="title"
+                name="job_title"
                 placeholder="Enter your job title..."
                 class="px-4 py-2 border border-gray-300 rounded-md required"
                 required
@@ -375,6 +425,7 @@
               <input
                 type="text"
                 id="city"
+                name="city"
                 placeholder="Enter city name..."
                 class="px-4 py-2 border border-gray-300 rounded-md required"
                 required
@@ -390,6 +441,7 @@
               <input
                 type="text"
                 id="country"
+                name="country"
                 placeholder="Enter country name..."
                 class="px-4 py-2 border border-gray-300 rounded-md required"
                 required
@@ -409,6 +461,7 @@
               <input
                 type="date"
                 id="workedFrom"
+                name="start_date"
                 class="px-4 py-2 border border-gray-300 rounded-md required"
                 required
               />
@@ -423,6 +476,7 @@
               <input
                 type="date"
                 id="workedTill"
+                name="end_date"
                 class="px-4 py-2 border border-gray-300 rounded-md"
               />
               <span class="text-red-500 text-sm hidden" id="workedTill-error"
@@ -433,7 +487,12 @@
 
           <!-- Checkbox -->
           <div class="flex items-center mb-4">
-            <input type="checkbox" id="currentlyWorking" class="mr-2" />
+            <input
+              type="checkbox"
+              name="currently_working"
+              id="currentlyWorking"
+              class="mr-2"
+            />
             <label for="currentlyWorking">I currently work here</label>
           </div>
 
@@ -442,28 +501,204 @@
             <label for="description" class="mb-2">Description</label>
             <textarea
               id="description"
+              name="description"
               placeholder="Describe your role and key accomplishments..."
               class="w-full px-4 py-2 border border-gray-300 rounded-md"
             ></textarea>
           </div>
+          <!-- Modal Footer -->
+          <div class="flex justify-end space-x-4">
+            <button
+              class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
+              onclick="closeModal()"
+            >
+              Cancel
+            </button>
+            <button
+              class="px-4 py-2 bg-blue-500 text-white rounded-md"
+              id="saveBtn"
+              onclick="validateForm()"
+            >
+              Save Changes
+            </button>
+          </div>
         </form>
       </div>
+    </div>
+  </div>
 
-      <!-- Modal Footer -->
-      <div class="flex justify-end space-x-4">
-        <button
-          class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
-          onclick="closeModal()"
+  <!-- New modal for editing -->
+  <div
+    class="fixed inset-0 flex items-center justify-center z-50 hidden"
+    id="workHistoryModal2"
+  >
+    <div class="bg-white w-full max-w-lg p-6 rounded-lg shadow-lg">
+      <!-- Modal Header -->
+      <div class="p-4 border-b border-gray-200 text-center bg-gray-50 mb-2">
+        <h5
+          class="text-blue-600 font-bold text-xl"
+          style="
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 0;
+          "
         >
-          Cancel
-        </button>
-        <button
-          class="px-4 py-2 bg-blue-500 text-white rounded-md"
-          id="saveBtn"
-          onclick="validateForm()"
-        >
-          Save Changes
-        </button>
+          Add Work History
+        </h5>
+      </div>
+
+      <!-- Modal Body -->
+      <div>
+        <form id="workHistoryForm" method="POST" action="{% url 'edit_job' %}">
+          {% csrf_token %}
+          <!-- Company and Title -->
+          <input type="hidden" name="job_id" id="job_id" />
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col">
+              <label for="company" class="mb-2"
+                >Company <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="company_"
+                name="company"
+                placeholder="Enter company name..."
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="company-error"
+                >This field is required.</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <label for="title" class="mb-2"
+                >Title <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="job_title_"
+                name="job_title"
+                placeholder="Enter your job title..."
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="title-error"
+                >This field is required.</span
+              >
+            </div>
+          </div>
+
+          <!-- City and Country -->
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col">
+              <label for="city" class="mb-2"
+                >City <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="city_"
+                name="city"
+                placeholder="Enter city name..."
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="city-error"
+                >This field is required.</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <label for="country" class="mb-2"
+                >Country <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="country_"
+                name="country"
+                placeholder="Enter country name..."
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="country-error"
+                >This field is required.</span
+              >
+            </div>
+          </div>
+
+          <!-- Worked From and Worked Till -->
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col">
+              <label for="workedFrom" class="mb-2"
+                >Worked From <span class="text-red-500">*</span></label
+              >
+              <input
+                type="date"
+                id="start_date_"
+                name="start_date"
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="workedFrom-error"
+                >This field is required.</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <label for="workedTill" class="mb-2"
+                >Worked Till <span class="text-red-500">*</span></label
+              >
+              <input
+                type="date"
+                id="end_date_"
+                name="end_date"
+                class="px-4 py-2 border border-gray-300 rounded-md"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="workedTill-error"
+                >This field is required.</span
+              >
+            </div>
+          </div>
+
+          <!-- Checkbox -->
+          <div class="flex items-center mb-4">
+            <input
+              type="checkbox"
+              name="currently_working"
+              id="currently_working_"
+              class="mr-2"
+            />
+            <label for="currentlyWorking">I currently work here</label>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-4">
+            <label for="description" class="mb-2">Description</label>
+            <textarea
+              id="description_"
+              name="description"
+              placeholder="Describe your role and key accomplishments..."
+              class="w-full px-4 py-2 border border-gray-300 rounded-md"
+            ></textarea>
+          </div>
+          <!-- Modal Footer -->
+          <div class="flex justify-end space-x-4">
+            <button
+              type="button"
+              class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
+              onclick="closeModal2()"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 bg-blue-500 text-white rounded-md"
+              id="saveBtn"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -476,7 +711,7 @@
         <div class="profile-img-container">
           <img
             id="profile-img"
-            src="https://via.placeholder.com/100"
+            src="{{user.profilePic.url}}"
             alt="Profile Picture"
             class="profile-img"
             onclick="editImage()"
@@ -532,6 +767,7 @@
       <form
         class="edit-section"
         method="POST"
+        enctype="multipart/form-data"
         action="{% url 'edit_freelancer' %}"
       >
         {% csrf_token %}
@@ -580,10 +816,9 @@
           onchange="uploadImageEdit()"
         />
 
+        <!-- onclick="deletePhoto()" -->
         <!-- Delete Photo Button -->
-        <button class="small-btn delete-photo-btn" onclick="deletePhoto()">
-          Delete Photo
-        </button>
+        <button class="small-btn delete-photo-btn">Delete Photo</button>
 
         <button type="submit" class="save-btn" onclick="saveEdit()">
           Save
@@ -595,5 +830,36 @@
 {% endblock %}
 <!-- JavaScript -->
 {% block js %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const projectTrackBtn = document.getElementsByClassName(
+      "project-tracking-btn"
+    );
+    const deleteProfileBtn =
+      document.getElementsByClassName("delete-photo-btn");
+    const saveProfileSummary = document.getElementsByClassName(
+      "save_profile_summary"
+    );
+
+    // Add click event to all buttons with the class "findajob-btn"
+    Array.from(projectTrackBtn).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        window.location.href = "{% url 'fl_projectTracking' %}";
+      });
+    });
+    // Delete profile pic
+    Array.from(deleteProfileBtn).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        window.location.href = "{% url 'delete_profile_pic' %}";
+      });
+    });
+    // save_profile_summary
+    Array.from(saveProfileSummary).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        window.location.href = "{% url 'edit_profile_summary' %}";
+      });
+    });
+  });
+</script>
 <script src="{% static 'js/tes_profile.js' %}"></script>
 {% endblock %}

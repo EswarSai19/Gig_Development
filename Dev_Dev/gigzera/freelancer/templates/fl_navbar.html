@@ -159,20 +159,17 @@
           >Industries</a
         >
         <!-- <div class="flex gap-4"> -->
-        <div
-          class="flex gap-4 relative cursor-pointer z-50"
-          style="z-index: 50"
-        >
+        <div class="flex gap-4 relative cursor-pointer z-1002">
           <div class="flex items-center gap-2" id="profile-trigger">
             <div
               class="w-9 h-9 rounded-full bg-blue-500 text-white flex justify-center items-center text-lg font-bold"
             >
-              <span id="profile-initials">{{user.name}}</span>
+              <span id="profile-initials">{{user.initials}}</span>
             </div>
             <i class="fa fa-caret-down"></i>
           </div>
           <div
-            class="hidden absolute top-12 right-0 w-48 bg-white shadow-lg rounded-lg py-2 mt-2"
+            class="hidden absolute z-1002 top-12 right-0 w-48 bg-white shadow-lg rounded-lg py-2 mt-2"
             style="z-index: 1002"
             id="profile-menu"
           >
