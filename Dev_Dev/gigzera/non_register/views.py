@@ -6,9 +6,10 @@ from django.core.exceptions import ValidationError
 from django.contrib import messages
 import json
 import re
+from django.utils.timezone import now
 from .models import Contact
 from .forms import ContactForm
-from freelancer.models import ProjectsDisplay, Freelancer, Skill
+from freelancer.models import ProjectsDisplay, Freelancer, Skill, Certificate
 from client.models import Client
 
 def index(request):
@@ -120,6 +121,7 @@ def submit_freelancer(request):
         password1 = request.POST.get("password1")
         password2 = request.POST.get("password2")
         social_media = request.POST.get("social_media")
+        print("Certificates", certifications)
         
         # Collect skills and experiences
         skills = {}
@@ -129,7 +131,23 @@ def submit_freelancer(request):
             if skill and exp:
                 skills[skill] = float(exp)  # Convert experience to float
                 
-            
+        # Check if certifications contain a comma
+        if "," in certifications:
+            print("I am inside ,")
+            # Split by comma and remove any empty strings after stripping whitespace
+            certificate_list = [cert.strip() for cert in certifications.split(",") if cert.strip()]
+            print(certificate_list, "LIST")
+            # If any empty certificate is found (e.g., "AWS Certified, , Google Cloud"), raise an error
+            if not certificate_list:
+                messages.error(request, "Please provide valid certificate names separated by commas.")
+                return render(request, "non_register/findajob.html")
+        else:
+            print("I am outside the ,")
+            # No comma present, treat the entire string as one certificate
+            certificate_list = [certifications.strip()]
+            print(certificate_list, "Outside list")
+
+  
         # Save Freelancer object
         if password1 == password2:
             if Freelancer.objects.filter(email=email).exists():
@@ -157,6 +175,18 @@ def submit_freelancer(request):
                     exp = request.POST.get(f"experience{i}")
                     if skill and exp:
                         Skill.objects.create(freelancer=freelancer, skill_name=skill, experience_years=exp)
+
+                # Save certificates to the Certificate model
+                for cert_name in certificate_list:
+                    Certificate.objects.create(
+                        freelancer=freelancer,
+                        certificate_name=cert_name,
+                        issue_date=None,            
+                        expiry_date=None,           # Leave expiry_date as None
+                        certification_id=None,      # Leave certification_id as None
+                        certification_url=None      # Leave certification_url as None
+                    )
+                    print(cert_name, "Name")
                 return render(request, "non_register/login.html")  # Redirect to success page
         else:
             messages.info(request, "Password does not match")
@@ -164,6 +194,7 @@ def submit_freelancer(request):
 
         
     return render(request, "non_register/findajob.html")
+
 
 def submit_client(request):
     if request.method == "POST":

@@ -9,11 +9,12 @@ from django.conf import settings
 from .models import ProjectsDisplay, Freelancer, Skill
 from non_register.models import Contact
 from django.core.files.storage import FileSystemStorage
-from .models import ProjectQuote, EmploymentHistory  # Create a model for storing quotes
+from .models import ProjectQuote, EmploymentHistory, Certificate  # Create a model for storing quotes
 from django.core.exceptions import ValidationError
 from datetime import datetime
 # from django.contrib.auth.decorators import login_required
 
+# To get initial of the username
 def get_initials(name):
     # Split the name into parts
     name_parts = name.strip().split()
@@ -83,17 +84,21 @@ def test(request):
         return redirect('login')  # Redirect to login if session is missing
 
     user = Freelancer.objects.get(userId=user_id)
-    employment_history = EmploymentHistory.objects.filter(freelancer_id=user_id).order_by('-start_date')
     user.initials = get_initials(user.name)
+    employment_history = EmploymentHistory.objects.filter(freelancer_id=user_id).order_by('-start_date')
+    certificates = Certificate.objects.filter(freelancer_id=user_id).order_by('-issue_date')
+    skills = Skill.objects.filter(freelancer_id=user_id).order_by('-updated_at')
 
     context = {
         'user': user,
-        'employment_history': employment_history  # Corrected the assignment
+        'employment_history': employment_history,  # Corrected the assignment
+        'certificates': certificates,
+        'skills':skills
     }
     return render(request, 'freelancer/test.html', context)
 
 
-
+# Profile summary editing
 def edit_profile_summary(request):
     user_id = request.session.get('user_id')
     if not user_id:
@@ -117,7 +122,7 @@ def edit_profile_summary(request):
 
     return render(request, 'freelancer/test.html', {'user': freelancer})
 
-
+# Work history related
 def add_work_history(request):
     user_id = request.session.get('user_id')
     if not user_id:
@@ -170,8 +175,6 @@ def add_work_history(request):
 
     return render(request, 'freelancer/test.html', {'user': freelancer})
 
-
-
 def edit_job(request):
     user_id = request.session.get('user_id')
     if not user_id:
@@ -222,39 +225,6 @@ def edit_job(request):
 
     return render('freelancer/fl_test.html', {'user':freelancer})  # Redirect to an error page if not POST
 
-
-
-
-
-# def edit_job(request):
-#     user_id = request.session.get('user_id')
-#     if not user_id:
-#         return redirect('login')  # Redirect to login if session is missing
-#     freelancer = get_object_or_404(Freelancer, userId=user_id)
-#     freelancer.initials = get_initials(freelancer.name)
-#     job_id = request.POST.get('job_id')
-#     job = get_object_or_404(EmploymentHistory, id=job_id)
-
-#     if request.method == 'POST':
-#         # Update job with form data
-#         job.company = request.POST.get('company')
-#         job.job_title = request.POST.get('job_title')
-#         job.city = request.POST.get('city')
-#         job.country = request.POST.get('country')
-#         job.start_date = request.POST.get('start_date')
-#         job.end_date = request.POST.get('end_date') if not request.POST.get('currently_working') else None
-#         job.currently_working = True if request.POST.get('currently_working') else False
-#         job.description = request.POST.get('description')
-
-#         job.save()
-#         messages.success(request, "Work history details edited successfully!")
-#         return redirect('fl_test')  # Redirect back to dashboard after saving
-
-#     # For GET request, render the dashboard with the modal pre-filled
-#     return render(request, 'freelancer/fl_test.html', {'user': freelancer})
-
-
-
 def delete_job(request, job_id):
     user_id = request.session.get('user_id')
     if not user_id:
@@ -267,6 +237,181 @@ def delete_job(request, job_id):
         job.delete()
         return redirect('fl_test')  # Replace with your dashboard or relevant page name
     return render(request, 'freelancer/fl_test.html', {'user': freelancer})
+
+
+# certificates related
+def add_certification(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
+
+    freelancer = get_object_or_404(Freelancer, userId=user_id)
+    freelancer.initials = get_initials(freelancer.name)
+
+    if request.method == 'POST':
+        # Retrieve form data
+        cert_name = request.POST.get('cert_name')
+        issue_date = request.POST.get('issue_date')
+        expiry_date = request.POST.get('end_date')
+        cert_id = request.POST.get('cert_id')
+        cert_url = request.POST.get('cert_url')
+
+
+        print("Here are the details\n", cert_name, issue_date, expiry_date, cert_id, cert_url)
+
+        # Validation (end_date is optional if currently working)
+        if not all([cert_name, issue_date]):
+            messages.error(request, "Please fill out all required fields!")
+            return redirect('fl_test')
+
+        Certificate.objects.create(
+            certificate_name = cert_name,
+            issue_date = issue_date,
+            expiry_date = expiry_date,
+            certification_id = cert_id,
+            certification_url = cert_url,
+            freelancer_id=user_id
+        )
+
+        current_certifications = freelancer.certifications
+        certificates_list = current_certifications.split(',') if current_certifications else []
+
+        # Append the new certificate name (strip extra spaces)
+        certificates_list.append(cert_name.strip())
+
+        # Update the freelancer's certifications with the new list
+        freelancer.certifications = ','.join(certificates_list)
+        freelancer.save()
+
+        # Redirect or show success message
+        messages.success(request, "Certification added successfully!")
+        return redirect('fl_test')
+
+    return render(request, 'freelancer/test.html', {'user': freelancer})
+
+def edit_cert(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')  # Redirect to login if session is missing
+    freelancer = get_object_or_404(Freelancer, userId=user_id)
+    freelancer.initials = get_initials(freelancer.name)
+    cert_id = request.POST.get('cert_id')
+    job = get_object_or_404(Certificate, id=cert_id)
+    if request.method == 'POST':
+        cert_id = request.POST.get('cert_id')
+        cert_name = request.POST.get('cert_name')
+        issue_date = request.POST.get('issue_date')
+        expiry_date = request.POST.get('expiry_date')
+        certification_id = request.POST.get('certification_id')
+        cert_url = request.POST.get('cert_url')
+
+        try:
+            # Validate issue_date
+            issue_date_obj = datetime.strptime(issue_date, '%Y-%m-%d')
+
+            # Validate end_date only if it's provided
+            expiry_date_obj = None
+            if expiry_date:
+                expiry_date_obj = datetime.strptime(expiry_date, '%Y-%m-%d')
+
+            # Update the job in the database (pseudo-code)
+            job.certificate_name = cert_name
+            job.issue_date = issue_date
+            job.expiry_date = expiry_date
+            job.certification_id = certification_id
+            job.certification_url = cert_url
+            job.freelancer_id = user_id
+
+            job.save()
+            messages.success(request, "Certication details edited successfully!")
+            return redirect('fl_test')  # Redirect back to dashboard after saving
+        except ValueError as e:
+            message.error(request, ValidationError(f"Invalid date format: {e}"))
+            return redirect('fl_test')
+
+    return render('freelancer/fl_test.html', {'user':freelancer}) 
+
+def delete_cert(request, cert_id):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')  # Redirect to login if session is missing
+
+    freelancer = get_object_or_404(Freelancer, userId=user_id)
+    freelancer.initials = get_initials(freelancer.name)
+    print("I am inside delete job", cert_id)
+
+    if request.method == 'POST':
+        # Get the certificate to be deleted
+        job = get_object_or_404(Certificate, id=cert_id)
+
+        # Get the existing certificates (comma-separated) for the freelancer
+        current_certificates = freelancer.certifications
+        certificates_list = current_certificates.split(',') if current_certificates else []
+        print(certificates_list, "List")
+        print(job.certificate_name, "cert name")
+
+        # Remove the deleted certificate from the list
+        certificates_list = [cert.strip() for cert in certificates_list]
+        if job.certificate_name.strip() in certificates_list:
+            certificates_list.remove(job.certificate_name.strip())
+
+        print(certificates_list, "After removing from list of cert table")
+
+        # Update the certificates field in the freelancer record
+        freelancer.certifications = ','.join(certificates_list)
+        freelancer.save()
+
+        # Delete the certificate
+        job.delete()
+
+        return redirect('fl_test')  # Replace with your dashboard or relevant page name
+
+    return render(request, 'freelancer/fl_test.html', {'user': freelancer})
+
+
+# Skills related
+
+def delete_skill(request, skill_id):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')  # Redirect to login if session is missing
+
+    freelancer = get_object_or_404(Freelancer, userId=user_id)
+    freelancer.initials = get_initials(freelancer.name)
+    print("Inside delete skill", skill_id)
+
+    if request.method == 'POST':
+        # Get the skill to be deleted
+        skill = get_object_or_404(Skill, id=skill_id, freelancer=freelancer)
+
+        # Check if skills is a string or dict before loading
+        if isinstance(freelancer.skills, str):
+            current_skills = json.loads(freelancer.skills) if freelancer.skills else {}
+        elif isinstance(freelancer.skills, dict):
+            current_skills = freelancer.skills
+        else:
+            current_skills = {}
+
+        print("Current skills:", current_skills)
+
+        # Remove the skill from the JSON field
+        skill_name = skill.skill_name
+        if skill_name in current_skills:
+            del current_skills[skill_name]
+            print(f"Removed {skill_name} from freelancer's skills")
+
+        # Convert dictionary back to JSON string and update the Freelancer's skills field
+        freelancer.skills = current_skills
+        freelancer.save()
+
+        # Delete the skill from the Skill table
+        skill.delete()
+
+        return redirect('fl_test')  # Redirect to your dashboard or relevant page
+
+    return render(request, 'freelancer/fl_test.html', {'user': freelancer})
+
+
 
 
 def edit_freelancer(request):
@@ -296,6 +441,7 @@ def edit_freelancer(request):
             print("Profile pic uploaded:", freelancer.profilePic)
         else:
             print("Using existing profile pic:", freelancer.profilePic)
+            freelancer.profilePic = f'freelancer/profile_pics/default_profile.png'
 
         # Update the freelancer instance
         freelancer.name = name

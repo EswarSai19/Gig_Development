@@ -542,6 +542,67 @@ function hideModal(modalId) {
     modal.style.display = "none"; // Hide the modal
   }
 }
+
+// this is editing certificate model:
+function showModal2(
+  cert_id,
+  cert_name,
+  issue_date,
+  expiry_date,
+  certification_id,
+  cert_url
+) {
+  console.log(
+    cert_id,
+    "cert_id",
+    cert_name,
+    "cert_name",
+    issue_date,
+    "issue_date",
+    expiry_date,
+    "expiry_date",
+    certification_id,
+    "certification_id",
+    cert_url,
+    "cert_url"
+  );
+
+  // Pre-fill the form fields with the passed values
+  document.getElementById("cert_id").value = cert_id;
+  document.getElementById("cert_name_").value = cert_name;
+  document.getElementById("certification_id_").value = certification_id
+    ? certification_id
+    : "";
+  document.getElementById("cert_url_").value = cert_url ? cert_url : "";
+
+  // Helper function to format date to YYYY-MM-DD in local time
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  // Format and set the start and end date values in the form
+  document.getElementById("issue_date_").value = formatDate(issue_date);
+  document.getElementById("expiry_date_").value = expiry_date
+    ? formatDate(expiry_date)
+    : "";
+
+  const modal = document.getElementById("addCertificateModal2");
+  if (modal) {
+    modal.style.display = "flex"; // Show the modal by changing its display style
+  }
+}
+
+function hideModal2() {
+  const modal = document.getElementById("addCertificateModal2");
+  if (modal) {
+    modal.style.display = "none"; // Hide the modal
+  }
+}
+
 // Handle file selection
 document
   .getElementById("file-input-cert")

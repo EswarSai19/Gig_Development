@@ -67,7 +67,7 @@ class Freelancer(models.Model):
     skills = models.JSONField(default=dict)  # Example: {"Python": 3.5, "Django": 2.0}
     projects_assigned = models.CharField(max_length=255, blank=True)
     project_status = models.CharField(max_length=50, blank=True)
-    profilePic = models.ImageField(upload_to="freelancer/profile_pics/", blank=True, null=True)
+    profilePic = models.ImageField(upload_to="freelancer/profile_pics/", blank=True, null=True, default="freelancer/profile_pics/default_profile.png")
     password = models.CharField(max_length=128)
     created_at = models.DateTimeField(default=now)
     updated_at = models.DateTimeField(auto_now=True)
@@ -106,9 +106,9 @@ class Certificate(models.Model):
         Freelancer, on_delete=models.CASCADE, related_name="certificates"
     )
     certificate_name = models.CharField(max_length=255)  # Name of the certification
-    issue_date = models.DateField()  # Date when the certificate was issued
+    issue_date = models.DateField(blank=True, null=True)  # Date when the certificate was issued
     expiry_date = models.DateField(blank=True, null=True)  # Expiry date (can be null)
-    certification_id = models.CharField(max_length=100, unique=True)  # Unique cert ID
+    certification_id = models.CharField(max_length=100, unique=True, null=True, blank=True)  # Unique cert ID
     certification_url = models.URLField(blank=True, null=True)  # URL to verify the cert
     created_at = models.DateTimeField(default=now)
     updated_at = models.DateTimeField(auto_now=True)

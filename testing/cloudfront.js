@@ -33,4 +33,4 @@ async function fetchAndDisplayImage() {
 }
 
 // Call the function when the page loads
-window.onload = fetchAndDisplayImage;
+fetchAndDisplayImage();

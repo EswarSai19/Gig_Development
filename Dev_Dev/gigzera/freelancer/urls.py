@@ -23,6 +23,11 @@ urlpatterns = [
     path('add_work_history/', views.add_work_history, name='add_work_history'),
     path('edit_job/', views.edit_job, name='edit_job'),
     path('delete_job/<int:job_id>/', views.delete_job, name='delete_job'),
+    path('delete_cert/<int:cert_id>/', views.delete_cert, name='delete_cert'),
+    path('add_certification/', views.add_certification, name='add_certification'),
+    path('edit_cert/', views.edit_cert, name='edit_cert'),
+    path('delete_skill/<int:skill_id>/', views.delete_skill, name='delete_skill'),
+    
 
   
 ]

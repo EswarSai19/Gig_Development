@@ -267,14 +267,7 @@ body {
     border: 1px solid #ddd;
 }
 
-/* Skill box styling */
-.skill-box {
-    background-color: #e3f2fd;
-    color: #1e88e5;
-    padding: 5px 10px;
-    border-radius: 20px;
-    display: inline-block;
-}
+
 
 /* Experience input styling */
 .experience-box {
@@ -297,18 +290,47 @@ body {
     /* margin-top: 5px; */
 }
 
+/* Skill box styling */
+/* .skill-box {
+    background-color: #e3f2fd;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+} */
+
+
+.skill-box {
+    display: flex;
+    align-items: center;
+    color: #1e88e5;
+    background-color: #e6f7ff;
+    /* Light blue background */
+    padding: 10px 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.delete-skill-form {
+    margin-left: 8px;
+    /* Space between skill name and button */
+}
+
 /* Delete skill icon */
 .delete-skill {
-    margin-left: 5px;
+    background: none;
+    border: none;
     color: #0056b3;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .delete-skill:hover {
     color: #003d7a;
-    /* Darker blue on hover */
 }
+
+
+
+
 
 
 /* certificate */
@@ -635,6 +657,7 @@ h2 {
     background-color: #007bff;
     /* Blue background */
     padding: 5px 15px;
+    width: 10%;
     border: none;
     color: white;
     border-radius: 4px;

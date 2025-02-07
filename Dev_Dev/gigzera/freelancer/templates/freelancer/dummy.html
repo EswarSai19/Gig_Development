@@ -171,153 +171,148 @@
 
 <!-- this is another -->
 
+<!-- Modal for add certificate -->
+
 <div
-  class="fixed inset-0 flex items-center justify-center z-50 {% if job_to_edit %}flex{% else %}hidden{% endif %}"
-  id="workHistoryModal"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto [&::-webkit-scrollbar]:hidden"
+  id="addCertificateModal2"
+  style="display: none"
 >
-  <div class="bg-white w-full max-w-lg p-6 rounded-lg shadow-lg">
-    <div class="p-4 border-b border-gray-200 text-center bg-gray-50 mb-2">
-      <h5 class="text-blue-600 font-bold text-xl">Edit Work History</h5>
+  <div
+    class="bg-white rounded-lg shadow-xl w-full max-w-lg lg:max-w-2xl flex flex-col max-h-[80vh] overflow-hidden"
+  >
+    <!-- Modal Header -->
+    <div class="p-4 border-b border-gray-200 text-center bg-gray-50">
+      <h5 class="text-blue-600 font-bold text-xl" id="addCertificateModalLabel">
+        Add Certification
+      </h5>
     </div>
 
-    <div>
+    <!-- Modal Body (Scrollable) -->
+    <div class="p-6 flex-1 overflow-y-auto">
+      <div class="file-upload-cert mb-6">
+        <div
+          class="upload-area-cert border-2 border-dashed border-gray-300 rounded-lg p-6 text-center"
+          id="file-upload-container"
+        >
+          <span class="upload-icon-cert text-2xl">&#8682;</span>
+          <p class="mt-2">Drag and drop your certificate here</p>
+          <p class="text-sm text-gray-500">Supported formats: PDF, PNG, JPG</p>
+          <button
+            class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            onclick="document.getElementById('file-input-cert').click()"
+          >
+            Browse Files
+          </button>
+          <input
+            type="file"
+            id="file-input-cert"
+            accept=".pdf, .png, .jpg"
+            hidden
+            onchange="displayUploadedFile()"
+          />
+        </div>
+      </div>
+
+      <!-- Form Section -->
       <form
-        id="workHistoryForm"
+        class="certification-form space-y-4"
         method="POST"
-        action="{% if job_to_edit %}{% url 'edit_job' job_to_edit.id %}{% else %}#{% endif %}"
+        action="{% url 'edit_cert' %}"
       >
         {% csrf_token %}
-
-        <!-- Company and Title -->
-        <div class="grid grid-cols-2 gap-4 mb-4">
-          <div class="flex flex-col">
-            <label for="company"
-              >Company <span class="text-red-500">*</span></label
-            >
-            <input
-              type="text"
-              id="company"
-              name="company"
-              value="{{ job_to_edit.company }}"
-              class="px-4 py-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-          <div class="flex flex-col">
-            <label for="title">Title <span class="text-red-500">*</span></label>
-            <input
-              type="text"
-              id="title"
-              name="job_title"
-              value="{{ job_to_edit.job_title }}"
-              class="px-4 py-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-        </div>
-
-        <!-- City and Country -->
-        <div class="grid grid-cols-2 gap-4 mb-4">
-          <div class="flex flex-col">
-            <label for="city">City <span class="text-red-500">*</span></label>
-            <input
-              type="text"
-              id="city"
-              name="city"
-              value="{{ job_to_edit.city }}"
-              class="px-4 py-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-          <div class="flex flex-col">
-            <label for="country"
-              >Country <span class="text-red-500">*</span></label
-            >
-            <input
-              type="text"
-              id="country"
-              name="country"
-              value="{{ job_to_edit.country }}"
-              class="px-4 py-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-        </div>
-
-        <!-- Dates -->
-        <div class="grid grid-cols-2 gap-4 mb-4">
-          <div class="flex flex-col">
-            <label for="workedFrom"
-              >Worked From <span class="text-red-500">*</span></label
-            >
-            <input
-              type="date"
-              id="workedFrom"
-              name="start_date"
-              value="{{ job_to_edit.start_date|date:'Y-m-d' }}"
-              class="px-4 py-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-          <div class="flex flex-col">
-            <label for="workedTill">Worked Till</label>
-            <input
-              type="date"
-              id="workedTill"
-              name="end_date"
-              value="{{ job_to_edit.end_date|date:'Y-m-d' }}"
-              class="px-4 py-2 border border-gray-300 rounded-md"
-              {%
-              if
-              job_to_edit.currently_working
-              %}disabled{%
-              endif
-              %}
-            />
-          </div>
-        </div>
-
-        <!-- Currently Working Checkbox -->
-        <div class="flex items-center mb-4">
+        <input type="hidden" name="cert_id" id="cert_id" />
+        <div>
+          <label
+            for="certification-name"
+            class="block text-sm font-medium text-gray-700"
+          >
+            Certification Name <span class="text-red-500">*</span>
+          </label>
           <input
-            type="checkbox"
-            name="currently_working"
-            id="currentlyWorking"
-            class="mr-2"
-            {%
-            if
-            job_to_edit.currently_working
-            %}checked{%
-            endif
-            %}
+            type="text"
+            name="cert_name"
+            id="cert_name_"
+            placeholder="Enter Certification Name"
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            required
           />
-          <label for="currentlyWorking">I currently work here</label>
         </div>
-
-        <!-- Description -->
-        <div class="mb-4">
-          <label for="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md"
+        <div>
+          <label
+            for="issue-date"
+            class="block text-sm font-medium text-gray-700"
           >
-{{ job_to_edit.description }}</textarea
-          >
+            Issue Date <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="date"
+            id="issue_date_"
+            name="issue_date"
+            placeholder="DD-MM-YYYY"
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
         </div>
-
-        <!-- Modal Footer -->
-        <div class="flex justify-end space-x-4">
-          <a
-            href="{% url 'fl_test' %}"
-            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
-            >Cancel</a
+        <div>
+          <label
+            for="expiry-date"
+            class="block text-sm font-medium text-gray-700"
           >
+            Expiry Date
+          </label>
+          <input
+            type="date"
+            id="expiry_date_"
+            name="expiry_date"
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+        <div>
+          <label
+            for="certification-id"
+            class="block text-sm font-medium text-gray-700"
+          >
+            Certification ID
+          </label>
+          <input
+            type="text"
+            id="certification_id_"
+            name="certification_id"
+            placeholder="Enter Certification ID (if applicable)"
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+        <div>
+          <label
+            for="certification-url"
+            class="block text-sm font-medium text-gray-700"
+          >
+            Certification URL
+          </label>
+          <input
+            type="text"
+            id="cert_url_"
+            name="cert_url"
+            placeholder="Enter Certification URL (if applicable)"
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+        <!-- Modal Footer (Fixed at the Bottom) -->
+        <div class="p-4 border-t border-gray-200 flex justify-end bg-gray-50">
+          <button
+            type="button"
+            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 mr-2"
+            onclick="hideModal2()"
+          >
+            Cancel
+          </button>
           <button
             type="submit"
-            class="px-4 py-2 bg-blue-500 text-white rounded-md"
+            id="save-button"
+            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
           >
-            Save Changes
+            Save
           </button>
         </div>
       </form>
