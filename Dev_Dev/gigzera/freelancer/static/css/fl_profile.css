@@ -192,13 +192,15 @@ body {
 .skills-search {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-top: 10px;
     position: relative;
 }
 
 /* Input field for typing skills */
-.skills-search input[type="text"] {
-    flex: 1;
+.skills-search input[type="text"],
+.skills-search input[type="number"] {
+    /* flex: 1; */
     padding: 10px;
     border: 1px solid #555;
     /* Light black border color */
@@ -207,12 +209,32 @@ body {
     outline: none;
     background-color: #fff;
     color: black;
-    width: 96%;
+    width: 40%;
 }
 
 /* Placeholder styling */
 .skills-search input[type="text"]::placeholder {
     color: #333;
+}
+
+.skills-search input[type="number"]::placeholder {
+    color: #333;
+}
+
+/* Add a skill button styles */
+.add-skill-button {
+    background-color: #003d7a;
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.add-skill-button:hover {
+    background-color: #1565c0;
 }
 
 /* Disabled input styling */
@@ -231,7 +253,7 @@ body {
     position: absolute;
     background-color: white;
     z-index: 1000;
-    width: calc(96% - 22px);
+    width: calc(40% - 22px);
     /* Match input width, accounting for padding */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -265,6 +287,7 @@ body {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ddd;
+    /* margin: auto; */
 }
 
 

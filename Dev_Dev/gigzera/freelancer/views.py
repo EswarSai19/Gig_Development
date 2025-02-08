@@ -6,10 +6,9 @@ from django.contrib import messages
 import json
 import os
 from django.conf import settings
-from .models import ProjectsDisplay, Freelancer, Skill
 from non_register.models import Contact
 from django.core.files.storage import FileSystemStorage
-from .models import ProjectQuote, EmploymentHistory, Certificate  # Create a model for storing quotes
+from .models import ProjectQuote, Freelancer, EmploymentHistory, Certificate, Skill, ProjectsDisplay, ProjectStatusDetails  # Create a model for storing quotes
 from django.core.exceptions import ValidationError
 from datetime import datetime
 # from django.contrib.auth.decorators import login_required
@@ -411,9 +410,56 @@ def delete_skill(request, skill_id):
 
     return render(request, 'freelancer/fl_test.html', {'user': freelancer})
 
+def add_skill(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
+
+    freelancer = get_object_or_404(Freelancer, userId=user_id)
+    freelancer.initials = get_initials(freelancer.name)
+
+    if request.method == 'POST':
+        # Retrieve form data
+        new_skill = request.POST.get('new_skill')
+        new_exp = request.POST.get('new_exp')
+
+
+        print("Here are the details\n", new_skill, new_exp)
+
+        # Validation (end_date is optional if currently working)
+        if not all([new_skill, new_exp]):
+            messages.error(request, "Please fill out all required fields!")
+            return redirect('fl_test')
+
+        Skill.objects.create(
+            skill_name = new_skill,
+            experience_years = new_exp,
+            freelancer_id=user_id
+        )
+
+        # Check if skills is a string or dict before loading
+        if isinstance(freelancer.skills, str):
+            current_skills = json.loads(freelancer.skills) if freelancer.skills else {}
+        elif isinstance(freelancer.skills, dict):
+            current_skills = freelancer.skills
+        else:
+            current_skills = {}
+
+        print("Current skills:", current_skills)
+        current_skills[new_skill] = new_exp
+
+        freelancer.skills = current_skills
+        freelancer.save()
+
+        # Redirect or show success message
+        messages.success(request, "New skill added successfully!")
+        return redirect('fl_test')
+
+    return render(request, 'freelancer/test.html', {'user': freelancer})
 
 
 
+# Freelancer changes
 def edit_freelancer(request):
     user_id = request.session.get('user_id')
     if not user_id:
@@ -566,7 +612,23 @@ def projectTracking(request):
         return redirect('login')  # Redirect to login if session is missing
     user = Freelancer.objects.get(userId=user_id)
     user.initials = get_initials(user.name)
-    context = {'user': user}
+    print("Userid", user_id)
+    # Step 1: Use filter() to get multiple project records
+    projects = ProjectStatusDetails.objects.filter(freelancer_id=user_id)
+    status_dict = {project.opportunity_id: project.status for project in projects}
+    opportunity_ids = projects.values_list('opportunity_id', flat=True)
+
+    print(opportunity_ids, "IDs")
+    
+    filtered_jobs = ProjectsDisplay.objects.filter(opportunityId__in=opportunity_ids)
+
+    context = {
+        'user': user,
+        'projects': projects,
+        'filtered_jobs': filtered_jobs,
+        'status_dict': status_dict  # Use this in your template
+    }
+    print("Jobs", filtered_jobs)
     return render(request, 'freelancer/projectTracking.html', context)
 
 def singleProjectTracking(request):

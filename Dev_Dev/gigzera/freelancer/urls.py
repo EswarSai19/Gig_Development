@@ -27,6 +27,7 @@ urlpatterns = [
     path('add_certification/', views.add_certification, name='add_certification'),
     path('edit_cert/', views.edit_cert, name='edit_cert'),
     path('delete_skill/<int:skill_id>/', views.delete_skill, name='delete_skill'),
+    path('add_skill/', views.add_skill, name='add_skill'),
     
 
   

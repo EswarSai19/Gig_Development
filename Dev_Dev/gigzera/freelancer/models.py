@@ -64,9 +64,9 @@ class Freelancer(models.Model):
     education = models.CharField(max_length=255)
     certifications = models.CharField(max_length=255, blank=True, null=True)
     experience = models.FloatField()
-    skills = models.JSONField(default=dict)  # Example: {"Python": 3.5, "Django": 2.0}
-    projects_assigned = models.CharField(max_length=255, blank=True)
-    project_status = models.CharField(max_length=50, blank=True)
+    skills = models.JSONField(default=dict, blank=True)  # Example: {"Python": 3.5, "Django": 2.0}
+    projects_assigned = models.JSONField(default=dict, blank=True)
+    # project_status = models.JSONField(default=dict, blank=True)
     profilePic = models.ImageField(upload_to="freelancer/profile_pics/", blank=True, null=True, default="freelancer/profile_pics/default_profile.png")
     password = models.CharField(max_length=128)
     created_at = models.DateTimeField(default=now)
@@ -85,6 +85,17 @@ class Freelancer(models.Model):
     def __str__(self):
         return self.name
 
+
+class ProjectStatusDetails(models.Model):
+    freelancer = models.ForeignKey(Freelancer, on_delete=models.CASCADE, related_name='project_status_set')
+    opportunity_id = models.CharField(max_length=15)
+    status = models.CharField(max_length=20, default='Not Started')
+    progress = models.CharField(default='0')
+    created_at = models.DateTimeField(default=now)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.status} ({self.progress} are the project details)"
 
 class Skill(models.Model):
     freelancer = models.ForeignKey(

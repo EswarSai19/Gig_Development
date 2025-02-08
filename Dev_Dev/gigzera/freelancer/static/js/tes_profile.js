@@ -397,6 +397,7 @@ const skills = [
 function toggleEditMode() {
   editMode = !editMode;
   const inputField = document.getElementById("new-skill");
+  const inputField2 = document.getElementById("new-exp");
   const editIcon = document.querySelector(".edit-icon");
   const saveButton = document.querySelector(".save-button-skills");
   const skillInputs = document.querySelectorAll(".experience-box input");
@@ -405,6 +406,11 @@ function toggleEditMode() {
 
   inputField.disabled = !editMode;
   inputField.placeholder = editMode ? "Add a skill..." : "Add a skill...";
+  editIcon.style.color = editMode ? "#1e88e5" : "#555";
+  saveButton.style.display = editMode ? "inline-block" : "none";
+
+  inputField2.disabled = !editMode;
+  inputField2.placeholder = editMode ? "Add a exp..." : "Add a exp...";
   editIcon.style.color = editMode ? "#1e88e5" : "#555";
   saveButton.style.display = editMode ? "inline-block" : "none";
 
@@ -496,30 +502,30 @@ function isSkillSelected(skill) {
 function selectSkill(skill) {
   if (!editMode) return;
 
-  const skillsList = document.getElementById("skills-list");
-  const skillExperiencePair = document.createElement("div");
-  skillExperiencePair.className = "skill-experience-pair";
+  // const skillsList = document.getElementById("skills-list");
+  // const skillExperiencePair = document.createElement("div");
+  // skillExperiencePair.className = "skill-experience-pair";
 
-  const skillBox = document.createElement("span");
-  skillBox.className = "skill-box";
-  skillBox.textContent = skill;
+  // const skillBox = document.createElement("span");
+  // skillBox.className = "skill-box";
+  // skillBox.textContent = skill;
 
-  const deleteButton = document.createElement("span");
-  deleteButton.className = "delete-skill";
-  deleteButton.textContent = "✖";
-  deleteButton.onclick = () => removeSkill(skillExperiencePair);
-  deleteButton.style.display = editMode ? "inline" : "none";
-  skillBox.appendChild(deleteButton);
+  // const deleteButton = document.createElement("span");
+  // deleteButton.className = "delete-skill";
+  // deleteButton.textContent = "✖";
+  // deleteButton.onclick = () => removeSkill(skillExperiencePair);
+  // deleteButton.style.display = editMode ? "inline" : "none";
+  // skillBox.appendChild(deleteButton);
 
-  const experienceBox = document.createElement("div");
-  experienceBox.className = "experience-box";
-  experienceBox.innerHTML = `<input type="number" placeholder="Add experience in years" required min="1" step="1"/>`;
+  // const experienceBox = document.createElement("div");
+  // experienceBox.className = "experience-box";
+  // experienceBox.innerHTML = `<input type="number" placeholder="Add experience in years" required min="1" step="1"/>`;
 
-  skillExperiencePair.appendChild(skillBox);
-  skillExperiencePair.appendChild(experienceBox);
-  skillsList.appendChild(skillExperiencePair);
+  // skillExperiencePair.appendChild(skillBox);
+  // skillExperiencePair.appendChild(experienceBox);
+  // skillsList.appendChild(skillExperiencePair);
 
-  document.getElementById("new-skill").value = "";
+  document.getElementById("new-skill").value = skill;
   document.getElementById("suggestions").innerHTML = "";
 }
 

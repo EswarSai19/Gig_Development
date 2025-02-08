@@ -1,10 +1,15 @@
 from django.contrib import admin
-from .models import ProjectsDisplay, Freelancer, Skill, Certificate, EmploymentHistory # Register your models here.
+from .models import ProjectsDisplay, Freelancer, Skill, Certificate, EmploymentHistory, ProjectStatusDetails # Register your models here.
 
 # @admin.register(Contact)
 # class ContactAdmin(admin.ModelAdmin):
 #     list_display = ('name', 'phone_number', 'email', 'reason', 'description', 'submitted_at')
 #     search_fields = ('name', 'email', 'reason')
+
+@admin.register(ProjectStatusDetails)
+class ProjectStatusDetailsAdmin(admin.ModelAdmin):
+    list_display = ('opportunity_id', 'freelancer_id', 'status', 'progress')
+    search_fields = ('opportunity_id', 'freelancer_id', 'status', 'progress')
 
 @admin.register(ProjectsDisplay)
 class ProjectsDisplayAdmin(admin.ModelAdmin):

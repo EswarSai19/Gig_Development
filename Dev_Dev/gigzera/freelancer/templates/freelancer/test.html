@@ -83,22 +83,38 @@
           Save
         </button>
       </div>
-      <div class="editable-box" id="skills">
-        <div class="skills-search">
-          <input
-            type="text"
-            id="new-skill"
-            placeholder="Add a skill..."
-            oninput="filterSkills(event)"
-            disabled
-          />
+      <form method="POST" action="{% url 'add_skill' %}">
+        {% csrf_token %}
+        <div class="editable-box" id="skills">
+          <div class="skills-search">
+            <input
+              type="text"
+              id="new-skill"
+              name="new_skill"
+              required
+              placeholder="Add a skill..."
+              oninput="filterSkills(event)"
+              disabled
+            />
+            <input
+              type="number"
+              id="new-exp"
+              name="new_exp"
+              required
+              step="any"
+              placeholder="Add Experience..."
+              disabled
+            />
+            <button type="submit" class="add-skill-button">Add Skill</button>
+          </div>
+          <div
+            id="suggestions"
+            class="suggestions-box"
+            style="display: none"
+          ></div>
         </div>
-        <div
-          id="suggestions"
-          class="suggestions-box"
-          style="display: none"
-        ></div>
-      </div>
+      </form>
+
       <div class="skills-list" id="skills-list">
         <!-- Skill-experience pairs will be added here -->
         {% for skill in skills %}
@@ -122,7 +138,7 @@
               placeholder="Add experience in years"
               required=""
               min="1"
-              step="1"
+              step="any"
               value="{{skill.experience_years}}"
               disabled=""
               style="border: 1px solid rgb(204, 204, 204)"

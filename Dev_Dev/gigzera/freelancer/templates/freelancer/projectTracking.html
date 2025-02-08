@@ -51,21 +51,28 @@
   </div>
 
   <div class="projects">
-    <div class="project-box" data-id="123456">
-      <h2>Web Design <span class="status active">Active</span></h2>
-      <h3>Opportunity ID: 123456</h3>
-      <p>
-        Design and develop a responsive e-commerce website with modern UI/UX
-        principles...
-      </p>
-      <a href="javascript:void(0)" onclick="readMoreDetails(123456)"
-        >Read More...</a
+    {% for job in filtered_jobs %}
+    <div class="project-box" data-id="{{ job.opportunityId }}">
+      <h2>
+        {{ job.title }}
+        <!--  -->
+        <span class="status active">Active</span>
+      </h2>
+      <h3>Opportunity ID: {{ job.opportunityId }}</h3>
+      <p>{{ job.description }}</p>
+      <a
+        href="javascript:void(0)"
+        onclick="readMoreDetails(`{{ job.opportunityId }}`)"
       >
+        Read More...
+      </a>
       <button class="overall-project-status-btn">
         View Overall Project Status
       </button>
     </div>
-    <div class="project-box" data-id="123457">
+    {% endfor %}
+
+    <!-- <div class="project-box" data-id="123457">
       <h2>Mobile App <span class="status pending">Pending</span></h2>
       <h3>Opportunity ID: 123457</h3>
       <p>
@@ -123,7 +130,7 @@
       <button class="overall-project-status-btn">
         View Overall Project Status
       </button>
-    </div>
+    </div> -->
   </div>
 </div>
 {% endblock %}
