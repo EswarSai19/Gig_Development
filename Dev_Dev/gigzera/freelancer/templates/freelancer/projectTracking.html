@@ -144,8 +144,14 @@
 
     // Add click event to all buttons with the class "project-tracking-btn"
     Array.from(projectTrackingBtn).forEach((btn) => {
-      btn.addEventListener("click", () => {
-        window.location.href = "{% url 'fl_singleProjectTracking' %}";
+      btn.addEventListener("click", (e) => {
+        // Get the opportunityId from the parent project-box div
+        const opportunityId = e.target
+          .closest(".project-box")
+          .getAttribute("data-id");
+
+        // Redirect with query parameter
+        window.location.href = `{% url 'fl_singleProjectTracking' %}?opportunityId=${opportunityId}`;
       });
     });
   });

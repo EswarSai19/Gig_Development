@@ -72,9 +72,19 @@ def profile(request):
     user_id = request.session.get('user_id')
     if not user_id:
         return redirect('login')  # Redirect to login if session is missing
+
     user = Freelancer.objects.get(userId=user_id)
     user.initials = get_initials(user.name)
-    context = {'user': user}
+    employment_history = EmploymentHistory.objects.filter(freelancer_id=user_id).order_by('-start_date')
+    certificates = Certificate.objects.filter(freelancer_id=user_id).order_by('-issue_date')
+    skills = Skill.objects.filter(freelancer_id=user_id).order_by('-updated_at')
+
+    context = {
+        'user': user,
+        'employment_history': employment_history,  # Corrected the assignment
+        'certificates': certificates,
+        'skills':skills
+    }
     return render(request, 'freelancer/profile.html', context)
 
 def test(request):
@@ -117,9 +127,9 @@ def edit_profile_summary(request):
         else:
             print("No summary received in POST request.")
 
-        return redirect('fl_test')
+        return redirect('fl_profile')
 
-    return render(request, 'freelancer/test.html', {'user': freelancer})
+    return render(request, 'freelancer/profile.html', {'user': freelancer})
 
 # Work history related
 def add_work_history(request):
@@ -148,11 +158,11 @@ def add_work_history(request):
         # Validation (end_date is optional if currently working)
         if not all([company, job_title, description, city, country, start_date]):
             messages.error(request, "Please fill out all required fields!")
-            return redirect('fl_test')
+            return redirect('fl_profile')
 
         if not currently_working and not end_date:
             messages.error(request, "Please provide an end date if you're not currently working.")
-            return redirect('fl_test')
+            return redirect('fl_profile')
 
         end_date = end_date if not currently_working else None  # Clear end date if currently working
 
@@ -170,9 +180,9 @@ def add_work_history(request):
 
         # Redirect or show success message
         messages.success(request, "Work history updated successfully!")
-        return redirect('fl_test')
+        return redirect('fl_profile')
 
-    return render(request, 'freelancer/test.html', {'user': freelancer})
+    return render(request, 'freelancer/profile.html', {'user': freelancer})
 
 def edit_job(request):
     user_id = request.session.get('user_id')
@@ -217,12 +227,12 @@ def edit_job(request):
             job.currently_working = currently_working
             job.save()
             messages.success(request, "Work history details edited successfully!")
-            return redirect('fl_test')  # Redirect back to dashboard after saving
+            return redirect('fl_profile')  # Redirect back to dashboard after saving
         except ValueError as e:
             message.error(request, ValidationError(f"Invalid date format: {e}"))
-            return redirect('fl_test')
+            return redirect('fl_profile')
 
-    return render('freelancer/fl_test.html', {'user':freelancer})  # Redirect to an error page if not POST
+    return render('freelancer/profile.html', {'user':freelancer})  # Redirect to an error page if not POST
 
 def delete_job(request, job_id):
     user_id = request.session.get('user_id')
@@ -234,8 +244,8 @@ def delete_job(request, job_id):
     if request.method == 'POST':
         job = get_object_or_404(EmploymentHistory, id=job_id)
         job.delete()
-        return redirect('fl_test')  # Replace with your dashboard or relevant page name
-    return render(request, 'freelancer/fl_test.html', {'user': freelancer})
+        return redirect('fl_profile')  # Replace with your dashboard or relevant page name
+    return render(request, 'freelancer/profile.html', {'user': freelancer})
 
 
 # certificates related
@@ -261,7 +271,7 @@ def add_certification(request):
         # Validation (end_date is optional if currently working)
         if not all([cert_name, issue_date]):
             messages.error(request, "Please fill out all required fields!")
-            return redirect('fl_test')
+            return redirect('fl_profile')
 
         Certificate.objects.create(
             certificate_name = cert_name,
@@ -284,9 +294,9 @@ def add_certification(request):
 
         # Redirect or show success message
         messages.success(request, "Certification added successfully!")
-        return redirect('fl_test')
+        return redirect('fl_profile')
 
-    return render(request, 'freelancer/test.html', {'user': freelancer})
+    return render(request, 'freelancer/profile.html', {'user': freelancer})
 
 def edit_cert(request):
     user_id = request.session.get('user_id')
@@ -323,12 +333,12 @@ def edit_cert(request):
 
             job.save()
             messages.success(request, "Certication details edited successfully!")
-            return redirect('fl_test')  # Redirect back to dashboard after saving
+            return redirect('fl_profile')  # Redirect back to dashboard after saving
         except ValueError as e:
             message.error(request, ValidationError(f"Invalid date format: {e}"))
-            return redirect('fl_test')
+            return redirect('fl_profile')
 
-    return render('freelancer/fl_test.html', {'user':freelancer}) 
+    return render('freelancer/profile.html', {'user':freelancer}) 
 
 def delete_cert(request, cert_id):
     user_id = request.session.get('user_id')
@@ -363,9 +373,9 @@ def delete_cert(request, cert_id):
         # Delete the certificate
         job.delete()
 
-        return redirect('fl_test')  # Replace with your dashboard or relevant page name
+        return redirect('fl_profile')  # Replace with your dashboard or relevant page name
 
-    return render(request, 'freelancer/fl_test.html', {'user': freelancer})
+    return render(request, 'freelancer/profile.html', {'user': freelancer})
 
 
 # Skills related
@@ -406,9 +416,9 @@ def delete_skill(request, skill_id):
         # Delete the skill from the Skill table
         skill.delete()
 
-        return redirect('fl_test')  # Redirect to your dashboard or relevant page
+        return redirect('fl_profile')  # Redirect to your dashboard or relevant page
 
-    return render(request, 'freelancer/fl_test.html', {'user': freelancer})
+    return render(request, 'freelancer/profile.html', {'user': freelancer})
 
 def add_skill(request):
     user_id = request.session.get('user_id')
@@ -429,7 +439,7 @@ def add_skill(request):
         # Validation (end_date is optional if currently working)
         if not all([new_skill, new_exp]):
             messages.error(request, "Please fill out all required fields!")
-            return redirect('fl_test')
+            return redirect('fl_profile')
 
         Skill.objects.create(
             skill_name = new_skill,
@@ -453,9 +463,9 @@ def add_skill(request):
 
         # Redirect or show success message
         messages.success(request, "New skill added successfully!")
-        return redirect('fl_test')
+        return redirect('fl_profile')
 
-    return render(request, 'freelancer/test.html', {'user': freelancer})
+    return render(request, 'freelancer/profile.html', {'user': freelancer})
 
 
 
@@ -500,9 +510,9 @@ def edit_freelancer(request):
         freelancer.save()
 
         # Redirect to a new page or display a success message
-        return redirect('fl_test')
+        return redirect('fl_profile')
 
-    return render(request, 'freelancer/fl_test.html', {'user': freelancer})
+    return render(request, 'freelancer/profile.html', {'user': freelancer})
 
 
 def delete_profile_pic(request):
@@ -526,9 +536,9 @@ def delete_profile_pic(request):
         # Clear the profilePic field in the database
         freelancer.profilePic = "freelancer/profile_pics/default_profile.png"
         freelancer.save()
-        return redirect('fl_test')
+        return redirect('fl_profile')
 
-    return render(request, 'freelancer/fl_test.html', {'user': freelancer})
+    return render(request, 'freelancer/profile.html', {'user': freelancer})
 
 # @login_required
 def submit_quote(request):
@@ -637,7 +647,13 @@ def singleProjectTracking(request):
         return redirect('login')  # Redirect to login if session is missing
     user = Freelancer.objects.get(userId=user_id)
     user.initials = get_initials(user.name)
-    context = {'user': user}
+    opportunity_id = request.GET.get('opportunityId')
+    
+    # Fetch the job based on opportunity_id
+    job = ProjectsDisplay.objects.get(opportunityId=opportunity_id)
+    job.deliverables_list = [line.strip() for line in job.deliverables.split("\n")]
+    print("I am getting job info:", job.deliverables_list)
+    context = {'user': user, 'job':job}
     return render(request, 'freelancer/singleProjectTracking.html', context)
 
 # Contact form 

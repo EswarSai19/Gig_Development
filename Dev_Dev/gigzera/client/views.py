@@ -44,6 +44,15 @@ def cl_contact(request):
     messages.error(request, "Invalid request!")
     return redirect(request.META.get('HTTP_REFERER', 'contact'))
 
+def get_initials(name):
+    # Split the name into parts
+    name_parts = name.strip().split()
+    
+    # Extract the first letter from each part and capitalize it
+    initials = ''.join(part[0].upper() for part in name_parts)
+    
+    return initials
+
 
 def index(request):
     user_id = request.session.get('user_id')
@@ -51,6 +60,7 @@ def index(request):
         return redirect('login')
 
     user = Client.objects.get(userId=user_id)
+    user.initials = get_initials(user.name)
     return render(request, 'client/index.html', {'user': user})
 
 
@@ -66,8 +76,8 @@ def profile(request):
 def test(request):
     return render(request, 'client/test.html')
 
-def postajob(request):
-    return render(request, 'client/postajob.html')
+def cl_postajob(request):
+    return render(request, 'client/cl_postajob.html')
     
 def logout(request):
     request.session.flush()  # ✅ Clears all session data (logs user out)

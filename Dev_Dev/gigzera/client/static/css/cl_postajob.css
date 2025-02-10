@@ -89,7 +89,6 @@ nav a {
     /* Ensure the entire image is visible without distortion */
     position: absolute;
     /* Position the image within its container */
-    left: -5vw;
     /* Shift the image slightly to the left to center the increased width */
     top: 0;
     /* Align the image to the top */
@@ -99,35 +98,6 @@ nav a {
     /* Optional: Adds a darkened effect for better text contrast */
 }
 
-
-/* Text Overlay Styling */
-.text-overlay {
-    position: absolute;
-    top: 20%;
-    /* Adjust position vertically */
-    left: 50%;
-    /* Center horizontally */
-    transform: translate(-50%, -20%);
-    /* Center both horizontally and vertically */
-    color: white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-    /* Improve text readability */
-    text-align: center;
-    z-index: 10;
-    /* Ensure it appears above the images */
-    animation: fadeUp 10s ease-out infinite;
-    /* Optional: Animation for the overlay */
-    will-change: transform, opacity;
-}
-
-.text-overlay i {
-    font-size: 65px;
-    /* Icon size */
-    color: white;
-    /* Icon color */
-    margin-bottom: 20px;
-    /* Space between icon and text */
-}
 
 .get-started-heading {
     font-size: 28px;
@@ -223,4 +193,172 @@ nav a {
 .content .card a:hover {
     color: #0056b3;
     text-decoration: underline;
+}
+
+/* Styles for the Modal */
+.form-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.form-header h2 {
+    margin: 0;
+}
+
+.form-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-content input,
+.form-content select,
+.form-content textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-content textarea {
+    resize: none;
+}
+
+.form-content button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.form-content button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+}
+
+/* Styles for skill tags */
+.skill-tag {
+    display: inline-block;
+    background-color: #4caf50;
+    color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.remove-skill {
+    margin-left: 10px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.remove-skill:hover {
+    color: red;
+}
+
+/* Suggestions List */
+.suggestions-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Pop-up for skill selection */
+#popup {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 9999;
+    width: 80%;
+    max-width: 500px;
+}
+
+#popup .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#popup .popup-header .close {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.select-container {
+    flex: 1;
+    /* Make both select boxes take equal width */
+}
+
+.select-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.select-container select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Remove Border from Get Started Button */
+.get-started-btn {
+    border: none;
+    /* Removes border */
+    background-color: transparent;
+    /* Optional: Transparent background */
+    color: #007bff;
+    /* Button text color */
+    font-size: 1rem;
+    /* Adjust font size */
+    font-weight: bold;
+    /* Make text bold */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: all 0.3s ease-in-out;
+}
+
+.get-started-btn:hover {
+    color: #0c0c0c;
+    /* Optional: Change color on hover */
 }

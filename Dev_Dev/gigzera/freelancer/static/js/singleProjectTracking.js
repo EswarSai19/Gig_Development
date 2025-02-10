@@ -46,13 +46,18 @@ document.getElementById("addTaskBtn").addEventListener("click", () => {
       <label class="task-title">New Task</label>
       <i class="fa-solid fa-pen-to-square edit-icon"></i>
       <select>
-        <option>In Progress</option>
-        <option>Completed</option>
-        <option>Pending</option>
+         <option>Requirement Gathering</option>
+                  <option>Designing</option>
+                  <option>Development</option>
+                  <option>Testing</option>
+                  <option>UAT</option>
+                  <option>Completed</option>
       </select>
     </div>
     <div class="task-comment">
-      <textarea class="comment-box" placeholder="Add a comment..." disabled></textarea>
+     <button onclick="openChatModal()" class="comment-button" disabled>
+      Add Comment
+      </button>          
     </div>
   `;
 
@@ -73,22 +78,28 @@ document.getElementById("deleteSelectedBtn").addEventListener("click", () => {
 function addEditFunctionality(task) {
   const editIcon = task.querySelector(".edit-icon");
   const title = task.querySelector(".task-title");
-  const commentBox = task.querySelector(".comment-box");
+  const commentButton = task.querySelector(".comment-button");
 
   editIcon.addEventListener("click", () => {
     if (editIcon.classList.contains("editing")) {
       // Save and reset after editing
       title.contentEditable = "false";
-      commentBox.disabled = true;
+      commentButton.disabled = true;
       editIcon.classList.remove("editing");
       editIcon.style.color = "#007bff"; // Reset icon color
     } else {
       // Enable editing
       title.contentEditable = "true";
-      commentBox.disabled = false;
+      commentButton.disabled = false;
       title.focus();
       editIcon.classList.add("editing");
       editIcon.style.color = "#0056b3"; // Indicate editing mode
+    }
+  });
+  // Open comment modal and set task reference
+  commentButton.addEventListener("click", () => {
+    if (!commentButton.disabled) {
+      openChatModal(task);
     }
   });
 }
@@ -98,6 +109,37 @@ document
   .querySelectorAll(".task")
   .forEach((task) => addEditFunctionality(task));
 
+// Open the message modal when clicking 'Add Comment'
+function openChatModal() {
+  document.getElementById("chatModal").classList.remove("hidden");
+}
+
+// Close the message modal
+function closeChatModal() {
+  document.getElementById("chatModal").classList.add("hidden");
+}
+
+// Send a new message and display it in the message area
+function sendNewMessage() {
+  const input = document.getElementById("newMessageInput");
+  const container = document.getElementById("messageArea");
+
+  if (input.value.trim()) {
+    const messageDiv = document.createElement("div");
+    messageDiv.className = "message-box outgoing mb-3";
+    messageDiv.innerHTML = `
+      <img src="https://cdn.yellowmessenger.com/cMvNTJMdqlfz1734610513305.jpeg" alt="User Avatar" class="avatar-img">   
+          <div class="message-content-box">
+              <p>${input.value}</p>  
+              <span class="time-stamp">just now</span>  
+          </div>
+      `;
+    container.appendChild(messageDiv);
+    input.value = "";
+    container.scrollTop = container.scrollHeight;
+  }
+}
+
 // javascript for message box
 function sendMessage() {
   const input = document.getElementById("messageInput");
@@ -106,12 +148,16 @@ function sendMessage() {
   if (input.value.trim()) {
     const messageDiv = document.createElement("div");
     messageDiv.className = "message sent";
-    messageDiv.innerHTML = `   
+    messageDiv.innerHTML = `  
+        <img
+        src="  https://cdn.yellowmessenger.com/cMvNTJMdqlfz1734610513305.jpeg"
+        alt="User Avatar"
+        class="user-avatar"
+      /> 
             <div class="message-content">
                 <p>${input.value}</p>  
                 <span class="message-time">just now</span>  
             </div>
-            <img src="/api/placeholder/32/32" alt="User Avatar" class="user-avatar">
         `;
     container.appendChild(messageDiv);
     input.value = "";

@@ -1,140 +1,140 @@
-// javascript for certificate modal popup
-const fileInputcert = document.getElementById("file-input-cert");
-const uploadedFiles = document.getElementById("uploaded-file-cert");
-const fileNameSpan = document.getElementById("file-name-cert");
-const fileSizeSpan = document.getElementById("file-size-cert");
-const issueDateInput = document.getElementById("issue-date");
-const expiryDateInput = document.getElementById("expiry-date");
-const certificationNameInput = document.getElementById("certification-name");
-const certificationIdInput = document.getElementById("certification-id");
-const certificationUrlInput = document.getElementById("certification-url");
-const saveButton = document.getElementById("save-button");
+// // javascript for certificate modal popup
+// const fileInputcert = document.getElementById("file-input-cert");
+// const uploadedFiles = document.getElementById("uploaded-file-cert");
+// const fileNameSpan = document.getElementById("file-name-cert");
+// const fileSizeSpan = document.getElementById("file-size-cert");
+// const issueDateInput = document.getElementById("issue-date");
+// const expiryDateInput = document.getElementById("expiry-date");
+// const certificationNameInput = document.getElementById("certification-name");
+// const certificationIdInput = document.getElementById("certification-id");
+// const certificationUrlInput = document.getElementById("certification-url");
+// const saveButton = document.getElementById("save-button");
 
-// Reference to the modal element
-const addCertificateModal = new bootstrap.Modal(
-  document.getElementById("addCertificateModal")
-);
+// // Reference to the modal element
+// const addCertificateModal = new bootstrap.Modal(
+//   document.getElementById("addCertificateModal")
+// );
 
-fileInputcert.addEventListener("change", (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    fileNameSpan.textContent = file.name;
-    fileSizeSpan.textContent = (file.size / 1024).toFixed(2) + " KB";
-    uploadedFiles.style.display = "flex";
-  }
-});
+// fileInputcert.addEventListener("change", (event) => {
+//   const file = event.target.files[0];
+//   if (file) {
+//     fileNameSpan.textContent = file.name;
+//     fileSizeSpan.textContent = (file.size / 1024).toFixed(2) + " KB";
+//     uploadedFiles.style.display = "flex";
+//   }
+// });
 
-function removeFile() {
-  fileInputcert.value = "";
-  uploadedFiles.style.display = "none";
-}
+// function removeFile() {
+//   fileInputcert.value = "";
+//   uploadedFiles.style.display = "none";
+// }
 
-saveButton.addEventListener("click", (event) => {
-  // Check if file is uploaded
-  if (!fileInputcert.files[0]) {
-    alert("Please upload a file.");
-    return;
-  }
-  if (!certificationNameInput.value) {
-    alert("Please enter a certification name.");
-    return;
-  }
-  //
-  // Check if issue date is filled
-  if (!issueDateInput.value) {
-    alert("Please select an issue date.");
-    return;
-  }
+// saveButton.addEventListener("click", (event) => {
+//   // Check if file is uploaded
+//   if (!fileInputcert.files[0]) {
+//     alert("Please upload a file.");
+//     return;
+//   }
+//   if (!certificationNameInput.value) {
+//     alert("Please enter a certification name.");
+//     return;
+//   }
+//   //
+//   // Check if issue date is filled
+//   if (!issueDateInput.value) {
+//     alert("Please select an issue date.");
+//     return;
+//   }
 
-  // Collect form data
-  const formData = {
-    fileName: fileInputcert.files[0].name,
-    fileSize: (fileInputcert.files[0].size / 1024).toFixed(2) + " KB",
-    issueDate: issueDateInput.value,
-    expiryDate: expiryDateInput.value,
-    certificationName: certificationNameInput.value,
-    certificationId: certificationIdInput.value,
-    certificationUrl: certificationUrlInput.value,
-  };
+//   // Collect form data
+//   const formData = {
+//     fileName: fileInputcert.files[0].name,
+//     fileSize: (fileInputcert.files[0].size / 1024).toFixed(2) + " KB",
+//     issueDate: issueDateInput.value,
+//     expiryDate: expiryDateInput.value,
+//     certificationName: certificationNameInput.value,
+//     certificationId: certificationIdInput.value,
+//     certificationUrl: certificationUrlInput.value,
+//   };
 
-  console.log("Certification Data Saved:", formData);
+//   console.log("Certification Data Saved:", formData);
 
-  // Reset the form fields and clear uploaded file information
-  fileInputcert.value = "";
-  uploadedFiles.style.display = "none";
-  issueDateInput.value = "";
-  expiryDateInput.value = "";
-  certificationNameInput.value = "";
-  certificationIdInput.value = "";
-  certificationUrlInput.value = "";
+//   // Reset the form fields and clear uploaded file information
+//   fileInputcert.value = "";
+//   uploadedFiles.style.display = "none";
+//   issueDateInput.value = "";
+//   expiryDateInput.value = "";
+//   certificationNameInput.value = "";
+//   certificationIdInput.value = "";
+//   certificationUrlInput.value = "";
 
-  // Close the modal directly
-  addCertificateModal.hide();
-});
+//   // Close the modal directly
+//   addCertificateModal.hide();
+// });
 
-// javascript for employment history popup
-document
-  .getElementById("currentlyWorking")
-  .addEventListener("change", function () {
-    const workedTillField = document.getElementById("workedTill");
+// // javascript for employment history popup
+// document
+//   .getElementById("currentlyWorking")
+//   .addEventListener("change", function () {
+//     const workedTillField = document.getElementById("workedTill");
 
-    if (this.checked) {
-      workedTillField.value = ""; // Clear the "Worked Till" field
-      workedTillField.disabled = true; // Disable the field
-      workedTillField.removeAttribute("required"); // Remove required attribute
-    } else {
-      workedTillField.disabled = false; // Enable the field
-      workedTillField.setAttribute("required", "true"); // Make it required
-    }
-  });
+//     if (this.checked) {
+//       workedTillField.value = ""; // Clear the "Worked Till" field
+//       workedTillField.disabled = true; // Disable the field
+//       workedTillField.removeAttribute("required"); // Remove required attribute
+//     } else {
+//       workedTillField.disabled = false; // Enable the field
+//       workedTillField.setAttribute("required", "true"); // Make it required
+//     }
+//   });
 
-document.getElementById("saveBtn").addEventListener("click", function () {
-  const company = document.getElementById("company").value.trim();
-  const title = document.getElementById("title").value.trim();
-  const city = document.getElementById("city").value.trim();
-  const country = document.getElementById("country").value.trim();
-  const workedFrom = document.getElementById("workedFrom").value;
-  const workedTill = document.getElementById("workedTill").value;
-  const currentlyWorking = document.getElementById("currentlyWorking").checked;
-  const description = document.getElementById("description").value.trim();
+// document.getElementById("saveBtn").addEventListener("click", function () {
+//   const company = document.getElementById("company").value.trim();
+//   const title = document.getElementById("title").value.trim();
+//   const city = document.getElementById("city").value.trim();
+//   const country = document.getElementById("country").value.trim();
+//   const workedFrom = document.getElementById("workedFrom").value;
+//   const workedTill = document.getElementById("workedTill").value;
+//   const currentlyWorking = document.getElementById("currentlyWorking").checked;
+//   const description = document.getElementById("description").value.trim();
 
-  // Validation
-  if (!company || !title || !city || !country || !workedFrom) {
-    alert("Please fill out all required fields.");
-    return;
-  }
+//   // Validation
+//   if (!company || !title || !city || !country || !workedFrom) {
+//     alert("Please fill out all required fields.");
+//     return;
+//   }
 
-  // If "I currently work here" is not checked, validate the "Worked Till" field
-  if (!currentlyWorking && !workedTill) {
-    alert("Please specify the Worked Till date.");
-    return;
-  }
+//   // If "I currently work here" is not checked, validate the "Worked Till" field
+//   if (!currentlyWorking && !workedTill) {
+//     alert("Please specify the Worked Till date.");
+//     return;
+//   }
 
-  // Gather form data
-  const workHistory = {
-    company,
-    title,
-    city,
-    country,
-    workedFrom,
-    workedTill: currentlyWorking ? "Present" : workedTill,
-    description,
-  };
+//   // Gather form data
+//   const workHistory = {
+//     company,
+//     title,
+//     city,
+//     country,
+//     workedFrom,
+//     workedTill: currentlyWorking ? "Present" : workedTill,
+//     description,
+//   };
 
-  console.log("Work History Saved:", workHistory);
+//   console.log("Work History Saved:", workHistory);
 
-  // Close the modal after saving (Bootstrap-specific)
-  const modal = bootstrap.Modal.getInstance(
-    document.getElementById("workHistoryModal")
-  );
-  modal.hide();
+//   // Close the modal after saving (Bootstrap-specific)
+//   const modal = bootstrap.Modal.getInstance(
+//     document.getElementById("workHistoryModal")
+//   );
+//   modal.hide();
 
-  const form = document.getElementById("workHistoryForm");
-  form.reset();
-  const workedTillField = document.getElementById("workedTill");
-  workedTillField.disabled = false; // Enable the field after reset
-  workedTillField.removeAttribute("required"); // Reset required attribute
-});
+//   const form = document.getElementById("workHistoryForm");
+//   form.reset();
+//   const workedTillField = document.getElementById("workedTill");
+//   workedTillField.disabled = false; // Enable the field after reset
+//   workedTillField.removeAttribute("required"); // Reset required attribute
+// });
 
 //    Right section for editing profile and saving
 function enableEditing() {
@@ -397,13 +397,22 @@ const skills = [
 function toggleEditMode() {
   editMode = !editMode;
   const inputField = document.getElementById("new-skill");
+  const inputField2 = document.getElementById("new-exp");
   const editIcon = document.querySelector(".edit-icon");
   const saveButton = document.querySelector(".save-button-skills");
   const skillInputs = document.querySelectorAll(".experience-box input");
   const deleteButtons = document.querySelectorAll(".delete-skill");
+  const suggestionsBox = document.getElementById("suggestions");
 
   inputField.disabled = !editMode;
   inputField.placeholder = editMode ? "Add a skill..." : "Add a skill...";
+  editIcon.style.color = editMode ? "#1e88e5" : "#555";
+  saveButton.style.display = editMode ? "inline-block" : "none";
+
+  inputField2.disabled = !editMode;
+  inputField2.placeholder = editMode
+    ? "Add experience..."
+    : "Add experience...";
   editIcon.style.color = editMode ? "#1e88e5" : "#555";
   saveButton.style.display = editMode ? "inline-block" : "none";
 
@@ -411,6 +420,13 @@ function toggleEditMode() {
   deleteButtons.forEach(
     (button) => (button.style.display = editMode ? "inline" : "none")
   );
+
+  // Hide suggestions when edit mode is turned off
+  if (!editMode) {
+    suggestionsBox.style.display = "none";
+  } else {
+    suggestionsBox.style.display = "block";
+  }
 }
 
 // Save skills and validate
@@ -441,6 +457,8 @@ function saveSkills() {
 
   if (allValid) {
     toggleEditMode();
+    // Hide suggestions box after saving
+    document.getElementById("suggestions").style.display = "none";
   }
 }
 
@@ -450,14 +468,21 @@ function filterSkills(event) {
 
   const input = event.target.value.toLowerCase();
   const suggestionsBox = document.getElementById("suggestions");
+
+  // Initially hide the suggestions box if input is empty
+  suggestionsBox.style.display = input ? "block" : "none";
+
+  // Clear previous suggestions
   suggestionsBox.innerHTML = "";
 
   if (!input) return;
 
+  // Filter the skills array based on user input
   const filteredSkills = skills.filter(
     (skill) => skill.toLowerCase().includes(input) && !isSkillSelected(skill)
   );
 
+  // Add filtered suggestions to the suggestions box
   filteredSkills.forEach((skill) => {
     const suggestionItem = document.createElement("div");
     suggestionItem.className = "suggestion-item";
@@ -479,30 +504,30 @@ function isSkillSelected(skill) {
 function selectSkill(skill) {
   if (!editMode) return;
 
-  const skillsList = document.getElementById("skills-list");
-  const skillExperiencePair = document.createElement("div");
-  skillExperiencePair.className = "skill-experience-pair";
+  // const skillsList = document.getElementById("skills-list");
+  // const skillExperiencePair = document.createElement("div");
+  // skillExperiencePair.className = "skill-experience-pair";
 
-  const skillBox = document.createElement("span");
-  skillBox.className = "skill-box";
-  skillBox.textContent = skill;
+  // const skillBox = document.createElement("span");
+  // skillBox.className = "skill-box";
+  // skillBox.textContent = skill;
 
-  const deleteButton = document.createElement("span");
-  deleteButton.className = "delete-skill";
-  deleteButton.textContent = "✖";
-  deleteButton.onclick = () => removeSkill(skillExperiencePair);
-  deleteButton.style.display = editMode ? "inline" : "none";
-  skillBox.appendChild(deleteButton);
+  // const deleteButton = document.createElement("span");
+  // deleteButton.className = "delete-skill";
+  // deleteButton.textContent = "✖";
+  // deleteButton.onclick = () => removeSkill(skillExperiencePair);
+  // deleteButton.style.display = editMode ? "inline" : "none";
+  // skillBox.appendChild(deleteButton);
 
-  const experienceBox = document.createElement("div");
-  experienceBox.className = "experience-box";
-  experienceBox.innerHTML = `<input type="number" placeholder="Add experience in years" required min="1" step="1"/>`;
+  // const experienceBox = document.createElement("div");
+  // experienceBox.className = "experience-box";
+  // experienceBox.innerHTML = `<input type="number" placeholder="Add experience in years" required min="1" step="1"/>`;
 
-  skillExperiencePair.appendChild(skillBox);
-  skillExperiencePair.appendChild(experienceBox);
-  skillsList.appendChild(skillExperiencePair);
+  // skillExperiencePair.appendChild(skillBox);
+  // skillExperiencePair.appendChild(experienceBox);
+  // skillsList.appendChild(skillExperiencePair);
 
-  document.getElementById("new-skill").value = "";
+  document.getElementById("new-skill").value = skill;
   document.getElementById("suggestions").innerHTML = "";
 }
 
@@ -510,3 +535,329 @@ function selectSkill(skill) {
 function removeSkill(skillExperiencePair) {
   skillExperiencePair.remove();
 }
+
+// Modal for certificate
+function showModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.style.display = "flex"; // Show the modal by changing its display style
+  }
+}
+
+function hideModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.style.display = "none"; // Hide the modal
+  }
+}
+
+// this is editing certificate model:
+function showModal2(
+  cert_id,
+  cert_name,
+  issue_date,
+  expiry_date,
+  certification_id,
+  cert_url
+) {
+  console.log(
+    cert_id,
+    "cert_id",
+    cert_name,
+    "cert_name",
+    issue_date,
+    "issue_date",
+    expiry_date,
+    "expiry_date",
+    certification_id,
+    "certification_id",
+    cert_url,
+    "cert_url"
+  );
+
+  // Pre-fill the form fields with the passed values
+  document.getElementById("cert_id").value = cert_id;
+  document.getElementById("cert_name_").value = cert_name;
+  document.getElementById("certification_id_").value = certification_id
+    ? certification_id
+    : "";
+  document.getElementById("cert_url_").value = cert_url ? cert_url : "";
+
+  // Helper function to format date to YYYY-MM-DD in local time
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  // Format and set the start and end date values in the form
+  document.getElementById("issue_date_").value = formatDate(issue_date);
+  document.getElementById("expiry_date_").value = expiry_date
+    ? formatDate(expiry_date)
+    : "";
+
+  const modal = document.getElementById("addCertificateModal2");
+  if (modal) {
+    modal.style.display = "flex"; // Show the modal by changing its display style
+  }
+}
+
+function hideModal2() {
+  const modal = document.getElementById("addCertificateModal2");
+  if (modal) {
+    modal.style.display = "none"; // Hide the modal
+  }
+}
+
+// Handle file selection
+document
+  .getElementById("file-input-cert")
+  .addEventListener("change", function (event) {
+    const file = event.target.files[0]; // Get the selected file
+    const fileUploadContainer = document.getElementById(
+      "file-upload-container"
+    ); // File upload container
+
+    if (file) {
+      const fileName = file.name; // File name
+      const fileSize = (file.size / 1024).toFixed(2) + " KB"; // File size in KB
+
+      // Update the file name and size in the modal
+      document.getElementById("file-name-cert").textContent = fileName;
+      document.getElementById("file-size-cert").textContent = fileSize;
+
+      // Show the uploaded file section
+      document.getElementById("uploaded-file-cert").classList.remove("hidden");
+
+      // Remove red border if a file is selected
+      fileUploadContainer.classList.remove("border-red-500");
+    } else {
+      alert("No file selected.");
+    }
+  });
+
+// Function to remove the selected file
+function removeFile() {
+  const fileUploadContainer = document.getElementById("file-upload-container"); // File upload container
+  document.getElementById("file-input-cert").value = ""; // Clear file input
+  document.getElementById("uploaded-file-cert").classList.add("hidden"); // Hide the file display section
+
+  // Add the red border back if file is removed
+  fileUploadContainer.classList.add("border-red-500");
+}
+
+// Save button logic
+document.getElementById("save-button").addEventListener("click", function () {
+  const form = document.querySelector(".certification-form");
+  const fileInput = document.getElementById("file-input-cert");
+  const fileUploadContainer = document.getElementById("file-upload-container");
+
+  // Check if the form is valid
+  if (form.checkValidity()) {
+    if (fileInput.files.length === 0) {
+      // Add a red border to the file upload container if no file is selected
+      fileUploadContainer.classList.add("border-red-500");
+      return; // Prevent form submission
+    } else {
+      // Remove the red border if a file is selected
+      fileUploadContainer.classList.remove("border-red-500");
+    }
+
+    // Proceed with saving if form and file input are valid
+    form.reset();
+    document.getElementById("uploaded-file-cert").classList.add("hidden");
+    fileUploadContainer.classList.remove("border-red-500");
+    hideModal("addCertificateModal");
+  } else {
+    form.reportValidity();
+  }
+});
+
+// Function to show the modal
+function openModal() {
+  const modal = document.getElementById("workHistoryModal");
+  modal.classList.remove("hidden");
+}
+
+function openModal2(
+  job_id,
+  company,
+  city,
+  country,
+  job_title,
+  description,
+  start_date,
+  end_date,
+  currently_working
+) {
+  console.log(
+    job_id,
+    company,
+    city,
+    country,
+    job_title,
+    description,
+    start_date,
+    end_date,
+    currently_working
+  );
+
+  // Pre-fill the form fields with the passed values
+  document.getElementById("job_id").value = job_id;
+  document.getElementById("company_").value = company;
+  document.getElementById("city_").value = city;
+  document.getElementById("country_").value = country;
+  document.getElementById("job_title_").value = job_title;
+  document.getElementById("description_").value = description;
+
+  // Helper function to format date to YYYY-MM-DD in local time
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  // Format and set the start and end date values in the form
+  document.getElementById("start_date_").value = formatDate(start_date);
+  document.getElementById("end_date_").value = end_date
+    ? formatDate(end_date)
+    : "";
+
+  // Ensure currently_working is a boolean before setting the checkbox
+  const isCurrentlyWorking =
+    currently_working === true ||
+    currently_working === "true" ||
+    currently_working === 1 ||
+    currently_working === "on"; // In case the backend sends "on"
+  const currentlyWorkingCheckbox =
+    document.getElementById("currently_working_");
+  currentlyWorkingCheckbox.checked = isCurrentlyWorking;
+
+  // Trigger the toggle function to disable 'Worked Till' field if needed
+  toggleWorkedTill2();
+
+  // Show the modal
+  const modal = document.getElementById("workHistoryModal2");
+  modal.classList.remove("hidden");
+}
+
+// Ensure toggle works when checkbox is manually clicked
+document
+  .getElementById("currently_working_")
+  .addEventListener("change", toggleWorkedTill2);
+
+// Function to toggle the 'Worked Till' field based on 'Currently Working' checkbox
+function toggleWorkedTill2() {
+  const workedTill = document.getElementById("end_date_");
+  const currentlyWorking = document.getElementById("currently_working_");
+
+  if (currentlyWorking.checked) {
+    workedTill.disabled = true;
+    workedTill.value = ""; // Clear the value if currently working
+  } else {
+    workedTill.disabled = false;
+  }
+}
+
+// Function to hide the modal
+function closeModal() {
+  const modal = document.getElementById("workHistoryModal");
+  modal.classList.add("hidden");
+}
+
+function closeModal2() {
+  const modal = document.getElementById("workHistoryModal2");
+  modal.classList.add("hidden");
+}
+
+// Function to toggle the 'Worked Till' field based on 'Currently Working' checkbox
+function toggleWorkedTill() {
+  const workedTill = document.getElementById("workedTill");
+  const currentlyWorking = document.getElementById("currentlyWorking");
+
+  if (currentlyWorking.checked) {
+    // Disable the 'Worked Till' field and clear its value
+    workedTill.disabled = true;
+    workedTill.value = "";
+  } else {
+    // Enable the 'Worked Till' field
+    workedTill.disabled = false;
+  }
+}
+
+// Function to validate the form
+function validateForm() {
+  // Get form elements
+  const company = document.getElementById("company");
+  const title = document.getElementById("title");
+  const city = document.getElementById("city");
+  const country = document.getElementById("country");
+  const workedFrom = document.getElementById("workedFrom");
+  const workedTill = document.getElementById("workedTill");
+  const currentlyWorking = document.getElementById("currentlyWorking"); // Checkbox for currently working
+
+  // Check if fields are filled
+  let isValid = true;
+
+  // Validate Company
+  if (company.value.trim() === "") {
+    document.getElementById("company-error").classList.remove("hidden");
+    isValid = false;
+  } else {
+    document.getElementById("company-error").classList.add("hidden");
+  }
+
+  // Validate Title
+  if (title.value.trim() === "") {
+    document.getElementById("title-error").classList.remove("hidden");
+    isValid = false;
+  } else {
+    document.getElementById("title-error").classList.add("hidden");
+  }
+
+  // Validate City
+  if (city.value.trim() === "") {
+    document.getElementById("city-error").classList.remove("hidden");
+    isValid = false;
+  } else {
+    document.getElementById("city-error").classList.add("hidden");
+  }
+
+  // Validate Country
+  if (country.value.trim() === "") {
+    document.getElementById("country-error").classList.remove("hidden");
+    isValid = false;
+  } else {
+    document.getElementById("country-error").classList.add("hidden");
+  }
+
+  // Validate Worked From
+  if (workedFrom.value === "") {
+    document.getElementById("workedFrom-error").classList.remove("hidden");
+    isValid = false;
+  } else {
+    document.getElementById("workedFrom-error").classList.add("hidden");
+  }
+
+  // Validate Worked Till (if not "currently working")
+  if (!currentlyWorking.checked && workedTill.value === "") {
+    document.getElementById("workedTill-error").classList.remove("hidden");
+    isValid = false;
+  } else {
+    document.getElementById("workedTill-error").classList.add("hidden");
+  }
+
+  // If all fields are valid, submit the form
+  if (isValid) {
+    document.getElementById("workHistoryForm").submit();
+  }
+}
+
+// Add an event listener to handle checkbox changes
+document
+  .getElementById("currentlyWorking")
+  .addEventListener("change", toggleWorkedTill);

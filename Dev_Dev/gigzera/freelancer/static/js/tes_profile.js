@@ -410,7 +410,9 @@ function toggleEditMode() {
   saveButton.style.display = editMode ? "inline-block" : "none";
 
   inputField2.disabled = !editMode;
-  inputField2.placeholder = editMode ? "Add a exp..." : "Add a exp...";
+  inputField2.placeholder = editMode
+    ? "Add experience..."
+    : "Add experience...";
   editIcon.style.color = editMode ? "#1e88e5" : "#555";
   saveButton.style.display = editMode ? "inline-block" : "none";
 

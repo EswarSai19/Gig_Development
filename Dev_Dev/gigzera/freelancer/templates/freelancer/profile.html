@@ -12,11 +12,12 @@
   <!-- Left Container -->
   <div class="left-container">
     <div class="title_heading">
-      <h1>Business Analyst</h1>
+      <h1>{{user.designation}}</h1>
       <button class="project-tracking-btn">
         <i class="fa-solid fa-chart-line mr-2"></i> Project Tracking
       </button>
     </div>
+
     <!-- Professional Summary -->
     <div class="section">
       <div class="section-header">
@@ -32,22 +33,37 @@
         <div class="edit-btn-container-summary">
           <!-- <button class="small-btn edit-btn" onclick="editSection('professional-summary')"> <i class="fa-solid fa-pen-to-square"></i></button> -->
         </div>
-        <p id="summary-text">
-          Results-oriented Business Analyst with 5+ years of experience in
-          [industry]. Skilled in process improvement, data analysis, and
-          requirements gathering. Proven ability to bridge the gap between
-          business and IT.
-        </p>
-        <textarea
-          id="summary-input"
-          style="display: none"
-          rows="4"
-          cols="50"
-          placeholder="Edit your professional summary here..."
-        ></textarea>
-        <button id="save-summary" style="display: none" onclick="saveSummary()">
-          Save
-        </button>
+
+        <!-- Form starts here -->
+        <form
+          id="profile-summary-form"
+          method="POST"
+          action="{% url 'edit_profile_summary' %}"
+        >
+          {% csrf_token %}
+          <!-- Make sure to include the CSRF token -->
+
+          <p id="summary-text">{{ user.profile_summary }}</p>
+
+          <textarea
+            id="summary-input"
+            style="display: none"
+            name="profile_summary"
+            rows="6"
+            cols="60"
+            placeholder="Edit your professional summary here..."
+          ></textarea>
+
+          <button
+            class="save_profile_summary"
+            id="save-summary"
+            style="display: none"
+            type="submit"
+          >
+            Save
+          </button>
+        </form>
+        <!-- Form ends here -->
       </div>
     </div>
 
@@ -67,36 +83,81 @@
           Save
         </button>
       </div>
-      <div class="editable-box" id="skills">
-        <div class="skills-search">
-          <input
-            type="text"
-            id="new-skill"
-            placeholder="Add a skill..."
-            oninput="filterSkills(event)"
-            disabled
-          />
+      <form method="POST" action="{% url 'add_skill' %}">
+        {% csrf_token %}
+        <div class="editable-box" id="skills">
+          <div class="skills-search">
+            <input
+              type="text"
+              id="new-skill"
+              name="new_skill"
+              required
+              placeholder="Add a skill..."
+              oninput="filterSkills(event)"
+              disabled
+            />
+            <input
+              type="number"
+              id="new-exp"
+              name="new_exp"
+              required
+              step="any"
+              placeholder="Add Experience..."
+              disabled
+            />
+            <button type="submit" class="add-skill-button">Add Skill</button>
+          </div>
+          <div
+            id="suggestions"
+            class="suggestions-box"
+            style="display: none"
+          ></div>
         </div>
-        <div id="suggestions" class="suggestions-box"></div>
-      </div>
+      </form>
+
       <div class="skills-list" id="skills-list">
         <!-- Skill-experience pairs will be added here -->
+        {% for skill in skills %}
+        <div class="skill-experience-pair">
+          <span class="skill-box"
+            >{{skill.skill_name}}
+            <span class="delete-skill" style="display: none">
+              <form
+                method="POST"
+                class="delete-skill-form"
+                action="{% url 'delete_skill' skill.id %}"
+              >
+                {% csrf_token %}
+                <button type="submit">✖</button>
+              </form>
+            </span></span
+          >
+          <div class="experience-box">
+            <input
+              type="number"
+              placeholder="Add experience in years"
+              required=""
+              min="1"
+              step="any"
+              value="{{skill.experience_years}}"
+              disabled=""
+              style="border: 1px solid rgb(204, 204, 204)"
+            />
+          </div>
+        </div>
+        {% endfor %}
       </div>
     </div>
 
     <!-- Certifications -->
     <div class="section-cert-emp">
       <h2>Certifications</h2>
-      <button
-        class="add-btn"
-        data-bs-toggle="modal"
-        data-bs-target="#addCertificateModal"
-      >
+      <button class="add-btn" onclick="showModal('addCertificateModal')">
         <i class="fa-solid fa-plus mr-2"></i> Add Certification
       </button>
     </div>
     <div class="box-container" id="certifications">
-      <div class="box">
+      <!-- <div class="box">
         <div class="content">
           <h3>PMP Certification</h3>
           <p>Project Management Institute | 2025</p>
@@ -109,259 +170,795 @@
             <i class="fa-solid fa-trash"></i>
           </button>
         </div>
+      </div> -->
+      <div class="employment-history">
+        {% if certificates %}
+        <!-- Loop through employment history records -->
+        {% for cert in certificates %}
+        <div class="box">
+          <div class="content">
+            <h3>
+              {% if cert.certificate_name %} {{ cert.certificate_name }}
+              <!--  -->
+              {% else %} Certificate Name {% endif %}
+            </h3>
+
+            <p>
+              <strong>
+                {% if cert.certification_id %} {{ cert.certification_id }}
+                <!--  -->
+                {% else %} Certification ID {% endif %}
+              </strong>
+              | {% if cert.issue_date %} {{ cert.issue_date|date:"F Y" }}
+              <!--  -->
+              {% else %} Issue Date {% endif %} - {% if cert.expiry_date %}
+              <!--  -->
+              {{ cert.expiry_date|date:"F Y" }}
+              <!--  -->
+              {% else %} Expiry Date {% endif %}
+            </p>
+
+            <p>
+              {% if cert.certification_url %}
+              <a
+                href="{{ cert.certification_url }}"
+                class="text-blue-500 underline"
+                target="_blank"
+              >
+                View Certificate
+              </a>
+              {% else %} Certificate URL {% endif %}
+            </p>
+          </div>
+
+          <div class="actions">
+            <button
+              type="submit"
+              class="edit-btn"
+              onclick="showModal2('{{cert.id}}', '{{cert.certificate_name}}', '{{cert.issue_date}}', '{{cert.expiry_date}}', '{{cert.certification_id}}', '{{cert.certification_url}}')"
+            >
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+
+            <form
+              method="POST"
+              action="{% url 'delete_cert' cert.id %}"
+              style="display: inline"
+            >
+              {% csrf_token %}
+              <button type="submit" class="delete-btn">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {% endfor %} {% else %}
+        <!-- If no certificates history found -->
+        <div class="box">
+          <div class="content">
+            <h3>No certificate History Found</h3>
+            <p>Add your certificates to showcase your skills.</p>
+          </div>
+        </div>
+        {% endif %}
       </div>
     </div>
 
     <!-- Employment History -->
     <div class="section-cert-emp">
       <h2>Employment History</h2>
-      <button
-        class="add-btn"
-        data-bs-toggle="modal"
-        data-bs-target="#workHistoryModal"
-      >
+      <button class="add-btn" onclick="openModal()">
         <i class="fa-solid fa-plus mr-2"></i> Add Experience
       </button>
     </div>
     <div class="box-container" id="employment">
-      <div class="box">
-        <div class="content">
-          <h3>Senior Business Analyst</h3>
-          <p><strong>Tech Solutions Inc.</strong> | 2023 - Present</p>
-          <p>
-            Led cross-functional teams in implementing business solutions and
-            improving operational efficiency.
-          </p>
+      <div class="employment-history">
+        {% if employment_history %}
+        <!-- Loop through employment history records -->
+        {% for job in employment_history %}
+        <div class="box">
+          <div class="content">
+            <h3>{{ job.job_title }}</h3>
+            <p>
+              <strong>{{ job.company }}</strong> |
+              <!--  -->
+              {{ job.start_date|date:"F Y"}} -
+              <!--  -->
+              {% if job.currently_working %} Present {% else %}
+              {{job.end_date|date:"F Y" }} {% endif %}
+            </p>
+            <p>{{ job.description }}</p>
+            <!-- <p>{{job.id}}</p> -->
+          </div>
+          <div class="actions">
+            <button
+              type="submit"
+              class="edit-btn"
+              onclick="openModal2('{{job.id}}', '{{job.company}}', '{{job.city}}', '{{job.country}}', '{{job.job_title}}', '{{job.description}}', '{{job.start_date}}', '{{job.end_date}}', '{{job.currently_working}}')"
+            >
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+
+            <form
+              method="POST"
+              action="{% url 'delete_job' job.id %}"
+              style="display: inline"
+            >
+              {% csrf_token %}
+              <button type="submit" class="delete-btn">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </form>
+          </div>
         </div>
-        <div class="actions">
-          <button class="edit-btn" onclick="editItem(this)">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </button>
-          <button class="delete-btn" onclick="deleteItem(this)">
-            <i class="fa-solid fa-trash"></i>
-          </button>
+        {% endfor %} {% else %}
+        <!-- If no employment history found -->
+        <div class="box">
+          <div class="content">
+            <h3>No Employment History Found</h3>
+            <p>Add your previous work experiences to showcase your skills.</p>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal" tabindex="-1" id="workHistoryModal">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h2
-            style="
-              text-align: center;
-              color: #007bff;
-              font-weight: bold;
-              font-size: 1.5rem;
-              margin: 0;
-            "
-          >
-            Add Work History
-          </h2>
-        </div>
-
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <form id="workHistoryForm">
-            <!-- Company and Title -->
-            <div class="form-row">
-              <div class="form-group">
-                <label>Company <span style="color: red">*</span></label>
-                <input
-                  type="text"
-                  id="company"
-                  placeholder="Enter company name..."
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label>Title <span style="color: red">*</span></label>
-                <input
-                  type="text"
-                  id="title"
-                  placeholder="Enter your job title..."
-                  required
-                />
-              </div>
-            </div>
-
-            <!-- City and Country -->
-            <div class="form-row">
-              <div class="form-group">
-                <label>City <span style="color: red">*</span></label>
-                <input
-                  type="text"
-                  id="city"
-                  placeholder="Enter city name..."
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label>Country <span style="color: red">*</span></label>
-                <input
-                  type="text"
-                  id="country"
-                  placeholder="Enter country name..."
-                  required
-                />
-              </div>
-            </div>
-
-            <!-- Worked From and Worked Till -->
-            <div class="form-row">
-              <div class="form-group">
-                <label>Worked From <span style="color: red">*</span></label>
-                <input type="date" id="workedFrom" required />
-              </div>
-              <div class="form-group">
-                <label>Worked Till <span style="color: red">*</span></label>
-                <input type="date" id="workedTill" />
-              </div>
-            </div>
-
-            <!-- Checkbox -->
-            <div class="form-row checkbox-row">
-              <input type="checkbox" id="currentlyWorking" />
-              <label for="currentlyWorking">I currently work here</label>
-            </div>
-
-            <!-- Description -->
-            <div class="form-group">
-              <label>Description</label>
-              <textarea
-                id="description"
-                placeholder="Describe your role and key accomplishments..."
-              ></textarea>
-            </div>
-          </form>
-        </div>
-
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <button
-            class="btn btn-secondary"
-            id="cancelBtn"
-            data-bs-dismiss="modal"
-          >
-            Cancel
-          </button>
-          <button class="btn btn-primary" id="saveBtn">Save Changes</button>
-        </div>
+        {% endif %}
       </div>
     </div>
   </div>
 
   <!-- Modal for add certificate-->
   <div
-    class="modal fade"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto [&::-webkit-scrollbar]:hidden"
     id="addCertificateModal"
-    tabindex="-1"
-    aria-labelledby="addCertificateModalLabel"
-    aria-hidden="true"
+    style="display: none"
   >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div
-          class="modal-header"
-          style="text-align: center; background-color: #f7f9fc"
+    <div
+      class="bg-white rounded-lg shadow-xl w-full max-w-lg lg:max-w-2xl flex flex-col max-h-[80vh] overflow-hidden"
+    >
+      <!-- Modal Header -->
+      <div class="p-4 border-b border-gray-200 text-center bg-gray-50">
+        <h5
+          class="text-blue-600 font-bold text-xl"
+          id="addCertificateModalLabel"
         >
-          <h5
-            class="modal-title"
-            id="addCertificateModalLabel"
-            style="
-              color: #007bff;
-              font-weight: bold;
-              font-size: 1.5rem;
-              text-align: center;
-              margin: 0;
-            "
-          >
-            Add Certification
-          </h5>
-        </div>
-        <div class="modal-body">
-          <!-- File Upload Section -->
-          <div class="file-upload-cert">
-            <div class="upload-area-cert">
-              <span class="upload-icon-cert">&#8682;</span>
-              <p>Drag and drop your certificate here</p>
-              <p class="support">Supported formats: PDF, PNG, JPG</p>
-              <button
-                class="browse-btn"
-                onclick="document.getElementById('file-input-cert').click()"
-              >
-                Browse Files
-              </button>
-              <input
-                type="file"
-                id="file-input-cert"
-                accept=".pdf, .png, .jpg"
-                hidden
-              />
-            </div>
-            <!-- Display Uploaded File -->
-            <div
-              class="uploaded-file-cert"
-              id="uploaded-file-cert"
-              style="display: none"
-            >
-              <p>
-                <span class="file-icon-cert">&#128462;</span>
-                <span id="file-name-cert">File Name</span>
-              </p>
-              <span id="file-size-cert" class="file-size-cert">File Size</span>
-              <span class="remove-cert" onclick="removeFile()">&times;</span>
-            </div>
-          </div>
+          Add Certification
+        </h5>
+      </div>
 
-          <!-- Form Section -->
-          <form class="certification-form">
-            <label for="certification-name"
-              >Certification Name<span>*</span></label
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 flex-1 overflow-y-auto">
+        <div class="file-upload-cert mb-6">
+          <div
+            class="upload-area-cert border-2 border-dashed border-gray-300 rounded-lg p-6 text-center"
+            id="file-upload-container"
+          >
+            <span class="upload-icon-cert text-2xl">&#8682;</span>
+            <p class="mt-2">Drag and drop your certificate here</p>
+            <p class="text-sm text-gray-500">
+              Supported formats: PDF, PNG, JPG
+            </p>
+            <button
+              class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              onclick="document.getElementById('file-input-cert').click()"
             >
+              Browse Files
+            </button>
+            <input
+              type="file"
+              id="file-input-cert"
+              accept=".pdf, .png, .jpg"
+              hidden
+              onchange="displayUploadedFile()"
+            />
+          </div>
+        </div>
+
+        <!-- Form Section -->
+        <form
+          class="certification-form space-y-4"
+          method="POST"
+          action="{% url 'add_certification' %}"
+        >
+          {% csrf_token %}
+          <div>
+            <label
+              for="certification-name"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Certification Name <span class="text-red-500">*</span>
+            </label>
             <input
               type="text"
+              name="cert_name"
               id="certification-name"
               placeholder="Enter Certification Name"
+              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               required
             />
-            <label for="issue-date">Issue Date <span>*</span></label>
-            <input type="date" id="issue-date" required />
-
-            <label for="expiry-date">Expiry Date</label>
-            <input type="date" id="expiry-date" />
-
-            <label for="certification-id">Certification ID</label>
+          </div>
+          <div>
+            <label
+              for="issue-date"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Issue Date <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="date"
+              id="issue-date"
+              name="issue_date"
+              placeholder="DD-MM-YYYY"
+              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="expiry-date"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Expiry Date
+            </label>
+            <input
+              type="date"
+              id="expiry-date"
+              name="expiry_date"
+              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              for="certification-id"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Certification ID
+            </label>
             <input
               type="text"
               id="certification-id"
+              name="cert_id"
               placeholder="Enter Certification ID (if applicable)"
+              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             />
-
-            <label for="certification-url">Certification URL</label>
+          </div>
+          <div>
+            <label
+              for="certification-url"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Certification URL
+            </label>
             <input
               type="text"
               id="certification-url"
+              name="cert_url"
               placeholder="Enter Certification URL (if applicable)"
+              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             />
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
+          </div>
+          <!-- Modal Footer (Fixed at the Bottom) -->
+          <div class="p-4 border-t border-gray-200 flex justify-end bg-gray-50">
+            <button
+              type="button"
+              class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 mr-2"
+              onclick="hideModal('addCertificateModal')"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              id="save-button"
+              class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- New modal for editing certificates -->
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto [&::-webkit-scrollbar]:hidden"
+    id="addCertificateModal2"
+    style="display: none"
+  >
+    <div
+      class="bg-white rounded-lg shadow-xl w-full max-w-lg lg:max-w-2xl flex flex-col max-h-[80vh] overflow-hidden"
+    >
+      <!-- Modal Header -->
+      <div class="p-4 border-b border-gray-200 text-center bg-gray-50">
+        <h5
+          class="text-blue-600 font-bold text-xl"
+          id="addCertificateModalLabel"
+        >
+          Add Certification
+        </h5>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 flex-1 overflow-y-auto">
+        <div class="file-upload-cert mb-6">
+          <div
+            class="upload-area-cert border-2 border-dashed border-gray-300 rounded-lg p-6 text-center"
+            id="file-upload-container"
           >
-            Cancel
-          </button>
-          <button type="button" id="save-button" class="btn btn-primary">
-            Save
-          </button>
+            <span class="upload-icon-cert text-2xl">&#8682;</span>
+            <p class="mt-2">Drag and drop your certificate here</p>
+            <p class="text-sm text-gray-500">
+              Supported formats: PDF, PNG, JPG
+            </p>
+            <button
+              class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              onclick="document.getElementById('file-input-cert').click()"
+            >
+              Browse Files
+            </button>
+            <input
+              type="file"
+              id="file-input-cert"
+              accept=".pdf, .png, .jpg"
+              hidden
+              onchange="displayUploadedFile()"
+            />
+          </div>
         </div>
+
+        <!-- Form Section -->
+        <form
+          class="certification-form space-y-4"
+          method="POST"
+          action="{% url 'edit_cert' %}"
+        >
+          {% csrf_token %}
+          <input type="hidden" name="cert_id" id="cert_id" />
+          <div>
+            <label
+              for="certification-name"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Certification Name <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="cert_name"
+              id="cert_name_"
+              placeholder="Enter Certification Name"
+              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="issue-date"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Issue Date <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="date"
+              id="issue_date_"
+              name="issue_date"
+              placeholder="DD-MM-YYYY"
+              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="expiry-date"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Expiry Date
+            </label>
+            <input
+              type="date"
+              id="expiry_date_"
+              name="expiry_date"
+              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              for="certification-id"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Certification ID
+            </label>
+            <input
+              type="text"
+              id="certification_id_"
+              name="certification_id"
+              placeholder="Enter Certification ID (if applicable)"
+              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              for="certification-url"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Certification URL
+            </label>
+            <input
+              type="text"
+              id="cert_url_"
+              name="cert_url"
+              placeholder="Enter Certification URL (if applicable)"
+              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <!-- Modal Footer (Fixed at the Bottom) -->
+          <div class="p-4 border-t border-gray-200 flex justify-end bg-gray-50">
+            <button
+              type="button"
+              class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 mr-2"
+              onclick="hideModal2()"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              id="save-button"
+              class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for employement history -->
+  <div
+    class="fixed inset-0 flex items-center justify-center z-50 hidden"
+    id="workHistoryModal"
+  >
+    <div class="bg-white w-full max-w-lg p-6 rounded-lg shadow-lg">
+      <!-- Modal Header -->
+      <div class="p-4 border-b border-gray-200 text-center bg-gray-50 mb-2">
+        <h5
+          class="text-blue-600 font-bold text-xl"
+          style="
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 0;
+          "
+        >
+          Add Work History
+        </h5>
+      </div>
+
+      <!-- Modal Body -->
+      <div>
+        <form
+          id="workHistoryForm"
+          method="POST"
+          action="{% url 'add_work_history' %}"
+        >
+          {% csrf_token %}
+          <!-- Company and Title -->
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col">
+              <label for="company" class="mb-2"
+                >Company <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="company"
+                name="company"
+                placeholder="Enter company name..."
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="company-error"
+                >This field is required.</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <label for="title" class="mb-2"
+                >Title <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="title"
+                name="job_title"
+                placeholder="Enter your job title..."
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="title-error"
+                >This field is required.</span
+              >
+            </div>
+          </div>
+
+          <!-- City and Country -->
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col">
+              <label for="city" class="mb-2"
+                >City <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="city"
+                name="city"
+                placeholder="Enter city name..."
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="city-error"
+                >This field is required.</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <label for="country" class="mb-2"
+                >Country <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="country"
+                name="country"
+                placeholder="Enter country name..."
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="country-error"
+                >This field is required.</span
+              >
+            </div>
+          </div>
+
+          <!-- Worked From and Worked Till -->
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col">
+              <label for="workedFrom" class="mb-2"
+                >Worked From <span class="text-red-500">*</span></label
+              >
+              <input
+                type="date"
+                id="workedFrom"
+                name="start_date"
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="workedFrom-error"
+                >This field is required.</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <label for="workedTill" class="mb-2"
+                >Worked Till <span class="text-red-500">*</span></label
+              >
+              <input
+                type="date"
+                id="workedTill"
+                name="end_date"
+                class="px-4 py-2 border border-gray-300 rounded-md"
+              />
+              <span class="text-red-500 text-sm hidden" id="workedTill-error"
+                >This field is required.</span
+              >
+            </div>
+          </div>
+
+          <!-- Checkbox -->
+          <div class="flex items-center mb-4">
+            <input
+              type="checkbox"
+              name="currently_working"
+              id="currentlyWorking"
+              class="mr-2"
+            />
+            <label for="currentlyWorking">I currently work here</label>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-4">
+            <label for="description" class="mb-2">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Describe your role and key accomplishments..."
+              class="w-full px-4 py-2 border border-gray-300 rounded-md"
+            ></textarea>
+          </div>
+          <!-- Modal Footer -->
+          <div class="flex justify-end space-x-4">
+            <button
+              class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
+              onclick="closeModal()"
+            >
+              Cancel
+            </button>
+            <button
+              class="px-4 py-2 bg-blue-500 text-white rounded-md"
+              id="saveBtn"
+              onclick="validateForm()"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- New modal for editing work history -->
+  <div
+    class="fixed inset-0 flex items-center justify-center z-50 hidden"
+    id="workHistoryModal2"
+  >
+    <div class="bg-white w-full max-w-lg p-6 rounded-lg shadow-lg">
+      <!-- Modal Header -->
+      <div class="p-4 border-b border-gray-200 text-center bg-gray-50 mb-2">
+        <h5
+          class="text-blue-600 font-bold text-xl"
+          style="
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 0;
+          "
+        >
+          Add Work History
+        </h5>
+      </div>
+
+      <!-- Modal Body -->
+      <div>
+        <form id="workHistoryForm" method="POST" action="{% url 'edit_job' %}">
+          {% csrf_token %}
+          <!-- Company and Title -->
+          <input type="hidden" name="job_id" id="job_id" />
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col">
+              <label for="company" class="mb-2"
+                >Company <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="company_"
+                name="company"
+                placeholder="Enter company name..."
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="company-error"
+                >This field is required.</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <label for="title" class="mb-2"
+                >Title <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="job_title_"
+                name="job_title"
+                placeholder="Enter your job title..."
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="title-error"
+                >This field is required.</span
+              >
+            </div>
+          </div>
+
+          <!-- City and Country -->
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col">
+              <label for="city" class="mb-2"
+                >City <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="city_"
+                name="city"
+                placeholder="Enter city name..."
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="city-error"
+                >This field is required.</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <label for="country" class="mb-2"
+                >Country <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="country_"
+                name="country"
+                placeholder="Enter country name..."
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="country-error"
+                >This field is required.</span
+              >
+            </div>
+          </div>
+
+          <!-- Worked From and Worked Till -->
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col">
+              <label for="workedFrom" class="mb-2"
+                >Worked From <span class="text-red-500">*</span></label
+              >
+              <input
+                type="date"
+                id="start_date_"
+                name="start_date"
+                class="px-4 py-2 border border-gray-300 rounded-md required"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="workedFrom-error"
+                >This field is required.</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <label for="workedTill" class="mb-2"
+                >Worked Till <span class="text-red-500">*</span></label
+              >
+              <input
+                type="date"
+                id="end_date_"
+                name="end_date"
+                class="px-4 py-2 border border-gray-300 rounded-md"
+                required
+              />
+              <span class="text-red-500 text-sm hidden" id="workedTill-error"
+                >This field is required.</span
+              >
+            </div>
+          </div>
+
+          <!-- Checkbox -->
+          <div class="flex items-center mb-4">
+            <input
+              type="checkbox"
+              name="currently_working"
+              id="currently_working_"
+              class="mr-2"
+            />
+            <label for="currentlyWorking">I currently work here</label>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-4">
+            <label for="description" class="mb-2">Description</label>
+            <textarea
+              id="description_"
+              name="description"
+              placeholder="Describe your role and key accomplishments..."
+              class="w-full px-4 py-2 border border-gray-300 rounded-md"
+            ></textarea>
+          </div>
+          <!-- Modal Footer -->
+          <div class="flex justify-end space-x-4">
+            <button
+              type="button"
+              class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
+              onclick="closeModal2()"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 bg-blue-500 text-white rounded-md"
+              id="saveBtn"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -370,11 +967,12 @@
   <div class="right-container">
     <div class="profile-card">
       <!-- Profile Details Section -->
+      <!-- src="../../../media/freelancer/profile_pics/default_profile.png" -->
       <div class="profile-header">
         <div class="profile-img-container">
           <img
             id="profile-img"
-            src="https://via.placeholder.com/100"
+            src="{{user.profilePic.url}}"
             alt="Profile Picture"
             class="profile-img"
             onclick="editImage()"
@@ -389,22 +987,22 @@
           />
         </div>
         <div class="profile-details">
-          <h3 id="profile-name">John Doe</h3>
-          <p id="profile-job">Senior Business Analyst</p>
+          <h3 id="profile-name">{{user.name}}</h3>
+          <p id="profile-job">{{user.designation}}</p>
         </div>
       </div>
       <div class="profile-contact">
         <p id="profile-email">
-          <a href="mailto:john.doe@example.com"
-            ><i class="fa-solid fa-envelope"></i> john.doe@example.com</a
+          <a href="mailto:{{user.email}}"
+            ><i class="fa-solid fa-envelope"></i> {{user.email}}</a
           >
         </p>
         <p id="profile-phone">
-          <i class="fa-solid fa-phone"></i> +1 (555) 123-4567
+          <i class="fa-solid fa-phone"></i> {{user.phone}}
         </p>
         <p id="profile-linkedin">
           <i class="fa-solid fa-share-from-square"></i>
-          www.linkedin.com/in/username
+          {{user.social_media}}
         </p>
       </div>
       <!-- <div class="rating" id="rating-container">
@@ -427,42 +1025,66 @@
 
     <!-- Edit Profile Form (Placed Below the Profile Card) -->
     <div id="edit-profile-form" style="display: none">
-      <div class="edit-section">
+      <form
+        class="edit-section"
+        method="POST"
+        enctype="multipart/form-data"
+        action="{% url 'edit_freelancer' %}"
+      >
+        {% csrf_token %}
         <label>Edit Name:</label>
-        <input type="text" id="edit-name" value="John Doe" />
+        <input type="text" id="edit-name" name="name" value="{{user.name}}" />
 
         <label>Edit Job Title:</label>
-        <input type="text" id="edit-job" value="Senior Business Analyst" />
+        <input
+          type="text"
+          id="edit-job"
+          name="designation"
+          value="{{user.designation}}"
+        />
 
         <label>Edit Email:</label>
-        <input type="email" id="edit-email" value="john.doe@example.com" />
+        <input
+          type="email"
+          id="edit-email"
+          name="email"
+          value="{{user.email}}"
+        />
 
         <label>Edit Phone:</label>
-        <input type="text" id="edit-phone" value="+1 (555) 123-4567" />
+        <input
+          type="text"
+          id="edit-phone"
+          name="phone"
+          value="{{user.phone}}"
+        />
 
         <label>Edit Professional Profile:</label>
         <input
           type="text"
           id="edit-profile-link"
-          value="www.linkedin.com/in/username"
+          name="social_media"
+          value="{{user.social_media}}"
         />
 
         <label>Upload New Image:</label>
         <input
           type="file"
           id="file-input-edit"
+          name="profilePic"
           class="profile-img-input"
           accept="image/*"
           onchange="uploadImageEdit()"
         />
 
+        <!-- onclick="deletePhoto()" -->
         <!-- Delete Photo Button -->
-        <button class="small-btn delete-photo-btn" onclick="deletePhoto()">
-          Delete Photo
-        </button>
+        <button class="small-btn delete-photo-btn">Delete Photo</button>
 
-        <button class="save-btn" onclick="saveEdit()">Save</button>
-      </div>
+        <button type="submit" class="save-btn" onclick="saveEdit()">
+          Save
+        </button>
+      </form>
     </div>
   </div>
 </div>
@@ -471,14 +1093,31 @@
 {% block js %}
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const projectTrackingBtn = document.getElementsByClassName(
+    const projectTrackBtn = document.getElementsByClassName(
       "project-tracking-btn"
     );
+    const deleteProfileBtn =
+      document.getElementsByClassName("delete-photo-btn");
+    const saveProfileSummary = document.getElementsByClassName(
+      "save_profile_summary"
+    );
 
-    // Add click event to all buttons with the class "project-tracking-btn"
-    Array.from(projectTrackingBtn).forEach((btn) => {
+    // Add click event to all buttons with the class "findajob-btn"
+    Array.from(projectTrackBtn).forEach((btn) => {
       btn.addEventListener("click", () => {
         window.location.href = "{% url 'fl_projectTracking' %}";
+      });
+    });
+    // Delete profile pic
+    Array.from(deleteProfileBtn).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        window.location.href = "{% url 'delete_profile_pic' %}";
+      });
+    });
+    // save_profile_summary
+    Array.from(saveProfileSummary).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        window.location.href = "{% url 'edit_profile_summary' %}";
       });
     });
   });
