@@ -72,11 +72,9 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div
-    class="modal-dialog modal-dialog-centered w-full max-w-lg overflow-hidden"
-  >
+  <div class="modal-dialog modal-dialog-centered max-w-lg overflow-y-auto">
     <div class="modal-content bg-white rounded-lg shadow-lg p-6">
-      <div class="modal-body max-h-[80vh] overflow-auto">
+      <div class="modal-body max-h-[80vh] overflow-y-auto pr-4">
         <div class="form-container">
           <div class="form-header flex justify-between items-center mb-4">
             <h1 class="text-3xl font-semibold">Post a Job</h1>
@@ -88,7 +86,12 @@
               &times;
             </button>
           </div>
-          <form class="form-content space-y-4">
+          <form
+            class="form-content space-y-4"
+            action="{% url 'cl_postajob' %}"
+            method="POST"
+          >
+            {% csrf_token %}
             <!-- Form fields here -->
             <div>
               <label for="project-type" class="block font-semibold"
@@ -96,11 +99,12 @@
               >
               <select
                 id="project-type"
+                name="project_type"
                 class="w-full p-2 border border-gray-300 rounded-md"
                 required
               >
-                <option>Gig (Single Freelancer)</option>
-                <option>Project (Multiple Freelancers)</option>
+                <option value="Gig">Gig (Single Freelancer)</option>
+                <option value="Project">Project (Multiple Freelancers)</option>
               </select>
             </div>
 
@@ -110,6 +114,7 @@
               >
               <input
                 type="text"
+                name="title"
                 id="project-title"
                 placeholder="Ex: WebApp Development"
                 class="w-full p-2 border border-gray-300 rounded-md"
@@ -126,7 +131,6 @@
                   id="skills-required"
                   placeholder="Add skills"
                   class="w-full p-2 border border-gray-300 rounded-md"
-                  required
                 />
                 <ul
                   id="suggestions-list"
@@ -134,6 +138,7 @@
                 ></ul>
               </div>
               <div id="selected-skills" class="mt-2"></div>
+              <input type="hidden" name="skills_list" id="skills-list" />
             </div>
 
             <div>
@@ -142,6 +147,7 @@
               >
               <textarea
                 id="project-description"
+                name="description"
                 rows="4"
                 placeholder="Describe your project"
                 class="w-full p-2 border border-gray-300 rounded-md"
@@ -156,19 +162,20 @@
                 >
                 <select
                   id="currency"
+                  name="currency"
                   class="w-full p-2 border border-gray-300 rounded-md"
                   required
                 >
-                  <option>USD</option>
-                  <option>EUR</option>
-                  <option>JPY</option>
-                  <option>GBP</option>
-                  <option>CNY</option>
-                  <option>AUD</option>
-                  <option>CAD</option>
-                  <option>CHF</option>
-                  <option>INR</option>
-                  <option>NZD</option>
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="JPY">JPY</option>
+                  <option value="GBP">GBP</option>
+                  <option value="CNY">CNY</option>
+                  <option value="AUD">AUD</option>
+                  <option value="CAD">CAD</option>
+                  <option value="CHF">CHF</option>
+                  <option value="INR">INR</option>
+                  <option value="NZD">NZD</option>
                 </select>
               </div>
 
@@ -178,19 +185,28 @@
                 >
                 <select
                   id="budget-range"
+                  name="budget"
                   class="w-full p-2 border border-gray-300 rounded-md"
                   required
                 >
-                  <option>Less than 1,000</option>
-                  <option>1,000 - 5,000</option>
-                  <option>5,000 - 10,000</option>
-                  <option>10,000 - 20,000</option>
-                  <option>20,000 - 50,000</option>
-                  <option>50,000 - 2,00,000</option>
-                  <option>2,00,000 - 5,00,000</option>
-                  <option>5,00,000 - 10,00,000</option>
-                  <option>10,00,000 - 20,00,000</option>
-                  <option>More than 20,00,000</option>
+                  <option value="Less than 1,000">Less than 1,000</option>
+                  <option value="1,000 - 5,000">1,000 - 5,000</option>
+                  <option value="5,000 - 10,000">5,000 - 10,000</option>
+                  <option value="10,000 - 20,000">10,000 - 20,000</option>
+                  <option value="20,000 - 50,000">20,000 - 50,000</option>
+                  <option value="50,000 - 2,00,000">50,000 - 2,00,000</option>
+                  <option value="2,00,000 - 5,00,000">
+                    2,00,000 - 5,00,000
+                  </option>
+                  <option value="5,00,000 - 10,00,000">
+                    5,00,000 - 10,00,000
+                  </option>
+                  <option value="10,00,000 - 20,00,000">
+                    10,00,000 - 20,00,000
+                  </option>
+                  <option value="More than 20,00,000">
+                    More than 20,00,000
+                  </option>
                 </select>
               </div>
             </div>
@@ -202,9 +218,10 @@
               <input
                 type="date"
                 id="start-date"
+                name="start_date"
                 placeholder="Select start date"
                 style="
-                  width: 200%;
+                  width: 100%;
                   padding: 10px;
                   margin-bottom: 15px;
                   border: 1px solid #ccc;
@@ -227,8 +244,9 @@
               >
               <select
                 id="estimated-months"
+                name="duration"
                 style="
-                  width: 200%;
+                  width: 100%;
                   padding: 10px;
                   margin-bottom: 15px;
                   border: 1px solid #ccc;
@@ -240,25 +258,26 @@
                 <option value="" disabled selected>
                   Select estimated months
                 </option>
-                <option value="less-than-1">Less than 1 Month</option>
-                <option value="1-2">1 - 2 Months</option>
-                <option value="2-4">2 - 4 Months</option>
-                <option value="4-8">4 - 8 Months</option>
-                <option value="8-12">8 - 12 Months</option>
-                <option value="12-plus">12 Months +</option>
+                <option value="Less than 1 Month">Less than 1 Month</option>
+                <option value="1-2 Months">1 - 2 Months</option>
+                <option value="2-4 Months">2 - 4 Months</option>
+                <option value="4-8 Months">4 - 8 Months</option>
+                <option value="8-12 Months">8 - 12 Months</option>
+                <option value="More than 12 Months">12 Months +</option>
               </select>
             </div>
             <div>
               <label for="deliverables" class="block font-semibold"
                 >Project Deliverables <span class="text-red-500">*</span></label
               >
-              <input
-                type="text"
+              <textarea
                 id="deliverables"
+                name="deliverables"
+                rows="4"
                 placeholder="Add deliverables"
                 class="w-full p-2 border border-gray-300 rounded-md"
                 required
-              />
+              ></textarea>
             </div>
 
             <div>
@@ -268,7 +287,8 @@
               >
               <textarea
                 id="candidate-details"
-                rows="3"
+                name="requirements"
+                rows="4"
                 placeholder="Describe ideal candidate"
                 class="w-full p-2 border border-gray-300 rounded-md"
                 required
@@ -281,7 +301,8 @@
               >
               <textarea
                 id="challenges"
-                rows="3"
+                name="challenges"
+                rows="4"
                 placeholder="List potential challenges"
                 class="w-full p-2 border border-gray-300 rounded-md"
                 required
@@ -295,52 +316,53 @@
               <select
                 id="time-zone"
                 class="w-full p-2 border border-gray-300 rounded-md"
+                name="time_zone"
                 required
               >
-                <option>BIT - (UTC−12:00)</option>
-                <option>SST - (UTC−11:00)</option>
-                <option>HAST - (UTC−10:00)</option>
-                <option>TAHT - (UTC−10:00)</option>
-                <option>AKST - (UTC−09:00)</option>
-                <option>PST - (UTC−08:00)</option>
-                <option>MST - (UTC−07:00)</option>
-                <option>CST - (UTC−06:00)</option>
-                <option>ACT - (UTC−05:00)</option>
-                <option>EST - (UTC−05:00)</option>
-                <option>AMT - (UTC−04:00)</option>
-                <option>AST - (UTC−04:00)</option>
-                <option>GFT - (UTC−03:00)</option>
-                <option>NST - (UTC−03:30)</option>
-                <option>BRT - (UTC−03:00)</option>
-                <option>FNT - (UTC−02:00)</option>
-                <option>GMT - (UTC+00:00)</option>
-                <option>CET - (UTC+01:00)</option>
-                <option>KALT - (UTC+02:00)</option>
-                <option>MSK - (UTC+03:00)</option>
-                <option>EAT - (UTC+03:00)</option>
-                <option>SAMT - (UTC+04:00)</option>
-                <option>RET - (UTC+04:00)</option>
-                <option>YEKT - (UTC+05:00)</option>
-                <option>IST - (UTC+05:30)</option>
-                <option>OMST - (UTC+06:00)</option>
-                <option>KRAT - (UTC+07:00)</option>
-                <option>CST - (UTC+08:00)</option>
-                <option>AWST - (UTC+08:00)</option>
-                <option>IRKT - (UTC+08:00)</option>
-                <option>JST - (UTC+09:00)</option>
-                <option>ACST - (UTC+09:30)</option>
-                <option>YAKT - (UTC+09:00)</option>
-                <option>AEST - (UTC+10:00)</option>
-                <option>VLAT - (UTC+10:00)</option>
-                <option>MAGT - (UTC+11:00)</option>
-                <option>NCT - (UTC+11:00)</option>
-                <option>PETT - (UTC+12:00)</option>
-                <option>WFT - (UTC+12:00)</option>
+                <option value="BIT - (UTC−12:00)">BIT - (UTC−12:00)</option>
+                <option value="SST - (UTC−11:00)">SST - (UTC−11:00)</option>
+                <option value="HAST - (UTC−10:00)">HAST - (UTC−10:00)</option>
+                <option value="TAHT - (UTC−10:00)">TAHT - (UTC−10:00)</option>
+                <option value="AKST - (UTC−09:00)">AKST - (UTC−09:00)</option>
+                <option value="PST - (UTC−08:00)">PST - (UTC−08:00)</option>
+                <option value="MST - (UTC−07:00)">MST - (UTC−07:00)</option>
+                <option value="CST - (UTC−06:00)">CST - (UTC−06:00)</option>
+                <option value="ACT - (UTC−05:00)">ACT - (UTC−05:00)</option>
+                <option value="EST - (UTC−05:00)">EST - (UTC−05:00)</option>
+                <option value="AMT - (UTC−04:00)">AMT - (UTC−04:00)</option>
+                <option value="AST - (UTC−04:00)">AST - (UTC−04:00)</option>
+                <option value="GFT - (UTC−03:00)">GFT - (UTC−03:00)</option>
+                <option value="NST - (UTC−03:30)">NST - (UTC−03:30)</option>
+                <option value="BRT - (UTC−03:00)">BRT - (UTC−03:00)</option>
+                <option value="FNT - (UTC−02:00)">FNT - (UTC−02:00)</option>
+                <option value="GMT - (UTC+00:00)">GMT - (UTC+00:00)</option>
+                <option value="CET - (UTC+01:00)">CET - (UTC+01:00)</option>
+                <option value="KALT - (UTC+02:00)">KALT - (UTC+02:00)</option>
+                <option value="MSK - (UTC+03:00)">MSK - (UTC+03:00)</option>
+                <option value="EAT - (UTC+03:00)">EAT - (UTC+03:00)</option>
+                <option value="SAMT - (UTC+04:00)">SAMT - (UTC+04:00)</option>
+                <option value="RET - (UTC+04:00)">RET - (UTC+04:00)</option>
+                <option value="YEKT - (UTC+05:00)">YEKT - (UTC+05:00)</option>
+                <option value="IST - (UTC+05:30)">IST - (UTC+05:30)</option>
+                <option value="OMST - (UTC+06:00)">OMST - (UTC+06:00)</option>
+                <option value="KRAT - (UTC+07:00)">KRAT - (UTC+07:00)</option>
+                <option value="CST - (UTC+08:00)">CST - (UTC+08:00)</option>
+                <option value="AWST - (UTC+08:00)">AWST - (UTC+08:00)</option>
+                <option value="IRKT - (UTC+08:00)">IRKT - (UTC+08:00)</option>
+                <option value="JST - (UTC+09:00)">JST - (UTC+09:00)</option>
+                <option value="ACST - (UTC+09:30)">ACST - (UTC+09:30)</option>
+                <option value="YAKT - (UTC+09:00)">YAKT - (UTC+09:00)</option>
+                <option value="AEST - (UTC+10:00)">AEST - (UTC+10:00)</option>
+                <option value="VLAT - (UTC+10:00)">VLAT - (UTC+10:00)</option>
+                <option value="MAGT - (UTC+11:00)">MAGT - (UTC+11:00)</option>
+                <option value="NCT - (UTC+11:00)">NCT - (UTC+11:00)</option>
+                <option value="PETT - (UTC+12:00)">PETT - (UTC+12:00)</option>
+                <option value="WFT - (UTC+12:00)">WFT - (UTC+12:00)</option>
               </select>
             </div>
 
             <button
-              type="button"
+              type="submit"
               onclick="submitJobPost()"
               class="w-full p-2 bg-blue-600 text-white rounded-md hover:bg-blue-500"
             >
@@ -370,5 +392,5 @@
 {% endblock %}
 <!-- JS -->
 {% block js %}
-<script src="{% static 'js/postajob.js' %}"></script>
+<script src="{% static 'js/cl_postajob.js' %}"></script>
 {% endblock %}

@@ -60,6 +60,7 @@ def login(request):
         elif client and check_password(password, client.password):
             request.session['user_id'] = client.userId
             request.session['user_role'] = 'client'
+            print(client.userId, client.user_role)
             return redirect('cl_index')  # Redirect to client dashboard
 
         else:

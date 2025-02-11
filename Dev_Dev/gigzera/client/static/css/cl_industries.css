@@ -13,6 +13,8 @@ body {
 
 /* Main Body Section */
 .industries-container {
+    /* position: relative;
+    z-index: -2; */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
@@ -22,10 +24,11 @@ body {
 }
 
 .industry-card {
+    /* position: relative;
+    z-index: -1; */
     perspective: 1000px;
     display: flex;
     justify-content: center;
-    border: 2px sollid green !important;
 }
 
 .card-inner {
@@ -34,6 +37,7 @@ body {
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.8s;
+
 }
 
 .card-inner:hover {

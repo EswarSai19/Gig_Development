@@ -1,26 +1,80 @@
-// Select all slides
-const slides = document.querySelectorAll(".slide");
-let currentSlide = 0; // Start with the first slide
+//
+function toggleEditForm() {
+  const form = document.getElementById("edit-form");
 
-// Function to show a slide
-function showSlide(index) {
-  slides.forEach((slide, i) => {
-    slide.classList.toggle("active", i === index); // Add 'active' class to the current slide
-  });
+  // Check for both 'none' and default (empty) state
+  if (form.style.display === "none" || form.style.display === "") {
+    form.style.display = "block";
+  } else {
+    form.style.display = "none";
+  }
 }
 
-// Function to start the slideshow
-function startSlideshow() {
-  setInterval(() => {
-    currentSlide = (currentSlide + 1) % slides.length; // Cycle through slides
-    showSlide(currentSlide);
-  }, 5000); // Change slide every 5 seconds
+function saveChanges() {
+  const name = document.getElementById("edit-name").value;
+  const title = document.getElementById("edit-title").value;
+  const email = document.getElementById("edit-email").value;
+  const phone = document.getElementById("edit-phone").value;
+  const linkedin = document.getElementById("edit-linkedin").value;
+  const company = document.getElementById("edit-company").value;
+
+  const profileImageInput = document.getElementById("edit-image");
+  const profileImage = document.getElementById("profile-image");
+
+  if (profileImageInput.files && profileImageInput.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      profileImage.src = e.target.result;
+    };
+    reader.readAsDataURL(profileImageInput.files[0]);
+  }
+
+  document.getElementById("profile-name").textContent = name;
+  document.getElementById("profile-title").textContent = title;
+  document.getElementById("profile-email").textContent = email;
+  document.getElementById("profile-phone").textContent = phone;
+  document.getElementById("profile-linkedin").href = linkedin;
+  document.getElementById("profile-linkedin").textContent = linkedin;
+  document.getElementById("profile-company").textContent = company;
+
+  toggleEditForm();
 }
 
-// Initialize slideshow
-showSlide(currentSlide);
-startSlideshow();
+// Update Profile Image
+function updateProfileImage(event) {
+  const input = event.target;
+  const reader = new FileReader();
 
+  reader.onload = function () {
+    const displayImg = document.getElementById("display-img");
+    displayImg.src = reader.result;
+  };
+
+  if (input.files && input.files[0]) {
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function toggleProfileMenu() {
+  const menu = document.getElementById("profile-menu");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+// Update profile from localStorage (sync with profile.html)
+function updateProfileHeader() {
+  const initials = localStorage.getItem("profileInitials") || "Guest";
+  const name = localStorage.getItem("profileName") || "Guest";
+  const email = localStorage.getItem("profileEmail") || "guest@example.com";
+
+  document.getElementById("profile-initials").textContent = initials;
+  document.getElementById("profile-name-dropdown").textContent = name;
+  document.getElementById("profile-email-dropdown").textContent = email;
+}
+
+// Call on page load
+document.addEventListener("DOMContentLoaded", updateProfileHeader);
+
+// New part of the file
 const skillsInput = document.getElementById("skills-required");
 const suggestionsList = document.getElementById("suggestions-list");
 const selectedSkillsContainer = document.getElementById("selected-skills");
@@ -579,76 +633,3 @@ function openModal() {
 function closeModal() {
   document.getElementById("exampleModal").classList.add("hidden");
 }
-// });
-
-// // Function to update the selected skills display and hidden input
-// function updateSelectedSkills() {
-//   selectedSkillsContainer.innerHTML = selectedSkills
-//     .map(
-//       (skill) =>
-//         `<span class="skill-tag inline-block bg-blue-200 text-blue-800 px-2 py-1 rounded-full m-1">
-//           ${skill}
-//           <button class="remove-skill ml-2 text-red-500" data-skill="${skill}">&times;</button>
-//         </span>`
-//     )
-//     .join("");
-
-//   // Update the hidden input value with comma-separated skills
-//   hiddenSkillsInput.value = selectedSkills.join(",");
-
-//   // Add 'required' if no skills are selected, remove otherwise
-//   if (selectedSkills.length === 0) {
-//     hiddenSkillsInput.setAttribute("required", "required");
-//   } else {
-//     hiddenSkillsInput.removeAttribute("required");
-//   }
-// }
-
-// // Add event listener for skill suggestions
-// skillsInput.addEventListener("input", () => {
-//   const inputValue = skillsInput.value.toLowerCase().trim();
-//   if (inputValue === "") {
-//     suggestionsList.style.display = "none";
-//     return;
-//   }
-
-//   const filteredSkills = availableSkills.filter(
-//     (skill) =>
-//       skill.toLowerCase().includes(inputValue) &&
-//       !selectedSkills.includes(skill)
-//   );
-
-//   if (filteredSkills.length > 0) {
-//     suggestionsList.innerHTML = filteredSkills
-//       .map(
-//         (skill) =>
-//           `<li class="suggestion-item cursor-pointer p-2 hover:bg-gray-100">${skill}</li>`
-//       )
-//       .join("");
-//     suggestionsList.style.display = "block";
-//   } else {
-//     suggestionsList.style.display = "none";
-//   }
-// });
-
-// // Handle skill selection
-// suggestionsList.addEventListener("click", (event) => {
-//   if (event.target.classList.contains("suggestion-item")) {
-//     const selectedSkill = event.target.textContent;
-//     if (!selectedSkills.includes(selectedSkill)) {
-//       selectedSkills.push(selectedSkill);
-//       updateSelectedSkills();
-//     }
-//     skillsInput.value = "";
-//     suggestionsList.style.display = "none";
-//   }
-// });
-
-// // Remove skill on clicking the 'x' button
-// selectedSkillsContainer.addEventListener("click", (event) => {
-//   if (event.target.classList.contains("remove-skill")) {
-//     const skillToRemove = event.target.dataset.skill;
-//     selectedSkills = selectedSkills.filter((skill) => skill !== skillToRemove);
-//     updateSelectedSkills();
-//   }
-// });

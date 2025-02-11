@@ -33,6 +33,7 @@ class ProjectsDisplay(models.Model):
     time_zone = models.CharField(max_length=50)
     start_date = models.DateField()
     project_type = models.CharField(max_length=50)
+    currency = models.CharField(max_length=10, default="INR")
     description = models.TextField()
     deliverables = models.TextField()
     requirements = models.TextField()
