@@ -11,5 +11,9 @@ urlpatterns = [
     path('logout/', views.cl_logout, name='cl_logout'),
     path('edit_profile/', views.edit_profile, name='cl_edit_profile'),
     path('submit_contact/', views.cl_contact, name='cl_contact'),
+    path('ongoingProjects/', views.cl_ongoingProjects, name='cl_ongoingProjects'),
+    path('singleOngoingProject/', views.cl_singleOgProject, name='cl_singleOgProject'),
+    path('singleViewBid/', views.cl_singleViewBid, name='cl_singleViewBid'),
+    path('viewBids/', views.cl_viewBids, name='cl_viewBids'),
   
 ]

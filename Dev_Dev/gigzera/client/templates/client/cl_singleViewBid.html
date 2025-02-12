@@ -1,0 +1,104 @@
+{% extends 'basic.html' %} {% load static %}
+<!-- title -->
+{% block title %}View Bids{% endblock %}
+<!-- css -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/cl_singleviewBids.css' %}" />
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %}
+<!-- content -->
+{% block content %}
+<!-- main -->
+<main>
+  <div class="action-buttons">
+    <div class="button-container">
+      <button id="reject-btn" class="btn reject">X Reject</button>
+      <button id="approve-btn" class="btn approve">✓ Approve</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card project-overview">
+      <h2>Project Overview</h2>
+      <p>
+        <strong>Project Name:<br /></strong> E-commerce Website Development
+      </p>
+      <br />
+      <p><strong>Opportunity ID:</strong> <br /><span>#OP2025001</span></p>
+      <p><strong>Deliverables:</strong></p>
+      <ul>
+        <li>Frontend Development</li>
+        <li>Backend Integration</li>
+        <li>Payment Gateway</li>
+      </ul>
+      <p>
+        <strong>Required Skills:</strong> <br />
+        <br /><span class="skills">React.js</span>
+        <span class="skills">Node.js</span>
+        <span class="skills">MongoDB</span>
+      </p>
+      <p>
+        <strong>Budget:<br /><br /></strong> $15,000 – $20,000 <br /><br />
+      </p>
+      <p>
+        <strong>Timeline:<br /><br /></strong> 1-2 Months <br /><br />
+      </p>
+    </div>
+
+    <div class="card bidder-profile">
+      <h2>Bidder Profile</h2>
+      <p>
+        <strong>User ID:<br /></strong> <span>#UID78945</span>
+      </p>
+      <br />
+      <p>
+        <strong>Username:<br /></strong> *********
+      </p>
+      <br />
+      <p>
+        <strong>Professional Summary:<br /></strong> Senior Full Stack Developer
+        with expertise in modern web technologies and e-commerce solutions.
+      </p>
+      <br />
+      <p><strong>Total Completed Projects:</strong> 4</p>
+      <p><strong>Total Experience:</strong> 8 Years</p>
+      <p>
+        <strong>Skills Experience:<br /></strong>
+      </p>
+      <ul>
+        <li>React.js: 5 years</li>
+        <li>Node.js: 4 years</li>
+        <li>MongoDB: 3 years</li>
+      </ul>
+      <p><strong>Certifications:</strong></p>
+      <ul>
+        <li>AWS Certified Developer</li>
+        <li>MongoDB Certified Developer</li>
+      </ul>
+    </div>
+
+    <div class="card bid-details">
+      <h2>Bid Details</h2>
+      <p>
+        <strong>Total Cost:<br /></strong> $18,500<br />
+      </p>
+      <br />
+      <p>
+        <strong>Proposed Timeline:<br /></strong> 1 Month<br />
+      </p>
+      <br />
+      <p><strong>Additional Comments:</strong></p>
+      <p>
+        I have extensive experience in developing e-commerce platforms with
+        similar requirements. I can start immediately and ensure timely delivery
+        with high-quality code.
+      </p>
+    </div>
+  </div>
+</main>
+{% endblock %}
+<!-- js -->
+{% block js %}
+
+<!-- <script src="{% static 'js/cl_profile.js' %}"></script> -->
+{% endblock %}

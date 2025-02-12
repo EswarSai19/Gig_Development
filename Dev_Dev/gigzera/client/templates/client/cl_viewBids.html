@@ -1,0 +1,117 @@
+{% extends 'basic.html' %} {% load static %}
+<!-- title -->
+{% block title %}View Bids{% endblock %}
+<!-- css -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/cl_viewBids.css' %}" />
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %}
+<!-- content -->
+{% block content %}
+<!-- main -->
+<main class="main_container">
+  <h2>Available Bids</h2>
+  <div class="grid-container">
+    <div class="card">
+      <h3>Website Redesign Project</h3>
+      <p>Opportunity ID: OPP-2025-001</p>
+      <p>Gigz ID: PRV-789</p>
+      <p>Experience: 5 Years</p>
+      <p>Budget: $15,000</p>
+      <p>Timeline: 2-3 Months</p>
+      <a href="{% url 'cl_singleViewBid' %}" class="btn">View Details</a>
+    </div>
+    <div class="card">
+      <h3>Website Redesign Project</h3>
+      <p>Opportunity ID: OPP-2025-001</p>
+      <p>Gigz ID: PRV-456</p>
+      <p>Experience: 3 Years</p>
+      <p>Budget: $25,000</p>
+      <p>Timeline: 4-6 Months</p>
+      <a href="{% url 'cl_singleViewBid' %}" class="btn">View Details</a>
+    </div>
+    <div class="card">
+      <h3>Website Redesign Project</h3>
+      <p>Opportunity ID: OPP-2025-001</p>
+      <p>Gigz ID: PRV-234</p>
+      <p>Experience: 7 Years</p>
+      <p>Budget: $35,000</p>
+      <p>Timeline: 5-7 Months</p>
+      <a href="{% url 'cl_singleViewBid' %}" class="btn">View Details</a>
+    </div>
+    <div class="card">
+      <h3>Website Redesign Project</h3>
+      <p>Opportunity ID: OPP-2025-001</p>
+      <p>Gigz ID: PRV-567</p>
+      <p>Experience: 4 Years</p>
+      <p>Budget: $45,000</p>
+      <p>Timeline: 3-4 Months</p>
+      <a href="{% url 'cl_singleViewBid' %}" class="btn">View Details</a>
+    </div>
+    <div class="card">
+      <h3>Website Redesign Project</h3>
+      <p>Opportunity ID: OPP-2025-001</p>
+      <p>Gigz ID: PRV-890</p>
+      <p>Experience: 6 Years</p>
+      <p>Budget: $55,000</p>
+      <p>Timeline: 2-4 Months</p>
+      <a href="{% url 'cl_singleViewBid' %}" class="btn">View Details</a>
+    </div>
+    <div class="card">
+      <h3>Website Redesign Project</h3>
+      <p>Opportunity ID: OPP-2025-001</p>
+      <p>Gigz ID: PRV-123</p>
+      <p>Experience: 8 Years</p>
+      <p>Budget: $20,000</p>
+      <p>Timeline: 1-2 Months</p>
+      <a href="{% url 'cl_singleViewBid' %}" class="btn">View Details</a>
+    </div>
+    <div class="card">
+      <h3>Website Redesign Project</h3>
+      <p>Opportunity ID: OPP-2025-001</p>
+      <p>Gigz ID: PRV-345</p>
+      <p>Experience: 4 Years</p>
+      <p>Budget: $40,000</p>
+      <p>Timeline: 3-5 Months</p>
+      <a href="{% url 'cl_singleViewBid' %}" class="btn">View Details</a>
+    </div>
+    <div class="card">
+      <h3>DevOps Implementation</h3>
+      <p>Opportunity ID: OPP-2025-002</p>
+      <p>Gigz ID: PRV-678</p>
+      <p>Experience: 6 Years</p>
+      <p>Budget: $50,000</p>
+      <p>Timeline: 4-6 Months</p>
+      <a href="{% url 'cl_singleViewBid' %}" class="btn">View Details</a>
+    </div>
+    <div class="card">
+      <h3>DevOps Implementation</h3>
+      <p>Opportunity ID: OPP-2025-002</p>
+      <p>Gigz ID: PRV-901</p>
+      <p>Experience: 7 Years</p>
+      <p>Budget: $60,000</p>
+      <p>Timeline: 3-4 Months</p>
+      <a href="{% url 'cl_singleViewBid' %}" class="btn">View Details</a>
+    </div>
+  </div>
+  <!-- <div class="pagination">  
+            <a href="#" class="btn">Previous</a>  
+            <span class="btn active">1</span>  
+            <a href="#">2</a>  
+            <a href="#">3</a>  
+            <a href="#" class="btn">Next</a>  
+        </div> -->
+  <div class="pagination">
+    <a href="#">Previous</a>
+    <a href="#">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">Next</a>
+  </div>
+</main>
+{% endblock %}
+<!-- js -->
+{% block js %}
+
+<!-- <script src="{% static 'js/cl_profile.js' %}"></script> -->
+{% endblock %}

@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.action-buttons {
+    text-align: right;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    margin: 0 10px;
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+.skills {
+    font-weight: bold;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.reject {
+    background-color: #dc3545;
+    /* Red */
+}
+
+.approve {
+    background-color: #28a745;
+    /* Green */
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f1f1f1;
+    margin-top: 20px;
+} */
+
+.project-overview,
+.bidder-profile,
+.bid-details {
+    border: 1px solid #ddd;
+    /* Light gray border */
+    background-color: white;
+}
+
+.btn i {
+    margin-right: 5px;
+    /* Space between icon and text */
+}
+
+.reject {
+    background-color: #dc3545;
+    /* Red background */
+    color: white;
+    /* White text */
+}
+
+.approve {
+    background-color: #28a745;
+    /* Green background */
+    color: white;
+    /* White text */
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.reject i {
+    color: #dc3545;
+    /* Color for the reject icon */
+}
+
+.approve i {
+    color: #28a745;
+    /* Color for the approve icon */
+}

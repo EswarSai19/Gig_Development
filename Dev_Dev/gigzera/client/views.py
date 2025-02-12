@@ -94,6 +94,7 @@ def cl_profile(request):
         return redirect('login')
     user = Client.objects.get(userId=user_id)
     user.initials = get_initials(user.name)
+    print("users details:", user, user_id, user.initials)
     context={'user':user}
 
     if request.method=="POST":
@@ -133,7 +134,7 @@ def cl_profile(request):
         return redirect('cl_profile')  # Redirect to home page
 
         print(f"title: {title}\nproject_type: {project_type}\nbudget: {budget}\nduration: {duration}\ncurrency: {currency}\ndescription: {description}\nstart_date: {start_date}\nrequirements: {requirements}\ntime_zone: {time_zone}\nchallenges: {challenges}\n")
-
+    print("I am here")
     return render(request, 'client/cl_profile.html', context)
 
 def cl_test(request):
@@ -242,7 +243,41 @@ def edit_profile(request):
 
     return render(request, 'client/cl_profile.html', {'user': client})
 
+def cl_ongoingProjects(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
+    user = Client.objects.get(userId=user_id)
+    user.initials = get_initials(user.name)
+    context={'user':user}
+    return render(request, 'client/cl_ongoingProjects.html', context)
 
+def cl_singleOgProject(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
+    user = Client.objects.get(userId=user_id)
+    user.initials = get_initials(user.name)
+    context={'user':user}
+    return render(request, 'client/cl_singleOgProject.html', context)
+
+def cl_viewBids(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
+    user = Client.objects.get(userId=user_id)
+    user.initials = get_initials(user.name)
+    context={'user':user}
+    return render(request, 'client/cl_viewBids.html', context)
+
+def cl_singleViewBid(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
+    user = Client.objects.get(userId=user_id)
+    user.initials = get_initials(user.name)
+    context={'user':user}
+    return render(request, 'client/cl_singleViewBid.html', context)
 
 
 

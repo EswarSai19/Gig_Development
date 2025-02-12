@@ -1,0 +1,845 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.ctnr {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 20px;
+    /* Added gap for spacing between sidebar and content */
+    align-items: stretch;
+    /* Ensures all child elements stretch to the same height vertically */
+    height: auto;
+}
+
+.sidebar {
+    width: 550px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    margin-top: 0;
+    font-size: 32px;
+}
+
+.sidebar ul {
+    padding-left: 20px;
+}
+
+.sidebar .status {
+    font-size: 15px;
+    color: orange;
+}
+
+.status pending {
+    margin-left: 10px;
+    /* Adjust the space as needed */
+}
+
+/* Main Content */
+.main-content {
+    width: 70%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Added shadow for the main content */
+    display: flex;
+    /* Necessary for alignment */
+    flex-direction: column;
+    /* Keeps content inside column aligned */
+    height: auto;
+    /* Ensures it adjusts dynamically */
+}
+
+/* Project Header Box */
+.project-header {
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+    /* Add spacing below the project header */
+}
+
+/* Progress Header Container */
+.progress-header-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    /* Stack elements vertically */
+    justify-content: flex-start;
+    /* Align items from the top */
+    align-items: stretch;
+    /* Stretch to fill the width */
+}
+
+/* Row containing Meta and Percentage */
+.progress-header-container-row {
+    display: flex;
+    /* Align content horizontally */
+    flex-direction: row;
+    /* Arrange elements in a row */
+    justify-content: space-between;
+    /* Space between meta and percentage */
+    align-items: flex-start;
+    /* Align from the top */
+    width: 100%;
+    /* Span full width of container */
+    margin-bottom: 15px;
+    /* Add spacing below this row */
+}
+
+/* Meta section */
+.progress-meta {
+    font-size: 14px;
+    color: #6c757d;
+    line-height: 1.2;
+}
+
+.progress-meta span {
+    white-space: nowrap;
+    /* Prevent unnecessary line breaks */
+}
+
+/* Percentage section */
+.progress-percentage {
+    font-weight: bold;
+    color: #007bff;
+    display: flex;
+    align-items: flex-start;
+    /* Align content from the top */
+    gap: 6px;
+    justify-content: flex-end;
+    /* Align percentage to the right */
+    text-align: right;
+    /* Ensure text aligns correctly */
+}
+
+
+/* Progress Bar Container */
+.progress-bar-container {
+    width: 100%;
+    /* Ensure it spans the full width */
+    margin-top: 15px;
+    /* Add spacing between the row and the progress bar */
+    display: flex;
+    flex-direction: column;
+    /* Stack elements in a column */
+    align-items: stretch;
+    /* Stretch the progress bar to full width */
+}
+
+/* Style the progress bar */
+.progress-bar {
+    background-color: #e9ecef;
+    border-radius: 4px;
+    height: 8px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    /* Ensures the bar takes full width */
+}
+
+.progress {
+    background-color: #007bff !important;
+    /* Force blue color */
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    /* Smooth transition for color and width */
+}
+
+
+
+#editProgressIcon {
+    font-size: 16px;
+    cursor: pointer;
+    color: #007bff;
+    margin-left: 5px;
+}
+
+#editProgressIcon:hover {
+    color: #0056b3;
+    /* Darker blue on hover */
+}
+
+.progress-edit {
+    display: flex;
+    /* Ensure the form appears inline with the input and button */
+    gap: 10px;
+    /* Add spacing between the input and button */
+    margin-top: 12px;
+    /* Add some space from the progress bar */
+}
+
+.progress-edit.hidden {
+    display: none;
+    /* Initially hides the form */
+}
+
+/* Style for the input field in the edit form */
+.progress-edit input {
+    width: 60px;
+    /* Make the input field compact */
+    padding: 8px;
+    /* Add some padding inside the input */
+    border-radius: 4px;
+    /* Add rounded corners */
+    border: 1px solid #ddd;
+    /* Light gray border for a clean look */
+    font-size: 14px;
+    /* Set a consistent font size */
+}
+
+/* Style for the update button */
+.progress-edit button {
+    padding: 8px 16px;
+    /* Add padding to make the button more clickable */
+    background-color: #007bff;
+    /* Blue background to match the theme */
+    color: white;
+    /* White text for contrast */
+    border-radius: 5px;
+    /* Rounded corners */
+    border: none;
+    /* Remove default button borders */
+    cursor: pointer;
+    /* Pointer cursor to indicate it's clickable */
+}
+
+/* Hover effect for the update button */
+.progress-edit button:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover for better UX */
+}
+
+/* Tasks Box */
+.tasks-box {
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.tasks-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tasks-header div {
+    display: flex;
+    gap: 10px;
+}
+
+.add-task-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.add-task-btn:hover {
+    background-color: #0056b3;
+}
+
+.delete-selected-btn {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.delete-selected-btn:hover {
+    background-color: #cc0000;
+}
+
+/* Task layout */
+.task {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 550px;
+}
+
+.task-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-title {
+    flex: 1;
+    font-size: 14px;
+    border: 1px solid transparent;
+    /* padding: 5px; */
+    border-radius: 4px;
+    margin: auto;
+    cursor: text;
+}
+
+.task-title:focus {
+    outline: none;
+    border: 1px solid #007bff;
+}
+
+.edit-icon {
+    color: #007bff;
+    cursor: pointer;
+}
+
+.edit-icon:hover {
+    color: #0056b3;
+}
+
+select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.task-comment {
+    margin-top: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 40px;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* Messages Section */
+/* Styles for the messages container */
+.messages {
+    width: 40%;
+    /* Increased width slightly */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+}
+
+.messages-header {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.online-status {
+    font-size: 14px;
+    color: #0056b3;
+    border-radius: 4px;
+    background-color: #d1e7ff;
+    padding: 5px 10px;
+}
+
+#messagesContainer {
+    max-height: 400px;
+    /* Reduced height slightly */
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding-right: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+#messagesContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+#messagesContainer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.message.sent {
+    justify-content: flex-end;
+}
+
+.message img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 10px;
+}
+
+.message-content {
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    padding: 10px;
+    max-width: 250px;
+    font-size: 14px;
+}
+
+.message.sent .message-content {
+    background-color: #d1e7ff;
+}
+
+.message-content p {
+    margin: 0;
+    color: #333;
+}
+
+.message-content .message-time {
+    display: block;
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.message-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.message-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.message-input input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.message-input button {
+    background-color: #007bff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message-input button:hover {
+    background-color: #0056b3;
+}
+
+.message-input svg {
+    fill: currentColor;
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    .messages {
+        width: 100%;
+        margin-top: 20px;
+    }
+}
+
+/* Modal adjustments */
+.modal-dialog {
+    width: 90%;
+    margin: 20px auto;
+}
+
+.modal-content {
+    max-width: 100%;
+    /* Allow full width on smaller screens */
+}
+
+/* Popup Styles */
+.popup {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Change request button styling */
+.change-request-button {
+    margin-left: 2em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.change-request-button:hover {
+    background-color: #0056b3;
+}
+
+.modal-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.modal-content {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+}
+
+.modal-title {
+    flex: 1;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 10px;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-body label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.modal-body input,
+.modal-body select,
+.modal-body textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* .modal-body button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.modal-body button:hover {
+    background-color: #0056b3;
+} */
+
+/* Skill tags styling */
+.skill-tag {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+.remove-skill {
+    margin-left: 10px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.remove-skill:hover {
+    color: red;
+}
+
+/* Suggestions List */
+.suggestions-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* New styles for the modal */
+/* Styles for the Modal */
+.form-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.form-header h2 {
+    margin: 0;
+}
+
+.form-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-content input,
+.form-content select,
+.form-content textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-content textarea {
+    resize: none;
+}
+
+.form-content button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.form-content button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+}
+
+/* Styles for skill tags */
+.skill-tag {
+    display: inline-block;
+    background-color: #4caf50;
+    color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.remove-skill {
+    margin-left: 10px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.remove-skill:hover {
+    color: red;
+}
+
+/* Suggestions List */
+.suggestions-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Pop-up for skill selection */
+#popup {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 9999;
+    width: 80%;
+    max-width: 500px;
+}
+
+#popup .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#popup .popup-header .close {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.select-container {
+    flex: 1;
+    /* Make both select boxes take equal width */
+}
+
+.select-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.select-container select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Remove Border from Get Started Button */
+.get-started-btn {
+    border: none;
+    /* Removes border */
+    background-color: transparent;
+    /* Optional: Transparent background */
+    color: #007bff;
+    /* Button text color */
+    font-size: 1rem;
+    /* Adjust font size */
+    font-weight: bold;
+    /* Make text bold */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: all 0.3s ease-in-out;
+}
+
+.get-started-btn:hover {
+    color: #0c0c0c;
+    /* Optional: Change color on hover */
+}

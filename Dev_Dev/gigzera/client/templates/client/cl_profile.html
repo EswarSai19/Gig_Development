@@ -5,6 +5,7 @@
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/cl_profile.css' %}" />
 <link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+<!-- <link rel="stylesheet" href="{% static 'css/cl_postajob.css' %}" /> -->
 {% endblock %}
 <!-- content -->
 {% block content %}
@@ -130,16 +131,10 @@
         <p>Monitor and manage your ongoing projects efficiently.</p>
         <!-- Buttons Section -->
         <div class="button-container">
-          <button
-            class="action-button"
-            onclick="window.location.href='./recruiterProjectTrackingMultiple.html';"
-          >
+          <button class="action-button ongoing-projects">
             <i class="fas fa-chart-line"></i> View Ongoing Projects
           </button>
-          <button
-            class="action-button secondary-button"
-            onclick="window.location.href='./Recruiter Bid Tracker (Multiple).html';"
-          >
+          <button class="action-button secondary-button view-bids">
             <i class="fas fa-briefcase"></i> View Bids for New Projects
           </button>
         </div>
@@ -551,5 +546,23 @@
 {% endblock %}
 <!-- js -->
 {% block js %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const ongoingProjects = document.getElementsByClassName("ongoing-projects");
+    const viewBids = document.getElementsByClassName("view-bids");
+
+    // Add click event to all buttons with the class "findajob-btn"
+    Array.from(ongoingProjects).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        window.location.href = "{% url 'cl_ongoingProjects' %}";
+      });
+    });
+    Array.from(viewBids).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        window.location.href = "{% url 'cl_viewBids' %}";
+      });
+    });
+  });
+</script>
 <script src="{% static 'js/cl_profile.js' %}"></script>
 {% endblock %}

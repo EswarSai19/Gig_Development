@@ -1,0 +1,671 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 20px 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    color: #6366f1;
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.logo span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #111827;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.header-actions img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 15px;
+}
+
+main {
+    padding: 30px 0;
+}
+
+.title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title-section h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #111827;
+}
+
+.search-bar {
+    margin-right: 20px;
+    /* Add gap between search bar and buttons */
+}
+
+.search-bar {
+    position: relative;
+}
+
+.search-bar input {
+    width: 250px;
+    padding: 10px 15px 10px 35px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+}
+
+.search-bar i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.btn i {
+    margin-right: 5px;
+}
+
+.btn-primary {
+    background-color: #6366f1;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #4f46e5;
+}
+
+.btn-outline {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    color: #374151;
+}
+
+.btn-outline:hover {
+    background-color: #f3f4f6;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #6b7280;
+    margin-bottom: 15px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.badge-active {
+    background-color: #4caf50;
+    /* Green for Active */
+    color: white;
+}
+
+.badge-progress {
+    background-color: #ff9800;
+    /* Orange for In Progress */
+    color: white;
+}
+
+.badge-planning {
+    background-color: #2196f3;
+    /* Blue for Planning */
+    color: white;
+}
+
+.badge-review {
+    background-color: #9c27b0;
+    /* Purple for Review */
+    color: white;
+}
+
+.badge-onhold {
+    background-color: #f44336;
+    /* Red for On Hold */
+    color: white;
+}
+
+.badge-active:hover,
+.badge-progress:hover,
+.badge-planning:hover,
+.badge-review:hover,
+.badge-onhold:hover {
+    opacity: 0.8;
+    /* Slightly fade effect on hover */
+    cursor: pointer;
+    /* Change cursor to pointer on hover */
+}
+
+.progress-bar {
+    position: relative;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+    /* Space between percentage and progress bar */
+}
+
+.progress-bar-inner {
+    height: 100%;
+    background-color: #608ef1;
+    transition: width 0.3s;
+}
+
+.progress-percentage {
+    position: absolute;
+    /* Position percentage inside the progress bar */
+    width: 100%;
+    /* Ensure it occupies full width */
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    /* Color of percentage text */
+}
+
+.page_footer {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.page_footer button {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s;
+    margin: 0 5px;
+    /* Spacing between buttons */
+}
+
+.page_footer button:hover {
+    background-color: #e0e0e0;
+    /* Darker shade on hover */
+}
+
+.project-id {
+    margin: 10px 0;
+}
+
+.extra-info {
+    display: none;
+    /* Hide by default */
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Filter Dialog Styles */
+.filter-dialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.filter-dialog .filter-header {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.filter-dialog .filter-option {
+    margin-bottom: 10px;
+}
+
+.filter-dialog button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.filter-dialog button:hover {
+    background-color: #45a049;
+}
+
+.filter-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+
+/* <!-- Modal and Form Styles --> */
+
+/* Styles for the Post a Job Modal */
+.modal-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Centering in vertical direction */
+    margin: auto;
+}
+
+.modal-content {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+}
+
+.modal-title {
+    flex: 1;
+    /* Flex to center title */
+    text-align: center;
+    font-size: 1.8rem;
+    /* Increased font size for heading */
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    /* Set a fixed height for the modal body */
+    overflow-y: auto;
+    /* Enable scroll if needed */
+    padding: 20px;
+    /* Add some padding */
+}
+
+/* Ensure the header and footer doesn't scroll with the content */
+.modal-footer {
+    padding: 10px;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    justify-content: flex-end;
+    /* Alignment for footer content */
+}
+
+.modal-body label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: left;
+    /* Align label text to the left */
+}
+
+.modal-body input,
+.modal-body select,
+.modal-body textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.modal-body textarea {
+    resize: none;
+}
+
+/* .modal-body button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.modal-body button:hover {
+    background-color: #0056b3;
+} */
+
+/* Skill tags styling */
+.skill-tag {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.remove-skill {
+    margin-left: 10px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.remove-skill:hover {
+    color: red;
+}
+
+/* Suggestions List */
+.suggestions-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Form group for currency and budget */
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.select-container {
+    flex: 1;
+}
+
+.select-container label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+    /* Align label text to the left */
+}
+
+.select-container select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Get Started Button */
+.get-started-btn {
+    border: none;
+    background-color: transparent;
+    color: #007bff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.get-started-btn:hover {
+    color: #0c0c0c;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .modal-dialog {
+        width: 90%;
+        margin: 20px auto;
+    }
+
+    .modal-content {
+        max-width: 100%;
+        /* Allow full width on smaller screens */
+    }
+}
+
+
+/* New styles for the modal */
+/* Styles for the Modal */
+.form-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.form-header h2 {
+    margin: 0;
+}
+
+.form-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-content input,
+.form-content select,
+.form-content textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-content textarea {
+    resize: none;
+}
+
+.form-content button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.form-content button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+}
+
+/* Styles for skill tags */
+.skill-tag {
+    display: inline-block;
+    background-color: #4caf50;
+    color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.remove-skill {
+    margin-left: 10px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.remove-skill:hover {
+    color: red;
+}
+
+/* Suggestions List */
+.suggestions-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Pop-up for skill selection */
+#popup {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 9999;
+    width: 80%;
+    max-width: 500px;
+}
+
+#popup .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#popup .popup-header .close {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.select-container {
+    flex: 1;
+    /* Make both select boxes take equal width */
+}
+
+.select-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.select-container select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Remove Border from Get Started Button */
+.get-started-btn {
+    border: none;
+    /* Removes border */
+    background-color: transparent;
+    /* Optional: Transparent background */
+    color: #007bff;
+    /* Button text color */
+    font-size: 1rem;
+    /* Adjust font size */
+    font-weight: bold;
+    /* Make text bold */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: all 0.3s ease-in-out;
+}
+
+.get-started-btn:hover {
+    color: #0c0c0c;
+    /* Optional: Change color on hover */
+}
