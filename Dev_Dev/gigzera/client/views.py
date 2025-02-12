@@ -9,9 +9,7 @@ import json
 import os
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
-from .models import Client
-from freelancer.models import ProjectsDisplay
-from non_register.models import Contact
+from db_schemas.models import Client, ProjectsDisplay, Contact
 from django.core.exceptions import ValidationError
 from datetime import datetime
 
@@ -180,11 +178,13 @@ def cl_postajob(request):
             duration=duration, 
             currency=currency, 
             description=description, 
-            start_date=start_date, 
+            start_date=start_date,
+            deliverables=deliverables,
             requirements=requirements, 
             challenges=challenges, 
             time_zone=time_zone, 
-            skills_required=skills
+            skills_required=skills,
+            client_id=user_id
         )
 
         messages.success(request, "Your form has been submitted successfully!")

@@ -7,10 +7,8 @@ from django.contrib import messages
 import json
 import re
 from django.utils.timezone import now
-from .models import Contact
-from .forms import ContactForm
-from freelancer.models import ProjectsDisplay, Freelancer, Skill, Certificate
-from client.models import Client
+from db_schemas.models import Contact, Client, ProjectsDisplay, Freelancer, Skill, Certificate
+# from .forms import ContactForm
 
 def index(request):
     jobs = ProjectsDisplay.objects.all().order_by('-created_at')[0:3]

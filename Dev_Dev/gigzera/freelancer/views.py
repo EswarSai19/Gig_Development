@@ -6,9 +6,8 @@ from django.contrib import messages
 import json
 import os
 from django.conf import settings
-from non_register.models import Contact
 from django.core.files.storage import FileSystemStorage
-from .models import ProjectQuote, Freelancer, EmploymentHistory, Certificate, Skill, ProjectsDisplay, ProjectStatusDetails  # Create a model for storing quotes
+from db_schemas.models import Contact, ProjectQuote, Freelancer, EmploymentHistory, Certificate, Skill, ProjectsDisplay, ProjectStatusDetails  # Create a model for storing quotes
 from django.core.exceptions import ValidationError
 from datetime import datetime
 # from django.contrib.auth.decorators import login_required
@@ -579,7 +578,7 @@ def submit_quote(request):
             opportunityId=opportunityId,
             budget=budget,
             time_estimation=time_estimation,
-            comments=comments
+            comments=comments,
         )
 
         messages.success(request, "Quote submitted successfully!")

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Client
+# from .models import Client
 # Register your models here.
 
 # @admin.register(Contact)
@@ -7,7 +7,7 @@ from .models import Client
 #     list_display = ('name', 'phone_number', 'email', 'reason', 'description', 'submitted_at')
 #     search_fields = ('name', 'email', 'reason')
 
-@admin.register(Client)
-class ClientAdmin(admin.ModelAdmin):
-    list_display = ('userId', 'name', 'email', 'phone', 'user_role', 'country', 'company', 'designation' )
-    search_fields = ('name', 'email', 'userId', 'phone', 'company')
+# @admin.register(Client)
+# class ClientAdmin(admin.ModelAdmin):
+#     list_display = ('userId', 'name', 'email', 'phone', 'user_role', 'country', 'company', 'designation' )
+#     search_fields = ('name', 'email', 'userId', 'phone', 'company')

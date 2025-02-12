@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'non_register',
     'freelancer',
     'client',
+    'db_schemas',
 ]
 
 MIDDLEWARE = [

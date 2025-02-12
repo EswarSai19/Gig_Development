@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Contact
-@admin.register(Contact)
-class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'phone_number', 'email', 'reason', 'description', 'submitted_at')
-    search_fields = ('name', 'email', 'reason')
+# from .models import Contact
+# @admin.register(Contact)
+# class ContactAdmin(admin.ModelAdmin):
+#     list_display = ('name', 'phone_number', 'email', 'reason', 'description', 'submitted_at')
+#     search_fields = ('name', 'email', 'reason')
 
 # @admin.register(ProjectsDisplay)
 # class ProjectsDisplayAdmin(admin.ModelAdmin):
