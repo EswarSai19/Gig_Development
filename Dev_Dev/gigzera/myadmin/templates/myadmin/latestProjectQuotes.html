@@ -4,25 +4,25 @@
 <!-- CSS -->
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/ad_latestProjectQuotes.css' %}" />
-<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+<!-- <link rel="stylesheet" href="{% static 'css/tailwind.css' %}" /> -->
 {% endblock %}
 <!-- main content -->
 {% block content %}
 <div class="cntr p-8">
   <h2>Available Bids</h2>
   <div class="grid-container">
+    {% for bid in bids %}
     <div class="card">
-      <h3>Website Redesign Project</h3>
-      <p>Opportunity ID: OPP-2025-001</p>
-      <p>Gigz ID: PRV-789</p>
-      <p>Experience: 5 Years</p>
+      <h3>{{bid.title}}</h3>
+      <p>Opportunity ID: {{bid.opportunityId}}</p>
+      <p>Gigz ID: {{bid.freelancer_id}}</p>
+      <p>Experience: {{bid.user_experience}} Years</p>
       <p>Budget: $15,000</p>
-      <p>Timeline: 2-3 Months</p>
-      <a href="../html/Admin Bid view for project.html" class="btn"
-        >View Details</a
-      >
+      <p>Timeline: 2- Months</p>
+      <a href="{% url 'ad_latestSinglePQ' %}" class="btn">View Details</a>
     </div>
-    <div class="card">
+    {% endfor %}
+    <!-- <div class="card">
       <h3>Website Redesign Project</h3>
       <p>Opportunity ID: OPP-2025-001</p>
       <p>Gigz ID: PRV-456</p>
@@ -109,7 +109,7 @@
       <a href="../html/Admin Bid view for project.html" class="btn"
         >View Details</a
       >
-    </div>
+    </div> -->
   </div>
   <!-- <div class="pagination">  
                 <a href="#" class="btn">Previous</a>  

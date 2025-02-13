@@ -164,7 +164,7 @@ class ProjectsDisplay(models.Model):
     opportunityId = models.CharField(
         primary_key=True, max_length=12, default=generate_opportunity_id, editable=False
     )
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, default="CL86254975")
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     budget = models.CharField(max_length=50)
     duration = models.CharField(max_length=50)
@@ -187,7 +187,7 @@ class ProjectsDisplay(models.Model):
 
 class ProjectStatusDetails(models.Model):
     freelancer = models.ForeignKey(Freelancer, on_delete=models.CASCADE, related_name='project_status_set')
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, default="CL86254975")
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     admin = models.CharField(max_length=20, default='AD001')
     opportunity_id = models.CharField(max_length=15)
     status = models.CharField(max_length=20, default='Not Started')
@@ -204,7 +204,7 @@ class ProjectQuote(models.Model):
         primary_key=True, max_length=12, default=generate_projectquote_id, editable=False
     )
     freelancer = models.ForeignKey(Freelancer, on_delete=models.CASCADE)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, default="CL86254975")
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     opportunityId = models.CharField(max_length=20)
     budget = models.CharField(max_length=20)
     time_estimation = models.CharField(max_length=20)  # Days

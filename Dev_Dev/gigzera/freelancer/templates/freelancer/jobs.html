@@ -163,6 +163,8 @@
         <!-- Budget Field -->
         {% csrf_token %}
         <input type="hidden" id="quote_opportunityId" name="opportunity_id" />
+        <input type="hidden" id="quote_title" name="title" />
+        <input type="hidden" id="quote_cur_symbol" name="cur_symbol" />
         <div class="mb-4">
           <label for="budget" class="block text-sm font-semibold text-gray-700">
             Budget <span class="text-red-500">*</span>
@@ -238,7 +240,9 @@
             </div>
             <div class="job-duration-salary text-sm text-gray-700">
               <span class="duration">⏳ {{ job.duration }}</span>
-              <span class="salary ml-4">💳 {{ job.budget }}</span>
+              <span class="salary ml-4"
+                >💳 {{job.cur_symbol}} {{ job.budget }}</span
+              >
             </div>
             <p class="job-description text-gray-600 mt-2">
               {{ job.description }}
@@ -264,7 +268,7 @@
               </button>
               <button
                 class="btn btn-primary provide-quote bg-blue-500 text-white px-4 py-2 rounded ml-2"
-                onclick="openModal(`{{ job.opportunityId }}`)"
+                onclick="openModal(`{{ job.opportunityId }}, {{job.title}}, {{job.cur_symbol}}`)"
               >
                 Provide Quote
               </button>

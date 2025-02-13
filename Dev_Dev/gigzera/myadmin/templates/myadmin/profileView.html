@@ -1,0 +1,191 @@
+{% extends 'myadmin/ad_base2.html' %} {% load static %}
+<!-- title -->
+{% block title %}Latest Project Quotes{% endblock %}
+<!-- CSS -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/ad_latestSinglePQ.css' %}" />
+<!-- <link rel="stylesheet" href="{% static 'css/tailwind.css' %}" /> -->
+{% endblock %}
+<!-- main content -->
+{% block content %}
+
+<div class="main_container bg-gray-50">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="cntr flex-1 p-8">
+    <div class="flex justify-between items-center mb-8">
+      <button
+        class="bg-white px-4 py-2 rounded-lg shadow hover:shadow-md"
+        onclick="window.location.href='../html/Admin Freelancer Profile overview (All).html';"
+      >
+        <i class="fa-solid fa-arrow-left mr-2"></i>Back to Users
+      </button>
+      <div class="space-x-3">
+        <button
+          id="banUser"
+          class="bg-red-50 text-red-600 px-4 py-2 rounded-lg hover:bg-red-100"
+        >
+          <i class="fa-solid fa-ban mr-2"></i>Ban User
+        </button>
+        <button
+          id="unbanUser"
+          class="bg-green-50 text-green-600 px-4 py-2 rounded-lg hover:bg-green-100"
+        >
+          <i class="fa-solid fa-check mr-2"></i>Unban User
+        </button>
+        <button
+          id="verifyUser"
+          class="bg-blue-50 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-100"
+        >
+          <i class="fa-solid fa-check-circle mr-2"></i>Verify User
+        </button>
+      </div>
+    </div>
+    <div class="grid grid-cols-3 gap-6">
+      <div class="col-span-2 space-y-6">
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <h2 class="text-xl font-bold mb-4">Professional Summary</h2>
+          <p class="text-gray-600">
+            Experienced web developer with 5+ years of expertise in front-end
+            development, specializing in React and Vue.js frameworks. Proven
+            track record of delivering high-quality, responsive web applications
+            for enterprise clients.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <h2 class="text-xl font-bold mb-4">Skills & Experience</h2>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full"
+              >React.js (4 years)</span
+            >
+            <span class="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full"
+              >Vue.js (3 years)</span
+            >
+            <span class="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full"
+              >TypeScript (2 years)</span
+            >
+            <span class="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full"
+              >Node.js (3 years)</span
+            >
+            <span class="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full"
+              >REST APIs (4 years)</span
+            >
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <h2 class="text-xl font-bold mb-4">Employment History</h2>
+          <div class="space-y-6">
+            <div class="flex">
+              <div class="w-2 bg-indigo-100 rounded mr-4"></div>
+              <div>
+                <h3 class="font-semibold">Senior Frontend Developer</h3>
+                <p class="text-gray-600">TechCorp Inc.</p>
+                <p class="text-sm text-gray-500">2023 - Present</p>
+              </div>
+            </div>
+            <div class="flex">
+              <div class="w-2 bg-gray-100 rounded mr-4"></div>
+              <div>
+                <h3 class="font-semibold">Frontend Developer</h3>
+                <p class="text-gray-600">WebSolutions Ltd.</p>
+                <p class="text-sm text-gray-500">2020 - 2023</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm">
+        <div class="text-center">
+          <img
+            src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg"
+            alt="Profile"
+            class="w-32 h-32 rounded-full mx-auto mb-4"
+          />
+          <h1 class="text-2xl font-bold">John Anderson</h1>
+          <p class="text-indigo-600 font-semibold mb-4">
+            Senior Frontend Developer
+          </p>
+          <div class="space-y-3 text-left">
+            <div class="flex items-center">
+              <i class="fa-solid fa-envelope w-5 text-gray-400 mr-2"></i>
+              <span class="text-gray-600">john.anderson@email.com</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fa-solid fa-phone w-5 text-gray-400 mr-2"></i>
+              <span class="text-gray-600">+1 (555) 123-4567</span>
+            </div>
+            <div class="flex items-center">
+              <i
+                class="fa-solid fa-share-from-square w-5 text-gray-400 mr-2"
+              ></i>
+              <span class="text-blue-600 hover:underline cursor-pointer"
+                >linkedin.com/in/johnanderson</span
+              >
+            </div>
+            <div class="flex items-center">
+              <i class="fa-solid fa-clock w-5 text-gray-400 mr-2"></i>
+              <span class="text-gray-600">Total Experience: 5.5 years</span>
+            </div>
+          </div>
+          <div class="mt-6 pt-6 border-t">
+            <h2 class="text-left text-lg font-semibold mb-4">Certifications</h2>
+            <div class="space-y-3">
+              <div class="flex items-center">
+                <i class="fa-solid fa-certificate text-yellow-400 mr-2"></i>
+                <span class="text-gray-600">AWS Certified Developer</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fa-solid fa-certificate text-yellow-400 mr-2"></i>
+                <span class="text-gray-600">React Advanced Certification</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 pt-6 border-t">
+            <h2 class="text-left text-lg font-semibold mb-4">
+              Current Projects
+            </h2>
+            <div class="space-y-3">
+              <div
+                class="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+              >
+                <div class="flex items-center">
+                  <i class="fa-solid fa-code text-indigo-500 mr-2"></i>
+                  <span class="text-gray-700">E-commerce Platform</span>
+                </div>
+                <span
+                  class="px-2 py-1 bg-green-100 text-green-600 text-sm rounded-full"
+                  >Active</span
+                >
+              </div>
+              <div
+                class="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+              >
+                <div class="flex items-center">
+                  <i class="fa-solid fa-mobile-screen text-indigo-500 mr-2"></i>
+                  <span class="text-gray-700">Mobile App UI</span>
+                </div>
+                <span
+                  class="px-2 py-1 bg-yellow-100 text-yellow-600 text-sm rounded-full"
+                  >In Review</span
+                >
+              </div>
+              <div
+                class="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+              >
+                <div class="flex items-center">
+                  <i class="fa-solid fa-chart-simple text-indigo-500 mr-2"></i>
+                  <span class="text-gray-700">Analytics Dashboard</span>
+                </div>
+                <span
+                  class="px-2 py-1 bg-blue-100 text-blue-600 text-sm rounded-full"
+                  >Planning</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -69,9 +69,11 @@ function startImageSlideshow() {
 // //Pop up javascript
 
 // Javascript for modal open for provide quote
-function openModal(opportunityId) {
+function openModal(opportunityId, title, cur_symbol) {
   console.log(opportunityId, "ID is coming");
   document.getElementById("quote_opportunityId").value = opportunityId;
+  document.getElementById("quote_title").value = title;
+  document.getElementById("quote_cur_symbol").value = cur_symbol;
   document.getElementById("quoteModal").classList.remove("hidden");
 }
 

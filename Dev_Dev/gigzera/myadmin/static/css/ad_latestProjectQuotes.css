@@ -72,7 +72,25 @@ nav a {
     margin-top: 0;
 }
 
-.btn {
+.card a {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    width: 50%;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: 500;
+    border: 1px solid green;
+}
+
+.card a:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* .btn {
     display: inline-block;
     background-color: #007bff;
     color: white;
@@ -80,7 +98,8 @@ nav a {
     text-decoration: none;
     border-radius: 5px;
     margin-top: 10px;
-}
+    border: 1px solid green;
+} */
 
 .btn:hover {
     background-color: #0056b3;

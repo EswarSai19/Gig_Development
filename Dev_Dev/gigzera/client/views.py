@@ -125,7 +125,8 @@ def cl_profile(request):
             requirements=requirements, 
             challenges=challenges, 
             time_zone=time_zone, 
-            skills_required=skills
+            skills_required=skills,
+            client_id=user_id,
         )
 
         messages.success(request, "Your job has been submitted successfully!")
@@ -170,7 +171,7 @@ def cl_postajob(request):
         if not all([title, project_type, budget, duration, currency, description, start_date, requirements, challenges, time_zone, skills]):
             messages.error(request, "Please fill out all fields!")
             return redirect('cl_postajob')  # Redirect to home page
-
+        print("this is the testing user_id", user_id)
         # Create and save the contact object
         ProjectsDisplay.objects.create(
             title=title, 

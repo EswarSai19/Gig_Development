@@ -18,7 +18,7 @@
   <div id="stats" class="grid grid-cols-4 gap-6 mb-8">
     <div
       class="bg-blue-50 p-6 rounded-xl hover-box cursor-pointer"
-      onclick="window.location.href='./html/Admin Freelancer Profile overview (All).html';"
+      onclick="window.location.href='../html/Admin Freelancer Profile overview (All).html';"
     >
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-blue-900">Freelancers</h3>
@@ -29,7 +29,7 @@
     </div>
     <div
       class="bg-green-50 p-6 rounded-xl hover-box cursor-pointer"
-      onclick="window.location.href='./html/Admin Recruiter Profile Overview (All).html';"
+      onclick="window.location.href='../html/Admin Recruiter Profile Overview (All).html';"
     >
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-green-900">Clients</h3>
@@ -40,7 +40,7 @@
     </div>
     <div
       class="bg-gray-100 p-6 rounded-xl hover-box cursor-pointer"
-      onclick="window.location.href='./html/Admin All ongoing project.html';"
+      onclick="window.location.href='../html/Admin All ongoing project.html';"
     >
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-gray-900">Ongoing Projects</h3>
@@ -51,7 +51,7 @@
     </div>
     <div
       class="bg-purple-50 p-6 rounded-xl hover-box cursor-pointer"
-      onclick="window.location.href='./html/Admin specific(My) ongoing projects.html';"
+      onclick="window.location.href='../html/Admin specific(My) ongoing projects.html';"
     >
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-purple-900">Your Projects</h3>
@@ -64,7 +64,7 @@
   <div id="bottom-section" class="grid grid-cols-4 gap-6 mb-8">
     <div
       class="bg-white p-6 rounded-xl shadow-sm hover-box cursor-pointer"
-      onclick="window.location.href='./html/Admin User management dashboard.html';"
+      onclick="window.location.href='../html/Admin User management dashboard.html';"
     >
       <div class="flex items-center justify-between">
         <h3 class="text-sm font-bold text-gray-800">User Management</h3>
@@ -73,8 +73,7 @@
     </div>
     <div
       class="bg-white p-4 rounded-xl shadow-sm hover-box cursor-pointer"
-      data-bs-toggle="modal"
-      data-bs-target="#FinancialModal"
+      onclick="openModal1()"
     >
       <div class="flex items-center justify-between">
         <h3 class="text-sm font-bold text-gray-800">Financial Overview</h3>
@@ -83,8 +82,7 @@
     </div>
     <div
       class="bg-white p-4 rounded-xl shadow-sm hover-box cursor-pointer"
-      data-bs-toggle="modal"
-      data-bs-target="#broadcastModal"
+      onclick="openModal('broadcastModal')"
     >
       <div class="flex items-center justify-between">
         <h3 class="text-sm font-bold text-gray-800">Broadcast Messages</h3>
@@ -93,8 +91,7 @@
     </div>
     <div
       class="bg-white p-4 rounded-xl shadow-sm hover-box cursor-pointer"
-      data-bs-toggle="modal"
-      data-bs-target="#reportsDownloadModal"
+      onclick="openDownloadModal()"
     >
       <div class="flex items-center justify-between">
         <h3 class="text-sm font-bold text-gray-800">Reports</h3>

@@ -22,6 +22,13 @@ def get_initials(name):
     
     return initials
 
+currency_symbols = {
+    "USD": "$", "EUR": "€", "JPY": "¥", "GBP": "£", "CNY": "¥", 
+    "AUD": "A$", "CAD": "C$", "CHF": "CHF", "INR": "₹", "NZD": "NZ$"
+}
+
+def get_currency_symbol(currency_code):
+    return currency_symbols.get(currency_code, "-")
 
 def index(request):
     user_id = request.session.get('user_id')
@@ -32,10 +39,14 @@ def index(request):
     jobs = ProjectsDisplay.objects.all().order_by('-created_at')[0:3]
     for job in jobs:
         job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
+        job.cur_symbol = get_currency_symbol(job.currency)
     user.initials = get_initials(user.name)
     print(user.initials)
     context = {'jobs': jobs, 'user': user}    
     return render(request, 'freelancer/index.html', context)
+
+
+
 
 def jobs(request):
     user_id = request.session.get('user_id')
@@ -46,6 +57,7 @@ def jobs(request):
     jobs = ProjectsDisplay.objects.all().order_by('-created_at')
     for job in jobs:
         job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
+        job.cur_symbol = get_currency_symbol(job.currency)
     context = {'jobs': jobs, 'user': user}    
     return render(request, 'freelancer/jobs.html', context)
 
@@ -544,6 +556,8 @@ def submit_quote(request):
     if request.method == "POST":
         print(request.POST)
         opportunityId = request.POST.get("opportunity_id")
+        title = request.POST.get('title')
+        cur_symbol = request.POST.get('cur_symbol')
         budget = request.POST.get("budget")
         comments = request.POST.get("comments")
         time_estimation = request.POST.get("time_estimation")
@@ -557,7 +571,7 @@ def submit_quote(request):
             return redirect("fl_jobs")
 
         # Validate Inputs
-        if not opportunityId or not budget or not time_estimation or not comments:
+        if not opportunityId or not budget or not time_estimation or not comments or not title or not cur_symbol:
             messages.error(request, "All fields are required.")
             return redirect("fl_jobs")
 
