@@ -1,0 +1,73 @@
+<div class="sidebar inset-y-0 left-0 w-72 h-auto bg-white shadow-lg">
+  <div class="flex items-center justify-center h-16 border-b">
+    <h1 class="text-xl font-bold text-gray-800">Gigzera</h1>
+  </div>
+  <nav class="p-4 space-y-2">
+    <a
+      href="{% url 'ad_dashboard' %}"
+      class="menu-item flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+    >
+      <i class="fas fa-tachometer-alt mr-3"></i> Dashboard
+    </a>
+    <a
+      href="{% url 'ad_freelancers' %}"
+      class="menu-item flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+    >
+      <i class="fas fa-user-friends mr-3"></i> Freelancers
+    </a>
+    <a
+      href="{% url 'ad_clients' %}"
+      class="menu-item flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+    >
+      <i class="fas fa-user-tie mr-3"></i> Clients
+    </a>
+    <a
+      href="{% url 'ad_ongoingProjects' %}"
+      class="menu-item flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+    >
+      <i class="fas fa-tasks mr-3"></i> Ongoing Projects
+    </a>
+    <a
+      href="{% url 'ad_yourProjects' %}"
+      class="menu-item flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+    >
+      <i class="fas fa-folder mr-3"></i> Your Projects
+    </a>
+    <a
+      href="{% url 'ad_userManagement' %}"
+      class="menu-item flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+    >
+      <i class="fas fa-users-cog mr-3"></i> User Management
+    </a>
+    <a
+      href="{% url 'ad_latestProjectQuotes' %}"
+      class="menu-item flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+    >
+      <i class="fas fa-comment-dollar mr-3"></i> Latest Project Quotes
+    </a>
+    <a
+      href="{% url 'ad_jobPageAdv' %}"
+      class="menu-item flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+    >
+      <i class="fas fa-bullseye mr-3"></i> Jobs Page Advertisement
+    </a>
+    <a
+      href="{% url 'ad_jobPageImages' %}"
+      class="menu-item flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+    >
+      <i class="fas fa-images mr-3"></i> Jobs Page Images
+    </a>
+    <a
+      href="{% url 'ad_partnerLogos' %}"
+      class="menu-item flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+    >
+      <i class="fas fa-handshake mr-3"></i> Partner Company Logos
+    </a>
+    <a
+      href="{% url 'ad_logout' %}"
+      class="menu-item flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+    >
+      <i class="fas fa-sign-out-alt mr-3"></i> Logout
+    </a>
+  </nav>
+</div>

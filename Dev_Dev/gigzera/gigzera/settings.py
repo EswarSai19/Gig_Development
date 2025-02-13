@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'freelancer',
     'client',
     'db_schemas',
+    'myadmin',
 ]
 
 MIDDLEWARE = [

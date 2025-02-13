@@ -564,6 +564,7 @@ def submit_quote(request):
         # Fetch Freelancer Object
         try:
             freelancer = Freelancer.objects.get(userId=freelancer_id)
+            client = ProjectsDisplay.objects.get(opportunityId=opportunityId)
         except Freelancer.DoesNotExist:
             messages.error(request, "Freelancer not found.")
             return redirect("fl_jobs")
@@ -574,11 +575,12 @@ def submit_quote(request):
 
         # Store in DB
         ProjectQuote.objects.create(
-            freelancer=freelancer,  # Use ForeignKey if applicable
+            freelancer_id=freelancer.userId,  # Use ForeignKey if applicable
             opportunityId=opportunityId,
             budget=budget,
             time_estimation=time_estimation,
             comments=comments,
+            client_id=client.client_id
         )
 
         messages.success(request, "Quote submitted successfully!")

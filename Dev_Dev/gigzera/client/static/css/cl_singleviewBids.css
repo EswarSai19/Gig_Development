@@ -10,7 +10,7 @@ body {
     padding: 20px;
 }
 
-.container {
+.ctnr {
     display: flex;
     justify-content: space-between;
     padding: 0 20px;

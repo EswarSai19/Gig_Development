@@ -6,6 +6,7 @@ module.exports = {
     "./non_register/templates/**/*.html", // Include app-specific templates
     "./freelancer/templates/**/*.html", // Include app-specific templates
     "./client/templates/**/*.html", // Include app-specific templates
+    "./myadmin/templates/**/*.html", // Include app-specific templates
   ],
   theme: {
     extend: {

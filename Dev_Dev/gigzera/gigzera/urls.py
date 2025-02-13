@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('non_register.urls')),
     path('freelancer/', include('freelancer.urls')),
     path('client/', include('client.urls')),
+    path('myadmin/', include('myadmin.urls')),
 ]
 
 

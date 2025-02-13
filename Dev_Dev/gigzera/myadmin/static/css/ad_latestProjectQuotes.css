@@ -1,0 +1,234 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+/* header {  
+    background-color: #007bff;  
+    color: white;  
+    padding: 20px;  
+    text-align: center;  
+}  
+
+nav ul {  
+    list-style-type: none;  
+    padding: 0;  
+}  
+
+nav ul li {  
+    display: inline;  
+    margin: 0 15px;  
+}  
+
+nav a {  
+    color: white;  
+    text-decoration: none;  
+}   */
+
+.cntr {
+    flex: 1;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    /* border: 2px solid green; */
+}
+
+.cntr::-webkit-scrollbar {
+    display: none;
+    /* For Chrome, Safari, and Opera */
+}
+
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.cntr h2 {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Set 3 equal columns */
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pagination a,
+.pagination .btn {
+    display: inline-block;
+    background-color: #f1f1f1;
+    /* Default button color */
+    color: #333;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+    /* Hover effect */
+}
+
+.pagination .active {
+    background-color: #007bff;
+    /* Active page color */
+    color: white;
+    font-weight: bold;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #000000;
+    padding: 40px 0;
+    color: #ffffff;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 2.5fr 2fr 1.5fr;
+    gap: 40px;
+}
+
+.logo-section img {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px;
+}
+
+.logo-section p {
+    color: #ffffff;
+    margin-top: 10px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-links a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    color: #cccccc;
+}
+
+.company-links h3,
+.contact-info h3 {
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.company-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.company-links li {
+    margin-bottom: 12px;
+}
+
+.company-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.company-links a:hover {
+    color: #cccccc;
+}
+
+.contact-info p {
+    margin-bottom: 12px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-info i {
+    width: 20px;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid #333;
+    font-size: 14px;
+    color: #888;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .logo-section {
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    .company-links,
+    .contact-info {
+        text-align: center;
+    }
+}

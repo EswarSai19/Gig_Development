@@ -158,6 +158,7 @@ def cl_postajob(request):
         budget=request.POST.get('budget')
         duration=request.POST.get('duration')
         currency=request.POST.get('currency')
+        deliverables=request.POST.get('deliverables')
         description=request.POST.get('description')
         start_date=request.POST.get('start_date')
         requirements=request.POST.get('requirements')
