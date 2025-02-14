@@ -41,9 +41,13 @@ body {
     margin: auto;
 }
 
-.container {
+.cntnr {
     display: flex;
     gap: 20px;
+}
+
+.cntnr p {
+    line-height: 2;
 }
 
 .cntr {
@@ -54,6 +58,8 @@ body {
     -ms-overflow-style: none;
     /* border: 2px solid green; */
 }
+
+
 
 .cntr::-webkit-scrollbar {
     display: none;

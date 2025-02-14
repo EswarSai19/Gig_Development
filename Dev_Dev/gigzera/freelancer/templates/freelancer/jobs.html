@@ -164,6 +164,7 @@
         {% csrf_token %}
         <input type="hidden" id="quote_opportunityId" name="opportunity_id" />
         <input type="hidden" id="quote_title" name="title" />
+        <input type="hidden" id="quote_currency" name="currency" />
         <input type="hidden" id="quote_cur_symbol" name="cur_symbol" />
         <div class="mb-4">
           <label for="budget" class="block text-sm font-semibold text-gray-700">
@@ -268,7 +269,7 @@
               </button>
               <button
                 class="btn btn-primary provide-quote bg-blue-500 text-white px-4 py-2 rounded ml-2"
-                onclick="openModal(`{{ job.opportunityId }}, {{job.title}}, {{job.cur_symbol}}`)"
+                onclick="openModal('{{ job.opportunityId }}')"
               >
                 Provide Quote
               </button>

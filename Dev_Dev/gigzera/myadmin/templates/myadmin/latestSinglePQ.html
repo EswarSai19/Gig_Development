@@ -13,21 +13,20 @@
     <!-- Action Buttons -->
     <div class="flex justify-between items-center mb-8">
       <button
-        class="bg-white px-4 py-2 rounded-lg shadow hover:shadow-md"
-        onclick="window.location.href='../html/admin (multiple) view for project.html';"
+        class="bg-white px-4 py-2 rounded-lg shadow hover:shadow-md back-to-bids"
       >
         <i class="fa-solid fa-arrow-left mr-2"></i>Back to Bids
       </button>
       <div class="space-x-3">
         <button
           id="reject-btn"
-          class="bg-red-50 text-red-600 px-4 py-2 rounded-lg hover:bg-red-100"
+          class="bg-red-50 text-red-600 px-4 py-2 rounded-lg hover:bg-red-100 reject-btn"
         >
           <i class="fa-solid fa-ban mr-2"></i>Reject
         </button>
         <button
           id="approve-btn"
-          class="bg-green-50 text-green-600 px-4 py-2 rounded-lg hover:bg-green-100"
+          class="bg-green-50 text-green-600 px-4 py-2 rounded-lg hover:bg-green-100 provide-to-client"
         >
           <i class="fa-solid fa-check mr-2"></i>Provide to client
         </button>
@@ -41,143 +40,203 @@
       </div> -->
 
     <!-- Container -->
-    <div class="container">
+    <div class="cntnr">
       <!-- Project Overview -->
       <div class="card project-overview">
         <h2>Project Overview</h2>
-        <p><strong>Project Name:</strong> E-commerce Website Development</p>
-        <p><strong>Opportunity ID:</strong> #OP2025001</p>
+        <p><strong>Project Name:</strong> {{job.title}}</p>
+        <p><strong>Opportunity ID:</strong> {{job.opportunityId}}</p>
         <p><strong>Deliverables:</strong></p>
+        {% for job_del in job.deliverables_list %}
         <ul>
-          <li>Frontend Development</li>
-          <li>Backend Integration</li>
-          <li>Payment Gateway</li>
+          <li>{{job_del}}</li>
+          <!-- <li>Backend Integration</li>
+          <li>Payment Gateway</li> -->
         </ul>
+        {% endfor %}
         <p><strong>Required Skills:</strong></p>
         <div>
-          <span class="skills">React.js</span>
-          <span class="skills">Node.js</span>
-          <span class="skills">MongoDB</span>
+          {% for skill in job.skills_list %}
+          <span class="skills">{{skill}}</span>
+          {% endfor %}
+          <!-- <span class="skills">Node.js</span>
+          <span class="skills">MongoDB</span> -->
         </div>
-        <p><strong>Budget:</strong> $15,000 – $20,000</p>
-        <p><strong>Timeline:</strong> 1-2 Months</p>
+        <p><strong>Budget:</strong> {{job.cur_symbol}} {{job.budget}}</p>
+        <p><strong>Timeline:</strong> {{job.duration}}</p>
       </div>
 
       <!-- Bidder Profile -->
       <div class="card bidder-profile">
         <h2>Bidder Profile</h2>
-        <p><strong>User ID:</strong> #UID78945</p>
-        <p><strong>Username:</strong> *********</p>
+        <p><strong>User ID:</strong> {{user.userId}}</p>
+        <p><strong>Name:</strong> {{user.name}}</p>
         <a href="{% url 'ad_profileView' %}" class="view-profile"
           >View Profile</a
         >
-        <p>
-          <strong>Professional Summary:</strong> Senior Full Stack Developer
-          with expertise in modern web technologies and e-commerce solutions.
-        </p>
-        <p><strong>Total Experience:</strong> 8 Years</p>
+        <p><strong>Professional Summary:</strong> {{user.profile_summary}}</p>
+        <p><strong>Total Experience:</strong> {{user.experience}} Years</p>
         <p><strong>Total Completed projects:</strong> 2</p>
         <p><strong>Skills Experience:</strong></p>
         <ul>
-          <li>React.js: 5 years</li>
+          {% for skill, experience in user.skills_dict.items %}
+          <li>{{ skill }}: {{ experience }}</li>
+          {% endfor %}
+          <!-- <li>React.js: 5 years</li>
           <li>Node.js: 4 years</li>
-          <li>MongoDB: 3 years</li>
+          <li>MongoDB: 3 years</li> -->
         </ul>
         <p><strong>Certifications:</strong></p>
         <ul>
-          <li>AWS Certified Developer</li>
-          <li>MongoDB Certified Developer</li>
+          {% for cert in user.certificates_list %}
+          <li>{{cert}}</li>
+          {% endfor %}
+          <!-- <li>MongoDB Certified Developer</li> -->
         </ul>
       </div>
 
       <!-- Bid Details -->
       <div class="card bid-details">
         <h2>Bid Details</h2>
-        <p><strong>Proposed Budget:</strong> $18,500</p>
+        <p>
+          <strong>Proposed Budget:</strong> {{bid.cur_symbol}} {{bid.budget}}
+        </p>
         <p>
           <strong>Consulting Charges:</strong>
-          <button id="proposed-budget" class="budget-button">$500</button>
+          <button id="proposed-budget" class="budget-button">
+            {{bid.cur_symbol}} 500
+          </button>
+          <input
+            type="hidden"
+            name="adminMargin"
+            id="adminMargin"
+            value="500"
+          />
           <button id="edit-button" class="edit-button">
             <i class="fa-solid fa-pen-to-square edit-icon"></i>
           </button>
         </p>
-        <p><strong>Proposed Timeline:</strong> 1 Month</p>
+        <p><strong>Proposed Timeline:</strong> {{bid.time_estimation}}</p>
         <p><strong>Additional Comments:</strong></p>
-        <p>
-          I have extensive experience in developing e-commerce platforms with
-          similar requirements. I can start immediately and ensure timely
-          delivery with high-quality code.
-        </p>
+        <p>{{bid.comments}}</p>
       </div>
     </div>
   </div>
+
+  <!-- Form that will be submitted for approval-->
+  <form id="budget-form" method="POST" action="{% url 'ad_bidApproved' %}">
+    {% csrf_token %}
+    <input type="hidden" name="adminMargin" id="adminMargin-hidden" />
+    <input
+      type="hidden"
+      name="bidId"
+      id="bidId-hidden"
+      value="{{bid.projectQuoteId}}"
+    />
+  </form>
+  <!-- Form that will be submitted for approval-->
+  <form id="budget-form2" method="POST" action="{% url 'ad_bidRejected' %}">
+    {% csrf_token %}
+    <input type="hidden" name="adminMargin" id="adminMargin-hidden" />
+    <input
+      type="hidden"
+      name="bidId"
+      id="bidId-hidden"
+      value="{{bid.projectQuoteId}}"
+    />
+  </form>
   <!-- Modal -->
-  <div id="modal" class="modal">
+  <!-- <div id="modal" class="modal">
     <div class="modal-content">
       <p id="modal-message"></p>
       <button id="modal-close-btn">Close</button>
     </div>
   </div>
+</div> -->
+  {% endblock %}
+  <!-- JS -->
+  {% block js %}
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const backToBids = document.getElementsByClassName("back-to-bids");
+
+      // Add click event to all buttons with the class "findajob-btn"
+      Array.from(backToBids).forEach((btn) => {
+        btn.addEventListener("click", () => {
+          window.location.href = "{% url 'ad_latestProjectQuotes' %}";
+        });
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const editButton = document.getElementById("edit-button");
+      let proposedBudget = document.getElementById("proposed-budget");
+      const adminMarginInput = document.getElementById("adminMargin"); // Hidden input for tracking
+      const form = document.getElementById("budget-form");
+      const form2 = document.getElementById("budget-form2");
+      const approveBtn = document.getElementById("approve-btn"); // Approve button
+      const rejectBtn = document.getElementById("reject-btn"); // Approve button
+      const hiddenFormInput = document.getElementById("adminMargin-hidden"); // Hidden input in form
+      const hiddenBidId = document.getElementById("bidId-hidden");
+
+      editButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        console.log("Editing budget...");
+
+        // Create an input field for editing
+        const budgetInput = document.createElement("input");
+        budgetInput.type = "text";
+        budgetInput.name = "adminMargin";
+        budgetInput.value = proposedBudget.textContent
+          .trim()
+          .replace(`{{bid.cur_symbol}}`, "")
+          .trim();
+        proposedBudget.replaceWith(budgetInput);
+        budgetInput.focus();
+
+        // When input loses focus, update values
+        budgetInput.addEventListener("blur", () => {
+          const newValue = budgetInput.value.trim();
+          const formattedValue = `{{bid.cur_symbol}} ${newValue}`;
+
+          // Update both hidden inputs
+          adminMarginInput.value = newValue;
+          hiddenFormInput.value = newValue;
+
+          // Replace input with updated button
+          const newButton = document.createElement("button");
+          newButton.id = "proposed-budget";
+          newButton.className = "budget-button";
+          newButton.textContent = formattedValue;
+
+          budgetInput.replaceWith(newButton);
+          proposedBudget = newButton;
+        });
+
+        // Allow pressing "Enter" to save
+        budgetInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            budgetInput.blur();
+          }
+        });
+      });
+
+      // Submit the form when Approve button is clicked
+      approveBtn.addEventListener("click", () => {
+        hiddenFormInput.value = adminMarginInput.value; // Sync latest budget value
+        hiddenBidId.value = `{{bid.projectQuoteId}}`;
+        form.submit();
+      });
+
+      rejectBtn.addEventListener("click", () => {
+        hiddenFormInput.value = adminMarginInput.value; // Sync latest budget value
+        hiddenBidId.value = `{{bid.projectQuoteId}}`;
+        form2.submit();
+      });
+    });
+
+    // Edit proposed budget
+  </script>
+  <!-- <script src="{% static 'js/ad_index.js' %}"></script> -->
+  {% endblock %}
 </div>
-{% endblock %}
-<!-- JS -->
-{% block js %}
-<script>
-  const rejectBtn = document.getElementById("reject-btn");
-  const approveBtn = document.getElementById("approve-btn");
-  const modal = document.getElementById("modal");
-  const modalMessage = document.getElementById("modal-message");
-  const modalCloseBtn = document.getElementById("modal-close-btn");
-
-  // Show modal on button click
-  rejectBtn.addEventListener("click", () => {
-    modalMessage.textContent = "Action: Rejected";
-    modal.style.display = "flex";
-  });
-
-  approveBtn.addEventListener("click", () => {
-    modalMessage.textContent = "Action: Approved";
-    modal.style.display = "flex";
-  });
-
-  // Close modal
-  modalCloseBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-  });
-
-  // Edit proposed budget
-  const editButton = document.getElementById("edit-button");
-  let proposedBudget = document.getElementById("proposed-budget"); // Initial reference to proposed-budget button
-
-  editButton.addEventListener("click", () => {
-    console.log("I am in");
-
-    // Create an input field
-    const budgetInput = document.createElement("input");
-    budgetInput.type = "text";
-    budgetInput.value = proposedBudget.textContent.trim().replace("$", ""); // Remove '$' sign
-    proposedBudget.replaceWith(budgetInput); // Replace the button with the input field
-    budgetInput.focus();
-
-    // Update the proposed budget when the input field loses focus
-    budgetInput.addEventListener("blur", () => {
-      const newValue = `$${budgetInput.value}`;
-      const newButton = document.createElement("button");
-      newButton.id = "proposed-budget"; // Keep the button id
-      newButton.className = "budget-button"; // Keep the button class
-      newButton.textContent = newValue;
-
-      budgetInput.replaceWith(newButton); // Replace input with the updated button
-      proposedBudget = newButton; // Update the reference to the new button
-    });
-
-    // Allow updating by pressing Enter
-    budgetInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        budgetInput.blur();
-      }
-    });
-  });
-</script>
-<!-- <script src="{% static 'js/ad_index.js' %}"></script> -->
-{% endblock %}

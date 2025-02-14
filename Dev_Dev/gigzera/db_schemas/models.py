@@ -209,10 +209,15 @@ class ProjectQuote(models.Model):
     budget = models.CharField(max_length=20)
     time_estimation = models.CharField(max_length=20)  # Days
     comments = models.CharField(max_length=512)
+    admin_bid_status = models.CharField(max_length=20, default="Not confirmed yet")
+    client_bid_status = models.CharField(max_length=20, default="Not confirmed yet")
+    admin_margin = models.CharField(max_length=20, default="0")
+    currency = models.CharField(max_length=10, default="INR")
+    revised_budget = models.CharField(max_length=50, default="0")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Quote by {self.freelancer.username} for {self.opportunityId}"
+        return f"Quote by {self.freelancer.name} for {self.opportunityId}"
 
 

@@ -7,14 +7,27 @@ from django.http import HttpResponse
 from django.contrib import messages
 import json
 import os
+import locale
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
-from db_schemas.models import Client, ProjectsDisplay, Contact
+from db_schemas.models import Client, ProjectsDisplay, Contact, ProjectQuote, Freelancer
 from django.core.exceptions import ValidationError
 from datetime import datetime
 
 # Create your views here.
+
+currency_symbols = {
+    "USD": "$", "EUR": "€", "JPY": "¥", "GBP": "£", "CNY": "¥", 
+    "AUD": "A$", "CAD": "C$", "CHF": "CHF", "INR": "₹", "NZD": "NZ$"
+}
+
+def get_currency_symbol(currency_code):
+    return currency_symbols.get(currency_code, "-")
+
+
+
 # Contact form 
+
 def cl_contact(request):
 
     if request.method == 'POST':
@@ -269,7 +282,16 @@ def cl_viewBids(request):
         return redirect('login')
     user = Client.objects.get(userId=user_id)
     user.initials = get_initials(user.name)
-    context={'user':user}
+    bids = ProjectQuote.objects.all().order_by('-created_at')
+
+    for bid in bids:
+        job = ProjectsDisplay.objects.filter(opportunityId=bid.opportunityId).first()
+        user = Freelancer.objects.filter(userId=bid.freelancer_id).first()
+        bid.title = job.title if job else "No Title"  # Fixed variable name
+        bid.cur_symbol = get_currency_symbol(job.currency if job else "USD")  # Ensure currency is handled properly
+        bid.user_experience = user.experience if user else "No Experience"
+        
+    context={'user':user,'bids': bids}
     return render(request, 'client/cl_viewBids.html', context)
 
 def cl_singleViewBid(request):

@@ -556,13 +556,10 @@ def submit_quote(request):
     if request.method == "POST":
         print(request.POST)
         opportunityId = request.POST.get("opportunity_id")
-        title = request.POST.get('title')
-        cur_symbol = request.POST.get('cur_symbol')
         budget = request.POST.get("budget")
         comments = request.POST.get("comments")
         time_estimation = request.POST.get("time_estimation")
         freelancer_id = request.session.get('user_id')  # Ensure it's stored in session
-
         if not freelancer_id:
             messages.error(request, "Freelancer session expired. Please log in again.")
             return redirect("login")
@@ -571,14 +568,14 @@ def submit_quote(request):
             return redirect("fl_jobs")
 
         # Validate Inputs
-        if not opportunityId or not budget or not time_estimation or not comments or not title or not cur_symbol:
+        if not opportunityId or not budget or not time_estimation or not comments:
             messages.error(request, "All fields are required.")
             return redirect("fl_jobs")
 
         # Fetch Freelancer Object
         try:
             freelancer = Freelancer.objects.get(userId=freelancer_id)
-            client = ProjectsDisplay.objects.get(opportunityId=opportunityId)
+            job = ProjectsDisplay.objects.filter(opportunityId=opportunityId).first()
         except Freelancer.DoesNotExist:
             messages.error(request, "Freelancer not found.")
             return redirect("fl_jobs")
@@ -591,10 +588,11 @@ def submit_quote(request):
         ProjectQuote.objects.create(
             freelancer_id=freelancer.userId,  # Use ForeignKey if applicable
             opportunityId=opportunityId,
+            currency=job.currency,
             budget=budget,
             time_estimation=time_estimation,
             comments=comments,
-            client_id=client.client_id
+            client_id=job.client_id
         )
 
         messages.success(request, "Quote submitted successfully!")

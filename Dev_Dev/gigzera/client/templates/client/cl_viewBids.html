@@ -12,16 +12,23 @@
 <main class="main_container">
   <h2>Available Bids</h2>
   <div class="grid-container">
+    {% for bid in bids %} {% if bid.admin_bid_status == "approved" %}
     <div class="card">
-      <h3>Website Redesign Project</h3>
-      <p>Opportunity ID: OPP-2025-001</p>
-      <p>Gigz ID: PRV-789</p>
-      <p>Experience: 5 Years</p>
-      <p>Budget: $15,000</p>
-      <p>Timeline: 2-3 Months</p>
-      <a href="{% url 'cl_singleViewBid' %}" class="btn">View Details</a>
+      <h3>{{ bid.title }}</h3>
+      <p>Opportunity ID: {{ bid.opportunityId }}</p>
+      <p>Gigz ID: {{ bid.freelancer_id }}</p>
+      <p>Experience: {{ bid.user_experience }} Years</p>
+      <p>Budget: {{ bid.revised_budget }}</p>
+      <p>Timeline: {{ bid.time_estimation }}</p>
+      <a
+        href="{% url 'cl_singleViewBid' %}?opportunityId={{ bid.opportunityId }}&userId={{ bid.freelancer_id }}&bidId={{ bid.projectQuoteId }}"
+        class="btn"
+      >
+        View Details
+      </a>
     </div>
-    <div class="card">
+    {% endif %} {% endfor %}
+    <!-- <div class="card">
       <h3>Website Redesign Project</h3>
       <p>Opportunity ID: OPP-2025-001</p>
       <p>Gigz ID: PRV-456</p>
@@ -92,7 +99,7 @@
       <p>Budget: $60,000</p>
       <p>Timeline: 3-4 Months</p>
       <a href="{% url 'cl_singleViewBid' %}" class="btn">View Details</a>
-    </div>
+    </div> -->
   </div>
   <!-- <div class="pagination">  
             <a href="#" class="btn">Previous</a>  
