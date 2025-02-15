@@ -1,0 +1,285 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+/* .container {
+    display: flex;
+    width: 100%;
+} */
+.cntr {
+    flex: 1;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    /* border: 2px solid green; */
+}
+
+.cntr::-webkit-scrollbar {
+    display: none;
+    /* For Chrome, Safari, and Opera */
+}
+
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Sidebar Styles */
+/* .sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px 0;
+    height: 100vh;
+    position: fixed;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar nav ul li {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar nav ul li:hover {
+    background-color: #34495e;
+}
+
+.sidebar nav ul li i {
+    margin-right: 10px;
+} */
+
+/* Content Area Styles */
+.content {
+    margin-left: 250px;
+    /* This ensures content isn't hidden behind the sidebar */
+    flex: 1;
+    padding: 20px;
+    overflow-x: auto;
+    /* This will allow horizontal scrolling if the table is too wide */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.add-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.add-button:hover {
+    background-color: #2980b9;
+}
+
+/* Table Styles */
+.ad-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.ad-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.ad-table th,
+.ad-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.ad-table th {
+    background-color: #34495e;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+}
+
+.ad-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.ad-table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.ad-table td i {
+    margin-right: 8px;
+}
+
+/* .adsTableBody th,
+.adsTableBody tr {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+} */
+
+/* Styles for Action Buttons */
+/* button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+    transition: background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+} */
+
+tbody tr {
+    padding: 10px;
+}
+
+/* button:hover {
+    background-color: #0056b3;
+} */
+
+.delete-button {
+    background-color: #dc3545;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+button i {
+    margin-right: 5px;
+}
+
+/* Notes and Footer Styling */
+footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #888;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+
+    .ad-table th,
+    .ad-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+}
+
+/* modal css */
+.section {
+    margin-bottom: 30px;
+}
+
+/* Adjusting the position of section header and button */
+.section header {
+    margin-top: 50px;
+    /* Move the header and button down */
+}
+
+.section .add-button {
+    margin-top: 20px;
+    /* Add margin for space between button and table */
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    /* Ensures pagination is not overlapping content */
+}
+
+.page-btn {
+    border: none;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.page-btn:hover {
+    background-color: #0056b3;
+}
+
+.content {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.page {
+    /* position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%; */
+    flex: 1;
+    transition: left 0.5s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.page.active {
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+.page.prev {
+    left: -100%;
+}
+
+.pagination {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.dragging {
+    border: 2px dashed #4caf50;
+    background-color: #f0fff0;
+}

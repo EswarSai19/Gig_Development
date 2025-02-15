@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProjectPulse Dashboard</title>
+    <!-- Original CSS -->
+    <link rel="stylesheet" href="../css/Admin All ongoing project.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+
+  </head>
+  <body class="h-full text-base-content">
+    <div class="main_container bg-gray-50">
+      <div class="sidebar" id="sidebar"></div>
+      <div class="cntr">
+        <div class="title-section">
+          <h1>Ongoing Projects</h1>
+          <div class="flex_">
+            <div class="search-bar">
+              <i class="fas fa-search"></i>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search projects..."
+              />
+            </div>
+            <!-- Updated button to trigger modal
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createJobModal">  
+                  <i class="fas fa-plus"></i> New Project
+              </button> -->
+            <button
+              class="btn btn-outline-filter"
+              style="margin-left: 10px"
+              onclick="openFilterDialog()"
+            >
+              <i class="fas fa-filter"></i> Filter
+            </button>
+          </div>
+        </div>
+
+        <!-- Project Cards Grid -->
+        <div class="grid" id="projectGrid">
+          <!-- E-Commerce Platform Card -->
+          <div class="card">
+            <div
+              class="flex_"
+              style="justify-content: space-between; align-items: center"
+            >
+              <h2 class="project-name">E-Commerce Platform Redesign</h2>
+              <span class="badge badge-active">Active</span>
+            </div>
+            <p class="project-id">ID: OPP-2025-001</p>
+            <p>
+              Redesigning the user interface and experience of our main
+              e-commerce platform to improve conversion rates.
+            </p>
+            <div class="progress-bar">
+              <div class="progress-percentage">75%</div>
+              <div class="progress-bar-inner" style="width: 75%"></div>
+            </div>
+            <small>Assigned to: Sarah Johnson</small>
+            <div class="flex_" style="justify-content: space-between">
+              <a
+                href="javascript:void(0);"
+                class="read-more"
+                onclick="toggleReadMore(this)"
+                >Read More...</a
+              >
+              <a
+              href="../html/NewAdminsingleprojectview.html"
+              class="btn btn-outline"
+                style="text-decoration: none; background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px;"
+                >View Status</a
+              >
+            </div>
+            <div class="extra-info">
+              We are focusing on enhancing user experience through better design
+              principles. The project aims to increase conversion rates by at
+              least 20% by introducing A/B testing and user feedback analysis.
+            </div>
+          </div>
+
+          <!-- Mobile App Redesign Card -->
+          <div class="card">
+            <div
+              class="flex_"
+              style="justify-content: space-between; align-items: center"
+            >
+              <h2 class="project-name">Mobile App Redesign</h2>
+              <span class="badge badge-planning">Planning</span>
+            </div>
+            <p class="project-id">ID: OPP-2025-002</p>
+            <p>
+              Redesigning the mobile app for improved user engagement and
+              performance optimization.
+            </p>
+            <div class="progress-bar">
+              <div class="progress-percentage">30%</div>
+              <div class="progress-bar-inner" style="width: 30%"></div>
+            </div>
+            <small>Assigned to: John Doe</small>
+            <div class="flex_" style="justify-content: space-between">
+              <a
+                href="javascript:void(0);"
+                class="read-more"
+                onclick="toggleReadMore(this)"
+                >Read More...</a
+              >
+              <a
+              href="../html/NewAdminsingleprojectview.html"
+              class="btn btn-outline"
+                style="text-decoration: none; background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px;"
+                >View Status</a
+              >
+            </div>
+            <div class="extra-info">
+              Focus on enhancing mobile app features including speed, layout,
+              and functionality to increase user retention.
+            </div>
+          </div>
+
+          <div class="card">
+            <div
+              class="flex_"
+              style="justify-content: space-between; align-items: center"
+            >
+              <h2 class="project-name">Cloud Infrastructure Migration</h2>
+              <span class="badge badge-progress">In Progress</span>
+            </div>
+            <p class="project-id">ID: OPP-2025-003</p>
+            <p>
+              Migrating legacy infrastructure to cloud for scalability and
+              enhanced security.
+            </p>
+            <div class="progress-bar">
+              <div class="progress-percentage">50%</div>
+              <div class="progress-bar-inner" style="width: 50%"></div>
+            </div>
+            <small>Assigned to: Emily Clark</small>
+            <div class="flex_" style="justify-content: space-between">
+              <a
+                href="javascript:void(0);"
+                class="read-more"
+                onclick="toggleReadMore(this)"
+                >Read More...</a
+              >
+              <a
+              href="../html/NewAdminsingleprojectview.html"
+              class="btn btn-outline"
+                style="text-decoration: none; background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px;"
+                >View Status</a
+              >
+            </div>
+            <div class="extra-info">
+              The migration is focused on ensuring zero downtime and securing
+              sensitive data during the process.
+            </div>
+          </div>
+
+          <div class="card">
+            <div
+              class="flex_"
+              style="justify-content: space-between; align-items: center"
+            >
+              <h2 class="project-name">API Integration for Payment Gateway</h2>
+              <span class="badge badge-review">Review</span>
+            </div>
+            <p class="project-id">ID: OPP-2025-004</p>
+            <p>
+              Integrating third-party payment gateway APIs into the application
+              to facilitate seamless transactions.
+            </p>
+            <div class="progress-bar">
+              <div class="progress-percentage">85%</div>
+              <div class="progress-bar-inner" style="width: 85%"></div>
+            </div>
+            <small>Assigned to: David Smith</small>
+            <div class="flex_" style="justify-content: space-between">
+              <a
+                href="javascript:void(0);"
+                class="read-more"
+                onclick="toggleReadMore(this)"
+                >Read More...</a
+              >
+              <a
+              href="../html/NewAdminsingleprojectview.html"
+              class="btn btn-outline"
+                style="text-decoration: none; background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px;"
+                >View Status</a
+              >
+            </div>
+            <div class="extra-info">
+              The payment gateway integration focuses on enhancing security and
+              ensuring a smooth user experience.
+            </div>
+          </div>
+
+          <div class="card">
+            <div
+              class="flex_"
+              style="justify-content: space-between; align-items: center"
+            >
+              <h2 class="project-name">Customer Support Chatbot</h2>
+              <span class="badge badge-onhold">On Hold</span>
+            </div>
+            <p class="project-id">ID: OPP-2025-005</p>
+            <p>
+              Developing an AI-powered chatbot to handle common customer support
+              queries and reduce response time.
+            </p>
+            <div class="progress-bar">
+              <div class="progress-percentage">10%</div>
+              <div class="progress-bar-inner" style="width: 10%"></div>
+            </div>
+            <small>Assigned to: Michael Brown</small>
+            <div class="flex_" style="justify-content: space-between">
+              <a
+                href="javascript:void(0);"
+                class="read-more"
+                onclick="toggleReadMore(this)"
+                >Read More...</a
+              >
+              <a
+              href="../html/NewAdminsingleprojectview.html"
+              class="btn btn-outline"
+                style="text-decoration: none; background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px;"
+                >View Status</a
+              >
+            </div>
+            <div class="extra-info">
+              The chatbot is in its early stages, focusing on gathering customer
+              feedback and optimizing response flow.
+            </div>
+          </div>
+
+          <div class="card">
+            <div
+              class="flex_"
+              style="justify-content: space-between; align-items: center"
+            >
+              <h2 class="project-name">Data Analytics Dashboard</h2>
+              <span class="badge badge-planning">Planning</span>
+            </div>
+            <p class="project-id">ID: OPP-2025-006</p>
+            <p>
+              Building a dashboard for analyzing and visualizing customer data
+              to provide insights and improve decision-making.
+            </p>
+            <div class="progress-bar">
+              <div class="progress-percentage">40%</div>
+              <div class="progress-bar-inner" style="width: 40%"></div>
+            </div>
+            <small>Assigned to: Lisa White</small>
+            <div class="flex_" style="justify-content: space-between">
+              <a
+                href="javascript:void(0);"
+                class="read-more"
+                onclick="toggleReadMore(this)"
+                >Read More...</a
+              >
+              <a
+              href="../html/NewAdminsingleprojectview.html"
+              class="btn btn-outline"
+                style="text-decoration: none; background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px;"
+                >View Status</a
+              >
+            </div>
+            <div class="extra-info">
+              The dashboard will aggregate and visualize key metrics for the
+              executive team to make data-driven decisions.
+            </div>
+          </div>
+
+          <!-- Project Cards End -->
+        </div>
+        <!-- Footer -->
+        <div class="footer">
+          <button>&lt;</button>
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
+          <button>&gt;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Dialog -->
+    <div
+      class="filter-overlay"
+      id="filterOverlay"
+      onclick="closeFilterDialog()"
+    ></div>
+    <div class="filter-dialog" id="filterDialog">
+      <div class="filter-header">Sort & Filter</div>
+      <div class="filter-option">
+        <label for="statusFilter">Filter by Status</label>
+        <select id="statusFilter" onchange="applyFilter()">
+          <option value="all">All</option>
+          <option value="Active">Active</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Planning">Planning</option>
+          <option value="Review">Review</option>
+          <option value="On Hold">On Hold</option>
+        </select>
+      </div>
+      <div class="filter-option">
+        <label for="sortProjects">Sort Projects</label>
+        <select id="sortProjects" onchange="sortProjects()">
+          <option value="A-Z">Sort A to Z</option>
+          <option value="Z-A">Sort Z to A</option>
+        </select>
+      </div>
+      <button onclick="closeFilterDialog()">OK</button>
+    </div>
+
+    <script src="../javascript/Admin All ongoing project.js"></script>
+    <script type="module" src="../common/sidebar.js"></script>
+  </body>
+</html>

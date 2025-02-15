@@ -1,0 +1,342 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    padding: 0;
+}
+
+/* header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 20px 0;
+} */
+
+/* .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+} */
+
+.cntr {
+    flex: 1;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    /* border: 2px solid green; */
+}
+
+.cntr::-webkit-scrollbar {
+    display: none;
+    /* For Chrome, Safari, and Opera */
+}
+
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.flex_ {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    color: #6366f1;
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.logo span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #111827;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.header-actions img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 15px;
+}
+
+main {
+    padding: 30px 0;
+}
+
+.title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title-section h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #111827;
+}
+
+.search-bar {
+    margin-right: 20px;
+    /* Add gap between search bar and buttons */
+}
+
+.search-bar {
+    position: relative;
+}
+
+.search-bar input {
+    width: 250px;
+    padding: 10px 15px 10px 35px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+}
+
+.search-bar i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.btn i {
+    margin-right: 5px;
+}
+
+.btn-primary {
+    background-color: #6366f1;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #4f46e5;
+}
+
+.btn-outline {
+    background-color: #007bff !important;
+    border: 1px solid #d1d5db;
+    color: #374151;
+}
+
+.btn-outline:hover {
+    background-color: #0056b3 !important;
+}
+
+.btn-outline-filter {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    color: #374151;
+}
+
+.btn-outline-filter:hover {
+    background-color: #f3f4f6;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #6b7280;
+    margin-bottom: 15px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.badge-active {
+    background-color: #4caf50;
+    /* Green for Active */
+    color: white;
+}
+
+.badge-progress {
+    background-color: #ff9800;
+    /* Orange for In Progress */
+    color: white;
+}
+
+.badge-planning {
+    background-color: #2196f3;
+    /* Blue for Planning */
+    color: white;
+}
+
+.badge-review {
+    background-color: #9c27b0;
+    /* Purple for Review */
+    color: white;
+}
+
+.badge-onhold {
+    background-color: #f44336;
+    /* Red for On Hold */
+    color: white;
+}
+
+.badge-active:hover,
+.badge-progress:hover,
+.badge-planning:hover,
+.badge-review:hover,
+.badge-onhold:hover {
+    opacity: 0.8;
+    /* Slightly fade effect on hover */
+    cursor: pointer;
+    /* Change cursor to pointer on hover */
+}
+
+.progress-bar {
+    position: relative;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+    /* Space between percentage and progress bar */
+}
+
+.progress-bar-inner {
+    height: 100%;
+    background-color: #608ef1;
+    transition: width 0.3s;
+}
+
+.progress-percentage {
+    position: absolute;
+    /* Position percentage inside the progress bar */
+    width: 100%;
+    /* Ensure it occupies full width */
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    /* Color of percentage text */
+}
+
+.project-id {
+    margin: 10px 0;
+}
+
+.extra-info {
+    display: none;
+    /* Hide by default */
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Filter Dialog Styles */
+.filter-dialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.filter-dialog .filter-header {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.filter-dialog .filter-option {
+    margin-bottom: 10px;
+}
+
+.filter-dialog button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.filter-dialog button:hover {
+    background-color: #45a049;
+}
+
+.filter-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+
+.footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.footer button {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s;
+    margin: 0 5px;
+    /* Spacing between buttons */
+}
+
+.footer button:hover {
+    background-color: #e0e0e0;
+    /* Darker shade on hover */
+}

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gigzera - Partner Company Logos</title>
+    <link rel="stylesheet" href="../css/partner company logos.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body class="h-full text-base-content">
+    <div class="main_container bg-gray-50">
+      <div class="sidebar" id="sidebar"></div>
+      <div class="cntr">
+        <div class="page active" id="page1">
+          <div class="section">
+            <header>
+              <h1>Partner Company Logos</h1>
+              <button
+                class="add-button btn btn-primary"
+                onclick="openModal()"
+              >
+                <i class="fas fa-plus"></i> Add Partner Company Logos
+              </button>
+            </header>
+            <table class="table table-bordered ad-table">
+              <thead>
+                <tr>
+                  <th>Serial Number</th>
+                  <th>Media Link</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adsTableBody">
+                <tr>
+                  <td>1.</td>
+                  <td contenteditable="false">www.sample.com</td>
+                  <td>
+                    <button
+                      class="edit-button bg-yellow-500 text-black px-3.5 py-1 rounded-md hover:bg-yellow-600"
+                      onclick="editRow(this)"
+                    >
+                      <i class="fas fa-edit mr-2"></i> Edit
+                    </button>
+                    <button
+                      class="delete-button bg-red-500 text-white px-3.5 py-1 rounded-md hover:bg-red-600"
+                      onclick="deleteRow(this)"
+                    >
+                      <i class="fas fa-trash-alt mr-2"></i> Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <footer>
+            <p>
+              *Note: Please make sure the images number should not exceed 10 per
+              section.
+            </p>
+          </footer>
+        </div>
+
+        <!-- Modal for Adding New Media Link -->
+        <div id="createAdModal" class="hidden fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+          <div class="bg-white w-[500px] p-6 rounded-lg shadow-lg">
+              <div class="flex justify-between items-center border-b pb-2">
+                  <h5 class="text-lg font-semibold">Add New Media Link</h5>
+                  <button onclick="closeModal()" class="text-gray-500 hover:text-gray-500 text-3xl">&times;</button>
+              </div>
+      
+              <div class="py-4">
+                  <form id="addMediaLinkForm">
+                      <div class="mb-3">
+                          <label for="mediaLinkInput" class="block text-m font-medium text-gray-700 mb-3">Upload Media (Image/Video)</label>
+                          <input
+                              type="file"
+                              class="mt-2 block w-full border border-gray-300 rounded-md shadow-sm p-1"
+                              id="mediaLinkInput"
+                              accept="image/*,video/*"
+                              onchange="handleFileSelect(event)"
+                          />
+                      </div>
+                      <div id="mediaUpload" class="border-gray-300 p-3 text-center cursor-pointer">
+                          <p class="text-gray-500">Drag and drop your file here, or click to select a file.</p>
+                      </div>
+                  </form>
+              </div>
+      
+              <div class="flex justify-end space-x-2">
+                  <button onclick="closeModal()" class="px-4 py-2 bg-gray-500 text-white rounded-md">Close</button>
+                  <button class="px-4 py-2 bg-blue-600 text-white rounded-md" onclick="saveNewMediaLink()">Save</button>
+              </div>
+          </div>
+      </div>
+
+        <!-- Modal for Editing Media -->
+        <div
+        id="editAdModal"
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
+      >
+        <div class="bg-white rounded-lg shadow-lg w-[500px]">
+          <!-- Modal Header -->
+          <div class="flex justify-between items-center p-4 border-b">
+            <h5 class="text-lg font-semibold">Edit Media Link</h5>
+            <button onclick="closeModaledit()" class="text-gray-500 hover:text-gray-700 text-3xl">
+              &times;
+            </button>
+          </div>
+      
+          <!-- Modal Body -->
+          <div class="p-4">
+            <form id="editMediaLinkForm">
+              <div id="editMediaUpload" class="mb-3 border p-4 text-center cursor-pointer">
+                <p>Current file: None selected</p>
+                <p>Click to select a new file or drag-and-drop here.</p>
+              </div>
+              <input
+                type="file"
+                class="w-full border rounded p-2"
+                id="editFileInput"
+                accept="image/*,video/*"
+                onchange="handleFileSelectForEdit(event)"
+              />
+            </form>
+          </div>
+      
+          <!-- Modal Footer -->
+          <div class="p-4 border-t flex justify-end space-x-2">
+            <button onclick="closeModaledit()" class="bg-gray-400 text-white px-4 py-2 rounded">
+              Close
+            </button>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="saveEditedMedia()">
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- <script>
+      let currentEditRow = null;
+
+      // function saveNewMediaLink() {
+      //     const mediaLink = document.getElementById('mediaLinkInput').value.trim();
+
+      // if (!mediaLink) {
+      //     alert("Please enter a valid media link.");
+      //     return;
+      // }
+
+      //     const tableBody = document.getElementById('adsTableBody');
+      //     const newRow = document.createElement('tr');
+      //     const serialNumber = tableBody.rows.length + 1;
+
+      //     tableBody.appendChild(newRow);
+
+      //     const modal = bootstrap.Modal.getInstance(document.getElementById('createAdModal'));
+      //     modal.hide();
+      //     document.getElementById('mediaLinkInput').value = '';
+      // }
+
+      function editRow(button) {
+        const row = button.closest("tr");
+        const mediaLinkCell = row.querySelector("td:nth-child(2)");
+
+        if (mediaLinkCell.textContent.trim() === "www.sample.com") {
+          mediaLinkCell.setAttribute("contenteditable", "true");
+          mediaLinkCell.focus();
+          currentEditRow = row;
+          mediaLinkCell.addEventListener("blur", () => {
+            mediaLinkCell.setAttribute("contenteditable", "false");
+          });
+        } else {
+          alert("Editing is only allowed for www.sample.com");
+        }
+      }
+
+      function deleteRow(button) {
+        const row = button.closest("tr");
+        row.remove();
+
+        const tableBody = document.getElementById("adsTableBody");
+        Array.from(tableBody.rows).forEach((row, index) => {
+          row.cells[0].textContent = `${index + 1}.`;
+        });
+      }
+    </script> -->
+    <script src="../javascript/partner company logos.js"></script>
+    <script type="module" src="../common/sidebar.js"></script>
+  </body>
+</html>
