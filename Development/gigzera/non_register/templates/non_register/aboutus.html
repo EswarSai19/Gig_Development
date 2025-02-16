@@ -1,0 +1,242 @@
+{% extends 'base.html' %} {% load static %}
+<!--  -->
+{% block title %}About Us{% endblock %}
+<!--  -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/aboutus.css' %}" />
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %}
+<!--  -->
+{% block content %}
+<main>
+  <section
+    id="hero"
+    class="h-[800px] bg-gradient-to-br from-gray-500 to-white font-arial"
+  >
+    <div class="container mx-auto px-4 py-20 font-sans">
+      <div class="flex flex-col items-center text-left">
+        <h1 class="text-5xl font-bold mb-6">
+          Gigzera: A Technology-Driven GigWorks Platform
+        </h1>
+        <p class="text-grey-600 text-lg">
+          In the modern workforce, the traditional employment model is
+          undergoing a transformation, largely driven by technological
+          innovations. One of the most significant shifts in this evolution is
+          the rise of gig work, where individuals take on short-term, flexible
+          jobs facilitated through online platforms. Gigzera is one such
+          technology-driven GigWorks platform, designed to connect businesses
+          and individuals with a vast network of skilled freelancers for various
+          tasks and projects.
+        </p>
+        <p class="text-grey-600 text-lg">
+          Gigzera operates as a dynamic marketplace, utilizing cutting-edge
+          technology to provide businesses with access to freelancers across a
+          wide array of industries. Through its mobile app and website, Gigzera
+          enables users to find and hire talented professionals for projects
+          ranging from software development and digital marketing to content
+          creation and graphic design. Whether you're a small business in need
+          of a one-time task or a large enterprise looking for scalable
+          freelance talent, Gigzera offers a solution that meets the demand for
+          specialized services on a flexible, on-demand basis.
+        </p>
+        <p class="text-grey-600 text-lg">
+          The technology behind Gigzera plays a pivotal role in its success.
+          Leveraging cloud computing, artificial intelligence, and advanced
+          algorithms, Gigzera is able to quickly match employers with
+          freelancers based on criteria such as skill set, location, and
+          availability. This efficient matching process reduces hiring time,
+          providing employers with fast access to top talent. For freelancers,
+          Gigzera offers the freedom to choose projects that align with their
+          skills and interests, enabling them to manage their own schedules and
+          work-life balance.
+        </p>
+        <p class="text-grey-600 text-lg">
+          Moreover, Gigzera ensures a seamless experience for both freelancers
+          and employers. The platform streamlines the hiring process,
+          facilitates secure payments, and provides built-in communication tools
+          to foster smooth interactions between all parties. This digital
+          infrastructure allows both freelancers and clients to work together
+          efficiently, without the administrative burdens typically associated
+          with traditional hiring processes.
+        </p>
+        <p class="text-grey-600 text-lg">
+          In conclusion, Gigzera represents the future of work, offering an
+          efficient, flexible, and technology-driven platform that connects
+          businesses with skilled freelancers across various industries. As the
+          gig economy continues to expand, Gigzera stands at the forefront of
+          this transformation, creating new opportunities for both workers and
+          employers in an increasingly digital and interconnected world
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div
+          class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
+        >
+          <i
+            class="fa-solid fa-magnifying-glass text-blue-600 text-3xl mb-4"
+          ></i>
+          <h3 class="text-xl font-bold mb-2">Efficient Matching</h3>
+          <p class="text-gray-600">
+            Automated matching system connects you with the perfect talent.
+          </p>
+        </div>
+        <div
+          class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
+        >
+          <i class="fa-solid fa-clock text-blue-600 text-3xl mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Flexible Hiring</h3>
+          <p class="text-gray-600">
+            Choose from various hiring models that suit your needs.
+          </p>
+        </div>
+        <div
+          class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
+        >
+          <i class="fa-solid fa-people-group text-blue-600 text-3xl mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Collaboration</h3>
+          <p class="text-gray-600">
+            Built-in tools for seamless team collaboration.
+          </p>
+        </div>
+        <div
+          class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
+        >
+          <i class="fa-solid fa-shield-halved text-blue-600 text-3xl mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Secure Payments</h3>
+          <p class="text-gray-600">
+            Protected transactions and milestone-based payments.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="tech-highlights"
+    class="py-20 bg-gradient-to-br from-gray-500 to-white"
+  >
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-16">Our Technology Stack</h2>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="bg-white p-8 rounded-xl shadow-sm">
+          <h3 class="text-2xl font-bold mb-6">For Employers</h3>
+          <div class="space-y-4">
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-rocket text-blue-600 text-2xl"></i>
+              <p class="text-gray-600">70% faster hiring process</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <i class="fa-brands fa-connectdevelop text-blue-600 text-2xl"></i>
+              <p class="text-gray-600">Connect with worldwide Developers</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-chart-line text-blue-600 text-2xl"></i>
+              <p class="text-gray-600">Real-time analytics dashboard</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white p-8 rounded-xl shadow-sm">
+          <h3 class="text-2xl font-bold mb-6">For Freelancers</h3>
+          <div class="space-y-4">
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-calendar text-blue-600 text-2xl"></i>
+              <p class="text-gray-600">Flexible scheduling</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-wallet text-blue-600 text-2xl"></i>
+              <p class="text-gray-600">Instant payment processing</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-star text-blue-600 text-2xl"></i>
+              <p class="text-gray-600">Skills advancement projects</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-16">Meet Our Team</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div
+          class="text-center rounded-[10px] shadow-[0_0_10px_black] p-[40px]"
+        >
+          <img
+            src="https://cdn.yellowmessenger.com/0TOE3iSV5Jno1734338145011.jpg"
+            alt="Hannah Wood"
+            class="w-32 h-32 rounded-full mx-auto mb-4"
+          />
+          <h3 class="text-xl font-bold">Hannah Wood</h3>
+          <p class="text-blue-600 mb-2">Managing Director</p>
+          <p class="text-gray-600">
+            Hannah Wood is a strategic Managing Director with leadership
+            experience across multiple industries. Known for leading
+            organizational transformation, and delivering exceptional financial
+            performance. Adept at formulating and executing high-level
+            strategies, optimizing operations, and building strong relationships
+            with key stakeholders, including the board, employees, and clients.
+            Proven track record in steering companies through periods of change,
+            enhancing operational efficiency, and leading cross-functional teams
+            to achieve corporate objectives. With a deep understanding of
+            financial management, market dynamics, and risk mitigation, I
+            consistently align business goals with actionable solutions,
+            ensuring long-term success and sustainability.
+          </p>
+        </div>
+        <div
+          class="text-center rounded-[10px] shadow-[0_0_10px_black] p-[40px]"
+        >
+          <img
+            src="https://cdn.yellowmessenger.com/M3rmp2fMwWma1734338421009.jpg"
+            alt="Vivek Samuel"
+            class="w-32 h-32 rounded-full mx-auto mb-4"
+          />
+          <h3 class="text-xl font-bold">Vivek Samuel</h3>
+          <p class="text-blue-600 mb-2">Executive</p>
+          <p class="text-gray-600">
+            Vivek Samuel is a seasoned corporate executive with over 24 years of
+            leadership experience across diverse industries, known for driving
+            organizational growth, innovation, and operational excellence.
+            Proven expertise in strategic planning, financial management, and
+            team development, with a track record of achieving business goals
+            and maximizing profitability. Adept at leading cross-functional
+            teams, managing complex projects, and fostering strong stakeholder
+            relationships. Skilled in change management, corporate governance,
+            and risk mitigation, with a keen ability to navigate complex market
+            landscapes and deliver sustainable results. A visionary leader
+            committed to transforming business strategies and enhancing
+            organizational performance, while fostering a culture of
+            collaboration, accountability, and continuous improvement.
+          </p>
+        </div>
+        <div
+          class="text-center rounded-[10px] shadow-[0_0_10px_black] p-[40px]"
+        >
+          <img
+            src="https://cdn.yellowmessenger.com/LVDJMdrhdLOK1734497574968.jpg"
+            alt="Silas Jude"
+            class="w-32 h-32 rounded-full mx-auto mb-4"
+          />
+          <h3 class="text-xl font-bold">Silas Jude</h3>
+          <p class="text-blue-600 mb-2">Operations Manager</p>
+          <p class="text-gray-600">
+            An accomplished professional specializing in operations management,
+            soft skills training, and administrative strategy. With a talent for
+            cultivating strong customer relationships and leading teams to
+            success, Bringing a results-driven approach to achieving
+            organizational growth. Dedicated to empowering businesses with
+            tailored solutions and impactful leadership.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

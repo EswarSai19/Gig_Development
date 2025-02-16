@@ -1,0 +1,482 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9fafb;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Header Styles */
+/* .header {
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  width: 100%;
+  z-index: 50;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.logo {
+  height: 2rem;
+}
+
+.main-nav {
+  display: none;
+}
+
+.nav-link {
+  color: #4b5563;
+  cursor: pointer;
+  margin-left: 2rem;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #2563eb;
+} */
+
+/* Main Content Styles */
+.main-content {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+.content-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+}
+
+/* Profile Section */
+
+.edit-form {
+    display: none;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+}
+
+.edit-form input {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.profile-card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+.edit-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.5rem;
+}
+
+.edit-button button {
+    color: #2563eb;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-button i {
+    font-size: 1.25rem;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-image {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    border: 4px solid #dbeafe;
+    margin-bottom: 1rem;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.profile-title {
+    color: #2563eb;
+    margin-bottom: 1rem;
+}
+
+.contact-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+}
+
+.contact-item i {
+    width: 1.5rem;
+    color: #2563eb;
+}
+
+.contact-item span,
+.contact-item a {
+    margin-left: 0.5rem;
+    color: #4b5563;
+}
+
+.contact-item a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.contact-item a:hover {
+    text-decoration: underline;
+}
+
+/* Action Section */
+.action-section {
+    width: 100%;
+}
+
+.action-card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: box-shadow 0.3s;
+}
+
+.action-card:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.card-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.card-header i {
+    color: #2563eb;
+    font-size: 1.25rem;
+}
+
+.action-card p {
+    color: #4b5563;
+    margin-bottom: 1rem;
+}
+
+/* 
+.action-button {
+    background-color: #2563eb;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.action-button:hover {
+    background-color: #1d4ed8;
+} */
+
+.action-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+/* button styles */
+/* Button Container */
+.button-container {
+    display: flex;
+    /* Use flexbox for layout */
+    justify-content: flex-start;
+    /* Align buttons to the left */
+    align-items: center;
+    /* Center the buttons vertically */
+    flex-direction: row;
+    /* Arrange buttons side by side */
+    gap: 10px;
+    /* Decrease space between the buttons */
+}
+
+/* Common Button Styles */
+.button-container .action-button {
+    flex: none;
+    /* Remove equal resizing */
+    width: 250px;
+    /* Set a fixed width */
+    height: 40px;
+    /* Reduce the height */
+    border: none;
+    border-radius: 6px;
+    /* Smaller border radius */
+    padding: 10px;
+    /* Reduce padding */
+    font-size: 1rem;
+    /* Reduce font size */
+    font-weight: 600;
+    /* Adjust font weight */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* Align text and icon to the left */
+    gap: 8px;
+    /* Reduce space between icon and text */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Ongoing Projects Button */
+.button-container .action-button {
+    background-color: #d9fdd3;
+    /* Light green background */
+    color: #228b22;
+    /* Forest green text */
+}
+
+.button-container .action-button:hover {
+    background-color: #c4e8bf;
+    /* Slightly darker green */
+}
+
+/* View Bids Button */
+.button-container .secondary-button {
+    background-color: #f3e8ff;
+    /* Light purple background */
+    color: #8a2be2;
+    /* Blue violet text */
+}
+
+.button-container .secondary-button:hover {
+    background-color: #e1d4f6;
+    /* Slightly darker purple */
+}
+
+/* Styles for the Modal */
+.form-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.form-header h2 {
+    margin: 0;
+}
+
+.form-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-content input,
+.form-content select,
+.form-content textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-content textarea {
+    resize: none;
+}
+
+.form-content button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.form-content button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+}
+
+/* Styles for skill tags */
+.skill-tag {
+    display: inline-block;
+    background-color: #4caf50;
+    color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.remove-skill {
+    margin-left: 10px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.remove-skill:hover {
+    color: red;
+}
+
+/* Suggestions List */
+.suggestions-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Pop-up for skill selection */
+#popup {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 9999;
+    width: 80%;
+    max-width: 500px;
+}
+
+#popup .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#popup .popup-header .close {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.select-container {
+    flex: 1;
+    /* Make both select boxes take equal width */
+}
+
+.select-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.select-container select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Remove Border from Get Started Button */
+.get-started-btn {
+    border: none;
+    /* Removes border */
+    background-color: transparent;
+    /* Optional: Transparent background */
+    color: #007bff;
+    /* Button text color */
+    font-size: 1rem;
+    /* Adjust font size */
+    font-weight: bold;
+    /* Make text bold */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: all 0.3s ease-in-out;
+}
+
+.get-started-btn:hover {
+    color: #0c0c0c;
+    /* Optional: Change color on hover */
+}

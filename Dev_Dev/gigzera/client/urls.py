@@ -15,5 +15,7 @@ urlpatterns = [
     path('singleOngoingProject/', views.cl_singleOgProject, name='cl_singleOgProject'),
     path('singleViewBid/', views.cl_singleViewBid, name='cl_singleViewBid'),
     path('viewBids/', views.cl_viewBids, name='cl_viewBids'),
+    path('bidApproved/', views.cl_bidApproved, name='cl_bidApproved'),
+    path('bidRejected/', views.cl_bidRejected, name='cl_bidRejected'),
   
 ]

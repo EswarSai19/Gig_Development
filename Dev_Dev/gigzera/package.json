@@ -1,25 +1,12 @@
 {
   "name": "gigzera",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "npx tailwindcss -i ./styles/tailwind.css -o ./static/css/tailwind.css --watch",
-    "build": "npm run build:css && python manage.py collectstatic --noinput && cp -r staticfiles build/static"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "description": "",
-  "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.5.1",
-    "tailwindcss": "^4.0.6"
-  },
+  "main": "tailwind.config.js",
   "dependencies": {
     "browserslist": "^4.24.4",
-    "caniuse-lite": "^1.0.30001695",
-    "electron-to-chromium": "^1.5.85",
+    "caniuse-lite": "^1.0.30001699",
+    "electron-to-chromium": "^1.5.101",
     "escalade": "^3.2.0",
     "fraction.js": "^4.3.7",
     "nanoid": "^3.3.8",
@@ -30,5 +17,15 @@
     "source-map-js": "^1.2.1",
     "update-browserslist-db": "^1.1.2"
   },
-  "type": "commonjs"
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.2",
+    "tailwindcss": "^4.0.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

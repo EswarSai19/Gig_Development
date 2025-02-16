@@ -1,0 +1,143 @@
+.footer {
+    background-color: #000;
+    /* Black background */
+    color: #fff;
+    /* White text */
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+    /* Gap between sections */
+}
+
+/* Left Section */
+.footer-left {
+    flex: 1;
+    text-align: left;
+}
+
+.footer-logo {
+    width: 120px;
+    /* margin-bottom: 10px; */
+}
+
+.footer-tagline {
+    font-size: 16px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+.footer-social-icons {
+    display: flex;
+    margin-left: 10px;
+    gap: 10px;
+}
+
+.footer-social-icons a {
+    font-size: 20px;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.footer-social-icons a:hover {
+    color: #00aced;
+    /* Slight color change on hover */
+}
+
+.footer-socials {
+    margin-top: 10px;
+    display: flex;
+    gap: 15px;
+    /* Space between icons */
+}
+
+.footer-socials a {
+    color: #ffffff;
+    /* Icon color */
+    font-size: 20px;
+    /* Icon size */
+    transition: color 0.3s ease;
+    /* Smooth transition for hover effect */
+}
+
+.footer-socials a:hover {
+    color: #00aced;
+    /* Change color on hover (e.g., Twitter blue) */
+    text-decoration: none;
+    /* No underline */
+}
+
+/* Center Section */
+.footer-center {
+    flex: 1;
+}
+
+.footer-center h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Right Section */
+.footer-right {
+    flex: 1;
+}
+
+.footer-right h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.footer-contact {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-contact li {
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-contact i {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+/* Bottom Section */
+.footer-bottom {
+    margin-top: 22px;
+    /* Space above the copyright */
+    border-top: 1px solid #333;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 14px;
+}

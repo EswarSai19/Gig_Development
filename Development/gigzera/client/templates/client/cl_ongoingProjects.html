@@ -1,0 +1,630 @@
+{% extends 'basic.html' %} {% load static %}
+<!-- title -->
+{% block title %}Ongoing Projects{% endblock %}
+<!-- css -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/cl_ongoingProjects.css' %}" />
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %}
+<!-- content -->
+{% block content %}
+<!--  -->
+<!-- Main Content -->
+<main>
+  <div class="container">
+    <div class="title-section">
+      <h1>Ongoing Projects</h1>
+      <div class="flex">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search projects..."
+          />
+        </div>
+        <!-- Updated button to trigger modal -->
+        <button class="btn btn-primary" onclick="openModal()">
+          <i class="fas fa-plus"></i> New Project
+        </button>
+        <button
+          class="btn btn-outline"
+          style="margin-left: 10px"
+          onclick="openFilterDialog()"
+        >
+          <i class="fas fa-filter"></i> Filter
+        </button>
+      </div>
+    </div>
+
+    <!-- Project Cards Grid -->
+    <div class="grid" id="projectGrid">
+      <!-- E-Commerce Platform Card -->
+      <div class="card">
+        <div
+          class="flex"
+          style="justify-content: space-between; align-items: center"
+        >
+          <h2 class="project-name">E-Commerce Platform Redesign</h2>
+          <span class="badge badge-active">Active</span>
+        </div>
+        <p class="project-id">ID: OPP-2025-001</p>
+        <p>
+          Redesigning the user interface and experience of our main e-commerce
+          platform to improve conversion rates.
+        </p>
+        <div class="progress-bar">
+          <div class="progress-percentage">75%</div>
+          <div class="progress-bar-inner" style="width: 75%"></div>
+        </div>
+        <small>Assigned to: Sarah Johnson</small>
+        <div class="flex" style="justify-content: space-between">
+          <a
+            href="javascript:void(0);"
+            class="read-more"
+            onclick="toggleReadMore(this)"
+            >Read More...</a
+          >
+          <a
+            href="{% url 'cl_singleOgProject' %}"
+            class="btn btn-outline"
+            style="text-decoration: none"
+            >View Status</a
+          >
+        </div>
+        <div class="extra-info">
+          We are focusing on enhancing user experience through better design
+          principles. The project aims to increase conversion rates by at least
+          20% by introducing A/B testing and user feedback analysis.
+        </div>
+      </div>
+
+      <!-- Mobile App Redesign Card -->
+      <div class="card">
+        <div
+          class="flex"
+          style="justify-content: space-between; align-items: center"
+        >
+          <h2 class="project-name">Mobile App Redesign</h2>
+          <span class="badge badge-planning">Planning</span>
+        </div>
+        <p class="project-id">ID: OPP-2025-002</p>
+        <p>
+          Redesigning the mobile app for improved user engagement and
+          performance optimization.
+        </p>
+        <div class="progress-bar">
+          <div class="progress-percentage">30%</div>
+          <div class="progress-bar-inner" style="width: 30%"></div>
+        </div>
+        <small>Assigned to: John Doe</small>
+        <div class="flex" style="justify-content: space-between">
+          <a
+            href="javascript:void(0);"
+            class="read-more"
+            onclick="toggleReadMore(this)"
+            >Read More...</a
+          >
+          <a
+            href="{% url 'cl_singleOgProject' %}"
+            class="btn btn-outline"
+            style="text-decoration: none"
+            >View Status</a
+          >
+        </div>
+        <div class="extra-info">
+          Focus on enhancing mobile app features including speed, layout, and
+          functionality to increase user retention.
+        </div>
+      </div>
+
+      <div class="card">
+        <div
+          class="flex"
+          style="justify-content: space-between; align-items: center"
+        >
+          <h2 class="project-name">Cloud Infrastructure Migration</h2>
+          <span class="badge badge-progress">In Progress</span>
+        </div>
+        <p class="project-id">ID: OPP-2025-003</p>
+        <p>
+          Migrating legacy infrastructure to cloud for scalability and enhanced
+          security.
+        </p>
+        <div class="progress-bar">
+          <div class="progress-percentage">50%</div>
+          <div class="progress-bar-inner" style="width: 50%"></div>
+        </div>
+        <small>Assigned to: Emily Clark</small>
+        <div class="flex" style="justify-content: space-between">
+          <a
+            href="javascript:void(0);"
+            class="read-more"
+            onclick="toggleReadMore(this)"
+            >Read More...</a
+          >
+          <a
+            href="{% url 'cl_singleOgProject' %}"
+            class="btn btn-outline"
+            style="text-decoration: none"
+            >View Status</a
+          >
+        </div>
+        <div class="extra-info">
+          The migration is focused on ensuring zero downtime and securing
+          sensitive data during the process.
+        </div>
+      </div>
+
+      <div class="card">
+        <div
+          class="flex"
+          style="justify-content: space-between; align-items: center"
+        >
+          <h2 class="project-name">API Integration for Payment Gateway</h2>
+          <span class="badge badge-review">Review</span>
+        </div>
+        <p class="project-id">ID: OPP-2025-004</p>
+        <p>
+          Integrating third-party payment gateway APIs into the application to
+          facilitate seamless transactions.
+        </p>
+        <div class="progress-bar">
+          <div class="progress-percentage">85%</div>
+          <div class="progress-bar-inner" style="width: 85%"></div>
+        </div>
+        <small>Assigned to: David Smith</small>
+        <div class="flex" style="justify-content: space-between">
+          <a
+            href="javascript:void(0);"
+            class="read-more"
+            onclick="toggleReadMore(this)"
+            >Read More...</a
+          >
+          <a
+            href="{% url 'cl_singleOgProject' %}"
+            class="btn btn-outline"
+            style="text-decoration: none"
+            >View Status</a
+          >
+        </div>
+        <div class="extra-info">
+          The payment gateway integration focuses on enhancing security and
+          ensuring a smooth user experience.
+        </div>
+      </div>
+
+      <div class="card">
+        <div
+          class="flex"
+          style="justify-content: space-between; align-items: center"
+        >
+          <h2 class="project-name">Customer Support Chatbot</h2>
+          <span class="badge badge-onhold">On Hold</span>
+        </div>
+        <p class="project-id">ID: OPP-2025-005</p>
+        <p>
+          Developing an AI-powered chatbot to handle common customer support
+          queries and reduce response time.
+        </p>
+        <div class="progress-bar">
+          <div class="progress-percentage">10%</div>
+          <div class="progress-bar-inner" style="width: 10%"></div>
+        </div>
+        <small>Assigned to: Michael Brown</small>
+        <div class="flex" style="justify-content: space-between">
+          <a
+            href="javascript:void(0);"
+            class="read-more"
+            onclick="toggleReadMore(this)"
+            >Read More...</a
+          >
+          <a
+            href="{% url 'cl_singleOgProject' %}"
+            class="btn btn-outline"
+            style="text-decoration: none"
+            >View Status</a
+          >
+        </div>
+        <div class="extra-info">
+          The chatbot is in its early stages, focusing on gathering customer
+          feedback and optimizing response flow.
+        </div>
+      </div>
+
+      <div class="card">
+        <div
+          class="flex"
+          style="justify-content: space-between; align-items: center"
+        >
+          <h2 class="project-name">Data Analytics Dashboard</h2>
+          <span class="badge badge-planning">Planning</span>
+        </div>
+        <p class="project-id">ID: OPP-2025-006</p>
+        <p>
+          Building a dashboard for analyzing and visualizing customer data to
+          provide insights and improve decision-making.
+        </p>
+        <div class="progress-bar">
+          <div class="progress-percentage">40%</div>
+          <div class="progress-bar-inner" style="width: 40%"></div>
+        </div>
+        <small>Assigned to: Lisa White</small>
+        <div class="flex" style="justify-content: space-between">
+          <a
+            href="javascript:void(0);"
+            class="read-more"
+            onclick="toggleReadMore(this)"
+            >Read More...</a
+          >
+          <a
+            href="{% url 'cl_singleOgProject' %}"
+            class="btn btn-outline"
+            style="text-decoration: none"
+            >View Status</a
+          >
+        </div>
+        <div class="extra-info">
+          The dashboard will aggregate and visualize key metrics for the
+          executive team to make data-driven decisions.
+        </div>
+      </div>
+
+      <!-- Project Cards End -->
+    </div>
+  </div>
+</main>
+
+<!-- Job Post Modal -->
+<!-- Modal structure -->
+<div
+  class="fixed inset-0 flex items-center justify-center z-50 hidden overflow-auto"
+  id="exampleModal"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered max-w-lg overflow-y-auto">
+    <div class="modal-content bg-white rounded-lg shadow-lg p-6">
+      <div class="modal-body max-h-[80vh] overflow-y-auto pr-4">
+        <div class="form-container">
+          <div class="form-header flex justify-between items-center mb-4">
+            <h1 class="text-3xl font-semibold">Post a Job</h1>
+            <button
+              type="button"
+              class="text-3xl font-bold hover:text-red-600 p-2"
+              onclick="closeModal()"
+            >
+              &times;
+            </button>
+          </div>
+          <form
+            class="form-content space-y-4"
+            action="{% url 'cl_profile' %}"
+            method="POST"
+          >
+            {% csrf_token %}
+            <!-- Form fields here -->
+            <div>
+              <label for="project-type" class="block font-semibold"
+                >Project Type <span class="text-red-500">*</span></label
+              >
+              <select
+                id="project-type"
+                name="project_type"
+                class="w-full p-2 border border-gray-300 rounded-md"
+                required
+              >
+                <option value="Gig">Gig (Single Freelancer)</option>
+                <option value="Project">Project (Multiple Freelancers)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="project-title" class="block font-semibold"
+                >Project Title <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                name="title"
+                id="project-title"
+                placeholder="Ex: WebApp Development"
+                class="w-full p-2 border border-gray-300 rounded-md"
+              />
+            </div>
+
+            <div>
+              <label for="skills-required" class="block font-semibold"
+                >Skills Required <span class="text-red-500">*</span></label
+              >
+              <div id="skills-container" class="relative">
+                <input
+                  type="text"
+                  id="skills-required"
+                  placeholder="Add skills"
+                  class="w-full p-2 border border-gray-300 rounded-md"
+                />
+                <ul
+                  id="suggestions-list"
+                  class="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md max-h-48 overflow-y-auto hidden"
+                ></ul>
+              </div>
+              <div id="selected-skills" class="mt-2"></div>
+              <input type="hidden" name="skills_list" id="skills-list" />
+            </div>
+
+            <div>
+              <label for="project-description" class="block font-semibold"
+                >Project Description <span class="text-red-500">*</span></label
+              >
+              <textarea
+                id="project-description"
+                name="description"
+                rows="4"
+                placeholder="Describe your project"
+                class="w-full p-2 border border-gray-300 rounded-md"
+                required
+              ></textarea>
+            </div>
+
+            <div class="flex space-x-4">
+              <div class="w-1/3">
+                <label for="currency" class="block font-semibold"
+                  >Currency <span class="text-red-500">*</span></label
+                >
+                <select
+                  id="currency"
+                  name="currency"
+                  class="w-full p-2 border border-gray-300 rounded-md"
+                  required
+                >
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="JPY">JPY</option>
+                  <option value="GBP">GBP</option>
+                  <option value="CNY">CNY</option>
+                  <option value="AUD">AUD</option>
+                  <option value="CAD">CAD</option>
+                  <option value="CHF">CHF</option>
+                  <option value="INR">INR</option>
+                  <option value="NZD">NZD</option>
+                </select>
+              </div>
+
+              <div class="w-2/3">
+                <label for="budget-range" class="block font-semibold"
+                  >Budget Range <span class="text-red-500">*</span></label
+                >
+                <select
+                  id="budget-range"
+                  name="budget"
+                  class="w-full p-2 border border-gray-300 rounded-md"
+                  required
+                >
+                  <option value="Less than 1,000">Less than 1,000</option>
+                  <option value="1,000 - 5,000">1,000 - 5,000</option>
+                  <option value="5,000 - 10,000">5,000 - 10,000</option>
+                  <option value="10,000 - 20,000">10,000 - 20,000</option>
+                  <option value="20,000 - 50,000">20,000 - 50,000</option>
+                  <option value="50,000 - 2,00,000">50,000 - 2,00,000</option>
+                  <option value="2,00,000 - 5,00,000">
+                    2,00,000 - 5,00,000
+                  </option>
+                  <option value="5,00,000 - 10,00,000">
+                    5,00,000 - 10,00,000
+                  </option>
+                  <option value="10,00,000 - 20,00,000">
+                    10,00,000 - 20,00,000
+                  </option>
+                  <option value="More than 20,00,000">
+                    More than 20,00,000
+                  </option>
+                </select>
+              </div>
+            </div>
+            <!-- New Code -->
+            <div class="w-1/2">
+              <label for="start-date"
+                >Start Date <span class="text-red-500">*</span></label
+              >
+              <input
+                type="date"
+                id="start-date"
+                name="start_date"
+                placeholder="Select start date"
+                style="
+                  width: 100%;
+                  padding: 10px;
+                  margin-bottom: 15px;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  font-size: 16px;
+                  appearance: none;
+                "
+                required
+              />
+              <style>
+                label[for="estimated-months"] {
+                  display: inline-block;
+                  margin-right: 10px;
+                  white-space: nowrap;
+                }
+              </style>
+              <label for="estimated-months"
+                >Estimated Months to Complete
+                <span class="text-red-500">*</span></label
+              >
+              <select
+                id="estimated-months"
+                name="duration"
+                style="
+                  width: 100%;
+                  padding: 10px;
+                  margin-bottom: 15px;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  font-size: 16px;
+                "
+                required
+              >
+                <option value="" disabled selected>
+                  Select estimated months
+                </option>
+                <option value="Less than 1 Month">Less than 1 Month</option>
+                <option value="1-2 Months">1 - 2 Months</option>
+                <option value="2-4 Months">2 - 4 Months</option>
+                <option value="4-8 Months">4 - 8 Months</option>
+                <option value="8-12 Months">8 - 12 Months</option>
+                <option value="More than 12 Months">12 Months +</option>
+              </select>
+            </div>
+            <div>
+              <label for="deliverables" class="block font-semibold"
+                >Project Deliverables <span class="text-red-500">*</span></label
+              >
+              <textarea
+                id="deliverables"
+                name="deliverables"
+                rows="4"
+                placeholder="Add deliverables"
+                class="w-full p-2 border border-gray-300 rounded-md"
+                required
+              ></textarea>
+            </div>
+
+            <div>
+              <label for="candidate-details" class="block font-semibold"
+                >Preferred Candidate Profile
+                <span class="text-red-500">*</span></label
+              >
+              <textarea
+                id="candidate-details"
+                name="requirements"
+                rows="4"
+                placeholder="Describe ideal candidate"
+                class="w-full p-2 border border-gray-300 rounded-md"
+                required
+              ></textarea>
+            </div>
+
+            <div>
+              <label for="challenges" class="block font-semibold"
+                >Possible Challenges <span class="text-red-500">*</span></label
+              >
+              <textarea
+                id="challenges"
+                name="challenges"
+                rows="4"
+                placeholder="List potential challenges"
+                class="w-full p-2 border border-gray-300 rounded-md"
+                required
+              ></textarea>
+            </div>
+
+            <div>
+              <label for="time-zone" class="block font-semibold"
+                >Preferred Time Zone <span class="text-red-500">*</span></label
+              >
+              <select
+                id="time-zone"
+                class="w-full p-2 border border-gray-300 rounded-md"
+                name="time_zone"
+                required
+              >
+                <option value="BIT - (UTC−12:00)">BIT - (UTC−12:00)</option>
+                <option value="SST - (UTC−11:00)">SST - (UTC−11:00)</option>
+                <option value="HAST - (UTC−10:00)">HAST - (UTC−10:00)</option>
+                <option value="TAHT - (UTC−10:00)">TAHT - (UTC−10:00)</option>
+                <option value="AKST - (UTC−09:00)">AKST - (UTC−09:00)</option>
+                <option value="PST - (UTC−08:00)">PST - (UTC−08:00)</option>
+                <option value="MST - (UTC−07:00)">MST - (UTC−07:00)</option>
+                <option value="CST - (UTC−06:00)">CST - (UTC−06:00)</option>
+                <option value="ACT - (UTC−05:00)">ACT - (UTC−05:00)</option>
+                <option value="EST - (UTC−05:00)">EST - (UTC−05:00)</option>
+                <option value="AMT - (UTC−04:00)">AMT - (UTC−04:00)</option>
+                <option value="AST - (UTC−04:00)">AST - (UTC−04:00)</option>
+                <option value="GFT - (UTC−03:00)">GFT - (UTC−03:00)</option>
+                <option value="NST - (UTC−03:30)">NST - (UTC−03:30)</option>
+                <option value="BRT - (UTC−03:00)">BRT - (UTC−03:00)</option>
+                <option value="FNT - (UTC−02:00)">FNT - (UTC−02:00)</option>
+                <option value="GMT - (UTC+00:00)">GMT - (UTC+00:00)</option>
+                <option value="CET - (UTC+01:00)">CET - (UTC+01:00)</option>
+                <option value="KALT - (UTC+02:00)">KALT - (UTC+02:00)</option>
+                <option value="MSK - (UTC+03:00)">MSK - (UTC+03:00)</option>
+                <option value="EAT - (UTC+03:00)">EAT - (UTC+03:00)</option>
+                <option value="SAMT - (UTC+04:00)">SAMT - (UTC+04:00)</option>
+                <option value="RET - (UTC+04:00)">RET - (UTC+04:00)</option>
+                <option value="YEKT - (UTC+05:00)">YEKT - (UTC+05:00)</option>
+                <option value="IST - (UTC+05:30)">IST - (UTC+05:30)</option>
+                <option value="OMST - (UTC+06:00)">OMST - (UTC+06:00)</option>
+                <option value="KRAT - (UTC+07:00)">KRAT - (UTC+07:00)</option>
+                <option value="CST - (UTC+08:00)">CST - (UTC+08:00)</option>
+                <option value="AWST - (UTC+08:00)">AWST - (UTC+08:00)</option>
+                <option value="IRKT - (UTC+08:00)">IRKT - (UTC+08:00)</option>
+                <option value="JST - (UTC+09:00)">JST - (UTC+09:00)</option>
+                <option value="ACST - (UTC+09:30)">ACST - (UTC+09:30)</option>
+                <option value="YAKT - (UTC+09:00)">YAKT - (UTC+09:00)</option>
+                <option value="AEST - (UTC+10:00)">AEST - (UTC+10:00)</option>
+                <option value="VLAT - (UTC+10:00)">VLAT - (UTC+10:00)</option>
+                <option value="MAGT - (UTC+11:00)">MAGT - (UTC+11:00)</option>
+                <option value="NCT - (UTC+11:00)">NCT - (UTC+11:00)</option>
+                <option value="PETT - (UTC+12:00)">PETT - (UTC+12:00)</option>
+                <option value="WFT - (UTC+12:00)">WFT - (UTC+12:00)</option>
+              </select>
+            </div>
+
+            <button
+              type="submit"
+              onclick="submitJobPost()"
+              class="w-full p-2 bg-blue-600 text-white rounded-md hover:bg-blue-500"
+            >
+              Post Job
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Filter Dialog -->
+<div
+  class="filter-overlay"
+  id="filterOverlay"
+  onclick="closeFilterDialog()"
+></div>
+<div class="filter-dialog" id="filterDialog">
+  <div class="filter-header">Sort & Filter</div>
+  <div class="filter-option">
+    <label for="statusFilter">Filter by Status</label>
+    <select id="statusFilter" onchange="applyFilter()">
+      <option value="all">All</option>
+      <option value="Active">Active</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Planning">Planning</option>
+      <option value="Review">Review</option>
+      <option value="On Hold">On Hold</option>
+    </select>
+  </div>
+  <div class="filter-option">
+    <label for="sortProjects">Sort Projects</label>
+    <select id="sortProjects" onchange="sortProjects()">
+      <option value="A-Z">Sort A to Z</option>
+      <option value="Z-A">Sort Z to A</option>
+    </select>
+  </div>
+  <button onclick="closeFilterDialog()">OK</button>
+</div>
+<!-- Footer -->
+<div class="page_footer">
+  <button>&lt;</button>
+  <button>1</button>
+  <button>2</button>
+  <button>3</button>
+  <button>&gt;</button>
+</div>
+{% endblock %}
+<!-- js -->
+{% block js %}
+
+<script src="{% static 'js/cl_ongoingProjects.js' %}"></script>
+{% endblock %}

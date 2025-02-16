@@ -1,0 +1,270 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+/* .header {
+  background-color: #F9FAFB;
+  padding: 20px 40px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #0066FF;
+}
+
+.search-bar input {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  font-size: 14px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #0066FF;
+}
+
+.login-btn {
+  background-color: white;
+  color: #0066FF;
+  border: 1px solid #0066FF;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #0066FF;
+  color: white;
+}
+
+.signup-btn {
+  background-color: #0066FF;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-btn:hover {
+  background-color: #004BBB;
+ 
+} */
+
+.cntr {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.project-box h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-box .status {
+    font-size: 14px;
+    padding: 3px 10px;
+    border-radius: 15px;
+    color: #fff;
+    text-align: center;
+}
+
+.status.active {
+    background: #28a745;
+}
+
+.status.pending {
+    background: #ffc107;
+}
+
+.status.in-progress {
+    background: #17a2b8;
+}
+
+.status.new {
+    background: #6c757d;
+}
+
+.status.urgent {
+    background: #dc3545;
+}
+
+.status.planning {
+    background: #007bff;
+}
+
+.project-box button {
+    display: block;
+    margin-top: auto;
+    /* Ensures alignment at the bottom */
+    width: 100%;
+    padding: 10px 0;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+}
+
+.project-box button:hover {
+    background: #0056b3;
+}
+
+.cntr h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+
+.projects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.project-box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: calc(33% - 20px);
+    box-sizing: border-box;
+}
+
+.project-box.new .status {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+.project-box.urgent .status {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+
+.project-box a {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+
+
+.project-box button:hover {
+    background-color: #0056b3;
+}
+
+
+
+.project-box {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.project-box h2 {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    align-items: flex-start;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+
+.project-box .status {
+    font-size: 14px;
+    padding: 3px 10px;
+    border-radius: 15px;
+    color: #fff;
+    text-align: center;
+}
+
+.status.active {
+    background: #28a745;
+}
+
+.status.pending {
+    background: #ffc107;
+}
+
+.status.in-progress {
+    background: #17a2b8;
+}
+
+.status.new {
+    background: #6c757d;
+}
+
+.status.urgent {
+    background: #dc3545;
+}
+
+.status.planning {
+    background: #007bff;
+}
+
+.project-box p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.project-box.expanded p {
+    white-space: normal;
+}
+
+.project-box button {
+    display: block;
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px 0;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+}

@@ -275,6 +275,7 @@ def cl_singleOgProject(request):
     user.initials = get_initials(user.name)
     context={'user':user}
     return render(request, 'client/cl_singleOgProject.html', context)
+    
 
 def cl_viewBids(request):
     user_id = request.session.get('user_id')
@@ -282,6 +283,7 @@ def cl_viewBids(request):
         return redirect('login')
     user = Client.objects.get(userId=user_id)
     user.initials = get_initials(user.name)
+    print(f"here is the user: {user.initials}, {user.name}, {user.email}")
     bids = ProjectQuote.objects.all().order_by('-created_at')
 
     for bid in bids:
@@ -300,10 +302,98 @@ def cl_singleViewBid(request):
         return redirect('login')
     user = Client.objects.get(userId=user_id)
     user.initials = get_initials(user.name)
-    context={'user':user}
+
+
+
+    opportunity_id = request.GET.get('opportunityId')
+    user_id = request.GET.get('userId')
+    bid_id = request.GET.get('bidId')
+    print("ID", opportunity_id, user_id, bid_id)
+
+    job = ProjectsDisplay.objects.filter(opportunityId=opportunity_id).first()
+    job.deliverables_list = [line.strip() for line in job.deliverables.split("\n")]
+    job.skills_list = [skill.strip().title() for skill in job.skills_required.split(',')]
+    job.cur_symbol = get_currency_symbol(job.currency)
+
+
+    fl_user = Freelancer.objects.filter(userId=user_id).first()
+    fl_user.skills_dict = {skill: f"{exp} years" for skill, exp in fl_user.skills.items()}
+    fl_user.certificates_list = [cert.strip().title() for cert in fl_user.certifications.split(',')]
+
+    bid = ProjectQuote.objects.filter(projectQuoteId=bid_id).first()
+    bid.cur_symbol = get_currency_symbol(bid.currency if bid else "USD")
+    print("Job", bid)
+    context = {'job':job, 'cl_user':user, 'fl_user':fl_user, 'bid':bid}
     return render(request, 'client/cl_singleViewBid.html', context)
 
+def cl_bidApproved(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
+    user = Client.objects.get(userId=user_id)
+    user.initials = get_initials(user.name)
+    print(f"here is the user: {user.initials}, {user.name}, {user.email}")
+    bids = ProjectQuote.objects.all().order_by('-created_at')
+    for bid in bids:
+        job = ProjectsDisplay.objects.filter(opportunityId=bid.opportunityId).first()
+        user = Freelancer.objects.filter(userId=bid.freelancer_id).first()
+        bid.title = job.title if job else "No Title"  # Fixed variable name
+        bid.cur_symbol = get_currency_symbol(job.currency if job else "USD")  # Ensure currency is handled properly
+        bid.user_experience = user.experience if user else "No Experience"
+        context = {'bids': bids, 'user': user}
+    if request.method == "POST":
+        bid_id = request.POST.get('bidId')
+        print("Admin Margin:", bid_id)  # Debugging
+        try:
+            # Fetch the bid using bid_id
+            bid = get_object_or_404(ProjectQuote, projectQuoteId=bid_id)  
+            
+            # Update the admin margin and bid status
+            bid.client_bid_status = "approved"
+            bid.save()  # Save changes
 
+            print(f"Updated bid {bid_id}: bid_status=approved")
+            messages.success(request, "Bid was sent to freelancer successfully")
+            return redirect('cl_viewBids')
 
+        except Exception as e:
+            print(f"Error updating bid: {e}")
+            messages.error(request, f"Error updating bid {bid_id}: {str(e)}")
+    return render(request, 'client/cl_viewBids.html', context)
+
+def cl_bidRejected(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
+    user = Client.objects.get(userId=user_id)
+    user.initials = get_initials(user.name)
+    print(f"here is the user: {user.initials}, {user.name}, {user.email}")
+    bids = ProjectQuote.objects.all().order_by('-created_at')
+    for bid in bids:
+        job = ProjectsDisplay.objects.filter(opportunityId=bid.opportunityId).first()
+        user = Freelancer.objects.filter(userId=bid.freelancer_id).first()
+        bid.title = job.title if job else "No Title"  # Fixed variable name
+        bid.cur_symbol = get_currency_symbol(job.currency if job else "USD")  # Ensure currency is handled properly
+        bid.user_experience = user.experience if user else "No Experience"
+        context = {'bids': bids, 'user': user}
+    if request.method == "POST":
+        bid_id = request.POST.get('bidId')
+        print("Admin Margin:", bid_id)  # Debugging
+        try:
+            # Fetch the bid using bid_id
+            bid = get_object_or_404(ProjectQuote, projectQuoteId=bid_id)  
+            
+            # Update the admin margin and bid status
+            bid.client_bid_status = "rejected"
+            bid.save()  # Save changes
+
+            print(f"Updated bid {bid_id}: bid_status=rejected")
+            messages.success(request, "Bid was sent to freelancer successfully")
+            return redirect('cl_viewBids')
+
+        except Exception as e:
+            print(f"Error updating bid: {e}")
+            messages.error(request, f"Error updating bid {bid_id}: {str(e)}")
+    return render(request, 'client/cl_viewBids.html', context)
 
 

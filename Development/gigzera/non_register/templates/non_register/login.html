@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% load static %}
+<!-- Title -->
+{% block title %}Log In{% endblock %}
+<!-- CSS -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %}
+<!--  -->
+{% block content %}
+
+<!-- Error Messages -->
+{% if messages %} {% for message in messages %}
+<div
+  id="alert-banner"
+  class="alert-banner text-white text-center p-4 rounded-lg shadow-lg flex justify-between items-center {% if message.tags and 'success' in message.tags.split %} bg-green-600 {% elif 'error' in message.tags %} bg-red-600 {% elif 'warning' in message.tags %} bg-yellow-600 {% else %} bg-blue-600 {% endif %}"
+>
+  <h1 class="alert-message text-xl font-medium text-center">{{ message }}</h1>
+  <button
+    class="close-btn text-white text-2xl font-medium focus:outline-none"
+    onclick="this.parentElement.style.display='none'"
+  >
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+{% endfor %} {% endif %}
+<!-- Main -->
+<main class="login-container">
+  <div class="login-box">
+    <h1>Welcome Back</h1>
+    <p>Sign in to your account</p>
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter your email"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Enter your password"
+        required
+      />
+      <button type="submit">Sign In</button>
+    </form>
+    <div class="links">
+      <a href="{% url 'forgot' %}">Forgot Password?</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    </div>
+  </div>
+</main>
+{% endblock %}

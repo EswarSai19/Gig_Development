@@ -1,0 +1,90 @@
+{% extends 'ad_base.html' %} {% load static %}
+<!-- title -->
+{% block title %}Freelancers{% endblock %}
+<!-- CSS -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/ad_freelancer_all.css' %}" />
+<!-- <link rel="stylesheet" href="{% static 'css/tailwind.css' %}" /> -->
+{% endblock %}
+<!-- main content -->
+{% block content %}
+<div class="main_container bg-gray-50">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="cntr">
+    <div class="header">
+      <h1>Freelancers</h1>
+      <p>Powered by Gigzera</p>
+    </div>
+
+    <div class="stats">
+      <div
+        class="stat-card"
+        id="totalRecruiters"
+        onclick="highlightSection('totalRecruiters')"
+      >
+        <div class="stat-content">
+          <h3>Total Freelancers</h3>
+          <div class="number">2,543</div>
+          <i class="fas fa-users stat-icon total"></i>
+        </div>
+      </div>
+      <div
+        class="stat-card"
+        id="activeUsers"
+        onclick="highlightSection('activeUsers')"
+      >
+        <div class="stat-content">
+          <h3>Active Freelancers</h3>
+          <div class="number">1,890</div>
+          <i class="fas fa-user-check stat-icon active"></i>
+        </div>
+      </div>
+      <div
+        class="stat-card"
+        id="bannedUsers"
+        onclick="highlightSection('bannedUsers')"
+      >
+        <div class="stat-content">
+          <h3>Banned Freelancers</h3>
+          <div class="number">23</div>
+          <i class="fas fa-user-slash stat-icon banned"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search by ID, Name, or Company..."
+        oninput="filterProfiles()"
+      />
+      <select id="sortOption" onchange="sortProfiles()">
+        <option value="company">Sort by Company</option>
+        <option value="name">Sort by Name</option>
+        <option value="id">Sort by ID</option>
+      </select>
+    </div>
+
+    <div class="profiles-container">
+      <!-- <button class="navigation-arrow prev-arrow" id="prevButton">
+            <i class="fas fa-chevron-left"></i>
+          </button> -->
+      <div class="profiles-grid" id="profilesGrid">
+        <!-- Profiles will be dynamically added here -->
+      </div>
+      <!-- <button class="navigation-arrow next-arrow" id="nextButton">
+            <i class="fas fa-chevron-right"></i>
+          </button> -->
+    </div>
+
+    <div class="pagination" id="pagination">
+      <!-- Pagination will be inserted here by JavaScript -->
+    </div>
+  </div>
+</div>
+{% endblock %}
+<!-- JS -->
+{% block js %}
+<script src="{% static 'js/ad_freelancer_all.js' %}"></script>
+{% endblock %}

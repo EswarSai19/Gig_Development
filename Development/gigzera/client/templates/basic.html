@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Gigzera Client{% endblock %}</title>
+    {% block css %} {% endblock %}
+    <!-- <link href="{% static 'css/tailwind.css' %}" rel="stylesheet" /> -->
+    <link rel="stylesheet" href="{% static 'css/cl_navbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/cl_footer.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-50">
+    <!-- Include Navbar -->
+    {% include 'cl_navbar.html' %}
+    <!-- messages -->
+    {% if messages %} {% for message in messages %}
+    <div
+      id="alert-banner"
+      class="alert-banner text-white text-center p-4 rounded-lg shadow-lg flex justify-between items-center {% if message.tags and 'success' in message.tags.split %} bg-green-600 {% elif 'error' in message.tags %} bg-red-600 {% elif 'warning' in message.tags %} bg-yellow-600 {% else %} bg-blue-600 {% endif %}"
+    >
+      <h1 class="alert-message text-xl font-medium text-center">
+        {{ message }}
+      </h1>
+      <button
+        class="close-btn text-white text-2xl font-medium focus:outline-none"
+        onclick="this.parentElement.style.display='none'"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    {% endfor %} {% endif %}
+
+    <!-- Page Content -->
+    <main class="min-h-screen">{% block content %}{% endblock %}</main>
+
+    <!-- Include Footer -->
+    {% include 'cl_footer.html' %}
+    <!-- JS -->
+    <script>
+      // Profile toggle function
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("profile-trigger")
+          .addEventListener("click", toggleProfileMenu);
+
+        function toggleProfileMenu() {
+          console.log("I am inside the profile menu function");
+          const menu = document.getElementById("profile-menu");
+          menu.classList.toggle("hidden");
+        }
+      });
+
+      // contact Sidebar toggle function
+      document.addEventListener("DOMContentLoaded", function () {
+        const contactBtn = document.getElementById("contactBtn");
+        const contactBtn3 = document.getElementById("contactBtn3");
+        const popupPanel = document.getElementById("popupPanel");
+        const popupOverlay = document.getElementById("popupOverlay");
+        const closeBtn = document.getElementById("closeBtn");
+
+        // Function to open sidebar
+        contactBtn.onclick = function () {
+          popupOverlay.style.display = "block"; // Show overlay
+          popupPanel.style.right = "0"; // Slide in sidebar
+        };
+        contactBtn3.onclick = function () {
+          popupOverlay.style.display = "block"; // Show overlay
+          popupPanel.style.right = "0"; // Slide in sidebar
+        };
+        // Function to close sidebar
+        function closeSidebar() {
+          popupOverlay.style.display = "none"; // Hide overlay
+          popupPanel.style.right = "-400px"; // Slide out sidebar
+        }
+
+        closeBtn.onclick = closeSidebar;
+
+        // Close sidebar when clicking outside
+        popupOverlay.onclick = function (e) {
+          if (e.target === popupOverlay) {
+            closeSidebar();
+          }
+        };
+      });
+    </script>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    {% block js %} {% endblock %}
+  </body>
+</html>

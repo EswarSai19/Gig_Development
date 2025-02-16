@@ -1,0 +1,320 @@
+/* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+} */
+
+body {
+    background: hsl(0, 0%, 96%);
+    /* padding: 20px; */
+}
+
+.cntr {
+    flex: 1;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    /* border: 2px solid green; */
+}
+
+.cntr::-webkit-scrollbar {
+    display: none;
+    /* For Chrome, Safari, and Opera */
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* .ctnr {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    position: relative;
+} */
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.header p {
+    color: #666;
+    font-size: 14px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+.stat-card {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    position: relative;
+    width: 30%;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+
+}
+
+
+
+.stat-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    color: #007bff;
+    /* Primary color */
+}
+
+.stat-content h3 {
+    margin: 0;
+}
+
+
+.stat-icon {
+    font-size: 40px;
+}
+
+.stat-icon.total {
+    color: #4285f4;
+}
+
+.stat-icon.active {
+    color: #34a853;
+}
+
+.stat-icon.banned {
+    color: #ea4335;
+}
+
+.stat-content h3 {
+    color: #666;
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+
+.stat-content .number {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    justify-content: space-between;
+
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.search-bar select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    min-width: 150px;
+}
+
+.profiles-container {
+    position: relative;
+    padding: 0 40px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    /* 5 profiles side by side */
+    gap: 10px;
+    /* Space between cards */
+    margin: 0 20px
+}
+
+.profile-card {
+    background: white;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 200px;
+}
+
+.profile-card img {
+
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin: auto;
+    margin-bottom: 12px;
+
+}
+
+.profile-card h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.profile-card .id {
+    color: #666;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.profile-card .company {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.profile-card .phone {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.profile-card i {
+    color: #007bff;
+    /* Primary color */
+    margin-right: 5px;
+    /* Space between icon and name */
+}
+
+.view-profile {
+    background: #4285f4;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.navigation-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.prev-arrow {
+    left: 0;
+}
+
+.next-arrow {
+    right: 0;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.pagination button {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    min-width: 32px;
+    font-size: 14px;
+}
+
+.pagination button.active {
+    background: #4285f4;
+    color: white;
+    border-color: #4285f4;
+}
+
+.more-options {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #666;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.arrow {
+    cursor: pointer;
+    font-size: 24px;
+    /* Adjust size as needed */
+}
+
+.page-numbers {
+    margin: 0 10px;
+}
+
+
+
+/*  */
+/* Highlighted state for different sections */
+.highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+}
+
+/* Body background color when a section is clicked */
+body.highlight-total {
+    background-color: #e6f0ff;
+}
+
+body.highlight-active {
+    background-color: #e6ffe6;
+}
+
+body.highlight-banned {
+    background-color: #ffe6e6;
+}

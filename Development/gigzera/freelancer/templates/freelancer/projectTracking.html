@@ -1,0 +1,160 @@
+{% extends 'master.html' %} {% load static %}
+<!-- title -->
+{% block title %}Project Tracking{% endblock %}
+<!-- CSS -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/projectTracking.css' %}" />
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %}
+<!-- Main -->
+{% block content %}
+<div class="cntr">
+  <div class="header-container">
+    <h1><strong>My Assigned Projects</strong></h1>
+    <div class="search-filter">
+      <div class="search-input-container">
+        <i class="fas fa-search"></i>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search Projects..."
+          oninput="filterProjects()"
+        />
+      </div>
+      <button class="filter-button" onclick="toggleFilterPopup()">
+        <i class="fas fa-filter"></i>Filter
+      </button>
+    </div>
+  </div>
+
+  <div id="blur-overlay" class="blur-overlay"></div>
+  <div id="filter-popup" class="filter-popup hidden">
+    <div class="filter-content">
+      <h3><strong>Filter and Sort</strong></h3>
+      <label for="status-filter">Filter by Status:</label>
+      <select id="status-filter" onchange="filterProjects()">
+        <option value="">All</option>
+        <option value="active">Active</option>
+        <option value="pending">Pending</option>
+        <option value="in-progress">In Progress</option>
+        <option value="new">New</option>
+        <option value="urgent">Urgent</option>
+        <option value="planning">Planning</option>
+      </select>
+      <label for="sort-filter">Sort by:</label>
+      <select id="sort-filter" onchange="filterProjects()">
+        <option value="a-z">A to Z</option>
+        <option value="z-a">Z to A</option>
+      </select>
+      <button onclick="closeFilterPopup()">Apply</button>
+    </div>
+  </div>
+
+  <div class="projects">
+    {% for job in filtered_jobs %}
+    <div class="project-box" data-id="{{ job.opportunityId }}">
+      <h2>
+        {{ job.title }}
+        <!--  -->
+        <span class="status active">Active</span>
+      </h2>
+      <h3>Opportunity ID: {{ job.opportunityId }}</h3>
+      <p>{{ job.description }}</p>
+      <a
+        href="javascript:void(0)"
+        onclick="readMoreDetails(`{{ job.opportunityId }}`)"
+      >
+        Read More...
+      </a>
+      <button class="overall-project-status-btn">
+        View Overall Project Status
+      </button>
+    </div>
+    {% endfor %}
+
+    <!-- <div class="project-box" data-id="123457">
+      <h2>Mobile App <span class="status pending">Pending</span></h2>
+      <h3>Opportunity ID: 123457</h3>
+      <p>
+        Create a mobile app for food delivery service with real-time tracking...
+      </p>
+      <a href="javascript:void(0)" onclick="readMoreDetails(123457)"
+        >Read More...</a
+      >
+      <button class="overall-project-status-btn">
+        View Overall Project Status
+      </button>
+    </div>
+    <div class="project-box" data-id="123458">
+      <h2>Dashboard <span class="status in-progress">In Progress</span></h2>
+      <h3>Opportunity ID: 123458</h3>
+      <p>
+        Develop a project management dashboard with analytics and reporting...
+      </p>
+      <a href="javascript:void(0)" onclick="readMoreDetails(123458)"
+        >Read More...</a
+      >
+      <button class="overall-project-status-btn">
+        View Overall Project Status
+      </button>
+    </div>
+    <div class="project-box" data-id="123459">
+      <h2>Marketing Dashboard <span class="status new">New</span></h2>
+      <h3>Opportunity ID: 123459</h3>
+      <p>Build a social media marketing dashboard with content scheduling...</p>
+      <a href="javascript:void(0)" onclick="readMoreDetails(123459)"
+        >Read More...</a
+      >
+      <button class="overall-project-status-btn">
+        View Overall Project Status
+      </button>
+    </div>
+    <div class="project-box" data-id="123460">
+      <h2>Customer Support <span class="status urgent">Urgent</span></h2>
+      <h3>Opportunity ID: 123460</h3>
+      <p>Design and implement a customer support ticketing system...</p>
+      <a href="javascript:void(0)" onclick="readMoreDetails(123460)"
+        >Read More...</a
+      >
+      <button class="overall-project-status-btn">
+        View Overall Project Status
+      </button>
+    </div>
+    <div class="project-box" data-id="123461">
+      <h2>AI Chatbot <span class="status planning">Planning</span></h2>
+      <h3>Opportunity ID: 123461</h3>
+      <p>Create an AI-powered chatbot for customer service automation...</p>
+      <a href="javascript:void(0)" onclick="readMoreDetails(123461)"
+        >Read More...</a
+      >
+      <button class="overall-project-status-btn">
+        View Overall Project Status
+      </button>
+    </div> -->
+  </div>
+</div>
+{% endblock %}
+<!-- js -->
+{% block js %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const projectTrackingBtn = document.getElementsByClassName(
+      "overall-project-status-btn"
+    );
+
+    // Add click event to all buttons with the class "project-tracking-btn"
+    Array.from(projectTrackingBtn).forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        // Get the opportunityId from the parent project-box div
+        const opportunityId = e.target
+          .closest(".project-box")
+          .getAttribute("data-id");
+
+        // Redirect with query parameter
+        window.location.href = `{% url 'fl_singleProjectTracking' %}?opportunityId=${opportunityId}`;
+      });
+    });
+  });
+</script>
+<script src="{% static 'js/projectTracking.js' %}"></script>
+{% endblock %}

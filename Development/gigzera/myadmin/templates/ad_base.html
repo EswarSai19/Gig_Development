@@ -1,0 +1,391 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Admin Dashboard{% endblock %}</title>
+    {% block css %} {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/ad_index.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="h-full text-base-content">
+    {% if messages %} {% for message in messages %}
+    <div
+      id="alert-banner"
+      class="alert-banner text-white text-center p-4 rounded-lg shadow-lg flex justify-between items-center {% if message.tags and 'success' in message.tags.split %} bg-green-600 {% elif 'error' in message.tags %} bg-red-600 {% elif 'warning' in message.tags %} bg-yellow-600 {% else %} bg-blue-600 {% endif %}"
+    >
+      <h1 class="alert-message text-xl font-medium text-center">
+        {{ message }}
+      </h1>
+      <button
+        class="close-btn text-white text-2xl font-medium focus:outline-none"
+        onclick="this.parentElement.style.display='none'"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    {% endfor %} {% endif %}
+    <div class="main_container bg-gray-50">
+      <!-- <div class="sidebar" id="sidebar"></div> -->
+      {% include 'ad_sidebar.html' %}
+      <!--  -->
+      {% block content %} {% endblock %}
+    </div>
+    <!-- Modal for finanacial -->
+    <div
+      id="financialModal"
+      class="fixed inset-0 hidden flex items-center justify-center bg-gray-900 bg-opacity-50"
+    >
+      <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-8">
+        <!-- Modal Header -->
+        <div class="flex justify-between items-center pb-3">
+          <h2 class="text-2xl font-bold text-center w-full">
+            Financial Overview
+          </h2>
+          <button
+            onclick="closeModal1()"
+            class="text-gray-500 hover:text-gray-700 text-4xl"
+          >
+            &times;
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="mt-6 space-y-6">
+          <!-- Total Revenue Card -->
+          <div class="bg-blue-100 p-6 rounded-lg shadow-lg text-xl">
+            <div class="text-gray-700 font-semibold">Total Revenue</div>
+            <div class="flex justify-between items-center font-bold">
+              <span>$124,563.00</span>
+              <i class="fas fa-chart-line text-green-500 text-2xl"></i>
+            </div>
+          </div>
+
+          <!-- Pending Payments Card -->
+          <div class="bg-yellow-100 p-6 rounded-lg shadow-lg text-xl">
+            <div class="text-gray-700 font-semibold">Pending Payments</div>
+            <div class="flex justify-between items-center font-bold">
+              <span>$12,489.00</span>
+              <i class="fas fa-clock text-yellow-500 text-2xl"></i>
+            </div>
+          </div>
+
+          <!-- Completed Payments Card -->
+          <div class="bg-green-100 p-6 rounded-lg shadow-lg text-xl">
+            <div class="text-gray-700 font-semibold">Completed Payments</div>
+            <div class="flex justify-between items-center font-bold">
+              <span>$98,674.00</span>
+              <i class="fas fa-circle-check text-blue-500 text-2xl"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal structure for Broadcast Message -->
+    <div
+      id="broadcastModal"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
+    >
+      <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
+        <div class="flex justify-between items-center mb-4">
+          <h4 class="text-lg font-semibold text-gray-700 text-center w-full">
+            Please select your preferred communication channel:
+          </h4>
+          <button
+            onclick="closeModal('broadcastModal')"
+            class="text-gray-500 hover:text-gray-800 text-4xl transition"
+          >
+            &times;
+          </button>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Email Option -->
+          <div
+            onclick="openModal('emailModal')"
+            class="option cursor-pointer flex items-center justify-between border p-5 rounded-xl transition-all hover:bg-gray-100 hover:shadow-md w-full"
+          >
+            <div class="flex flex-col items-center flex-grow">
+              <i class="fab fa-google text-red-500 text-5xl mb-2"></i>
+              <!-- Increased icon size -->
+              <span class="text-gray-800 font-medium text-lg">Email</span>
+              <span class="text-gray-500 text-sm">Connect via Gmail</span>
+            </div>
+            <span class="text-gray-400 text-3xl">&#8594;</span>
+            <!-- Increased arrow size -->
+          </div>
+
+          <!-- WhatsApp Option -->
+          <div
+            onclick="openModal('whatsappModal')"
+            class="option cursor-pointer flex items-center justify-between border p-5 rounded-xl transition-all hover:bg-gray-100 hover:shadow-md w-full"
+          >
+            <div class="flex flex-col items-center flex-grow">
+              <i class="fab fa-whatsapp text-green-500 text-5xl mb-2"></i>
+              <span class="text-gray-800 font-medium text-lg">WhatsApp</span>
+              <span class="text-gray-500 text-sm">Connect via WhatsApp</span>
+            </div>
+            <span class="text-gray-400 text-3xl">&#8594;</span>
+          </div>
+
+          <!-- SMS Option -->
+          <div
+            onclick="openModal('smsModal')"
+            class="option cursor-pointer flex items-center justify-between border p-5 rounded-xl transition-all hover:bg-gray-100 hover:shadow-md w-full"
+          >
+            <div class="flex flex-col items-center flex-grow">
+              <i class="fas fa-sms text-blue-500 text-5xl mb-2"></i>
+              <span class="text-gray-800 font-medium text-lg">SMS</span>
+              <span class="text-gray-500 text-sm">Connect via SMS</span>
+            </div>
+            <span class="text-gray-400 text-3xl">&#8594;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Modal -->
+    <div
+      id="emailModal"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
+    >
+      <div class="bg-white rounded-lg shadow-lg max-w-sm w-full p-6">
+        <form id="emailForm">
+          <label for="email-event-name" class="font-bold">Event Name</label>
+          <input
+            type="text"
+            id="email-event-name"
+            placeholder="Enter event name"
+            class="form-control border p-2 w-full rounded mt-1"
+            required
+          />
+
+          <label for="email-user-base" class="font-bold mt-4 block"
+            >Select User Base</label
+          >
+          <select
+            id="email-user-base"
+            class="form-control border p-2 w-full rounded mt-1"
+            required
+          >
+            <option value="" disabled selected>Choose a user group</option>
+            <option value="group1">Group 1</option>
+            <option value="group2">Group 2</option>
+          </select>
+
+          <button
+            type="submit"
+            class="btn bg-red-500 text-white px-4 py-2 rounded mt-4 w-full"
+          >
+            <i class="fab fa-google"></i> Send Email
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- WhatsApp Modal -->
+    <div
+      id="whatsappModal"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
+    >
+      <div class="bg-white rounded-lg shadow-lg max-w-sm w-full p-6">
+        <form id="whatsappForm">
+          <label for="whatsapp-event-name" class="font-bold">Event Name</label>
+          <input
+            type="text"
+            id="whatsapp-event-name"
+            placeholder="Enter event name"
+            class="form-control border p-2 w-full rounded mt-1"
+            required
+          />
+
+          <label for="whatsapp-user-base" class="font-bold mt-4 block"
+            >Select User Base</label
+          >
+          <select
+            id="whatsapp-user-base"
+            class="form-control border p-2 w-full rounded mt-1"
+            required
+          >
+            <option value="" disabled selected>Choose a user group</option>
+            <option value="group1">Group 1</option>
+            <option value="group2">Group 2</option>
+          </select>
+
+          <button
+            type="submit"
+            class="btn bg-green-500 text-white px-4 py-2 rounded mt-4 w-full"
+          >
+            <i class="fab fa-whatsapp"></i> Send WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- SMS Modal -->
+    <div
+      id="smsModal"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
+    >
+      <div class="bg-white rounded-lg shadow-lg max-w-sm w-full p-6">
+        <form id="smsForm">
+          <label for="sms-event-name" class="font-bold">Event Name</label>
+          <input
+            type="text"
+            id="sms-event-name"
+            placeholder="Enter event name"
+            class="form-control border p-2 w-full rounded mt-1"
+            required
+          />
+
+          <label for="sms-user-base" class="font-bold mt-4 block"
+            >Select User Base</label
+          >
+          <select
+            id="sms-user-base"
+            class="form-control border p-2 w-full rounded mt-1"
+            required
+          >
+            <option value="" disabled selected>Choose a user group</option>
+            <option value="group1">Group 1</option>
+            <option value="group2">Group 2</option>
+          </select>
+
+          <button
+            type="submit"
+            class="btn bg-blue-500 text-white px-4 py-2 rounded mt-4 w-full"
+          >
+            <i class="fas fa-sms"></i> Send SMS
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Structure and style for Repots download -->
+    <div
+      id="reportsDownloadModal"
+      class="fixed inset-0 hidden flex items-center justify-center bg-gray-900 bg-opacity-50"
+    >
+      <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
+        <!-- Modal Header -->
+        <div class="flex justify-between items-center border-b pb-3">
+          <h2 class="text-xl font-bold text-center w-full">Download Data</h2>
+          <button
+            onclick="closeDownloadModal()"
+            class="text-gray-500 hover:text-gray-700 text-4xl"
+          >
+            &times;
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="mt-5 space-y-4">
+          <p class="text-center text-base text-gray-700">
+            Select the type of data you want to download:
+          </p>
+
+          <!-- Data Items -->
+          <div
+            class="bg-gray-100 p-4 rounded-lg shadow flex justify-between items-center text-base"
+          >
+            <div class="flex items-center">
+              <i class="fa-solid fa-user text-blue-500 text-xl mr-3"></i>
+              <span>
+                <strong class="text-black">Freelancers Data</strong>
+                <small class="block text-gray-600"
+                  >Download complete freelancer information</small
+                >
+              </span>
+            </div>
+            <a
+              href="dummy-freelancers-data.pdf"
+              download
+              class="text-blue-500 text-xl"
+            >
+              <i class="fa-solid fa-download"></i>
+            </a>
+          </div>
+
+          <div
+            class="bg-gray-100 p-4 rounded-lg shadow flex justify-between items-center text-base"
+          >
+            <div class="flex items-center">
+              <i class="fa-solid fa-folder text-blue-500 text-xl mr-3"></i>
+              <span>
+                <strong class="text-black">Project Data</strong>
+                <small class="block text-gray-600"
+                  >Download project-related information</small
+                >
+              </span>
+            </div>
+            <a
+              href="dummy-project-data.pdf"
+              download
+              class="text-blue-500 text-xl"
+            >
+              <i class="fa-solid fa-download"></i>
+            </a>
+          </div>
+
+          <div
+            class="bg-gray-100 p-4 rounded-lg shadow flex justify-between items-center text-base"
+          >
+            <div class="flex items-center">
+              <i class="fa-solid fa-users text-blue-500 text-xl mr-3"></i>
+              <span>
+                <strong class="text-black">Recruiter Data</strong>
+                <small class="block text-gray-600"
+                  >Download recruiter and team data</small
+                >
+              </span>
+            </div>
+            <a
+              href="dummy-recruiter-data.pdf"
+              download
+              class="text-blue-500 text-xl"
+            >
+              <i class="fa-solid fa-download"></i>
+            </a>
+          </div>
+
+          <div
+            class="bg-gray-100 p-4 rounded-lg shadow flex justify-between items-center text-base"
+          >
+            <div class="flex items-center">
+              <i
+                class="fa-solid fa-money-check-dollar text-blue-500 text-xl mr-3"
+              ></i>
+              <span>
+                <strong class="text-black">Finance Data</strong>
+                <small class="block text-gray-600"
+                  >Download financial reports and transactions</small
+                >
+              </span>
+            </div>
+            <a
+              href="dummy-finance-data.pdf"
+              download
+              class="text-blue-500 text-xl"
+            >
+              <i class="fa-solid fa-download"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="{% static 'js/ad_index.js' %}"></script>
+  {% block js %}{% endblock %}
+</html>

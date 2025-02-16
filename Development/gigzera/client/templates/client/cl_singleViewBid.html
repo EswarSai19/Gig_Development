@@ -1,0 +1,142 @@
+{% extends 'basic.html' %} {% load static %}
+<!-- title -->
+{% block title %}View Bids{% endblock %}
+<!-- css -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/cl_singleviewBids.css' %}" />
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %}
+<!-- content -->
+{% block content %}
+<!-- main -->
+<main>
+  <div class="action-buttons">
+    <div class="button-container">
+      <button id="reject-btn" class="btn reject reject-btn">X Reject</button>
+      <button id="approve-btn" class="btn approve approve-btn">
+        ✓ Approve
+      </button>
+    </div>
+  </div>
+
+  <!-- Form that will be submitted for approval-->
+  <form
+    id="budget-form"
+    method="POST"
+    action="{% url 'cl_bidApproved' %}?bidId={{bid.projectQuoteId}}"
+  >
+    {% csrf_token %}
+    <input type="hidden" name="adminMargin" id="adminMargin-hidden" />
+    <input
+      type="hidden"
+      name="bidId"
+      id="bidId-hidden"
+      value="{{bid.projectQuoteId}}"
+    />
+  </form>
+  <!-- Form that will be submitted for approval-->
+  <form
+    id="budget-form2"
+    method="POST"
+    action="{% url 'cl_bidRejected' %}bidId={{bid.projectQuoteId}}"
+  >
+    {% csrf_token %}
+    <input type="hidden" name="adminMargin" id="adminMargin-hidden" />
+    <input
+      type="hidden"
+      name="bidId"
+      id="bidId-hidden"
+      value="{{bid.projectQuoteId}}"
+    />
+  </form>
+
+  <div class="ctnr">
+    <div class="card project-overview">
+      <h2>Project Overview</h2>
+      <p><strong>Project Name:</strong> {{job.title}}</p>
+      <p><strong>Opportunity ID:</strong> {{job.opportunityId}}</p>
+      <p><strong>Deliverables:</strong></p>
+      {% for job_del in job.deliverables_list %}
+      <ul>
+        <li>{{job_del}}</li>
+        <!-- <li>Backend Integration</li>
+          <li>Payment Gateway</li> -->
+      </ul>
+      {% endfor %}
+      <p><strong>Required Skills:</strong></p>
+      <div>
+        {% for skill in job.skills_list %}
+        <span class="skills">{{skill}}</span>
+        {% endfor %}
+        <!-- <span class="skills">Node.js</span>
+          <span class="skills">MongoDB</span> -->
+      </div>
+      <p><strong>Budget:</strong> {{job.cur_symbol}} {{job.budget}}</p>
+      <p><strong>Timeline:</strong> {{job.duration}}</p>
+    </div>
+
+    <!-- Bidder profile -->
+    <div class="card bidder-profile">
+      <h2>Bidder Profile</h2>
+      <p><strong>User ID:</strong> {{fl_user.userId}}</p>
+      <p><strong>Name:</strong> {{fl_user.name}}</p>
+      <a href="{% url 'ad_profileView' %}" class="view-profile">View Profile</a>
+      <p><strong>Professional Summary:</strong> {{fl_user.profile_summary}}</p>
+      <p><strong>Total Experience:</strong> {{fl_user.experience}} Years</p>
+      <p><strong>Total Completed projects:</strong> 2</p>
+      <p><strong>Skills Experience:</strong></p>
+      <ul>
+        {% for skill, experience in fl_user.skills_dict.items %}
+        <li>{{ skill }}: {{ experience }}</li>
+        {% endfor %}
+        <!-- <li>React.js: 5 years</li>
+          <li>Node.js: 4 years</li>
+          <li>MongoDB: 3 years</li> -->
+      </ul>
+      <p><strong>Certifications:</strong></p>
+      <ul>
+        {% for cert in fl_user.certificates_list %}
+        <li>{{cert}}</li>
+        {% endfor %}
+        <!-- <li>MongoDB Certified Developer</li> -->
+      </ul>
+    </div>
+
+    <!-- bid details -->
+    <div class="card bid-details">
+      <h2>Bid Details</h2>
+      <p><strong>Total Cost:</strong> {{bid.revised_budget}}</p>
+      <br />
+      <p><strong>Proposed Timeline:</strong> {{bid.time_estimation}}</p>
+      <br />
+      <p><strong>Additional Comments:</strong></p>
+      <p>{{bid.comments}}</p>
+    </div>
+  </div>
+</main>
+{% endblock %}
+<!-- js -->
+{% block js %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // const rejectBtn = document.getElementsByClassName("reject-btn");
+    // const approveBtn = document.getElementsByClassName("approve-btn");
+    const approveBtn = document.getElementById("approve-btn"); // Approve button
+    const rejectBtn = document.getElementById("reject-btn");
+    const form = document.getElementById("budget-form");
+    const form2 = document.getElementById("budget-form2");
+    const hiddenBidId = document.getElementById("bidId-hidden");
+
+    approveBtn.addEventListener("click", () => {
+      hiddenBidId.value = `{{bid.projectQuoteId}}`;
+      form.submit();
+    });
+
+    rejectBtn.addEventListener("click", () => {
+      hiddenBidId.value = `{{bid.projectQuoteId}}`;
+      form2.submit();
+    });
+  });
+</script>
+<!-- <script src="{% static 'js/cl_profile.js' %}"></script> -->
+{% endblock %}

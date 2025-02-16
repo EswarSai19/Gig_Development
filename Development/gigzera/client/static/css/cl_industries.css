@@ -1,0 +1,129 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f4f4;
+    color: #333;
+}
+
+/* Main Body Section */
+.industries-container {
+    /* position: relative;
+    z-index: -2; */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    /* margin-top: 100px; */
+    background: #f4f4f4;
+}
+
+.industry-card {
+    /* position: relative;
+    z-index: -1; */
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+}
+
+.card-inner {
+    width: 250px;
+    height: 300px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+
+}
+
+.card-inner:hover {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-front {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-front img {
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+}
+
+.card-front h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+}
+
+.card-back {
+    background: #003366;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transform: rotateY(180deg);
+}
+
+.card-back h3 {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.card-back p {
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center !important;
+}
+
+/* Footer Section */
+/* .footer {
+  background: #003366;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.social-links a {
+  margin: 0 10px;
+}
+
+.social-links img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+} */
+
+/* Responsive Design */
+/* @media (max-width: 768px) {
+  .search-bar input {
+    width: 200px;
+  }
+
+  .industries-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+} */

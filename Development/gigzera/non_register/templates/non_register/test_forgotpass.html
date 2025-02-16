@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/forgot.css' %}" />
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %}
+<!--  -->
+{% block content %}
+<!-- error messages -->
+{% if messages %} {% for message in messages %}
+<div
+  id="alert-banner"
+  class="alert-banner bg-red-600 text-white text-center p-4 rounded-lg shadow-lg flex justify-between items-center"
+>
+  <h1 class="alert-message text-xl font-medium text-center">{{message}}</h1>
+  <button
+    class="close-btn text-white text-2xl font-medium focus:outline-none"
+    onclick="document.getElementById('alert-banner').style.display='none'"
+  >
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+{% endfor %} {% endif %}
+<!-- Main container -->
+<main class="forgot-password-container">
+  <!-- First Frame: Request OTP -->
+  <div
+    class="forgot-password-box {% if show_otp_frame %}hidden{% endif %}"
+    id="frame1"
+  >
+    <h1>Forgot Password</h1>
+    <p>
+      To reset your password, please enter your registered
+      <strong>mobile number with country code</strong>.
+    </p>
+    <form
+      id="request-otp-form"
+      action="{% url 'test_forgotpass' %}"
+      method="POST"
+    >
+      {% csrf_token %}
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        placeholder="91XXXXXXXXXX"
+        required
+      />
+      <div class="user-role">
+        <div>Your Role:</div>
+        <div class="role-options">
+          <label>
+            <input type="radio" name="user_role" value="freelancer" required />
+            Freelancer
+          </label>
+          <label>
+            <input type="radio" name="user_role" value="client" required />
+            Client
+          </label>
+        </div>
+      </div>
+      <button type="submit" id="send-otp-btn">Send OTP</button>
+    </form>
+    <div class="links">
+      <a href="{% url 'login' %}">Back to Login</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    </div>
+  </div>
+
+  <!-- Second Frame: OTP and Reset Password -->
+  <div
+    class="forgot-password-box {% if not show_otp_frame %}hidden{% endif %}"
+    id="frame2"
+  >
+    <div class="header-back-btn">
+      <i class="fa-solid fa-arrow-left" id="back-btn"></i>
+      <h1>Forgot Password</h1>
+    </div>
+    <p>Please enter the OTP sent to your mobile number.</p>
+    <form
+      id="reset-password-form"
+      action="{% url 'test_resetpass' %}"
+      method="POST"
+    >
+      {% csrf_token %}
+      <input type="hidden" name="user_role" value="{{ user_role }}" />
+      <input
+        type="number"
+        name="otp"
+        id="otp"
+        placeholder="Enter OTP"
+        required
+      />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Enter new password"
+        required
+      />
+      <input
+        type="password"
+        id="confirm-password"
+        name="confirm_password"
+        placeholder="Re-enter new password"
+        required
+      />
+      <button type="submit">Reset Password</button>
+    </form>
+    <div class="links">
+      <a href="{% url 'login' %}">Back to Login</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
+<!-- JS -->
+{% block js %}
+<!-- <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const frame1 = document.getElementById("frame1");
+    const frame2 = document.getElementById("frame2");
+    const sendOtpBtn = document.getElementById("send-otp-btn");
+    const backBtn = document.getElementById("back-btn");
+
+    sendOtpBtn.addEventListener("click", function () {
+      frame1.classList.add("hidden");
+      frame2.classList.remove("hidden");
+    });
+
+    backBtn.addEventListener("click", function () {
+      frame2.classList.add("hidden");
+      frame1.classList.remove("hidden");
+    });
+  });
+</script> -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const backBtn = document.getElementById("back-btn");
+
+    backBtn.addEventListener("click", function () {
+      document.getElementById("frame2").classList.add("hidden");
+      document.getElementById("frame1").classList.remove("hidden");
+    });
+  });
+</script>
+{% endblock %}

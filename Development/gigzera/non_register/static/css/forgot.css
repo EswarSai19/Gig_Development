@@ -1,0 +1,179 @@
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+} */
+
+/* Forgot Password box styles */
+.forgot-password-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px auto;
+}
+
+.forgot-password-box {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.forgot-password-box h1 {
+    font-size: 1.8rem;
+    color: #0056ff;
+    margin-bottom: 0.5rem;
+}
+
+.forgot-password-box p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.forgot-password-box input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.forgot-password-box input:focus {
+    border-color: #0056ff;
+    outline: none;
+}
+
+.forgot-password-box button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: #0056ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.forgot-password-box button:hover {
+    background-color: #0044cc;
+}
+
+.forgot-password-box .links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.forgot-password-box .links a {
+    color: #0056ff;
+    text-decoration: none;
+}
+
+.forgot-password-box .links a:hover {
+    text-decoration: underline;
+}
+
+
+/* New styles */
+.forgot-password-container {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
+.forgot-password-box {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.hidden {
+    display: none;
+}
+
+#back-btn {
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.header-back-btn {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.header-back-btn i {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 2.5rem;
+    color: #0056ff;
+    margin-top: 10px;
+}
+
+.header-back-btn h1 {
+    font-size: 1.8rem;
+    color: #0056ff;
+    margin: auto;
+    text-align: center;
+}
+
+/* radio role */
+.user-role {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-role div {
+    font-size: 1rem;
+    color: #666;
+    /* margin-right: 20px; */
+}
+
+.role-options {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 20px;
+}
+
+.role-options label {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.role-options input {
+    display: flex;
+    align-items: center;
+    margin: auto;
+}

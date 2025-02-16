@@ -1,0 +1,568 @@
+{% extends 'basic.html' %} {% load static %}
+<!-- title -->
+{% block title %}Profile{% endblock %}
+<!-- css -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/cl_profile.css' %}" />
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+<!-- <link rel="stylesheet" href="{% static 'css/cl_postajob.css' %}" /> -->
+{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="container">
+  <div class="content-grid">
+    <!-- Profile Section -->
+    <div id="profile-section" class="profile-section">
+      <div class="profile-card">
+        <div class="edit-button">
+          <button onclick="toggleEditForm()">
+            <i class="fa-regular fa-edit"></i>
+          </button>
+        </div>
+        <div class="profile-info">
+          <img
+            src="{{user.profilePic.url}}"
+            alt="Profile"
+            class="profile-image"
+            id="profile-image"
+          />
+          <h1 class="profile-name" id="profile-name">{{user.name}}</h1>
+          <p class="profile-title" id="profile-title">{{user.designation}}</p>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fa-solid fa-envelope"></i>
+              <span id="profile-email">{{user.email}}</span>
+            </div>
+            <div class="contact-item">
+              <i class="fa-solid fa-phone"></i>
+              <span id="profile-phone">{{user.phone}}</span>
+            </div>
+            <div class="contact-item">
+              <i class="fa-solid fa-share-from-square"></i>
+              <a
+                href="{{user.social_media}}"
+                target="_blank"
+                id="profile-linkedin"
+                >{{user.social_media}}</a
+              >
+            </div>
+            <div class="contact-item">
+              <i class="fa-solid fa-building"></i>
+              <span id="profile-company">{{user.company}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form
+        method="POST"
+        action="{% url 'cl_edit_profile' %}"
+        enctype="multipart/form-data"
+        class="edit-form"
+        id="edit-form"
+      >
+        {% csrf_token %}
+        <input type="file" id="edit-image" name="profilePic" accept="image/*" />
+        <input
+          type="text"
+          id="edit-name"
+          name="name"
+          placeholder="Name"
+          value="{{user.name}}"
+        />
+        <input
+          type="text"
+          name="designation"
+          id="edit-title"
+          placeholder="Title"
+          value="{{user.designation}}"
+        />
+        <input
+          type="email"
+          name="email"
+          id="edit-email"
+          placeholder="Email"
+          value="{{user.email}}"
+        />
+        <input
+          type="text"
+          name="phone"
+          id="edit-phone"
+          placeholder="Phone"
+          value="{{user.phone}}"
+        />
+        <input
+          type="url"
+          name="social_media"
+          id="edit-linkedin"
+          value="{{user.social_media}}"
+          placeholder="LinkedIn Profile"
+        />
+        <input
+          type="text"
+          id="edit-company"
+          name="company"
+          value="{{user.company}}"
+          placeholder="Company"
+        />
+        <button type="submit" onclick="saveChanges()">Save Changes</button>
+      </form>
+    </div>
+
+    <!-- Action Section -->
+    <div id="action-section" class="action-section">
+      <div class="action-card">
+        <div class="card-header">
+          <h2>Post a New Job</h2>
+          <i class="fa-solid fa-plus"></i>
+        </div>
+        <p>
+          Create a new job posting to find the perfect talent for your project.
+        </p>
+        <button class="action-button" onclick="openModal()">
+          Create Job Post
+        </button>
+      </div>
+      <div class="action-card">
+        <div class="card-header">
+          <h2>Project Tracking</h2>
+          <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <p>Monitor and manage your ongoing projects efficiently.</p>
+        <!-- Buttons Section -->
+        <div class="button-container">
+          <button class="action-button ongoing-projects">
+            <i class="fas fa-chart-line"></i> View Ongoing Projects
+          </button>
+          <button class="action-button secondary-button view-bids">
+            <i class="fas fa-briefcase"></i> View Bids for New Projects
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal structure -->
+      <div
+        class="fixed inset-0 flex items-center justify-center z-50 hidden overflow-auto"
+        id="exampleModal"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-dialog-centered max-w-lg overflow-y-auto"
+        >
+          <div class="modal-content bg-white rounded-lg shadow-lg p-6">
+            <div class="modal-body max-h-[80vh] overflow-y-auto pr-4">
+              <div class="form-container">
+                <div class="form-header flex justify-between items-center mb-4">
+                  <h1 class="text-3xl font-semibold">Post a Job</h1>
+                  <button
+                    type="button"
+                    class="text-3xl font-bold hover:text-red-600 p-2"
+                    onclick="closeModal()"
+                  >
+                    &times;
+                  </button>
+                </div>
+                <form
+                  class="form-content space-y-4"
+                  action="{% url 'cl_profile' %}"
+                  method="POST"
+                >
+                  {% csrf_token %}
+                  <!-- Form fields here -->
+                  <div>
+                    <label for="project-type" class="block font-semibold"
+                      >Project Type <span class="text-red-500">*</span></label
+                    >
+                    <select
+                      id="project-type"
+                      name="project_type"
+                      class="w-full p-2 border border-gray-300 rounded-md"
+                      required
+                    >
+                      <option value="Gig">Gig (Single Freelancer)</option>
+                      <option value="Project">
+                        Project (Multiple Freelancers)
+                      </option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label for="project-title" class="block font-semibold"
+                      >Project Title <span class="text-red-500">*</span></label
+                    >
+                    <input
+                      type="text"
+                      name="title"
+                      id="project-title"
+                      placeholder="Ex: WebApp Development"
+                      class="w-full p-2 border border-gray-300 rounded-md"
+                    />
+                  </div>
+
+                  <div>
+                    <label for="skills-required" class="block font-semibold"
+                      >Skills Required
+                      <span class="text-red-500">*</span></label
+                    >
+                    <div id="skills-container" class="relative">
+                      <input
+                        type="text"
+                        id="skills-required"
+                        placeholder="Add skills"
+                        class="w-full p-2 border border-gray-300 rounded-md"
+                      />
+                      <ul
+                        id="suggestions-list"
+                        class="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md max-h-48 overflow-y-auto hidden"
+                      ></ul>
+                    </div>
+                    <div id="selected-skills" class="mt-2"></div>
+                    <input type="hidden" name="skills_list" id="skills-list" />
+                  </div>
+
+                  <div>
+                    <label for="project-description" class="block font-semibold"
+                      >Project Description
+                      <span class="text-red-500">*</span></label
+                    >
+                    <textarea
+                      id="project-description"
+                      name="description"
+                      rows="4"
+                      placeholder="Describe your project"
+                      class="w-full p-2 border border-gray-300 rounded-md"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div class="flex space-x-4">
+                    <div class="w-1/3">
+                      <label for="currency" class="block font-semibold"
+                        >Currency <span class="text-red-500">*</span></label
+                      >
+                      <select
+                        id="currency"
+                        name="currency"
+                        class="w-full p-2 border border-gray-300 rounded-md"
+                        required
+                      >
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="JPY">JPY</option>
+                        <option value="GBP">GBP</option>
+                        <option value="CNY">CNY</option>
+                        <option value="AUD">AUD</option>
+                        <option value="CAD">CAD</option>
+                        <option value="CHF">CHF</option>
+                        <option value="INR">INR</option>
+                        <option value="NZD">NZD</option>
+                      </select>
+                    </div>
+
+                    <div class="w-2/3">
+                      <label for="budget-range" class="block font-semibold"
+                        >Budget Range <span class="text-red-500">*</span></label
+                      >
+                      <select
+                        id="budget-range"
+                        name="budget"
+                        class="w-full p-2 border border-gray-300 rounded-md"
+                        required
+                      >
+                        <option value="Less than 1,000">Less than 1,000</option>
+                        <option value="1,000 - 5,000">1,000 - 5,000</option>
+                        <option value="5,000 - 10,000">5,000 - 10,000</option>
+                        <option value="10,000 - 20,000">10,000 - 20,000</option>
+                        <option value="20,000 - 50,000">20,000 - 50,000</option>
+                        <option value="50,000 - 2,00,000">
+                          50,000 - 2,00,000
+                        </option>
+                        <option value="2,00,000 - 5,00,000">
+                          2,00,000 - 5,00,000
+                        </option>
+                        <option value="5,00,000 - 10,00,000">
+                          5,00,000 - 10,00,000
+                        </option>
+                        <option value="10,00,000 - 20,00,000">
+                          10,00,000 - 20,00,000
+                        </option>
+                        <option value="More than 20,00,000">
+                          More than 20,00,000
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- New Code -->
+                  <div class="w-1/2">
+                    <label for="start-date"
+                      >Start Date <span class="text-red-500">*</span></label
+                    >
+                    <input
+                      type="date"
+                      id="start-date"
+                      name="start_date"
+                      placeholder="Select start date"
+                      style="
+                        width: 100%;
+                        padding: 10px;
+                        margin-bottom: 15px;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        font-size: 16px;
+                        appearance: none;
+                      "
+                      required
+                    />
+                    <style>
+                      label[for="estimated-months"] {
+                        display: inline-block;
+                        margin-right: 10px;
+                        white-space: nowrap;
+                      }
+                    </style>
+                    <label for="estimated-months"
+                      >Estimated Months to Complete
+                      <span class="text-red-500">*</span></label
+                    >
+                    <select
+                      id="estimated-months"
+                      name="duration"
+                      style="
+                        width: 100%;
+                        padding: 10px;
+                        margin-bottom: 15px;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        font-size: 16px;
+                      "
+                      required
+                    >
+                      <option value="" disabled selected>
+                        Select estimated months
+                      </option>
+                      <option value="Less than 1 Month">
+                        Less than 1 Month
+                      </option>
+                      <option value="1-2 Months">1 - 2 Months</option>
+                      <option value="2-4 Months">2 - 4 Months</option>
+                      <option value="4-8 Months">4 - 8 Months</option>
+                      <option value="8-12 Months">8 - 12 Months</option>
+                      <option value="More than 12 Months">12 Months +</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="deliverables" class="block font-semibold"
+                      >Project Deliverables
+                      <span class="text-red-500">*</span></label
+                    >
+                    <textarea
+                      id="deliverables"
+                      name="deliverables"
+                      rows="4"
+                      placeholder="Add deliverables"
+                      class="w-full p-2 border border-gray-300 rounded-md"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div>
+                    <label for="candidate-details" class="block font-semibold"
+                      >Preferred Candidate Profile
+                      <span class="text-red-500">*</span></label
+                    >
+                    <textarea
+                      id="candidate-details"
+                      name="requirements"
+                      rows="4"
+                      placeholder="Describe ideal candidate"
+                      class="w-full p-2 border border-gray-300 rounded-md"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div>
+                    <label for="challenges" class="block font-semibold"
+                      >Possible Challenges
+                      <span class="text-red-500">*</span></label
+                    >
+                    <textarea
+                      id="challenges"
+                      name="challenges"
+                      rows="4"
+                      placeholder="List potential challenges"
+                      class="w-full p-2 border border-gray-300 rounded-md"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div>
+                    <label for="time-zone" class="block font-semibold"
+                      >Preferred Time Zone
+                      <span class="text-red-500">*</span></label
+                    >
+                    <select
+                      id="time-zone"
+                      class="w-full p-2 border border-gray-300 rounded-md"
+                      name="time_zone"
+                      required
+                    >
+                      <option value="BIT - (UTC−12:00)">
+                        BIT - (UTC−12:00)
+                      </option>
+                      <option value="SST - (UTC−11:00)">
+                        SST - (UTC−11:00)
+                      </option>
+                      <option value="HAST - (UTC−10:00)">
+                        HAST - (UTC−10:00)
+                      </option>
+                      <option value="TAHT - (UTC−10:00)">
+                        TAHT - (UTC−10:00)
+                      </option>
+                      <option value="AKST - (UTC−09:00)">
+                        AKST - (UTC−09:00)
+                      </option>
+                      <option value="PST - (UTC−08:00)">
+                        PST - (UTC−08:00)
+                      </option>
+                      <option value="MST - (UTC−07:00)">
+                        MST - (UTC−07:00)
+                      </option>
+                      <option value="CST - (UTC−06:00)">
+                        CST - (UTC−06:00)
+                      </option>
+                      <option value="ACT - (UTC−05:00)">
+                        ACT - (UTC−05:00)
+                      </option>
+                      <option value="EST - (UTC−05:00)">
+                        EST - (UTC−05:00)
+                      </option>
+                      <option value="AMT - (UTC−04:00)">
+                        AMT - (UTC−04:00)
+                      </option>
+                      <option value="AST - (UTC−04:00)">
+                        AST - (UTC−04:00)
+                      </option>
+                      <option value="GFT - (UTC−03:00)">
+                        GFT - (UTC−03:00)
+                      </option>
+                      <option value="NST - (UTC−03:30)">
+                        NST - (UTC−03:30)
+                      </option>
+                      <option value="BRT - (UTC−03:00)">
+                        BRT - (UTC−03:00)
+                      </option>
+                      <option value="FNT - (UTC−02:00)">
+                        FNT - (UTC−02:00)
+                      </option>
+                      <option value="GMT - (UTC+00:00)">
+                        GMT - (UTC+00:00)
+                      </option>
+                      <option value="CET - (UTC+01:00)">
+                        CET - (UTC+01:00)
+                      </option>
+                      <option value="KALT - (UTC+02:00)">
+                        KALT - (UTC+02:00)
+                      </option>
+                      <option value="MSK - (UTC+03:00)">
+                        MSK - (UTC+03:00)
+                      </option>
+                      <option value="EAT - (UTC+03:00)">
+                        EAT - (UTC+03:00)
+                      </option>
+                      <option value="SAMT - (UTC+04:00)">
+                        SAMT - (UTC+04:00)
+                      </option>
+                      <option value="RET - (UTC+04:00)">
+                        RET - (UTC+04:00)
+                      </option>
+                      <option value="YEKT - (UTC+05:00)">
+                        YEKT - (UTC+05:00)
+                      </option>
+                      <option value="IST - (UTC+05:30)">
+                        IST - (UTC+05:30)
+                      </option>
+                      <option value="OMST - (UTC+06:00)">
+                        OMST - (UTC+06:00)
+                      </option>
+                      <option value="KRAT - (UTC+07:00)">
+                        KRAT - (UTC+07:00)
+                      </option>
+                      <option value="CST - (UTC+08:00)">
+                        CST - (UTC+08:00)
+                      </option>
+                      <option value="AWST - (UTC+08:00)">
+                        AWST - (UTC+08:00)
+                      </option>
+                      <option value="IRKT - (UTC+08:00)">
+                        IRKT - (UTC+08:00)
+                      </option>
+                      <option value="JST - (UTC+09:00)">
+                        JST - (UTC+09:00)
+                      </option>
+                      <option value="ACST - (UTC+09:30)">
+                        ACST - (UTC+09:30)
+                      </option>
+                      <option value="YAKT - (UTC+09:00)">
+                        YAKT - (UTC+09:00)
+                      </option>
+                      <option value="AEST - (UTC+10:00)">
+                        AEST - (UTC+10:00)
+                      </option>
+                      <option value="VLAT - (UTC+10:00)">
+                        VLAT - (UTC+10:00)
+                      </option>
+                      <option value="MAGT - (UTC+11:00)">
+                        MAGT - (UTC+11:00)
+                      </option>
+                      <option value="NCT - (UTC+11:00)">
+                        NCT - (UTC+11:00)
+                      </option>
+                      <option value="PETT - (UTC+12:00)">
+                        PETT - (UTC+12:00)
+                      </option>
+                      <option value="WFT - (UTC+12:00)">
+                        WFT - (UTC+12:00)
+                      </option>
+                    </select>
+                  </div>
+
+                  <button
+                    type="submit"
+                    onclick="submitJobPost()"
+                    class="w-full p-2 bg-blue-600 text-white rounded-md hover:bg-blue-500"
+                  >
+                    Post Job
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+<!-- js -->
+{% block js %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const ongoingProjects = document.getElementsByClassName("ongoing-projects");
+    const viewBids = document.getElementsByClassName("view-bids");
+
+    // Add click event to all buttons with the class "findajob-btn"
+    Array.from(ongoingProjects).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        window.location.href = "{% url 'cl_ongoingProjects' %}";
+      });
+    });
+    Array.from(viewBids).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        window.location.href = "{% url 'cl_viewBids' %}";
+      });
+    });
+  });
+</script>
+<script src="{% static 'js/cl_profile.js' %}"></script>
+{% endblock %}

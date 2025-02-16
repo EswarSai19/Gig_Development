@@ -1,0 +1,211 @@
+{% extends 'ad_base.html' %} {% load static %}
+<!-- title -->
+{% block title %}Dashboard{% endblock %}
+<!-- CSS -->
+{% block css %}
+<!-- <link rel="stylesheet" href="{% static 'css/ad_index.css' %}" /> -->
+<!-- <link rel="stylesheet" href="{% static 'css/tailwind.css' %}" /> -->
+{% endblock %}
+<!-- main content -->
+{% block content %}
+<div class="cntr p-8">
+  <header id="header" class="flex items-center justify-between mb-8">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">Dashboard Overview</h2>
+      <p class="text-gray-600">Welcome back, Admin</p>
+    </div>
+  </header>
+  <div id="stats" class="grid grid-cols-4 gap-6 mb-8">
+    <div
+      class="bg-blue-50 p-6 rounded-xl hover-box cursor-pointer"
+      onclick="window.location.href='./html/Admin Freelancer Profile overview (All).html';"
+    >
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-blue-900">Freelancers</h3>
+        <i class="fa-solid fa-user-tie text-blue-500"></i>
+      </div>
+      <p class="text-3xl font-bold text-blue-900">2,543</p>
+      <p class="text-blue-600 mt-2">+12% from last month</p>
+    </div>
+    <div
+      class="bg-green-50 p-6 rounded-xl hover-box cursor-pointer"
+      onclick="window.location.href='./html/Admin Recruiter Profile Overview (All).html';"
+    >
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-green-900">Clients</h3>
+        <i class="fa-solid fa-building text-green-500"></i>
+      </div>
+      <p class="text-3xl font-bold text-green-900">1,789</p>
+      <p class="text-green-600 mt-2">+8% from last month</p>
+    </div>
+    <div
+      class="bg-gray-100 p-6 rounded-xl hover-box cursor-pointer"
+      onclick="window.location.href='./html/Admin All ongoing project.html';"
+    >
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-gray-900">Ongoing Projects</h3>
+        <i class="fa-solid fa-spinner text-gray-500"></i>
+      </div>
+      <p class="text-3xl font-bold text-gray-900">456</p>
+      <p class="text-gray-600 mt-2">23 new projects this week</p>
+    </div>
+    <div
+      class="bg-purple-50 p-6 rounded-xl hover-box cursor-pointer"
+      onclick="window.location.href='./html/Admin specific(My) ongoing projects.html';"
+    >
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-purple-900">Your Projects</h3>
+        <i class="fa-solid fa-folder text-purple-500"></i>
+      </div>
+      <p class="text-3xl font-bold text-purple-900">89</p>
+      <p class="text-purple-600 mt-2">12 new projects this week</p>
+    </div>
+  </div>
+  <div id="bottom-section" class="grid grid-cols-4 gap-6 mb-8">
+    <div
+      class="bg-white p-6 rounded-xl shadow-sm hover-box cursor-pointer"
+      onclick="window.location.href='./html/Admin User management dashboard.html';"
+    >
+      <div class="flex items-center justify-between">
+        <h3 class="text-sm font-bold text-gray-800">User Management</h3>
+        <i class="fa-solid fa-user-gear text-gray-500 text-xl"></i>
+      </div>
+    </div>
+    <div
+      class="bg-white p-4 rounded-xl shadow-sm hover-box cursor-pointer"
+      data-bs-toggle="modal"
+      data-bs-target="#FinancialModal"
+    >
+      <div class="flex items-center justify-between">
+        <h3 class="text-sm font-bold text-gray-800">Financial Overview</h3>
+        <i class="fa-solid fa-chart-line text-gray-500 text-lg"></i>
+      </div>
+    </div>
+    <div
+      class="bg-white p-4 rounded-xl shadow-sm hover-box cursor-pointer"
+      data-bs-toggle="modal"
+      data-bs-target="#broadcastModal"
+    >
+      <div class="flex items-center justify-between">
+        <h3 class="text-sm font-bold text-gray-800">Broadcast Messages</h3>
+        <i class="fa-solid fa-bullhorn text-gray-500 text-lg"></i>
+      </div>
+    </div>
+    <div
+      class="bg-white p-4 rounded-xl shadow-sm hover-box cursor-pointer"
+      data-bs-toggle="modal"
+      data-bs-target="#reportsDownloadModal"
+    >
+      <div class="flex items-center justify-between">
+        <h3 class="text-sm font-bold text-gray-800">Reports</h3>
+        <i class="fa-solid fa-file-lines text-gray-500 text-lg"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 gap-6">
+    <div
+      id="quotes-carousel"
+      class="bg-white rounded-xl shadow-sm p-6 hover-box"
+    >
+      <h3 class="text-lg font-bold text-gray-800 mb-4">
+        Latest Project Quotes
+      </h3>
+      <div class="overflow-hidden">
+        <div class="space-y-4">
+          <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-500">
+            <div class="flex justify-between items-start">
+              <div>
+                <h4 class="font-semibold text-gray-900">
+                  Website Redesign Project
+                </h4>
+                <p class="text-sm text-gray-600">
+                  Opportunity ID: #OP-2025-001
+                </p>
+              </div>
+              <span
+                class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                >New Quote</span
+              >
+            </div>
+            <div class="mt-3 flex items-center space-x-3">
+              <img
+                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg"
+                class="w-8 h-8 rounded-full"
+              />
+              <div>
+                <p class="text-sm font-medium text-gray-900">Alex Johnson</p>
+                <p class="text-xs text-gray-600">User ID: #USR-89721</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
+            <div class="flex justify-between items-start">
+              <div>
+                <h4 class="font-semibold text-gray-900">
+                  Mobile App Development
+                </h4>
+                <p class="text-sm text-gray-600">
+                  Opportunity ID: #OP-2025-002
+                </p>
+              </div>
+              <span
+                class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm"
+                >Active</span
+              >
+            </div>
+            <div class="mt-3 flex items-center space-x-3">
+              <img
+                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-7.jpg"
+                class="w-8 h-8 rounded-full"
+              />
+              <div>
+                <p class="text-sm font-medium text-gray-900">Sarah Miller</p>
+                <p class="text-xs text-gray-600">User ID: #USR-89722</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="chat-section" class="bg-white rounded-xl shadow-sm p-6">
+      <h3 class="text-lg font-bold text-gray-800 mb-4">Chat</h3>
+      <div class="h-[400px] flex flex-col">
+        <div id="chat-messages" class="flex-1 overflow-y-auto mb-4 space-y-4">
+          <div class="flex items-start space-x-3">
+            <img
+              src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg"
+              class="w-8 h-8 rounded-full"
+            />
+            <div class="bg-gray-100 rounded-lg p-3">
+              <p class="text-sm text-gray-800">
+                Hello! How can I help you today?
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="border-t pt-4">
+          <div class="flex space-x-2">
+            <input
+              id="chat-input"
+              type="text"
+              placeholder="Type your message..."
+              class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+            />
+            <button
+              id="chat-send"
+              class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+            >
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+<!-- JS -->
+{% block js %}
+<script src="{% static 'js/ad_index.js' %}"></script>
+{% endblock %}

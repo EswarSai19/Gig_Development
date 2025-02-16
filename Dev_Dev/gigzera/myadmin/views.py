@@ -14,6 +14,14 @@ from datetime import datetime
 
 # Create your views here.
 
+def get_initials(name):
+    # Split the name into parts
+    name_parts = name.strip().split()
+    # Extract the first letter from each part and capitalize it
+    initials = ''.join(part[0].upper() for part in name_parts)
+    return initials
+
+
 currency_symbols = {
     "USD": "$", "EUR": "€", "JPY": "¥", "GBP": "£", "CNY": "¥", 
     "AUD": "A$", "CAD": "C$", "CHF": "CHF", "INR": "₹", "NZD": "NZ$"
@@ -178,7 +186,29 @@ def bidRejected(request):
     return render(request, 'myadmin/latestProjectQuotes.html', context)
 
 def profileView(request):
-    return render(request, 'myadmin/profileView.html')
+    user_id = request.GET.get('userId')
+    bid_id = request.GET.get('bidId')
+    opportunity_id = request.GET.get('opportunityId')
+    print("Coming",user_id, bid_id, opportunity_id)
+    user = Freelancer.objects.filter(userId=user_id).first()
+    user.initials = get_initials(user.name)
+    employment_history = EmploymentHistory.objects.filter(freelancer_id=user_id).order_by('-start_date')
+    certificates = Certificate.objects.filter(freelancer_id=user_id).order_by('-issue_date')
+    skills = Skill.objects.filter(freelancer_id=user_id).order_by('-updated_at')
+
+    context = {
+        'user': user,
+        'employment_history': employment_history,  # Corrected the assignment
+        'certificates': certificates,
+        'skills':skills,
+        'bid_id':bid_id,
+        'opportunity_id':opportunity_id,
+        'user_id':user_id,
+    }
+    print("User id is", user_id )
+    print("skills", skills )
+    print("certificates", certificates )
+    return render(request, 'myadmin/profileView.html', context)
 
 def jobPageAdv(request):
     return render(request, 'myadmin/jobPageAdv.html')

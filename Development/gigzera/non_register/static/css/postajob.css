@@ -1,0 +1,131 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Container Layout */
+.cntr {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* Form Section */
+.form-section {
+    padding: 30px;
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.form-section h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.form-section form label {
+    font-size: 14px;
+    color: #333;
+    /* Darken the field labels */
+    font-weight: bold;
+    /* Make the field names bold */
+    text-align: left;
+    width: 100%;
+}
+
+.form-section form label span {
+    color: red;
+    /* Red asterisk for mandatory fields */
+    margin-left: 5px;
+}
+
+.form-section form input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Darken the placeholder text */
+.form-section form input::placeholder {
+    color: #555;
+    /* Dark placeholder color */
+}
+
+.form-section form input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.form-section form button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-section form button:hover {
+    background-color: #0056b3;
+}
+
+.send_otp_btn,
+.validate_otp_btn {
+    width: 40%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #004080;
+}
+
+.send_otp_btn:hover,
+.validate_otp_btn:hover {
+    background-color: #0059b3;
+}
+
+/* Image Section */
+.image-section {
+    flex: 1;
+    background-image: url("https://cdn.yellowmessenger.com/Ky4SWESrB89e1733983566531.jpeg");
+    /* Update with the correct image URL */
+    background-size: cover;
+    background-position: center;
+    min-height: 100%;
+    /* Ensure equal height with form */
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+}

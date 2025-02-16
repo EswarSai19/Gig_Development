@@ -1,0 +1,112 @@
+{% extends 'base.html' %} {% load static %}
+<!-- title -->
+{% block title %}Sign Up{% endblock %}
+<!-- css -->
+{% block css %}
+<!-- <link rel="stylesheet" href="{% static 'css/signup.css' %}" /> -->
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %}
+<!-- main -->
+{% block content %}
+<main id="signup-section" class="flex-grow container mx-auto px-4 py-12">
+  <div class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">Join Gigzera for FREE</h1>
+    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+      Choose your path to success
+    </p>
+  </div>
+  <div class="w-[100%] grid grid-cols-2 gap-6 justify-center align-center">
+    <div
+      id="role-client"
+      class="bg-green-100 p-8 rounded-2xl shadow-xl transform hover:scale-105 transition duration-300 mb-6"
+    >
+      <div class="text-gray-800 mb-8">
+        <i class="fa-solid fa-building text-5xl mb-2 text-green-600"></i>
+        <h2 class="text-3xl font-bold mb-4">Client</h2>
+        <p class="text-gray-700 text-lg">Join as a business and:</p>
+        <ul class="mt-4 space-y-2">
+          <li class="flex items-center">
+            <i class="fa-solid fa-check mr-2 text-green-600"></i>Access top
+            global talent
+          </li>
+          <li class="flex items-center">
+            <i class="fa-solid fa-check mr-2 text-green-600"></i>Post unlimited
+            projects
+          </li>
+          <li class="flex items-center">
+            <i class="fa-solid fa-check mr-2 text-green-600"></i>Get quality
+            deliverables
+          </li>
+          <li class="flex items-center">
+            <i class="fa-solid fa-check mr-2 text-green-600"></i>Manage work
+            efficiently
+          </li>
+        </ul>
+      </div>
+      <button
+        class="postajob-btn w-full bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-700 transition duration-300 shadow-lg"
+      >
+        Sign Up as Client
+      </button>
+    </div>
+    <div
+      id="role-gigz"
+      class="bg-blue-100 p-8 rounded-2xl shadow-xl transform hover:scale-105 transition duration-300 mb-6"
+    >
+      <div class="text-gray-800 mb-8">
+        <i class="fa-solid fa-user-tie text-5xl mb-2 text-blue-600"></i>
+        <h2 class="text-3xl font-bold mb-4">Freelancer</h2>
+        <p class="text-gray-700 text-lg">Join as a skilled professional and:</p>
+        <ul class="mt-4 space-y-2">
+          <li class="flex items-center">
+            <i class="fa-solid fa-check mr-2 text-blue-600"></i>Showcase your
+            expertise
+          </li>
+          <li class="flex items-center">
+            <i class="fa-solid fa-check mr-2 text-blue-600"></i>Set your own
+            schedule
+          </li>
+          <li class="flex items-center">
+            <i class="fa-solid fa-check mr-2 text-blue-600"></i>Work with global
+            clients
+          </li>
+          <li class="flex items-center">
+            <i class="fa-solid fa-check mr-2 text-blue-600"></i>Earn competitive
+            rates
+          </li>
+        </ul>
+      </div>
+
+      <button
+        class="findajob-btn w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition duration-300 shadow-lg"
+      >
+        Sign Up as Freelancer
+      </button>
+    </div>
+  </div>
+</main>
+{% endblock %}
+<!-- js -->
+
+{% block js %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const postJobBtns = document.getElementsByClassName("postajob-btn");
+    const findJobBtns = document.getElementsByClassName("findajob-btn");
+
+    // Add click event to all buttons with the class "postajob-btn"
+    Array.from(postJobBtns).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        window.location.href = "{% url 'postajob' %}";
+      });
+    });
+
+    // Add click event to all buttons with the class "findajob-btn"
+    Array.from(findJobBtns).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        window.location.href = "{% url 'findajob' %}";
+      });
+    });
+  });
+</script>
+{% endblock %}
