@@ -12,21 +12,19 @@
 <div class="ctnr">
   <!-- Sidebar -->
   <div class="sidebar">
-    <h2>Website Redesign Project</h2>
-    <p><strong>OPP ID:</strong> #234567</p>
+    <h2>{{job.title}}</h2>
+    <p><strong>OPP ID:</strong> {{job.opportunityId}}</p>
     <p><strong>Project Description:</strong></p>
-    <p>
-      Complete redesign of e-commerce website including UI/UX improvements and
-      responsive design implementation.
-    </p>
+    <p style="line-height: normal">{{job.description}}</p>
     <p><strong>Deliverables:</strong></p>
+    {% for job_del in job.deliverables_list %}
     <ul>
-      <li>Wireframes</li>
-      <li>UI Design</li>
-      <li>Responsive Layout</li>
-      <li>Design System</li>
+      <li>{{job_del}}</li>
+      <!-- <li>Backend Integration</li>
+          <li>Payment Gateway</li> -->
     </ul>
-    <p><strong>Total Cost:</strong> $12,000</p>
+    {% endfor %}
+    <p><strong>Total Cost:</strong> {{bid.revised_budget}}</p>
     <p><strong>Advance Payment:</strong> $3,600</p>
     <p><strong>Milestone Payments:</strong></p>
     <ul>
@@ -56,7 +54,7 @@
         Change Request
       </button>
     </div>
-    <p>Start: Jan 15, 2025</p>
+    <p>Start: {{job.start_date}}</p>
     <p>End: Mar 15, 2025</p>
   </div>
   <!-- Main Content -->

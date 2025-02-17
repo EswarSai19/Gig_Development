@@ -1,277 +1,195 @@
-{% extends 'basic.html' %} {% load static %}
-<!-- title -->
-{% block title %}Ongoing Projects{% endblock %}
-<!-- css -->
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/cl_ongoingProjects.css' %}" />
-<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
-{% endblock %}
-<!-- content -->
-{% block content %}
-<!--  -->
-<!-- Main Content -->
-<main>
-  <div class="container">
-    <div class="title-section">
-      <h1>Ongoing Projects</h1>
-      <div class="flex">
-        <div class="search-bar">
-          <i class="fas fa-search"></i>
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Search projects..."
-          />
-        </div>
-        <!-- Updated button to trigger modal -->
-        <button class="btn btn-primary" onclick="openModal()">
-          <i class="fas fa-plus"></i> New Project
-        </button>
-        <button
-          class="btn btn-outline"
-          style="margin-left: 10px"
-          onclick="openFilterDialog()"
+<div class="ctnr">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>{{job.title}}</h2>
+    <p><strong>OPP ID:</strong> {{job.opportunityId}}</p>
+    <p><strong>Project Description:</strong></p>
+    <p style="line-height: normal">{{job.description}}</p>
+    <p><strong>Deliverables:</strong></p>
+    {% for job_del in job.deliverables_list %}
+    <ul>
+      <li>{{job_del}}</li>
+      <!-- <li>Backend Integration</li>
+          <li>Payment Gateway</li> -->
+    </ul>
+    {% endfor %}
+    <p><strong>Total Cost:</strong> {{bid.revised_budget}}</p>
+    <p><strong>Advance Payment:</strong> $3,600</p>
+    <p><strong>Milestone Payments:</strong></p>
+    <ul>
+      <li>
+        Feb 15, 2025: $4,200
+        <span class="status pending">
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Pending</span
         >
-          <i class="fas fa-filter"></i> Filter
-        </button>
+      </li>
+      <li>
+        Mar 15, 2025: $4,200
+        <span class="status pending">
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Pending</span
+        >
+      </li>
+    </ul>
+
+    <div
+      style="display: flex; align-items: center; justify-content: space-between"
+    >
+      <strong>Timeline:</strong>
+      <button
+        class="change-request-button"
+        onclick="openModal()"
+        style="margin-left: auto"
+      >
+        Change Request
+      </button>
+    </div>
+    <p>Start: {{job.start_date}}</p>
+    <p>End: Mar 15, 2025</p>
+  </div>
+  <!-- Main Content -->
+  <div class="project-header">
+    <h2>Project Progress</h2>
+    <div class="progress-header-container">
+      <!-- Row for Meta and Percentage -->
+      <div class="progress-header-container-row">
+        <!-- Left Section: Metadata -->
+        <div class="progress-meta">
+          Last updated by <span id="lastUpdatedBy">Current User</span>
+          <b>• <span id="lastUpdatedTime">just now</span></b>
+        </div>
+
+        <!-- Right Section: Percentage and Edit Icon -->
+        <div class="progress-percentage">
+          <strong id="progressPercentage">79%</strong>
+          <button
+            id="editProgressIcon"
+            class="edit-btn"
+            onclick="toggleProgressEdit()"
+          >
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Progress Bar in a Separate Row -->
+      <div class="progress-bar-container">
+        <div class="progress-bar">
+          <div id="progressFill" class="progress" style="width: 79%"></div>
+        </div>
       </div>
     </div>
+    <div id="progressEditForm" class="progress-edit hidden">
+      <input type="number" id="newProgress" min="0" max="100" value="79" />
+      <button onclick="updateProgress()">Update</button>
+    </div>
 
-    <!-- Project Cards Grid -->
-    <div class="grid" id="projectGrid">
-      <!-- E-Commerce Platform Card -->
-      {% for ogp in ongProjects %}
-      <div class="card">
-        <div
-          class="flex"
-          style="justify-content: space-between; align-items: center"
-        >
-          <h2 class="project-name">{{ogp.title}}</h2>
-          <span class="badge badge-active">{{ogp.status}}</span>
-        </div>
-        <p class="project-id">ID: {{ogp.opportunityId}}</p>
-        <p>{{ogp.short_description}}</p>
-        <div class="progress-bar">
-          <div class="progress-percentage">{{ogp.progress}}%</div>
-          <div class="progress-bar-inner w-{{ogp.progress}}%"></div>
-        </div>
-        <small>Assigned to: {{ogp.name}}</small>
-        <div class="flex" style="justify-content: space-between">
-          <a
-            href="javascript:void(0);"
-            class="read-more"
-            onclick="toggleReadMore(this)"
-            >Read More...</a
-          >
-          <a
-            href="{% url 'cl_singleOgProject' %}?ongpId={{ogp.ongProjectId}}"
-            class="btn btn-outline"
-            style="text-decoration: none"
-            >View Status</a
-          >
-        </div>
-        <div class="extra-info">{{ogp.full_description}}</div>
-      </div>
-      {% endfor %}
-
-      <!-- Mobile App Redesign Card -->
-      <!-- <div class="card">
-        <div
-          class="flex"
-          style="justify-content: space-between; align-items: center"
-        >
-          <h2 class="project-name">Mobile App Redesign</h2>
-          <span class="badge badge-planning">Planning</span>
-        </div>
-        <p class="project-id">ID: OPP-2025-002</p>
-        <p>
-          Redesigning the mobile app for improved user engagement and
-          performance optimization.
-        </p>
-        <div class="progress-bar">
-          <div class="progress-percentage">30%</div>
-          <div class="progress-bar-inner" style="width: 30%"></div>
-        </div>
-        <small>Assigned to: John Doe</small>
-        <div class="flex" style="justify-content: space-between">
-          <a
-            href="javascript:void(0);"
-            class="read-more"
-            onclick="toggleReadMore(this)"
-            >Read More...</a
-          >
-          <a
-            href="{% url 'cl_singleOgProject' %}"
-            class="btn btn-outline"
-            style="text-decoration: none"
-            >View Status</a
-          >
-        </div>
-        <div class="extra-info">
-          Focus on enhancing mobile app features including speed, layout, and
-          functionality to increase user retention.
+    <!-- Tasks -->
+    <div class="tasks-box">
+      <div class="tasks-header">
+        <h3>Tasks</h3>
+        <div>
+          <button class="add-task-btn" id="addTaskBtn">+ Add Task</button>
+          <button class="delete-selected-btn" id="deleteSelectedBtn">
+            Delete Selected
+          </button>
         </div>
       </div>
-
-      <div class="card">
-        <div
-          class="flex"
-          style="justify-content: space-between; align-items: center"
-        >
-          <h2 class="project-name">Cloud Infrastructure Migration</h2>
-          <span class="badge badge-progress">In Progress</span>
+      <div class="task-list">
+        <div class="task">
+          <div class="task-row">
+            <input type="checkbox" class="task-checkbox" />
+            <label class="task-title">Create wireframes</label>
+            <i class="fa-solid fa-pen-to-square edit-icon"></i>
+            <select>
+              <option>In Progress</option>
+              <option>Completed</option>
+              <option>Pending</option>
+            </select>
+          </div>
+          <div class="task-comment">
+            <textarea
+              class="comment-box"
+              placeholder="Add a comment..."
+              disabled
+            ></textarea>
+          </div>
         </div>
-        <p class="project-id">ID: OPP-2025-003</p>
-        <p>
-          Migrating legacy infrastructure to cloud for scalability and enhanced
-          security.
-        </p>
-        <div class="progress-bar">
-          <div class="progress-percentage">50%</div>
-          <div class="progress-bar-inner" style="width: 50%"></div>
-        </div>
-        <small>Assigned to: Emily Clark</small>
-        <div class="flex" style="justify-content: space-between">
-          <a
-            href="javascript:void(0);"
-            class="read-more"
-            onclick="toggleReadMore(this)"
-            >Read More...</a
-          >
-          <a
-            href="{% url 'cl_singleOgProject' %}"
-            class="btn btn-outline"
-            style="text-decoration: none"
-            >View Status</a
-          >
-        </div>
-        <div class="extra-info">
-          The migration is focused on ensuring zero downtime and securing
-          sensitive data during the process.
-        </div>
-      </div>
-
-      <div class="card">
-        <div
-          class="flex"
-          style="justify-content: space-between; align-items: center"
-        >
-          <h2 class="project-name">API Integration for Payment Gateway</h2>
-          <span class="badge badge-review">Review</span>
-        </div>
-        <p class="project-id">ID: OPP-2025-004</p>
-        <p>
-          Integrating third-party payment gateway APIs into the application to
-          facilitate seamless transactions.
-        </p>
-        <div class="progress-bar">
-          <div class="progress-percentage">85%</div>
-          <div class="progress-bar-inner" style="width: 85%"></div>
-        </div>
-        <small>Assigned to: David Smith</small>
-        <div class="flex" style="justify-content: space-between">
-          <a
-            href="javascript:void(0);"
-            class="read-more"
-            onclick="toggleReadMore(this)"
-            >Read More...</a
-          >
-          <a
-            href="{% url 'cl_singleOgProject' %}"
-            class="btn btn-outline"
-            style="text-decoration: none"
-            >View Status</a
-          >
-        </div>
-        <div class="extra-info">
-          The payment gateway integration focuses on enhancing security and
-          ensuring a smooth user experience.
+        <div class="task">
+          <div class="task-row">
+            <input type="checkbox" class="task-checkbox" />
+            <label class="task-title">Design system setup</label>
+            <i class="fa-solid fa-pen-to-square edit-icon"></i>
+            <select>
+              <option>Completed</option>
+              <option>In Progress</option>
+              <option>Pending</option>
+            </select>
+          </div>
+          <div class="task-comment">
+            <textarea
+              class="comment-box"
+              placeholder="Add a comment..."
+              disabled
+            ></textarea>
+          </div>
         </div>
       </div>
-
-      <div class="card">
-        <div
-          class="flex"
-          style="justify-content: space-between; align-items: center"
-        >
-          <h2 class="project-name">Customer Support Chatbot</h2>
-          <span class="badge badge-onhold">On Hold</span>
-        </div>
-        <p class="project-id">ID: OPP-2025-005</p>
-        <p>
-          Developing an AI-powered chatbot to handle common customer support
-          queries and reduce response time.
-        </p>
-        <div class="progress-bar">
-          <div class="progress-percentage">10%</div>
-          <div class="progress-bar-inner" style="width: 10%"></div>
-        </div>
-        <small>Assigned to: Michael Brown</small>
-        <div class="flex" style="justify-content: space-between">
-          <a
-            href="javascript:void(0);"
-            class="read-more"
-            onclick="toggleReadMore(this)"
-            >Read More...</a
-          >
-          <a
-            href="{% url 'cl_singleOgProject' %}"
-            class="btn btn-outline"
-            style="text-decoration: none"
-            >View Status</a
-          >
-        </div>
-        <div class="extra-info">
-          The chatbot is in its early stages, focusing on gathering customer
-          feedback and optimizing response flow.
-        </div>
-      </div>
-
-      <div class="card">
-        <div
-          class="flex"
-          style="justify-content: space-between; align-items: center"
-        >
-          <h2 class="project-name">Data Analytics Dashboard</h2>
-          <span class="badge badge-planning">Planning</span>
-        </div>
-        <p class="project-id">ID: OPP-2025-006</p>
-        <p>
-          Building a dashboard for analyzing and visualizing customer data to
-          provide insights and improve decision-making.
-        </p>
-        <div class="progress-bar">
-          <div class="progress-percentage">40%</div>
-          <div class="progress-bar-inner" style="width: 40%"></div>
-        </div>
-        <small>Assigned to: Lisa White</small>
-        <div class="flex" style="justify-content: space-between">
-          <a
-            href="javascript:void(0);"
-            class="read-more"
-            onclick="toggleReadMore(this)"
-            >Read More...</a
-          >
-          <a
-            href="{% url 'cl_singleOgProject' %}"
-            class="btn btn-outline"
-            style="text-decoration: none"
-            >View Status</a
-          >
-        </div>
-        <div class="extra-info">
-          The dashboard will aggregate and visualize key metrics for the
-          executive team to make data-driven decisions.
-        </div>
-      </div> -->
-
-      <!-- Project Cards End -->
     </div>
   </div>
-</main>
 
-<!-- Job Post Modal -->
-<!-- Modal structure -->
+  <!-- message section  -->
+  <div class="messages">
+    <!-- Messages content remains unchanged -->
+    <div class="messages-header">
+      <h2>Messages</h2>
+      <span class="online-status">Online</span>
+    </div>
+    <div class="messages-container" id="messagesContainer">
+      <div class="message received">
+        <img
+          src="https://cdn.yellowmessenger.com/cMvNTJMdqlfz1734610513305.jpeg"
+          alt="User Avatar"
+          class="user-avatar"
+        />
+        <div class="message-content">
+          <p>Can you share the latest wireframes?</p>
+          <span class="message-time">10:30 AM</span>
+        </div>
+      </div>
+      <div class="message sent">
+        <div class="message-content">
+          <p>I'll share them by end of day.</p>
+          <span class="message-time">10:32 AM</span>
+        </div>
+        <img
+          src="https://cdn.yellowmessenger.com/cMvNTJMdqlfz1734610513305.jpeg"
+          alt="User Avatar"
+          class="user-avatar"
+        />
+      </div>
+    </div>
+    <div class="message-input">
+      <input type="text" placeholder="Type your message..." id="messageInput" />
+      <button onclick="sendMessage()">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M22 2L11 13"></path>
+          <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Job modal for post -->
 <div
   class="fixed inset-0 flex items-center justify-center z-50 hidden overflow-auto"
   id="exampleModal"
@@ -580,46 +498,3 @@
     </div>
   </div>
 </div>
-
-<!-- Filter Dialog -->
-<div
-  class="filter-overlay"
-  id="filterOverlay"
-  onclick="closeFilterDialog()"
-></div>
-<div class="filter-dialog" id="filterDialog">
-  <div class="filter-header">Sort & Filter</div>
-  <div class="filter-option">
-    <label for="statusFilter">Filter by Status</label>
-    <select id="statusFilter" onchange="applyFilter()">
-      <option value="all">All</option>
-      <option value="Active">Active</option>
-      <option value="In Progress">In Progress</option>
-      <option value="Planning">Planning</option>
-      <option value="Review">Review</option>
-      <option value="On Hold">On Hold</option>
-    </select>
-  </div>
-  <div class="filter-option">
-    <label for="sortProjects">Sort Projects</label>
-    <select id="sortProjects" onchange="sortProjects()">
-      <option value="A-Z">Sort A to Z</option>
-      <option value="Z-A">Sort Z to A</option>
-    </select>
-  </div>
-  <button onclick="closeFilterDialog()">OK</button>
-</div>
-<!-- Footer -->
-<div class="page_footer">
-  <button>&lt;</button>
-  <button>1</button>
-  <button>2</button>
-  <button>3</button>
-  <button>&gt;</button>
-</div>
-{% endblock %}
-<!-- js -->
-{% block js %}
-
-<script src="{% static 'js/cl_ongoingProjects.js' %}"></script>
-{% endblock %}

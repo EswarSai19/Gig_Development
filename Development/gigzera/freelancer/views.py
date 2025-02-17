@@ -7,7 +7,7 @@ import json
 import os
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-from db_schemas.models import Contact, ProjectQuote, Freelancer, EmploymentHistory, Certificate, Skill, ProjectsDisplay, ProjectStatusDetails  # Create a model for storing quotes
+from db_schemas.models import Contact, ProjectQuote, Freelancer, OngoingProjects, EmploymentHistory, Certificate, Skill, ProjectsDisplay, ProjectStatusDetails  # Create a model for storing quotes
 from django.core.exceptions import ValidationError
 from datetime import datetime
 # from django.contrib.auth.decorators import login_required
@@ -636,22 +636,23 @@ def projectTracking(request):
     user = Freelancer.objects.get(userId=user_id)
     user.initials = get_initials(user.name)
     print("Userid", user_id)
-    # Step 1: Use filter() to get multiple project records
-    projects = ProjectStatusDetails.objects.filter(freelancer_id=user_id)
-    status_dict = {project.opportunity_id: project.status for project in projects}
-    opportunity_ids = projects.values_list('opportunity_id', flat=True)
+    ongProjects = OngoingProjects.objects.filter(freelancer_id=user_id)
+    print("OG", ongProjects)
+    for ogp in ongProjects:
+        print(ogp.opportunityId,"OPP id")
+        fl_user = Freelancer.objects.filter(userId=ogp.freelancer_id).first()
+        job = ProjectsDisplay.objects.filter(opportunityId=ogp.opportunityId).first()
+        if job:
+            full_description = job.description or ""
+            split_desc = full_description.split(".", 1)  # Split at first full stop
 
-    print(opportunity_ids, "IDs")
-    
-    filtered_jobs = ProjectsDisplay.objects.filter(opportunityId__in=opportunity_ids)
+            ogp.short_description = split_desc[0] + "." if len(split_desc) > 1 else full_description
+            ogp.full_description = split_desc[1] if len(split_desc) > 1 else ""
 
-    context = {
-        'user': user,
-        'projects': projects,
-        'filtered_jobs': filtered_jobs,
-        'status_dict': status_dict  # Use this in your template
-    }
-    print("Jobs", filtered_jobs)
+        ogp.title = job.title if job else ""
+        ogp.name = fl_user.name if fl_user else ""
+
+    context={'user':user, 'ongProjects':ongProjects}
     return render(request, 'freelancer/projectTracking.html', context)
 
 def singleProjectTracking(request):
@@ -660,13 +661,18 @@ def singleProjectTracking(request):
         return redirect('login')  # Redirect to login if session is missing
     user = Freelancer.objects.get(userId=user_id)
     user.initials = get_initials(user.name)
-    opportunity_id = request.GET.get('opportunityId')
     
-    # Fetch the job based on opportunity_id
-    job = ProjectsDisplay.objects.get(opportunityId=opportunity_id)
+    ongp_id = request.GET.get('ongpId')
+    print("here is the id", ongp_id)
+    singleOgp = OngoingProjects.objects.filter(ongProjectId=ongp_id).first()
+    opportunity_id = singleOgp.opportunityId
+    bid = ProjectQuote.objects.filter(projectQuoteId=singleOgp.bidId).first()
+
+    job = ProjectsDisplay.objects.filter(opportunityId=opportunity_id).first()
     job.deliverables_list = [line.strip() for line in job.deliverables.split("\n")]
-    print("I am getting job info:", job.deliverables_list)
-    context = {'user': user, 'job':job}
+    job.cur_symbol = get_currency_symbol(job.currency)
+    context={'user':user, 'job':job, 'bid':bid}
+
     return render(request, 'freelancer/singleProjectTracking.html', context)
 
 # Contact form 

@@ -1,4 +1,4 @@
-{% extends 'myadmin/ad_base2.html' %} {% load static %}
+{% extends 'basic.html' %} {% load static %}
 <!-- title -->
 {% block title %}Latest Project Quotes{% endblock %}
 <!-- CSS -->
@@ -211,7 +211,7 @@
     Array.from(backToBid).forEach((btn) => {
       btn.addEventListener("click", () => {
         window.location.href =
-          "{% url 'ad_latestSinglePQ' %}?opportunityId={{ opportunity_id }}&userId={{ user_id }}&bidId={{ bid_id }}";
+          "{% url 'cl_singleViewBid' %}?opportunityId={{ opportunity_id }}&userId={{ user_id }}&bidId={{ bid_id }}";
       });
     });
   });

@@ -8,6 +8,7 @@ urlpatterns = [
     path('clients/', views.clients, name='ad_clients'),
     path('ongoingProjects/', views.ongoingProjects, name='ad_ongoingProjects'),
     path('yourProjects/', views.yourProjects, name='ad_yourProjects'),
+    path('singleYourProject/', views.singleYourProject, name='ad_singleYourProject'),
     path('userManagement/', views.userManagement, name='ad_userManagement'),
     path('latestProjectQuotes/', views.latestProjectQuotes, name='ad_latestProjectQuotes'),
     path('latestSinglePQ/', views.latestSinglePQ, name='ad_latestSinglePQ'),

@@ -1,0 +1,406 @@
+{% extends 'myadmin/ad_base2.html' %} {% load static %}
+<!-- title -->
+{% block title %}Ongoing Projects{% endblock %}
+<!-- css -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/ad_singleYourProject.css' %}" />
+<link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+{% endblock %}
+<!-- content -->
+{% block content %}
+<!-- Main -->
+<div class="flex w-full min-h-screen gap-x-4 mt-6 px-4">
+  <!-- Left Sidebar -->
+  <div class="left-sidebar">
+    <!-- Combined Project and Tasks Section -->
+    <div class="project-tasks-box">
+      <h3>{{job.title}}</h3>
+      <p><strong>OPP ID:</strong> {{job.opportunityId}}</p>
+      <p><strong>Project Description:</strong></p>
+      <p>{{job.description}}</p>
+      <p><strong>Deliverables:</strong></p>
+      {% for job_del in job.deliverables_list %}
+      <ul>
+        <li>{{job_del}}</li>
+        <!-- <li>Backend Integration</li>
+          <li>Payment Gateway</li> -->
+      </ul>
+      {% endfor %}
+
+      <h3>Tasks</h3>
+
+      <div class="task-box">
+        <div class="task-header">
+          <span class="task-title">Create Wireframes</span>
+          <span class="status in-progress">In Progress</span>
+        </div>
+        <div class="task-comments">
+          <p><strong>Comments (2)</strong></p>
+          <div class="comment">
+            <!-- <img src="user-avatar.png" alt="User Avatar" class="avatar"> -->
+            <p>Initial layouts completed, pending review.</p>
+          </div>
+        </div>
+        <div class="task-input">
+          <button onclick="openChatModal()" class="comment-button">
+            Add Comment
+          </button>
+        </div>
+      </div>
+
+      <div class="task-box">
+        <div class="task-header">
+          <span class="task-title">Design System Setup</span>
+          <span class="status completed">Completed</span>
+        </div>
+        <div class="task-comments">
+          <p><strong>Comments (1)</strong></p>
+          <div class="comment">
+            <!-- <img src="user-avatar.png" alt="User Avatar" class="avatar"> -->
+            <p>Design system documentation complete.</p>
+          </div>
+        </div>
+        <div class="task-input">
+          <button onclick="openChatModal()" class="comment-button">
+            Add Comment
+          </button>
+        </div>
+      </div>
+
+      <div class="task-box">
+        <div class="task-header">
+          <span class="task-title">Responsive Testing</span>
+          <span class="status pending">Pending</span>
+        </div>
+        <div class="task-input">
+          <button onclick="openChatModal()" class="comment-button">
+            Add Comment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    id="chatModal"
+    class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-60 z-50"
+  >
+    <div
+      class="modal-container bg-white p-8 rounded-lg shadow-lg w-[500px] h-[600px] max-w-full flex flex-col justify-between"
+    >
+      <div class="modal-header">
+        <h2 class="text-xl font-semibold mb-4">Add Comments</h2>
+        <!-- <span class="user-status">Online</span> -->
+        <button
+          onclick="closeChatModal()"
+          class="text-gray-500 hover:text-gray-700 text-3xl"
+        >
+          &times;
+        </button>
+      </div>
+
+      <!-- Message Display Area -->
+      <div
+        id="messageArea"
+        class="flex-grow overflow-y-auto mb-4 border p-4 rounded bg-gray-100"
+      >
+        <!-- Messages will be added dynamically here -->
+        <div class="message-box incoming mb-3">
+          <img
+            src="https://cdn.yellowmessenger.com/cMvNTJMdqlfz1734610513305.jpeg"
+            alt="User Avatar"
+            class="avatar-img"
+          />
+          <div class="message-content-box">
+            <p>Can you share the latest wireframes?</p>
+            <span class="time-stamp">10:30 AM</span>
+          </div>
+        </div>
+        <div class="message-box outgoing mb-3">
+          <img
+            src="https://cdn.yellowmessenger.com/cMvNTJMdqlfz1734610513305.jpeg"
+            alt="User Avatar"
+            class="avatar-img"
+          />
+          <div class="message-content-box">
+            <p>I'll share them by end of day.</p>
+            <span class="time-stamp">10:32 AM</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Field for New Message -->
+      <div class="input-section">
+        <input
+          type="text"
+          placeholder="Type your message..."
+          id="newMessageInput"
+          class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          onclick="sendNewMessage()"
+          class="send-message-btn px-5 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M22 2L11 13"></path>
+            <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Project Progress Section -->
+    <div class="project-header">
+      <div class="progress-header-row">
+        <h2 class="progress-title">Project Progress</h2>
+        <div class="progress-details">
+          <div class="progress-meta">
+            Last updated by <span id="lastUpdatedBy">Current User</span>
+            <b>• <span id="lastUpdatedTime">just now</span></b>
+          </div>
+          <div class="progress-percentage">
+            <strong id="progressPercentage">{{bid.progress}}%</strong>
+            <button
+              id="editProgressIcon"
+              class="edit-btn"
+              onclick="toggleProgressEdit()"
+            >
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar">
+          <div id="progressFill" class="progress" style="width: 79%"></div>
+        </div>
+        <div class="status-container">
+          <span class="status-label">Project Status:</span>
+          <select id="projectStatus" class="status-dropdown" disabled>
+            <option value="Bid Ongoing">Bid Ongoing</option>
+            <option value="Planning">Planning</option>
+            <option value="In Progress">In Progress</option>
+            <option value="On Hold">On Hold</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+      </div>
+      <!-- Status Dropdown Added Here -->
+      <div id="progressEditForm" class="progress-edit hidden">
+        <input type="number" id="newProgress" min="0" max="100" value="79" />
+        <button onclick="updateProgress()">Update</button>
+      </div>
+    </div>
+
+    <!-- Timeline Section -->
+    <div class="timeline-box">
+      <div class="timeline">
+        <div class="timeline-header">
+          <h3><strong>Timeline</strong></h3>
+          <button
+            id="editTimelineIcon"
+            class="edit-btn"
+            onclick="toggleTimelineEdit()"
+          >
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+        </div>
+        <div class="edit-table">
+          <input type="date" id="startDate" value="2025-01-15" disabled />
+          <span>to</span>
+          <input type="date" id="endDate" value="2025-03-15" disabled />
+        </div>
+      </div>
+    </div>
+
+    <div class="finance-box">
+      <div class="finance">
+        <!-- Finance Header with Inline Edit Button -->
+        <div class="finance-header">
+          <h3><strong>Finance</strong></h3>
+          <button
+            id="editFinanceIcon"
+            class="edit-btn"
+            onclick="toggleFinanceEdit()"
+          >
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+        </div>
+
+        <!-- Editable Finance Table -->
+        <table class="edit-table" id="financeTable">
+          <tr>
+            <td>Labor Cost</td>
+            <td>
+              <div class="input-wrapper">
+                <span class="dollar-sign">{{job.cur_symbol}}</span>
+                <input
+                  type="number"
+                  id="laborCost"
+                  value="{{bid.budget}}"
+                  disabled
+                />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Consulting Charges</td>
+            <td>
+              <div class="input-wrapper">
+                <span class="dollar-sign">{{job.cur_symbol}}</span>
+                <input
+                  type="number"
+                  id="consultingCharges"
+                  value="{{bid.admin_margin}}"
+                  disabled
+                />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Total Costing</td>
+            <td>
+              <div class="total-costing-box">
+                <strong id="totalCosting">{{bid.revised_budget}}</strong>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Advance Payment</td>
+            <td>
+              <div class="input-wrapper">
+                <span class="dollar-sign">{{job.cur_symbol}}</span>
+                <input
+                  type="number"
+                  id="advancePayment"
+                  value="6000"
+                  disabled
+                />
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Milestone Payments Section -->
+        <div class="milestone-header">
+          <h3><strong>Milestone Payments</strong></h3>
+          <button id="addMilestoneBtn" class="milestone-btn" disabled>
+            Add Milestones
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+
+        <!-- <h4><strong>Milestone Payments</strong></h4> -->
+        <table class="edit-table" id="milestoneTable">
+          <tr>
+            <td><input type="date" disabled /></td>
+            <td>
+              <div class="input-wrapper">
+                <span class="dollar-sign">$</span>
+                <input type="number" placeholder="Amount" disabled />
+              </div>
+            </td>
+            <td>
+              <select disabled>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="date" disabled /></td>
+            <td>
+              <div class="input-wrapper">
+                <span class="dollar-sign">$</span>
+                <input type="number" placeholder="Amount" disabled />
+              </div>
+            </td>
+            <td>
+              <select disabled>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <style>
+    .delete-icon {
+      color: red;
+      font-size: 18px;
+      padding: 5px;
+      margin-left: 10px;
+    }
+    .delete-icon:hover {
+      color: darkred;
+    }
+  </style>
+  <!-- message section  -->
+  <div class="messages">
+    <!-- Messages content remains unchanged -->
+    <div class="messages-header">
+      <h2>Messages</h2>
+      <span class="online-status">Online</span>
+    </div>
+    <div class="messages-container" id="messagesContainer">
+      <div class="message received">
+        <img
+          src="  https://cdn.yellowmessenger.com/cMvNTJMdqlfz1734610513305.jpeg"
+          alt="User Avatar"
+          class="user-avatar"
+        />
+        <div class="message-content">
+          <p>Can you share the latest wireframes?</p>
+          <span class="message-time">10:30 AM</span>
+        </div>
+      </div>
+      <div class="message sent">
+        <img
+          src="  https://cdn.yellowmessenger.com/cMvNTJMdqlfz1734610513305.jpeg"
+          alt="User Avatar"
+          class="user-avatar"
+        />
+        <div class="message-content">
+          <p>I'll share them by end of day.</p>
+          <span class="message-time">10:32 AM</span>
+        </div>
+      </div>
+    </div>
+    <div class="message-input">
+      <input type="text" placeholder="Type your message..." id="messageInput" />
+      <button onclick="sendMessage()">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M22 2L11 13"></path>
+          <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+<!-- js -->
+{% block js %}
+<script src="{% static 'js/ad_singleYourProject.js' %}"></script>
+{% endblock %}

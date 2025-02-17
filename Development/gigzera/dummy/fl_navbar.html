@@ -1,0 +1,125 @@
+{% load static %}
+<header class="header">
+    <div class="logo">
+      <a href="{% url 'fl_index' %}">
+        <img
+        class="w-[130px] h-[50px] cursor-pointer"
+        src="https://d2m054rmna67sd.cloudfront.net/header_logo.png"
+        alt="Gigzera Logo"
+        />
+      </a>
+    </div>
+    <div class="hidden lg:flex relative w-96">
+      <input
+        type="text"
+        placeholder="Search jobs by skills or category..."
+        class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+      />
+      <i
+        class="fa-solid fa-search absolute left-3 top-3 text-gray-400"
+      ></i>
+    </div>
+    <nav class="nav">
+      <a href="{% url 'fl_index' %}">Home</a>
+      <a href="{% url 'fl_jobs' %}">Jobs</a>
+      <a href="{% url 'fl_aboutus' %}">About Us</a>
+      <a id="contactBtn">Contact Us</a>
+      <a href="{% url 'fl_industries' %}">Industries</a>
+      <div class="profile-dropdown">
+        <div class="profile-trigger" id="profile-trigger">
+          <div class="profile-avatar">
+            <span id="profile-initials">{{user.initials}}</span>
+          </div>
+          <i class="fa fa-caret-down"></i>
+        </div>
+        <div class="profile-menu" id="profile-menu">
+          <p id="profile-name-dropdown">{{user.name}}</p>
+          <p id="profile-email-dropdown">{{user.email}}</p>
+          <hr />
+          <a href="{% url 'fl_profile' %}"> Profile</a>
+          <hr />
+          <a href="{% url 'logout' %}" class="logout">Logout</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Popup Overlay -->
+  <div id="popupOverlay"></div>
+
+  <!-- Popup Container (Sidebar) -->
+  <div id="popupPanel" class="popup-container">
+    <div class="popup-header">
+      <h2>Contact Us</h2>
+      <button class="close-button" id="closeBtn">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <form id="help-form" method="post" action="{% url 'fl_contact' %}">
+        {% csrf_token %}
+      <div>
+        <label class="required">Name <span class="text-red-500">*</span></label>
+        <input type="text" class="form-input" placeholder="Enter your name" required/>
+      </div>
+      <div>
+        <label class="required">Phone Number <span class="text-red-500">*</span></label>
+        <input
+          type="number"
+          class="form-input"
+          placeholder="Enter your phone number"
+          required
+        />
+      </div>
+           <div>
+    <label class="required">Email <span class="text-red-500">*</span></label>
+    <input
+      type="email"
+      class="form-input"
+      placeholder="Enter your email address"
+      required
+    />
+  </div>
+      <div>
+        <label class="required">Reason <span class="text-red-500">*</span></label>
+        <select class="form-input" required>
+           <option value="">Select a reason</option>
+          <option value="Suitablejobs">Unable to find suitable jobs</option>
+          <option value="suitablefreelancer">Unable to find suitable freelancers</option>
+          <option value="payments">Issues with payment processing</option>
+          <option value="contractclients">Contract disputes with clients</option>
+          <option value="contractfreelancer">Contract disputes with freelancers</option>
+          <option value="technical">Technical difficulties with the platform</option>
+          <option value="security">Concerns about platform security</option>
+          <option value="account">Account related issues (login, password, etc.)</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div>
+        <label class="required">Description <span class="text-red-500">*</span></label>
+        <textarea
+          rows="4"
+          class="form-input"
+          placeholder="Describe your concern in detail"
+          required
+        ></textarea>
+      </div>
+      <button type="submit" class="send-button">Send Message</button>
+    </form>
+
+    <img
+      class="popup-image"
+      src="https://storage.googleapis.com/uxpilot-auth.appspot.com/e3121a901b-e0d56f6afdbd31c149c1.png"
+      alt="Contact Us Image"
+      width="75%"
+    />
+    <div class="address">
+      <p>
+        006,Sprinkles, RGA Tech Park, Carmelaram, Kodathi, Sarjapur Rd,
+        Bengaluru Karnataka 560035
+      </p>
+    </div>
+  </div>
+
+  {% block js %}
+<script src="{% static 'js/navbar.js' %}"></script>
+{% endblock %}

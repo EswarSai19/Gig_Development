@@ -1,4 +1,7 @@
 /*! tailwindcss v4.0.6 | MIT License | https://tailwindcss.com */
+.collapse {
+  visibility: collapse;
+}
 .visible {
   visibility: visible;
 }
@@ -299,6 +302,9 @@
 .grow {
   flex-grow: 1;
 }
+.border-collapse {
+  border-collapse: collapse;
+}
 .transform {
   transform: var(--tw-rotate-x) var(--tw-rotate-y) var(--tw-rotate-z) var(--tw-skew-x) var(--tw-skew-y);
 }
@@ -361,6 +367,9 @@
 }
 .gap-12 {
   gap: calc(var(--spacing) * 12);
+}
+.gap-x-4 {
+  column-gap: calc(var(--spacing) * 4);
 }
 .space-y-2 {
   :where(& > :not(:last-child)) {
