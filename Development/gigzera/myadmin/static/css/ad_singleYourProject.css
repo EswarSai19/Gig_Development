@@ -1,0 +1,811 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #f4f4f4;
+    /* Slight background color for the body */
+}
+
+/* .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 20px;
+    align-items: stretch;
+    margin-top: 10px;
+
+} */
+
+/* Left Sidebar */
+.left-sidebar {
+    width: 30%;
+    height: 900px;
+    padding: 30px 0px;
+    background-color: #f9fbfc;
+    border-right: 1px solid #e0e0e0;
+    box-sizing: border-box;
+    /* overflow-y: auto; */
+    font-family: Arial, sans-serif;
+    /* margin-top: 20px; */
+}
+
+/* Combined Project and Tasks Section */
+.project-tasks-box {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e4e4e4;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.project-tasks-box h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333333;
+}
+
+.project-tasks-box p {
+    font-size: 14px;
+    margin: 5px 0;
+    line-height: 1.6;
+    color: #555555;
+}
+
+.project-tasks-box ul {
+    list-style: disc;
+    padding-left: 20px;
+    font-size: 14px;
+    color: #555555;
+}
+
+.task-box {
+    background-color: #ffffff;
+    border: 1px solid #e4e4e4;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.task-title {
+    font-weight: bold;
+    font-size: 15px;
+    color: #333333;
+}
+
+.status {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.status.in-progress {
+    background-color: #ffc107;
+}
+
+.status.completed {
+    background-color: #28a745;
+}
+
+.status.pending {
+    background-color: #dc3545;
+}
+
+.task-comments {
+    margin-bottom: 10px;
+}
+
+.task-comments .comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.task-comments .avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.task-input {
+    display: flex;
+    align-items: center;
+}
+
+.task-input input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.task-input button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.task-input button:hover {
+    background-color: #0056b3;
+}
+
+.milestone-btn {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Main Content */
+.main-content {
+    width: 40%;
+    height: 900px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Add spacing between boxes */
+    margin-top: 20px;
+}
+
+/* Project Header Box */
+.project-header {
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Progress Header Row */
+.progress-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+/* Title */
+.progress-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    margin: 0;
+}
+
+/* Progress Details */
+.progress-details {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Progress Metadata */
+.progress-meta {
+    font-size: 14px;
+    color: #6c757d;
+    white-space: nowrap;
+    /* Prevent line breaks */
+}
+
+/* Progress Percentage Section */
+.progress-percentage {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Add spacing between percentage and edit button */
+    font-size: 16px;
+    /* Adjust font size for readability */
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Edit Button */
+.edit-btn {
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.edit-btn i {
+    font-size: 16px;
+}
+
+/* Progress Bar Container */
+.progress-bar-container {
+    width: 100%;
+    margin-top: 10px;
+    /* Space between percentage and progress bar */
+}
+
+/* Progress Bar */
+.progress-bar {
+    background-color: #e9ecef;
+    border-radius: 4px;
+    height: 8px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.progress {
+    background-color: #007bff;
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+/* Progress Edit Form */
+.progress-edit {
+    display: flex;
+    /* Inline display for input and button */
+    gap: 10px;
+    /* Add spacing between the input and button */
+    margin-top: 12px;
+    /* Space from the progress bar */
+}
+
+.progress-edit.hidden {
+    display: none;
+    /* Initially hidden */
+}
+
+/* Input Field in Edit Form */
+.progress-edit input {
+    width: 60px;
+    /* Compact size */
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* Update Button */
+.progress-edit button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Hover Effect */
+.progress-edit button:hover {
+    background-color: #0056b3;
+}
+
+.status-container {
+    margin-top: 10px;
+    /* Add some space below the progress bar */
+    display: flex;
+    align-items: center;
+    /* Align the label and dropdown vertically */
+}
+
+.status-label {
+    margin-right: 10px;
+    /* Add space between the label and dropdown */
+    font-weight: bold;
+    /* Make the label bold */
+}
+
+.status-dropdown {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+/* Timeline Box */
+.timeline-box {
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.timeline h3 {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+.timeline .edit-table {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.timeline .edit-table input[type="date"] {
+    width: 150px;
+    /* Smaller box size */
+    padding: 5px;
+    /* Adjust padding for a compact appearance */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    /* Smaller font size */
+    color: black;
+}
+
+/* Finance Box */
+.finance-box {
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* Finance Header */
+.finance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.finance-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #000;
+}
+
+/* Mile stone header */
+.milestone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0px;
+}
+
+.finance-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #000;
+}
+
+/* Edit Button */
+.edit-btn {
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.edit-btn i {
+    font-size: 16px;
+}
+
+/* Editable Table */
+.edit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.edit-table td {
+    padding: 5px 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Editable Table for Finance Box */
+#financeTable input[type="number"] {
+    width: calc(40% - 24px);
+    padding: 7px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: black;
+    background-color: #f9f9f9;
+}
+
+/* Total Costing Box */
+.total-costing-box {
+    padding: 7px;
+    width: calc(40% - 24px);
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    float: right;
+}
+
+#financeTable input:disabled {
+    background-color: #f9f9f9;
+    color: #aaa;
+}
+
+/* Milestone Payments Table */
+#milestoneTable input[type="number"],
+#milestoneTable input[type="date"],
+#milestoneTable select {
+    width: calc(100% - 24px);
+    /* Maintain default styling for milestones */
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: black;
+    background-color: #f9f9f9;
+}
+
+#milestoneTable input:disabled,
+#milestoneTable select:disabled {
+    background-color: #f9f9f9;
+    color: #aaa;
+}
+
+
+/* Milestone Payments Section */
+.edit-table td:nth-child(2) {
+    text-align: right;
+}
+
+.edit-table input[type="date"],
+.edit-table input[type="number"],
+.edit-table select {
+    margin: 3px 0;
+}
+
+/* Milestone Payments Section */
+.edit-table td:nth-child(2) {
+    text-align: right;
+}
+
+.edit-table input[type="date"],
+.edit-table input[type="number"],
+.edit-table select {
+    margin: 5px 0;
+}
+
+/* Messages Section */
+/* Styles for the messages container */
+.messages {
+    width: 30%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 20px;
+    /* height: 60%; Slightly reduced vertical size */
+}
+
+.messages-header {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.online-status {
+    font-size: 14px;
+    color: #0056b3;
+    border-radius: 4px;
+    background-color: #d1e7ff;
+    padding: 5px 10px;
+}
+
+#messagesContainer {
+    max-height: 280px;
+    /* Reduced height slightly */
+    /* overflow-y: auto; */
+    margin-bottom: 10px;
+    padding-right: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+#messagesContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+#messagesContainer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.message.sent {
+    justify-content: flex-start;
+}
+
+.message img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 10px;
+}
+
+.message-content {
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    padding: 10px;
+    max-width: 250px;
+    font-size: 14px;
+}
+
+.message.sent .message-content {
+    background-color: #d1e7ff;
+}
+
+.message-content p {
+    margin: 0;
+    color: #333;
+}
+
+.message-content .message-time {
+    display: block;
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.message-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.message-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.message-input input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.message-input button {
+    background-color: #007bff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message-input button:hover {
+    background-color: #0056b3;
+}
+
+.message-input svg {
+    fill: currentColor;
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+    /* .container {
+        flex-direction: column;
+    } */
+
+    .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    .messages {
+        width: 100%;
+        margin-top: 20px;
+    }
+}
+
+.left-sidebar {
+    width: 30% !important;
+    min-width: 300px;
+}
+
+.main-content {
+    width: 50% !important;
+}
+
+.messages {
+    width: 20% !important;
+    min-width: 250px;
+}
+
+/* css for modal */
+.modal-header {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-status {
+    font-size: 14px;
+    color: #0056b3;
+    border-radius: 4px;
+    background-color: #d1e7ff;
+    padding: 5px 10px;
+}
+
+#messageArea {
+    max-height: auto;
+    /* Reduced height slightly */
+    /* overflow-y: auto; */
+    margin-bottom: 10px;
+    padding-right: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#messageArea::-webkit-scrollbar {
+    width: 6px;
+}
+
+#messageArea::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.message-box {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.message-box.outgoing {
+    justify-content: flex-start;
+}
+
+.message-box img.avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 10px;
+}
+
+.message-content-box {
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    padding: 10px;
+    max-width: 250px;
+    font-size: 14px;
+}
+
+.message-box.outgoing .message-content-box {
+    background-color: #d1e7ff;
+}
+
+.message-content-box p {
+    margin: 0;
+    color: #333;
+}
+
+.message-content-box .time-stamp {
+    display: block;
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.input-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.input-section input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.input-section input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.send-message-btn {
+    background-color: #007bff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-message-btn:hover {
+    background-color: #0056b3;
+}
+
+.send-message-btn svg {
+    fill: currentColor;
+}
+
+.comment-button {
+    padding: 6px 12px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.3s ease;
+}
+
+.comment-button:hover {
+    background-color: #1d4ed8;
+    /* Darker Blue-700 */
+}

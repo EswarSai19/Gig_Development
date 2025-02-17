@@ -51,18 +51,22 @@
   </div>
 
   <div class="projects">
-    {% for job in filtered_jobs %}
-    <div class="project-box" data-id="{{ job.opportunityId }}">
+    {% for ogp in ongProjects %}
+    <div
+      class="project-box"
+      data-id="{{ ogp.opportunityId }}"
+      data-ongp-id="{{ ogp.ongProjectId }}"
+    >
       <h2>
-        {{ job.title }}
+        {{ ogp.title }}
         <!--  -->
-        <span class="status active">Active</span>
+        <span class="status active">{{ogp.status}}</span>
       </h2>
-      <h3>Opportunity ID: {{ job.opportunityId }}</h3>
-      <p>{{ job.description }}</p>
+      <h3>Opportunity ID: {{ ogp.opportunityId }}</h3>
+      <p>{{ ogp.short_description }}</p>
       <a
         href="javascript:void(0)"
-        onclick="readMoreDetails(`{{ job.opportunityId }}`)"
+        onclick="readMoreDetails(`{{ ogp.opportunityId }}`)"
       >
         Read More...
       </a>
@@ -149,9 +153,12 @@
         const opportunityId = e.target
           .closest(".project-box")
           .getAttribute("data-id");
+        const ongProjectId = e.target
+          .closest(".project-box")
+          .getAttribute("data-ongp-id");
 
         // Redirect with query parameter
-        window.location.href = `{% url 'fl_singleProjectTracking' %}?opportunityId=${opportunityId}`;
+        window.location.href = `{% url 'fl_singleProjectTracking' %}?ongpId=${ongProjectId}`;
       });
     });
   });

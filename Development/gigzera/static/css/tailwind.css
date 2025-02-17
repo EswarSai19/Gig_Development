@@ -1,4 +1,7 @@
 /*! tailwindcss v4.0.6 | MIT License | https://tailwindcss.com */
+.collapse {
+  visibility: collapse;
+}
 .visible {
   visibility: visible;
 }
@@ -299,11 +302,17 @@
 .grow {
   flex-grow: 1;
 }
+.border-collapse {
+  border-collapse: collapse;
+}
 .transform {
   transform: var(--tw-rotate-x) var(--tw-rotate-y) var(--tw-rotate-z) var(--tw-skew-x) var(--tw-skew-y);
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.resize {
+  resize: both;
 }
 .list-inside {
   list-style-position: inside;
@@ -361,6 +370,9 @@
 }
 .gap-12 {
   gap: calc(var(--spacing) * 12);
+}
+.gap-x-4 {
+  column-gap: calc(var(--spacing) * 4);
 }
 .space-y-2 {
   :where(& > :not(:last-child)) {
@@ -885,6 +897,10 @@
 .duration-300 {
   --tw-duration: 300ms;
   transition-duration: 300ms;
+}
+.ease-in-out {
+  --tw-ease: var(--ease-in-out);
+  transition-timing-function: var(--ease-in-out);
 }
 .hover\:scale-105 {
   &:hover {
@@ -1839,6 +1855,10 @@
   inherits: false;
 }
 @property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
   syntax: "*";
   inherits: false;
 }

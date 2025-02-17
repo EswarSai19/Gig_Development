@@ -13,6 +13,12 @@ def generate_client_id():
 def generate_projectquote_id():
     return f"PQ{str(uuid.uuid4().int)[:5]}"
 
+def generate_admin_id():
+    return f"AD{str(uuid.uuid4().int)[:3]}"
+
+def generate_ongProject_id():
+    return f"ONG{str(uuid.uuid4().int)[:4]}"
+
 def generate_contact_id():
     return "CN" + str(uuid.uuid4().hex[:4]).upper()
 
@@ -75,6 +81,31 @@ class Freelancer(models.Model):
     projects_assigned = models.JSONField(default=dict, blank=True)
     # project_status = models.JSONField(default=dict, blank=True)
     profilePic = models.ImageField(upload_to="freelancer/profile_pics/", blank=True, null=True, default="freelancer/profile_pics/default_profile.png")
+    password = models.CharField(max_length=128)
+    created_at = models.DateTimeField(default=now)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        """Hash the password before saving the freelancer."""
+        if not self.password.startswith("pbkdf2_sha256$"):  # Avoid re-hashing
+            self.password = make_password(self.password)
+        super().save(*args, **kwargs)
+
+    def check_password(self, raw_password):
+        """Verify the password."""
+        return check_password(raw_password, self.password)
+
+    def __str__(self):
+        return self.name
+
+class MyAdmin(models.Model):
+    adminId = models.CharField(
+        primary_key=True, max_length=12, default=generate_admin_id, editable=False
+    )
+    name = models.CharField(max_length=255)
+    phone = models.CharField(max_length=15, unique=True)
+    email = models.EmailField(unique=True)
+    user_role = models.CharField(max_length=50, default='admin')
     password = models.CharField(max_length=128)
     created_at = models.DateTimeField(default=now)
     updated_at = models.DateTimeField(auto_now=True)
@@ -220,4 +251,18 @@ class ProjectQuote(models.Model):
     def __str__(self):
         return f"Quote by {self.freelancer.name} for {self.opportunityId}"
 
+
+class OngoingProjects(models.Model):
+    ongProjectId = models.CharField(
+        primary_key=True, max_length=12, default=generate_ongProject_id, editable=False
+    )
+    admin = models.ForeignKey(MyAdmin, on_delete=models.CASCADE)
+    freelancer = models.ForeignKey(Freelancer, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    opportunityId = models.CharField(max_length=20)
+    bidId = models.CharField(max_length=20)
+    status = models.CharField(max_length=30)
+    progress = models.CharField(max_length=5, default='0')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 

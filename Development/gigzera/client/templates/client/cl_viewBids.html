@@ -12,7 +12,12 @@
 <main class="main_container">
   <h2>Available Bids</h2>
   <div class="grid-container">
-    {% for bid in bids %} {% if bid.admin_bid_status == "approved" %}
+    {% for bid in bids %}
+    <!--  -->
+    {% with as=bid.admin_bid_status cs=bid.client_bid_status %}
+    <!--  -->
+    {% if as == "approved" and cs == "Not confirmed yet" %}
+
     <div class="card">
       <h3>{{ bid.title }}</h3>
       <p>Opportunity ID: {{ bid.opportunityId }}</p>
@@ -27,7 +32,11 @@
         View Details
       </a>
     </div>
-    {% endif %} {% endfor %}
+    {% endif %} {% endwith %}
+    <!--  -->
+    {% empty %}
+    <p>No bids available.</p>
+    {% endfor %}
     <!-- <div class="card">
       <h3>Website Redesign Project</h3>
       <p>Opportunity ID: OPP-2025-001</p>

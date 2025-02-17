@@ -38,7 +38,7 @@
     <!-- Project Cards Grid -->
     <div class="grid" id="projectGrid">
       <!-- AWS Cloud Computing Implementation Card -->
-      <div class="card">
+      <!-- <div class="card">
         <div
           class="flex_"
           style="justify-content: space-between; align-items: center"
@@ -81,10 +81,49 @@
           Using AWS to host the infrastructure, with EC2 instances, S3 storage,
           and RDS for database management to improve application performance.
         </div>
-      </div>
-
-      <!-- Artificial Intelligence for Predictive Analytics Card -->
+      </div> -->
+      {% for ogp in ongProjects %}
       <div class="card">
+        <div
+          class="flex"
+          style="justify-content: space-between; align-items: center"
+        >
+          <h2 class="project-name">{{ogp.title}}</h2>
+          <span class="badge badge-active">{{ogp.status}}</span>
+        </div>
+        <p class="project-id">ID: {{ogp.opportunityId}}</p>
+        <p>{{ogp.short_description}}</p>
+        <div class="progress-bar">
+          <div class="progress-percentage">{{ogp.progress}}%</div>
+          <div class="progress-bar-inner" style="width: 0%"></div>
+        </div>
+        <small>Assigned to: {{ogp.name}}</small>
+        <div class="extra-info">{{ogp.full_description}}</div>
+        <div class="flex" style="justify-content: space-between">
+          <a
+            href="javascript:void(0);"
+            class="read-more"
+            onclick="toggleReadMore(this)"
+            >Read More...</a
+          >
+          <a
+            href="{% url 'ad_singleYourProject' %}?ongpId={{ogp.ongProjectId}}"
+            class="btn btn-outline"
+            style="
+              text-decoration: none;
+              background-color: #007bff;
+              color: white;
+              border: none;
+              padding: 8px 12px;
+              border-radius: 4px;
+            "
+            >View Status</a
+          >
+        </div>
+      </div>
+      {% endfor %}
+      <!-- Artificial Intelligence for Predictive Analytics Card -->
+      <!-- <div class="card">
         <div
           class="flex_"
           style="justify-content: space-between; align-items: center"
@@ -127,10 +166,10 @@
           This project aims to leverage machine learning algorithms to analyze
           large datasets and provide actionable insights to businesses.
         </div>
-      </div>
+      </div> -->
 
       <!-- Cloud-Based CRM System Card -->
-      <div class="card">
+      <!-- <div class="card">
         <div
           class="flex_"
           style="justify-content: space-between; align-items: center"
@@ -173,10 +212,10 @@
           Creating a scalable CRM system that can handle customer data more
           efficiently, enabling real-time updates and analytics.
         </div>
-      </div>
+      </div> -->
 
       <!-- AWS Cloud Infrastructure Deployment Card -->
-      <div class="card">
+      <!-- <div class="card">
         <div
           class="flex_"
           style="justify-content: space-between; align-items: center"
@@ -219,10 +258,10 @@
           The AWS infrastructure will be optimized for cost and performance,
           ensuring that workloads run efficiently in the cloud environment.
         </div>
-      </div>
+      </div> -->
 
       <!-- AI-Powered Analytics System Card -->
-      <div class="card">
+      <!-- <div class="card">
         <div
           class="flex_"
           style="justify-content: space-between; align-items: center"
@@ -265,10 +304,10 @@
           The system will leverage machine learning algorithms to uncover hidden
           insights and make predictions for business optimization.
         </div>
-      </div>
+      </div> -->
 
       <!-- Software as a Service (SaaS) Platform Development Card -->
-      <div class="card">
+      <!-- <div class="card">
         <div
           class="flex_"
           style="justify-content: space-between; align-items: center"
@@ -311,7 +350,7 @@
           This platform aims to help businesses optimize their subscription
           models and track performance analytics seamlessly.
         </div>
-      </div>
+      </div> -->
     </div>
     <!-- Project Cards End -->
 

@@ -80,7 +80,11 @@
       <h2>Bidder Profile</h2>
       <p><strong>User ID:</strong> {{fl_user.userId}}</p>
       <p><strong>Name:</strong> {{fl_user.name}}</p>
-      <a href="{% url 'ad_profileView' %}" class="view-profile">View Profile</a>
+      <!-- <a
+        href="{% url 'cl_profileView' %}?opportunityId={{ bid.opportunityId }}&userId={{ bid.freelancer_id }}&bidId={{ bid.projectQuoteId }}"
+        class="view-profile"
+        >View Profile</a
+      > -->
       <p><strong>Professional Summary:</strong> {{fl_user.profile_summary}}</p>
       <p><strong>Total Experience:</strong> {{fl_user.experience}} Years</p>
       <p><strong>Total Completed projects:</strong> 2</p>
